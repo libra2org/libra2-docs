@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
+import starlightOpenAPI, { openAPISidebarGroups } from 'starlight-openapi'
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,6 +12,17 @@ export default defineConfig({
 			social: {
 				github: 'https://github.com/aptos-labs/',
 			},
+			plugins: [
+        // Generate the OpenAPI documentation pages.
+        starlightOpenAPI([
+          {
+           base: 'api',
+           label: 'API',
+           schema: './aptos-spec.json',
+					 sidebarMethodBadges: true,
+          },
+        ]),
+      ],
 			sidebar: [
 				{
 					label: 'Guides',
@@ -23,6 +35,7 @@ export default defineConfig({
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
 				},
+				...openAPISidebarGroups,
 			],
 			customCss: ['./src/tailwind.css'],
 		}),
