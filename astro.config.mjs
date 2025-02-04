@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import starlightOpenAPI, { openAPISidebarGroups } from 'starlight-openapi'
 
 import vercel from '@astrojs/vercel';
@@ -45,10 +45,11 @@ export default defineConfig({
               },
               ...openAPISidebarGroups,
           ],
-          customCss: ['./src/tailwind.css'],
-      }),
-      tailwind({ applyBaseStyles: false }),
-	],
-
+          customCss: ['./src/globals.css'],
+      })
+  ],
   adapter: vercel(),
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

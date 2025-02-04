@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@astrojs/starlight-tailwind";
 
 /*
 Add additional Tailwind styles to this file, for example with @layer:
@@ -18,33 +17,32 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
   border-right: 1px solid var(--sl-color-hairline);
 }
 
-.sidebar-content ul li{
-  border-inline-start:0;
+.sidebar-content ul li {
+  border-inline-start: 0;
 }
 
 header {
-  border-bottom: 1px solid var(--sl-color-hairline)!important;
+  border-bottom: 1px solid var(--sl-color-hairline) !important;
 }
-
 
 .sidebar-content .sl-badge {
   align-items: center;
   display: flex;
-  font-size:xx-small!important;
+  font-size: xx-small !important;
   align-self: flex-start;
   text-wrap: nowrap;
 }
 
 .sidebar-content details ul li a {
-  display:flex;
-  justify-content:space-between;
-  border-radius:0;
-} 
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0;
+}
 
 .pagination-links > a {
-  border-radius:0;
+  border-radius: 0;
 }
 
 header site-search button {
-  border-radius:0!important;
+  border-radius: 0 !important;
 }
