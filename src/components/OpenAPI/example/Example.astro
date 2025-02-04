@@ -1,47 +1,47 @@
 ---
-import { Code } from '@astrojs/starlight/components'
+import { Code } from "@astrojs/starlight/components";
 
-import type { ExampleV3 } from 'starlight-openapi/libs/example'
-import Md from '../Md.astro'
-import Text from '../Text.astro'
+import type { ExampleV3 } from "starlight-openapi/libs/example";
+import Md from "../Md.astro";
+import Text from "../Text.astro";
 
 interface Props {
-  example?: ExampleV3
-  raw?: ExampleV3['value']
-  type?: string
+  example?: ExampleV3;
+  raw?: ExampleV3["value"];
+  type?: string;
 }
 
-const { example, raw, type } = Astro.props
+const { example, raw, type } = Astro.props;
 
-const exampleToRender = raw === undefined ? example : { value: raw }
+const exampleToRender = raw === undefined ? example : { value: raw };
 
 function getExampleValue(value: unknown): string {
   switch (typeof value) {
-    case 'string': {
-      return value
+    case "string": {
+      return value;
     }
-    case 'boolean':
-    case 'number': {
-      return value.toString()
+    case "boolean":
+    case "number": {
+      return value.toString();
     }
     default: {
-      return JSON.stringify(value, null, 2)
+      return JSON.stringify(value, null, 2);
     }
   }
 }
 
 function getExampleLang(type: string | undefined) {
   switch (type) {
-    case 'application/json': {
-      return 'json'
+    case "application/json": {
+      return "json";
     }
     default: {
-      return 'plaintext'
+      return "plaintext";
     }
   }
 }
 
-const code = exampleToRender ? getExampleValue(exampleToRender.value).trim() : ''
+const code = exampleToRender ? getExampleValue(exampleToRender.value).trim() : "";
 ---
 
 {

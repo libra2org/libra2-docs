@@ -1,12 +1,12 @@
 ---
-import Select from './Select.astro'
+import Select from "./Select.astro";
 
 interface Props {
-  label: string
-  types: string[] | undefined
+  label: string;
+  types: string[] | undefined;
 }
 
-const { label, types } = Astro.props
+const { label, types } = Astro.props;
 ---
 
 <starlight-openapi-content-picker>
@@ -16,31 +16,31 @@ const { label, types } = Astro.props
 
 <script>
   customElements.define(
-    'starlight-openapi-content-picker',
+    "starlight-openapi-content-picker",
     class StarlightOpenAPIContentPicker extends HTMLElement {
-      #panels: HTMLDivElement[]
+      #panels: HTMLDivElement[];
 
       constructor() {
-        super()
+        super();
 
-        const select = this.querySelector<HTMLSelectElement>(':scope > label > select')
+        const select = this.querySelector<HTMLSelectElement>(":scope > label > select");
 
         if (select) {
-          select.addEventListener('change', (event) => {
+          select.addEventListener("change", (event) => {
             if (event.currentTarget instanceof HTMLSelectElement) {
-              this.#changeContent(event.currentTarget.value)
+              this.#changeContent(event.currentTarget.value);
             }
-          })
+          });
         }
 
-        this.#panels = [...this.querySelectorAll<HTMLDivElement>(':scope > [role="tabpanel"]')]
+        this.#panels = [...this.querySelectorAll<HTMLDivElement>(':scope > [role="tabpanel"]')];
       }
 
       #changeContent(mediaType: string) {
         for (const panel of this.#panels) {
-          panel.hidden = panel.dataset['openapiContentType'] !== mediaType
+          panel.hidden = panel.dataset["openapiContentType"] !== mediaType;
         }
       }
     },
-  )
+  );
 </script>

@@ -1,29 +1,32 @@
 ---
-import { getBound, getType, type Items } from 'starlight-openapi/libs/items'
-import { isSchemaObjectObject, type SchemaObject as SchemaObjectType } from 'starlight-openapi/libs/schemaObject'
+import { getBound, getType, type Items } from "starlight-openapi/libs/items";
+import {
+  isSchemaObjectObject,
+  type SchemaObject as SchemaObjectType,
+} from "starlight-openapi/libs/schemaObject";
 
-import SchemaObject from './schema/SchemaObject.astro'
-import Tag from './Tag.astro'
-import Tags from './Tags.astro'
+import SchemaObject from "./schema/SchemaObject.astro";
+import Tag from "./Tag.astro";
+import Tags from "./Tags.astro";
 
 interface Props {
-  hideExample?: boolean
-  items: Items
-  negated?: boolean | undefined
-  nullable?: boolean | undefined
-  parents?: SchemaObjectType[]
+  hideExample?: boolean;
+  items: Items;
+  negated?: boolean | undefined;
+  nullable?: boolean | undefined;
+  parents?: SchemaObjectType[];
 }
 
-const { hideExample, items, negated, nullable, parents = [] } = Astro.props
+const { hideExample, items, negated, nullable, parents = [] } = Astro.props;
 
-const enumItems = items.enum ?? items.items?.enum
+const enumItems = items.enum ?? items.items?.enum;
 ---
 
 {
   items.type && (
     <div>
       <span class="type">
-        {negated && 'not '}
+        {negated && "not "}
         {getType(items)}
       </span>
       {items.format && <Tag>format: {items.format}</Tag>}
@@ -33,16 +36,16 @@ const enumItems = items.enum ?? items.items?.enum
 <Tags
   tags={[
     items.default && `default: ${items.default}`,
-    nullable && 'nullable',
-    getBound(items, 'minimum'),
-    getBound(items, 'maximum'),
+    nullable && "nullable",
+    getBound(items, "minimum"),
+    getBound(items, "maximum"),
     items.minLength && `>= ${items.minLength} characters`,
     items.maxLength && `<= ${items.maxLength} characters`,
     items.minItems && `>= ${items.minItems} items`,
     items.maxItems && `<= ${items.maxItems} items`,
     items.pattern && `/${items.pattern}/`,
     items.multipleOf && `multiple of ${items.multipleOf}`,
-    items.uniqueItems && 'unique items',
+    items.uniqueItems && "unique items",
   ]}
 />
 

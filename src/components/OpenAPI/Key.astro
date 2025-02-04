@@ -1,12 +1,12 @@
 ---
 interface Props {
-  additional?: boolean
-  deprecated?: boolean
-  name: string
-  required?: boolean | undefined
+  additional?: boolean;
+  deprecated?: boolean;
+  name: string;
+  required?: boolean | undefined;
 }
 
-const { additional, deprecated, name, required } = Astro.props
+const { additional, deprecated, name, required } = Astro.props;
 ---
 
 <div class="key not-content">
@@ -44,7 +44,7 @@ const { additional, deprecated, name, required } = Astro.props
     font-size: var(--sl-text-sm);
   }
 
-  :global(:root[data-theme='light']) .deprecated {
+  :global(:root[data-theme="light"]) .deprecated {
     --sl-openapi-deprecated-color: hsl(var(--sl-openapi-deprecated-hue), 90%, 25%);
   }
 

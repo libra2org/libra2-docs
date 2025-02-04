@@ -3,19 +3,19 @@ import {
   isOpenAPIV2OAuth2SecurityScheme,
   isOpenAPIV3OAuth2SecurityScheme,
   type SecurityDefinitions,
-} from 'starlight-openapi/libs/security'
-import { capitalize } from 'starlight-openapi/libs/utils'
-import Md from '../Md.astro'
-import Section from '../Section.astro'
-import Text from '../Text.astro'
+} from "starlight-openapi/libs/security";
+import { capitalize } from "starlight-openapi/libs/utils";
+import Md from "../Md.astro";
+import Section from "../Section.astro";
+import Text from "../Text.astro";
 
-import SecurityOAuth2Flow from './SecurityOAuth2Flow.astro'
+import SecurityOAuth2Flow from "./SecurityOAuth2Flow.astro";
 
 interface Props {
-  definitions: SecurityDefinitions | undefined
+  definitions: SecurityDefinitions | undefined;
 }
 
-const { definitions } = Astro.props
+const { definitions } = Astro.props;
 ---
 
 {
@@ -28,17 +28,17 @@ const { definitions } = Astro.props
           <Text label="Security scheme type" tag>
             {scheme.type}
           </Text>
-          {'bearerFormat' in scheme && (
+          {"bearerFormat" in scheme && (
             <Text label="Bearer format" tag>
               {scheme.bearerFormat}
             </Text>
           )}
-          {'openIdConnectUrl' in scheme && (
+          {"openIdConnectUrl" in scheme && (
             <Text label="OpenID Connect URL">
               <a href={scheme.openIdConnectUrl}>{scheme.openIdConnectUrl}</a>
             </Text>
           )}
-          {scheme.type === 'apiKey' && (
+          {scheme.type === "apiKey" && (
             <Text label={`${capitalize(scheme.in)} parameter name`} tag>
               {scheme.name}
             </Text>
@@ -46,7 +46,9 @@ const { definitions } = Astro.props
           {isOpenAPIV2OAuth2SecurityScheme(scheme) ? (
             <SecurityOAuth2Flow flow={scheme} type={scheme.flow} />
           ) : isOpenAPIV3OAuth2SecurityScheme(scheme) ? (
-            Object.entries(scheme.flows).map(([type, flow]) => <SecurityOAuth2Flow {flow} type={type} />)
+            Object.entries(scheme.flows).map(([type, flow]) => (
+              <SecurityOAuth2Flow {flow} type={type} />
+            ))
           ) : null}
         </Section>
       ))}

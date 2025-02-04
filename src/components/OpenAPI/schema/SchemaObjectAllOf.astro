@@ -6,26 +6,26 @@ import {
   isSchemaObject,
   isSchemaObjectObject,
   type SchemaObject,
-} from 'starlight-openapi/libs/schemaObject'
-import Items from '../Items.astro'
+} from "starlight-openapi/libs/schemaObject";
+import Items from "../Items.astro";
 
-import SchemaObjectObjectProperties from './SchemaObjectObjectProperties.astro'
-import SchemaObjects from './SchemaObjects.astro'
+import SchemaObjectObjectProperties from "./SchemaObjectObjectProperties.astro";
+import SchemaObjects from "./SchemaObjects.astro";
 
 interface Props {
-  nested: boolean
-  parents?: SchemaObject[]
-  schemaObject: SchemaObject
+  nested: boolean;
+  parents?: SchemaObject[];
+  schemaObject: SchemaObject;
 }
 
-const { nested, schemaObject, parents = [] } = Astro.props
+const { nested, schemaObject, parents = [] } = Astro.props;
 ---
 
 {
   schemaObject.allOf &&
     schemaObject.allOf.map((allOfSchemaObject) => {
-      if (!isSchemaObject(allOfSchemaObject)) return null
-      const schemaObjects = getSchemaObjects(allOfSchemaObject)
+      if (!isSchemaObject(allOfSchemaObject)) return null;
+      const schemaObjects = getSchemaObjects(allOfSchemaObject);
       if (schemaObjects !== undefined) {
         return (
           <SchemaObjects
@@ -34,7 +34,7 @@ const { nested, schemaObject, parents = [] } = Astro.props
             {nested}
             {schemaObjects}
           />
-        )
+        );
       } else if (isSchemaObjectObject(schemaObject)) {
         return (
           <SchemaObjectObjectProperties
@@ -42,7 +42,7 @@ const { nested, schemaObject, parents = [] } = Astro.props
             properties={getProperties(allOfSchemaObject)}
             required={allOfSchemaObject.required}
           />
-        )
+        );
       }
       return (
         <Items
@@ -51,6 +51,6 @@ const { nested, schemaObject, parents = [] } = Astro.props
           nullable={getNullable(allOfSchemaObject)}
           parents={[...parents, schemaObject]}
         />
-      )
+      );
     })
 }

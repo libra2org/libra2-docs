@@ -1,16 +1,16 @@
 ---
-import type { OperationHttpMethod } from 'starlight-openapi/libs/operation'
+import type { OperationHttpMethod } from "starlight-openapi/libs/operation";
 
 interface Props {
-  method: OperationHttpMethod
-  path?: string
+  method: OperationHttpMethod;
+  path?: string;
 }
 
-const { method, path } = Astro.props
+const { method, path } = Astro.props;
 ---
 
 <div class="method-path">
-  <div class:list={['method', method]}>{method.toUpperCase()}</div>
+  <div class:list={["method", method]}>{method.toUpperCase()}</div>
   <div class="path">{path}</div>
 </div>
 

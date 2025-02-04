@@ -1,24 +1,28 @@
 ---
-import { getProperties, isAdditionalPropertiesWithSchemaObject, type SchemaObject } from 'starlight-openapi/libs/schemaObject'
-import Key from '../Key.astro'
-import Tags from '../Tags.astro'
+import {
+  getProperties,
+  isAdditionalPropertiesWithSchemaObject,
+  type SchemaObject,
+} from "starlight-openapi/libs/schemaObject";
+import Key from "../Key.astro";
+import Tags from "../Tags.astro";
 
-import Schema from './SchemaObject.astro'
-import SchemaObjectAllOf from './SchemaObjectAllOf.astro'
-import SchemaObjectObjectProperties from './SchemaObjectObjectProperties.astro'
+import Schema from "./SchemaObject.astro";
+import SchemaObjectAllOf from "./SchemaObjectAllOf.astro";
+import SchemaObjectObjectProperties from "./SchemaObjectObjectProperties.astro";
 
 interface Props {
-  nested: boolean
-  parents?: SchemaObject[]
-  schemaObject: SchemaObject
+  nested: boolean;
+  parents?: SchemaObject[];
+  schemaObject: SchemaObject;
 }
 
-const { nested, parents = [], schemaObject } = Astro.props
+const { nested, parents = [], schemaObject } = Astro.props;
 
-const properties = getProperties(schemaObject)
+const properties = getProperties(schemaObject);
 ---
 
-<details class:list={[!nested && 'root']} open={!nested}>
+<details class:list={[!nested && "root"]} open={!nested}>
   <summary>
     <span class="type">object</span>
   </summary>
@@ -28,7 +32,11 @@ const properties = getProperties(schemaObject)
       schemaObject.maxProperties && `<= ${schemaObject.maxProperties} properties`,
     ]}
   />
-  <SchemaObjectObjectProperties parents={[...parents, schemaObject]} {properties} required={schemaObject.required} />
+  <SchemaObjectObjectProperties
+    parents={[...parents, schemaObject]}
+    {properties}
+    required={schemaObject.required}
+  />
   <SchemaObjectAllOf {nested} {parents} {schemaObject} />
   {
     schemaObject.additionalProperties && (
@@ -36,7 +44,10 @@ const properties = getProperties(schemaObject)
         {schemaObject.additionalProperties === true ? (
           <div class="any">any</div>
         ) : isAdditionalPropertiesWithSchemaObject(schemaObject.additionalProperties) ? (
-          <Schema parents={[...parents, schemaObject]} schemaObject={schemaObject.additionalProperties} />
+          <Schema
+            parents={[...parents, schemaObject]}
+            schemaObject={schemaObject.additionalProperties}
+          />
         ) : null}
       </Key>
     )

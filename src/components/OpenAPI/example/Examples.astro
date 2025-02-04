@@ -1,15 +1,15 @@
 ---
-import type { ExamplesV3 } from 'starlight-openapi/libs/example'
-import ContentPicker from '../ContentPicker.astro'
+import type { ExamplesV3 } from "starlight-openapi/libs/example";
+import ContentPicker from "../ContentPicker.astro";
 
-import Example from './Example.astro'
+import Example from "./Example.astro";
 
 export interface Props {
-  example: unknown | undefined
-  examples: ExamplesV3 | undefined
+  example: unknown | undefined;
+  examples: ExamplesV3 | undefined;
 }
 
-const { example, examples } = Astro.props
+const { example, examples } = Astro.props;
 ---
 
 {

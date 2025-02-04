@@ -1,14 +1,14 @@
 ---
-import type { OperationTag } from 'starlight-openapi/libs/operation'
+import type { OperationTag } from "starlight-openapi/libs/operation";
 
-import ExternalDocs from './ExternalDocs.astro'
-import Md from './Md.astro'
+import ExternalDocs from "./ExternalDocs.astro";
+import Md from "./Md.astro";
 
 interface Props {
-  tag: OperationTag
+  tag: OperationTag;
 }
 
-const { tag } = Astro.props
+const { tag } = Astro.props;
 ---
 
 <h2 id="overview">{tag.name}</h2>

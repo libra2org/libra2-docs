@@ -1,17 +1,21 @@
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components'
+import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-import { getType } from 'starlight-openapi/libs/items'
-import type { Discriminator, SchemaObjects, SchemaObject as SchemaObjectType } from 'starlight-openapi/libs/schemaObject'
-import Tag from '../Tag.astro'
+import { getType } from "starlight-openapi/libs/items";
+import type {
+  Discriminator,
+  SchemaObjects,
+  SchemaObject as SchemaObjectType,
+} from "starlight-openapi/libs/schemaObject";
+import Tag from "../Tag.astro";
 
-import SchemaObject from './SchemaObject.astro'
+import SchemaObject from "./SchemaObject.astro";
 
 interface Props {
-  discriminator: Discriminator
-  nested: boolean
-  parents?: SchemaObjectType[]
-  schemaObjects: SchemaObjects
+  discriminator: Discriminator;
+  nested: boolean;
+  parents?: SchemaObjectType[];
+  schemaObjects: SchemaObjects;
 }
 
 const {
@@ -19,19 +23,19 @@ const {
   nested,
   parents = [],
   schemaObjects: { schemaObjects, type },
-} = Astro.props
+} = Astro.props;
 
 const discriminatorPropertyName =
-  typeof discriminator === 'string'
+  typeof discriminator === "string"
     ? discriminator
-    : typeof discriminator === 'object'
+    : typeof discriminator === "object"
       ? discriminator.propertyName
-      : undefined
+      : undefined;
 
-const humanReadableType: Record<SchemaObjects['type'], string> = {
-  anyOf: 'Any of',
-  oneOf: 'One of',
-}
+const humanReadableType: Record<SchemaObjects["type"], string> = {
+  anyOf: "Any of",
+  oneOf: "One of",
+};
 ---
 
 <div>
@@ -41,7 +45,7 @@ const humanReadableType: Record<SchemaObjects['type'], string> = {
 <Tabs>
   {
     schemaObjects.map((schemaObject) => (
-      <TabItem label={schemaObject.title ?? getType(schemaObject) ?? 'unknown'}>
+      <TabItem label={schemaObject.title ?? getType(schemaObject) ?? "unknown"}>
         <SchemaObject {parents} {nested} schemaObject={schemaObject} />
       </TabItem>
     ))

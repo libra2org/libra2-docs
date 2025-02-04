@@ -7,24 +7,70 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "lint": "pnpm run --parallel --filter='.' /^lint:*/",
+    "lint:eslint": "eslint . --cache --cache-location=.astro/eslint/.cache",
+    "lint:prettier": "prettier --check .",
+    "format": "pnpm run --parallel --filter='.' /^format:*/",
+    "format:eslint": "pnpm run lint --fix",
+    "format:prettier": "prettier . --write",
+    "postinstall": "pnpm exec simple-git-hooks"
   },
+  "engines": {
+    "node": "22.x",
+    "pnpm": "^10.2.0"
+  },
+  "packageManager": "pnpm@10.2.0",
   "dependencies": {
     "@astrojs/starlight": "^0.31.1",
     "@astrojs/starlight-tailwind": "^3.0.0",
     "@astrojs/tailwind": "^6.0.0",
     "@astrojs/vercel": "^8.0.5",
     "@readme/openapi-parser": "^2.7.0",
+    "@tailwindcss/vite": "^4.0.3",
     "@vercel/analytics": "^1.4.1",
-    "astro": "^5.2.3",
-    "sharp": "^0.32.5",
-    "shiki": "^2.2.0",
-    "starlight-openapi": "^0.11.0",
-    "tailwindcss": "^3.4.4"
+    "astro": "^5.2.5",
+    "sharp": "^0.33.5",
+    "shiki": "^2.3.0",
+    "starlight-openapi": "^0.12.0",
+    "tailwindcss": "^4.0.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@eslint/js": "^9.19.0",
+    "astro-eslint-parser": "^1.2.1",
+    "eslint": "^9.19.0",
+    "eslint-config-flat-gitignore": "^2.0.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "eslint-plugin-import-x": "^4.6.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "globals": "^15.14.0",
+    "nano-staged": "^0.8.0",
+    "openapi-types": "^12.1.3",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "simple-git-hooks": "^2.11.1",
+    "typescript-eslint": "^8.23.0"
+  },
+  "overrides": {
+    "vite": "^6"
   },
   "pnpm": {
     "patchedDependencies": {
       "starlight-openapi": "patches/starlight-openapi.patch"
     }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "./node_modules/.bin/nano-staged",
+    "pre-push": "pnpm check"
+  },
+  "nano-staged": {
+    "*.{js,cjs,mjs,jsx,ts,mts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

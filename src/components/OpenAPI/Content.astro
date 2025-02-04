@@ -1,16 +1,16 @@
 ---
-import type { Content } from 'starlight-openapi/libs/content'
-import { isExamples } from 'starlight-openapi/libs/example'
-import { isSchemaObject } from 'starlight-openapi/libs/schemaObject'
+import type { Content } from "starlight-openapi/libs/content";
+import { isExamples } from "starlight-openapi/libs/example";
+import { isSchemaObject } from "starlight-openapi/libs/schemaObject";
 
-import ContentPicker from './ContentPicker.astro'
-import Schema from './schema/Schema.astro'
+import ContentPicker from "./ContentPicker.astro";
+import Schema from "./schema/Schema.astro";
 
 interface Props {
-  content: Content
+  content: Content;
 }
 
-const { content } = Astro.props
+const { content } = Astro.props;
 ---
 
 <ContentPicker label="Select media type" types={Object.keys(content)}>
@@ -24,7 +24,7 @@ const { content } = Astro.props
             schema={isSchemaObject(media.schema) ? media.schema : undefined}
           />
         </div>
-      )
+      );
     })
   }
 </ContentPicker>

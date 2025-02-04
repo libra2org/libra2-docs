@@ -1,34 +1,35 @@
 ---
-import type { Operation } from 'starlight-openapi/libs/operation'
+import type { Operation } from "starlight-openapi/libs/operation";
 import {
   getOpenAPIV2OperationConsumes,
   getOpenAPIV2RequestBodyParameter,
   getOpenAPIV3RequestBody,
-} from 'starlight-openapi/libs/requestBody'
-import type { Schema } from 'starlight-openapi/libs/schema'
+} from "starlight-openapi/libs/requestBody";
+import type { Schema } from "starlight-openapi/libs/schema";
 
-import Content from './Content.astro'
-import Md from './Md.astro'
-import SchemaObject from './schema/SchemaObject.astro'
-import Section from './Section.astro'
-import Select from './Select.astro'
+import Content from "./Content.astro";
+import Md from "./Md.astro";
+import SchemaObject from "./schema/SchemaObject.astro";
+import Section from "./Section.astro";
+import Select from "./Select.astro";
 
 interface Props {
-  operation: Operation
-  schema: Schema
+  operation: Operation;
+  schema: Schema;
 }
 
-const { operation, schema } = Astro.props
+const { operation, schema } = Astro.props;
 
-const openAPIV2RequestBodyParameter = getOpenAPIV2RequestBodyParameter(operation)
-const openAPIV3RequestBody = getOpenAPIV3RequestBody(operation)
+const openAPIV2RequestBodyParameter = getOpenAPIV2RequestBodyParameter(operation);
+const openAPIV3RequestBody = getOpenAPIV3RequestBody(operation);
 
-const hasRequestBody = openAPIV2RequestBodyParameter !== undefined || openAPIV3RequestBody !== undefined
+const hasRequestBody =
+  openAPIV2RequestBodyParameter !== undefined || openAPIV3RequestBody !== undefined;
 const description = openAPIV2RequestBodyParameter
   ? openAPIV2RequestBodyParameter.description
-  : openAPIV3RequestBody?.description
+  : openAPIV3RequestBody?.description;
 
-const consumes = getOpenAPIV2OperationConsumes(schema, operation)
+const consumes = getOpenAPIV2OperationConsumes(schema, operation);
 ---
 
 {
