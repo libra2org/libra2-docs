@@ -1,0 +1,5 @@
+# Ignore any non .astro files
+pnpm-lock.yaml
+**/node_modules
+.astro/**
+**/.tmp
