@@ -14,7 +14,8 @@
     "lint:prettier": "prettier --check .",
     "format": "pnpm run --parallel --filter='.' /^format:*/",
     "format:eslint": "pnpm run lint --fix",
-    "format:prettier": "prettier . --write"
+    "format:prettier": "prettier . --write",
+    "postinstall": "pnpm exec simple-git-hooks"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.31.1",
@@ -42,8 +43,10 @@
     "eslint-plugin-import-x": "^4.6.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "globals": "^15.14.0",
+    "nano-staged": "^0.8.0",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
+    "simple-git-hooks": "^2.11.1",
     "typescript-eslint": "^8.23.0"
   },
   "overrides": {
@@ -53,5 +56,15 @@
     "patchedDependencies": {
       "starlight-openapi": "patches/starlight-openapi.patch"
     }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "./node_modules/.bin/nano-staged",
+    "pre-push": "pnpm check"
+  },
+  "nano-staged": {
+    "*.{js,cjs,mjs,jsx,ts,mts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
