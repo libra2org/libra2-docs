@@ -16207,12 +16207,6 @@
             "$ref": "#/components/schemas/Address"
           },
           {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MoveValue"
-            }
-          },
-          {
             "$ref": "#/components/schemas/HexEncodedBytes"
           },
           {
