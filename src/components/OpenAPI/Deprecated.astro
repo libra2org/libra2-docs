@@ -1,9 +1,9 @@
 ---
 interface Props {
-  deprecated: boolean | undefined
+  deprecated: boolean | undefined;
 }
 
-const { deprecated } = Astro.props
+const { deprecated } = Astro.props;
 ---
 
 {deprecated && <div>Deprecated</div>}
@@ -26,7 +26,7 @@ const { deprecated } = Astro.props
     padding: 0.13rem 0.6rem;
   }
 
-  :global(:root[data-theme='light']) div {
+  :global(:root[data-theme="light"]) div {
     --sl-openapi-deprecated-bg: hsl(var(--sl-openapi-deprecated-hue), 90%, 28%);
     --sl-openapi-deprecated-border: hsl(var(--sl-openapi-deprecated-hue), 90%, 60%);
   }

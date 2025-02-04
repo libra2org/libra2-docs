@@ -1,19 +1,19 @@
 ---
-import type { Operation } from 'starlight-openapi/libs/operation'
-import { getBaseLink, slug } from 'starlight-openapi/libs/path'
-import type { Schema } from 'starlight-openapi/libs/schema'
-import { getSecurityRequirements } from 'starlight-openapi/libs/security'
-import Section from '../Section.astro'
-import Tags from '../Tags.astro'
+import type { Operation } from "starlight-openapi/libs/operation";
+import { getBaseLink, slug } from "starlight-openapi/libs/path";
+import type { Schema } from "starlight-openapi/libs/schema";
+import { getSecurityRequirements } from "starlight-openapi/libs/security";
+import Section from "../Section.astro";
+import Tags from "../Tags.astro";
 
 interface Props {
-  operation: Operation
-  schema: Schema
+  operation: Operation;
+  schema: Schema;
 }
 
-const { operation, schema } = Astro.props
+const { operation, schema } = Astro.props;
 
-const requirements = getSecurityRequirements(schema, operation)
+const requirements = getSecurityRequirements(schema, operation);
 ---
 
 {
@@ -21,14 +21,14 @@ const requirements = getSecurityRequirements(schema, operation)
     <Section level={2} title="Authorizations">
       <ul>
         {requirements.map((requirement) => {
-          const schemes = Object.keys(requirement)
+          const schemes = Object.keys(requirement);
 
           if (schemes.length === 0) {
             return (
               <li>
                 <strong>None</strong>
               </li>
-            )
+            );
           }
 
           return Object.entries(requirement).map(([scheme, scopes]) => {
@@ -39,8 +39,8 @@ const requirements = getSecurityRequirements(schema, operation)
                 </strong>
                 {scopes.length > 0 ? <Tags tags={[...scopes]} /> : null}
               </li>
-            )
-          })
+            );
+          });
         })}
       </ul>
     </Section>

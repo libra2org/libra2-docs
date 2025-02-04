@@ -1,17 +1,17 @@
 ---
-import type { Operation } from 'starlight-openapi/libs/operation'
-import { includesDefaultResponse, type Responses } from 'starlight-openapi/libs/response'
-import type { Schema } from 'starlight-openapi/libs/schema'
+import type { Operation } from "starlight-openapi/libs/operation";
+import { includesDefaultResponse, type Responses } from "starlight-openapi/libs/response";
+import type { Schema } from "starlight-openapi/libs/schema";
 
-import Response from './Response.astro'
+import Response from "./Response.astro";
 
 interface Props {
-  operation: Operation
-  responses: Responses | undefined
-  schema: Schema
+  operation: Operation;
+  responses: Responses | undefined;
+  schema: Schema;
 }
 
-const { operation, responses, schema } = Astro.props
+const { operation, responses, schema } = Astro.props;
 ---
 
 {
@@ -19,14 +19,14 @@ const { operation, responses, schema } = Astro.props
     <>
       <h2 id="responses">Responses</h2>
       {Object.entries(responses).map(([name, response]) => {
-        if (name === 'default') {
-          return null
+        if (name === "default") {
+          return null;
         }
 
-        return <Response {name} {operation} {response} {schema} />
+        return <Response {name} {operation} {response} {schema} />;
       })}
       {includesDefaultResponse(responses) && (
-        <Response name="default" {operation} response={responses['default']} {schema} />
+        <Response name="default" {operation} response={responses["default"]} {schema} />
       )}
     </>
   )

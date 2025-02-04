@@ -6,29 +6,29 @@ import {
   isSchemaObjectAllOf,
   isSchemaObjectObject,
   type SchemaObject,
-} from 'starlight-openapi/libs/schemaObject'
-import Example from '../example/Example.astro'
-import ExternalDocs from '../ExternalDocs.astro'
-import Items from '../Items.astro'
-import Md from '../Md.astro'
+} from "starlight-openapi/libs/schemaObject";
+import Example from "../example/Example.astro";
+import ExternalDocs from "../ExternalDocs.astro";
+import Items from "../Items.astro";
+import Md from "../Md.astro";
 
-import SchemaObjectAllOf from './SchemaObjectAllOf.astro'
-import SchemaObjectObject from './SchemaObjectObject.astro'
-import SchemaObjects from './SchemaObjects.astro'
+import SchemaObjectAllOf from "./SchemaObjectAllOf.astro";
+import SchemaObjectObject from "./SchemaObjectObject.astro";
+import SchemaObjects from "./SchemaObjects.astro";
 
 interface Props {
-  hideExample?: boolean | undefined
-  negated?: boolean
-  nested?: boolean
-  parents?: SchemaObject[]
-  schemaObject: SchemaObject
+  hideExample?: boolean | undefined;
+  negated?: boolean;
+  nested?: boolean;
+  parents?: SchemaObject[];
+  schemaObject: SchemaObject;
 }
 
-const { hideExample = false, negated, nested = false, parents = [], schemaObject } = Astro.props
+const { hideExample = false, negated, nested = false, parents = [], schemaObject } = Astro.props;
 
-const schemaObjects = getSchemaObjects(schemaObject)
+const schemaObjects = getSchemaObjects(schemaObject);
 
-const hasMany = schemaObjects !== undefined
+const hasMany = schemaObjects !== undefined;
 ---
 
 {

@@ -1,20 +1,20 @@
 ---
-import type { PathItemOperation } from 'starlight-openapi/libs/operation'
-import { getParametersByLocation } from 'starlight-openapi/libs/parameter'
-import { capitalize } from 'starlight-openapi/libs/utils'
-import Section from '../Section.astro'
+import type { PathItemOperation } from "starlight-openapi/libs/operation";
+import { getParametersByLocation } from "starlight-openapi/libs/parameter";
+import { capitalize } from "starlight-openapi/libs/utils";
+import Section from "../Section.astro";
 
-import Parameter from './Parameter.astro'
+import Parameter from "./Parameter.astro";
 
 interface Props {
-  operation: PathItemOperation
+  operation: PathItemOperation;
 }
 
 const {
   operation: { operation, pathItem },
-} = Astro.props
+} = Astro.props;
 
-const parametersByLocation = getParametersByLocation(operation.parameters, pathItem.parameters)
+const parametersByLocation = getParametersByLocation(operation.parameters, pathItem.parameters);
 ---
 
 {

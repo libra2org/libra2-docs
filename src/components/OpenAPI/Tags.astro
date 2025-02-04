@@ -1,14 +1,14 @@
 ---
-import Tag from './Tag.astro'
+import Tag from "./Tag.astro";
 
 interface Props {
-  label?: string
-  tags: unknown[]
+  label?: string;
+  tags: unknown[];
 }
 
-const { label, tags: allTags } = Astro.props
+const { label, tags: allTags } = Astro.props;
 
-const tags = allTags.filter((tag): tag is string => typeof tag === 'string')
+const tags = allTags.filter((tag): tag is string => typeof tag === "string");
 ---
 
 {
@@ -17,10 +17,10 @@ const tags = allTags.filter((tag): tag is string => typeof tag === 'string')
       {label && <>{label}</>}
       {tags.map((tag) => {
         if (tag.length === 0) {
-          return <Tag>&quot;&quot;</Tag>
+          return <Tag>&quot;&quot;</Tag>;
         }
 
-        return <Tag>{tag}</Tag>
+        return <Tag>{tag}</Tag>;
       })}
     </div>
   )
