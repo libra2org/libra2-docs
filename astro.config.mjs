@@ -14,17 +14,21 @@ export default defineConfig({
           social: {
               github: 'https://github.com/aptos-labs/',
           },
+					components: {
+						// Override the default `Head` component.
+						PageFrame: './src/components/PageFrame.astro',
+					},
           plugins: [
-      // Generate the OpenAPI documentation pages.
-      starlightOpenAPI([
-        {
-         base: 'api',
-         label: 'API',
-         schema: './aptos-spec.json',
-                   sidebarMethodBadges: true,
-        },
-      ]),
-    ],
+      			// Generate the OpenAPI documentation pages.
+						starlightOpenAPI([
+							{
+								base: 'api',
+								label: 'API',
+								schema: './aptos-spec.json',
+								sidebarMethodBadges: true,
+							},
+						]),
+					],
           sidebar: [
               {
                   label: 'Guides',
