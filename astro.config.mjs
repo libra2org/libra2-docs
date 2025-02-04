@@ -8,10 +8,22 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://aptos.dev',
+  site: "https://aptos.dev",
   integrations: [
     starlight({
       title: "Aptos Docs",
+      defaultLocale: "root", // optional
+      locales: {
+        root: {
+          label: "English",
+          lang: "en", // lang is required for root locales
+        },
+        // Simplified Chinese docs in `src/content/docs/zh/`
+        zh: {
+          label: "简体中文",
+          lang: "zh",
+        },
+      },
       social: {
         github: "https://github.com/aptos-labs/",
       },
