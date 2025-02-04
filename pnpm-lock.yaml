@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   starlight-openapi:
-    hash: sfjwook233ihix4npctp7ttfai
+    hash: 585744a34e2ecb3dea95514393a3efda8c4f47a87a9ddff45d5ef8cf3a8a145e
     path: patches/starlight-openapi.patch
 
 importers:
@@ -45,7 +45,7 @@ importers:
         version: 2.2.0
       starlight-openapi:
         specifier: ^0.11.0
-        version: 0.11.0(patch_hash=sfjwook233ihix4npctp7ttfai)(@astrojs/markdown-remark@6.1.0)(@astrojs/starlight@0.31.1(astro@5.2.3(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.32.1)(typescript@5.7.3)(yaml@2.7.0)))(openapi-types@12.1.3)
+        version: 0.11.0(patch_hash=585744a34e2ecb3dea95514393a3efda8c4f47a87a9ddff45d5ef8cf3a8a145e)(@astrojs/markdown-remark@6.1.0)(@astrojs/starlight@0.31.1(astro@5.2.3(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.32.1)(typescript@5.7.3)(yaml@2.7.0)))(openapi-types@12.1.3)
       tailwindcss:
         specifier: ^4.0.3
         version: 4.0.3
@@ -7648,7 +7648,7 @@ snapshots:
 
   stable-hash@0.0.4: {}
 
-  starlight-openapi@0.11.0(patch_hash=sfjwook233ihix4npctp7ttfai)(@astrojs/markdown-remark@6.1.0)(@astrojs/starlight@0.31.1(astro@5.2.3(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.32.1)(typescript@5.7.3)(yaml@2.7.0)))(openapi-types@12.1.3):
+  starlight-openapi@0.11.0(patch_hash=585744a34e2ecb3dea95514393a3efda8c4f47a87a9ddff45d5ef8cf3a8a145e)(@astrojs/markdown-remark@6.1.0)(@astrojs/starlight@0.31.1(astro@5.2.3(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.32.1)(typescript@5.7.3)(yaml@2.7.0)))(openapi-types@12.1.3):
     dependencies:
       '@astrojs/markdown-remark': 6.1.0
       '@astrojs/starlight': 0.31.1(astro@5.2.3(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.32.1)(typescript@5.7.3)(yaml@2.7.0))
