@@ -1,7 +1,9 @@
 ---
+// TODO: Investigate how to fix it in the proper way
+// @ts-expect-error - It's a virtual module
 import MobileMenuToggle from "virtual:starlight/components/MobileMenuToggle";
 import Analytics from "@vercel/analytics/astro";
-import type { Props } from "../props";
+import type { Props } from "@astrojs/starlight/props";
 
 const { hasSidebar } = Astro.props;
 ---
