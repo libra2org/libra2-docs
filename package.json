@@ -17,6 +17,11 @@
     "format:prettier": "prettier . --write",
     "postinstall": "pnpm exec simple-git-hooks"
   },
+  "engines": {
+    "node": "22.x",
+    "pnpm": "^10.2.0"
+  },
+  "packageManager": "pnpm@10.2.0",
   "dependencies": {
     "@astrojs/starlight": "^0.31.1",
     "@astrojs/starlight-tailwind": "^3.0.0",
