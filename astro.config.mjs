@@ -44,8 +44,7 @@ export default defineConfig({
         github: "https://github.com/aptos-labs/",
       },
       components: {
-        // Override the default `Head` component.
-        PageFrame: "./src/components/PageFrame.astro",
+        Head: "./src/starlight-overrides/Head.astro",
       },
       plugins: [
         // Generate the OpenAPI documentation pages.
