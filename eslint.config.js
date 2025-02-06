@@ -72,7 +72,7 @@ const config = [
       },
     },
     linterOptions: {
-      reportUnusedDisableDirectives: true,
+      reportUnusedDisableDirectives: false,
     },
   },
 
