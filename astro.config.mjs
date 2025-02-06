@@ -17,6 +17,10 @@ export default defineConfig({
         dark: "~/assets/aptos-logomark-dark.svg",
         replacesTitle: true,
       },
+      editLink: {
+        baseUrl: "https://github.com/aptos-labs/developer-docs/edit/main/",
+      },
+      lastUpdated: true,
       expressiveCode: {
         shiki: {
           // Define langs for shiki syntax highlighting
