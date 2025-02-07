@@ -1,7 +1,14 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
-import Default from '@astrojs/starlight/components/Head.astro';
-import Analytics from "@vercel/analytics/astro"
+import type { Props } from "@astrojs/starlight/props";
+import Default from "@astrojs/starlight/components/Head.astro";
+import AnalyticsComponent from "@vercel/analytics/astro";
+import type { AnalyticsProps } from "@vercel/analytics";
+import type { JSX } from "astro/jsx-runtime";
+
+// This is workaround for wrongly typed Analytics component from @vercel/analytics/astro
+const Analytics = AnalyticsComponent as unknown as (
+  props: Omit<AnalyticsProps, "framework" | "beforeSend">,
+) => JSX.Element;
 ---
 
 <Default {...Astro.props}><slot /></Default>
