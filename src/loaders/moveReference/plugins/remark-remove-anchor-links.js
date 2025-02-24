@@ -10,7 +10,7 @@ import { toString } from "mdast-util-to-string";
  */
 export default function remarkRemoveTOCAndAnchors() {
   return (tree) => {
-    console.log("=== START DEBUGGING REMARK PLUGIN ===");
+    // console.log("=== START DEBUGGING REMARK PLUGIN ===");
 
     // First pass: Remove all heading nodes that contain "Module" text
     remove(tree, (node) => {

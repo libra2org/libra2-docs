@@ -1,13 +1,14 @@
 import type { Loader, LoaderContext } from "astro/loaders";
-import { blue, dim, bold, yellow } from "kleur/colors";
+import { blue, dim, bold, yellow, red, green } from "kleur/colors";
 import { octokit } from "../../lib/octokit.js";
 import type { GitHubConfig, ProcessingStats } from "./types";
 import { GitHubFetcher } from "./services/github-fetcher";
 import { MarkdownProcessor } from "./services/markdown-processor";
+import { getPluginHash } from "./utils/plugin-hash.js";
 
 export function moveReferenceLoader(config: GitHubConfig): Loader {
   async function loadContent(context: LoaderContext): Promise<void> {
-    const { store, logger } = context;
+    const { store, meta, logger } = context;
     const stats: ProcessingStats = {
       totalMdFiles: 0,
       totalFiles: 0,
@@ -16,6 +17,36 @@ export function moveReferenceLoader(config: GitHubConfig): Loader {
       errorFiles: 0,
       cachedModules: 0,
     };
+
+    // Check if plugins have changed
+    const currentHash = await getPluginHash();
+    const storedHash = meta.get("plugin-version");
+
+    if (currentHash !== storedHash) {
+      // Plugins changed - clear all ETags to force refresh
+      logger.info(`${red("▼")} Plugin changes detected, clearing cache...`);
+
+      // Clear all entries from store
+      for (const [id] of store.entries()) {
+        store.delete(id);
+      }
+
+      // Clear all meta data
+      const metaKeys = ["plugin-version"];
+      for (const branch of config.branches) {
+        for (const module of branch.modules) {
+          metaKeys.push(`${branch.name}-${module.framework}-folder-etag`);
+          metaKeys.push(`${branch.name}-${module.framework}-file-count`);
+        }
+      }
+      metaKeys.forEach((key) => {
+        meta.delete(key);
+      });
+
+      // Store new hash
+      meta.set("plugin-version", currentHash);
+      logger.info(`${green("▼")} Cache and store cleared, will reload all content`);
+    }
 
     // Initialize services
     const githubFetcher = new GitHubFetcher(config, context);
