@@ -109,6 +109,13 @@ header site-search button {
   }
 }
 
+.sl-markdown-content h2:not(:where(.not-content *)) {
+  font-size: var(--sl-text-h2);
+  border-bottom: 1px solid var(--sl-color-hairline);
+  padding-bottom: 0.5em;
+  margin-bottom: 1.5em;
+}
+
 .sl-link-card a {
   text-decoration: none;
 }

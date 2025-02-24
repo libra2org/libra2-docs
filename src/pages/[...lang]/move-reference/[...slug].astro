@@ -22,11 +22,12 @@ const { entry } = Astro.props as { entry: CollectionEntry<"moveReference"> };
 const { Content, headings } = await render(entry);
 
 // Extract branch and framework from the entry ID
-const [branch, framework] = entry.id.split("/");
+const [branch] = entry.id.split("/");
 const moduleTitle = entry.data.title || entry.id.split("/").pop();
 
-// Create title that includes branch and framework info
-const title = `${moduleTitle} | ${framework} (${branch})`;
+// Create title in Move Module 0x1 format vs SEO-friendly format
+// const title = `Module 0x1::${moduleTitle}`; // e.g. "Module 0x1::bit_vector"
+const title = `${moduleTitle} - [${branch}]`; // e.g. "bit_vector - Move Module"
 ---
 
 <StarlightPage frontmatter={{ title }} headings={headings}>
