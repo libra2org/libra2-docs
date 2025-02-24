@@ -1,25 +1,83 @@
 import { visit } from "unist-util-visit";
 import { remove } from "unist-util-remove";
+import { toString } from "mdast-util-to-string";
 
 /**
  * A Remark plugin that:
  * - Removes TOC lists (lists where all items are internal links)
- * - Removes empty <a id="..."></a> tags
+ * - Removes empty anchor tags and their containing paragraphs
+ * - Removes module headers
  */
 export default function remarkRemoveTOCAndAnchors() {
   return (tree) => {
-    // console.log("=== START DEBUGGING REMARK PLUGIN ===");
+    console.log("=== START DEBUGGING REMARK PLUGIN ===");
 
-    // First pass: Remove empty anchor tags
+    // First pass: Remove all heading nodes that contain "Module" text
     remove(tree, (node) => {
-      if (node.type === "html" && /^<a id="[^"]+"><\/a>$/.test(node.value.trim())) {
-        // console.log(`🔴 Removing anchor tag: ${node.value.trim()}`);
-        return true;
+      if (node.type === "heading" && node.depth === 1) {
+        const text = toString(node);
+        // console.log("🔍 Checking heading:", text);
+        if (text.includes("Module")) {
+          // console.log("🔴 Removing module heading");
+          return true;
+        }
       }
       return false;
     });
 
-    // Second pass: Find and remove TOC lists
+    // Second pass: Remove paragraphs that only contain HTML anchor tags
+    remove(tree, (node) => {
+      if (node.type === "paragraph") {
+        const children = node.children || [];
+        // console.log("🔍 Checking paragraph children:", children);
+
+        // Check if paragraph only contains HTML nodes
+        if (children.every((child) => child.type === "html")) {
+          const htmlContent = children.map((child) => child.value).join("");
+          // console.log("📝 HTML content:", htmlContent);
+
+          // Check if it's just an anchor tag
+          if (htmlContent.includes('<a id="') && htmlContent.includes('"></a>')) {
+            // console.log("🔴 Removing anchor paragraph");
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+
+    // Third pass: Remove standalone HTML anchor nodes
+    remove(tree, (node) => {
+      if (node.type === "html") {
+        const value = node.value.trim();
+        // console.log("🔍 Checking HTML node:", value);
+        if (value.includes('<a id="') && value.includes('"></a>')) {
+          // console.log("🔴 Removing standalone anchor");
+          return true;
+        }
+      }
+      return false;
+    });
+
+    // Fourth pass: Remove any remaining problematic nodes
+    remove(tree, (node) => {
+      if (node.type === "html") {
+        const value = node.value.trim();
+        // console.log("🔍 Final pass checking node:", value);
+
+        // Match any remaining anchors or headers with more flexible patterns
+        if (
+          (value.includes("<a") && value.includes("id=")) ||
+          (value.includes("<h1") && value.includes("Module"))
+        ) {
+          // console.log("🔴 Found remaining problematic node:", value);
+          return true;
+        }
+      }
+      return false;
+    });
+
+    // Fifth pass: Find and remove TOC lists
     visit(tree, "list", (node, index, parent) => {
       // console.log("📌 Checking list at index:", index);
       // console.log("List children count:", node.children.length);

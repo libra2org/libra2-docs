@@ -19,9 +19,9 @@ export class MarkdownProcessor {
     const moveMarkdownConfig: AstroMarkdownOptions = {
       ...astroConfig.markdown,
       remarkPlugins: [
-        ...remarkPlugins,
         remarkConvertCodeBlocks,
         remarkRemoveAnchorLinks,
+        ...remarkPlugins,
         [
           remarkGroupMoveDefinitions,
           {
