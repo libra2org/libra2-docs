@@ -1,8 +1,25 @@
 ---
 import Default from "@astrojs/starlight/components/Head.astro";
+import { getImageUrl } from "~/lib/og-image/getImageUrl";
+
 const { lang } = Astro.props;
+const entryData = Astro.locals.starlightRoute.entry.data || Astro.props.entry.data;
+const ogImageUrl = await getImageUrl(new URL("/api/og-image.png", Astro.site), {
+  title: entryData.title,
+});
 ---
 
 <Default {...Astro.props}><slot /></Default>
 <!-- Algolia docsearch language facet -->
 <meta name="docsearch:language" content={lang} />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.request.url} />
+<meta property="og:title" content={entryData.title} />
+{entryData.description && <meta property="og:description" content={entryData.description} />}
+<meta property="og:image" content={ogImageUrl} />
+<!-- Twitter -->
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={entryData.title} />
+{entryData.description && <meta name="twitter:description" content={entryData.description} />}

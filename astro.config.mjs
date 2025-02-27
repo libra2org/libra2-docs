@@ -13,6 +13,7 @@ import { loadEnv } from "vite";
 import rehypeRaw from "rehype-raw";
 import sitemap from "@astrojs/sitemap";
 import partytown from "@astrojs/partytown";
+import { getEnvsSchema } from "./src/lib/og-image/schema.mjs";
 import { SUPPORTED_LANGUAGES } from "./src/config/locales";
 // import rehypeAddDebug from './src/plugins/rehype-add-debug.js';
 
@@ -153,6 +154,9 @@ export default defineConfig({
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ["@rollup/browser"],
+    },
   },
   markdown: {
     remarkPlugins: [remarkMath],
@@ -161,13 +165,22 @@ export default defineConfig({
   prefetch: true,
   env: {
     schema: {
-      ALGOLIA_APP_ID: envField.string({ context: "client", access: "public", optional: true }),
+      ...getEnvsSchema(),
+      ALGOLIA_APP_ID: envField.string({
+        context: "client",
+        access: "public",
+        optional: !hasAlgoliaConfig,
+      }),
       ALGOLIA_SEARCH_API_KEY: envField.string({
         context: "client",
         access: "public",
-        optional: true,
+        optional: !hasAlgoliaConfig,
       }),
-      ALGOLIA_INDEX_NAME: envField.string({ context: "client", access: "public", optional: true }),
+      ALGOLIA_INDEX_NAME: envField.string({
+        context: "client",
+        access: "public",
+        optional: !hasAlgoliaConfig,
+      }),
       GITHUB_TOKEN: envField.string({
         context: "server",
         access: "secret",
@@ -175,5 +188,6 @@ export default defineConfig({
       }),
       GTAG_ID: envField.string({ context: "client", access: "public", optional: true }),
     },
+    validateSecrets: true,
   },
 });
