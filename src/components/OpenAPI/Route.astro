@@ -36,7 +36,6 @@ const title = isOverview || isOperationTag ? "Overview" : Astro.props.operation.
     isOperationTag ? Astro.props.tag : undefined,
   )}
 >
-  <h1 class="!text-red-600">Hello from custom OpenAPI renderer</h1>
   {
     isOverview ? (
       <Overview {schema} />
