@@ -1,14 +1,14 @@
 // @ts-check
 import { envField } from "astro/config";
-import { generateSecret } from "../secrets";
+import { IS_GITHUB_CI } from "../ci.mjs";
 import { ENV_NAME } from "./constants.mjs";
 
-export function getEnvsSchema(withFallback = true) {
+export function getEnvsSchema() {
   return {
     [ENV_NAME]: envField.string({
       context: "server",
       access: "secret",
-      default: withFallback ? generateSecret(20) : undefined,
+      optional: IS_GITHUB_CI,
     }),
   };
 }
