@@ -123,7 +123,7 @@ export default defineConfig({
           autogenerate: { directory: "network" },
         },
         { label: "Move Reference", link: "/move-reference/" },
-        ...(process.env.ENABLE_API_REFERENCE === "true" ? openAPISidebarGroups : []),
+        ...(enableApiReference ? openAPISidebarGroups : []),
       ],
       customCss: ["./src/globals.css", "katex/dist/katex.min.css"],
     }),
