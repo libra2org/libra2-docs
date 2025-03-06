@@ -41,7 +41,11 @@ export default defineConfig({
     ogImagesIntegration(),
     firebaseIntegration(),
     starlight({
-      title: "Aptos Docs",
+      title: {
+        en: "Aptos Docs",
+        zh: "Aptos 文档",
+        ja: "Aptos ドキュメント",
+      },
       logo: {
         light: "~/assets/aptos-logomark-light.svg",
         dark: "~/assets/aptos-logomark-dark.svg",
