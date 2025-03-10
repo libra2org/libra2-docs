@@ -18,22 +18,22 @@ on:
 jobs:
   synchronize-with-crowdin:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Crowdin Action
-        uses: crowdin/github-action@v1
+        uses: crowdin/github-action@v2
         with:
           # Upload sources to Crowdin
           upload_sources: true
 
           # Download translations from Crowdin
           download_translations: true
-
-          # Use machine translation for new content
-          crowdin_branch_name: ${{ github.ref_name }}
 
           # Create pull request
           create_pull_request: true
@@ -46,16 +46,18 @@ jobs:
           # Localization branch name
           localization_branch_name: l10n_crowdin_translations
 
-          # GitHub token for creating PRs
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Pre-translate with DeepL
+          command: "pre-translate"
+          command_args: "--method mt --engine deepl"
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
       # AI pre-translation configuration (for future use)
       # - name: Pre-translate with AI
       #   if: success()
-      #   uses: crowdin/github-action@v1
+      #   uses: crowdin/github-action@v2
       #   with:
       #     # Run AI pre-translation on new content
       #     upload_sources: false
@@ -64,21 +66,10 @@ jobs:
       #     config: 'crowdin.yml'
       #     command: 'pre-translate'
       #     command_args: '--method ai --engine crowdin-ai --branch ${{ github.ref_name }}'
-
-      - name: Pre-translate with DeepL
-        if: success()
-        uses: crowdin/github-action@v1
-        with:
-          # Run machine translation on new content
-          upload_sources: false
-          download_translations: false
-          crowdin_branch_name: ${{ github.ref_name }}
-          config: "crowdin.yml"
-          command: "pre-translate"
-          command_args: "--method mt --engine deepl --branch ${{ github.ref_name }}"
-        env:
-          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+      #     CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
       - name: Create PR for Direct GitHub Contributions
         if: github.event_name == 'push' && contains(github.event.head_commit.message, '[translate]')
