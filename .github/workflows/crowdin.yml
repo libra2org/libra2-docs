@@ -48,11 +48,12 @@ jobs:
 
           # Pre-translate with DeepL
           command: "pre-translate"
-          command_args: "--engine-id deepl"
+          command_args: "--method mt --engine-id ${{ env.CROWDIN_ENGINE_ID }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          CROWDIN_ENGINE_ID: ${{ secrets.CROWDIN_ENGINE_ID }}
 
       # AI pre-translation configuration (for future use)
       # - name: Pre-translate with AI
