@@ -1,6 +1,6 @@
 "project_id_env": "CROWDIN_PROJECT_ID"
 "api_token_env": "CROWDIN_PERSONAL_TOKEN"
-"base_path": "."
+"base_path": "./src"
 "preserve_hierarchy": true
 "base_url": "https://api.crowdin.com"
 
@@ -8,31 +8,26 @@
 "pull_request_title": "[i18n] updated translations from Crowdin"
 "pull_request_labels": ["i18n", "crowdin"]
 
-"files": [
-    # Documentation content - MD files
+"files":
+  [
     {
-      "source": "src/content/docs/**/*.md",
-      "ignore": ["src/content/docs/ja/**/*", "src/content/docs/zh/**/*"],
-      "translation": "src/content/docs/%two_letters_code%/**/%original_file_name%",
-      "type": "md",
-      "labels": ["documentation"],
+      "source": "content/docs/**/*.md",
+      "translation": "content/docs/%two_letters_code%/**/%original_file_name%",
+      "ignore": ["content/docs/ja/**/*", "content/docs/zh/**/*"],
       "update_option": "update_as_unapproved",
+      "skip_untranslated_files": true,
     },
-    # Documentation content - MDX files
     {
-      "source": "src/content/docs/**/*.mdx",
-      "ignore": ["src/content/docs/ja/**/*", "src/content/docs/zh/**/*"],
-      "translation": "src/content/docs/%two_letters_code%/**/%original_file_name%",
-      "type": "md",
-      "labels": ["documentation"],
+      "source": "content/docs/**/*.mdx",
+      "translation": "content/docs/%two_letters_code%/**/%original_file_name%",
+      "ignore": ["content/docs/ja/**/*", "content/docs/zh/**/*"],
       "update_option": "update_as_unapproved",
+      "skip_untranslated_files": true,
     },
-    # i18n JSON files
     {
-      "source": "src/content/i18n/en.json",
-      "translation": "src/content/i18n/%two_letters_code%.json",
-      "type": "json",
-      "labels": ["ui-strings"],
+      "source": "content/i18n/en.json",
+      "translation": "content/i18n/%two_letters_code%.json",
       "update_option": "update_as_unapproved",
+      "skip_untranslated_files": true,
     },
   ]
