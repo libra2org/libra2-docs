@@ -8,14 +8,6 @@
 "pull_request_title": "[i18n] updated translations from Crowdin"
 "pull_request_labels": ["i18n", "crowdin"]
 
-# Configure pre-translation settings
-"settings": {
-    "auto_substitution": true,
-    # AI settings for future use
-    # "ai_pretranslate": true,
-    # "ai_pretranslate_approve": false # Require human review of AI translations
-  }
-
 "files": [
     # Documentation content - MD files
     {
@@ -25,8 +17,6 @@
       "type": "md",
       "labels": ["documentation"],
       "update_option": "update_as_unapproved",
-      "mt_engine": "deepl",
-      "preserve_hierarchy": true,
     },
     # Documentation content - MDX files
     {
@@ -36,8 +26,6 @@
       "type": "md",
       "labels": ["documentation"],
       "update_option": "update_as_unapproved",
-      "mt_engine": "deepl",
-      "preserve_hierarchy": true,
     },
     # i18n JSON files
     {
@@ -46,11 +34,5 @@
       "type": "json",
       "labels": ["ui-strings"],
       "update_option": "update_as_unapproved",
-      # AI configuration for future use
-      # "ai_pretranslate": {
-      #   "engine": "crowdin-ai",
-      #   "label": "ai-generated"
-      # }
-      "mt_engine": "deepl",
     },
   ]
