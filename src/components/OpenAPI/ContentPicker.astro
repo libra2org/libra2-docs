@@ -1,16 +1,28 @@
 ---
 import Select from "./Select.astro";
+import SelectLikeBox from "./SelectLikeBox.astro";
+import { ensureNonNullable } from "~/lib/ensureNonNullable";
 
 interface Props {
   label: string;
+  labelSingle: string;
   types: string[] | undefined;
 }
 
-const { label, types } = Astro.props;
+const { label, labelSingle, types } = Astro.props;
+const isSingleType = types?.length === 1;
+const singleType = ensureNonNullable(types?.[0]);
 ---
 
 <starlight-openapi-content-picker>
-  <Select {label} options={types} />
+  {
+    isSingleType ? (
+      <SelectLikeBox label={labelSingle}>{singleType}</SelectLikeBox>
+    ) : (
+      <Select {label} options={types} />
+    )
+  }
+
   <slot />
 </starlight-openapi-content-picker>
 
