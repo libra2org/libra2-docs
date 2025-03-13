@@ -2,10 +2,13 @@ import type { ClientId, Target, TargetId } from "@scalar/snippetz";
 import { type PropsWithChildren, type ReactNode, useState } from "react";
 import { OperationExamplesContext } from "./OperationExamplesContext";
 import { OperationExamplesList } from "./OperationExamplesList";
+import type { ExampleData } from "./types";
 import { Select } from "~/components/react/Select/Select";
 import { invariant } from "~/lib/invariant";
+import { Button } from "~/components/react/Button/Button";
 
 type OperationExamplesIslandProps = PropsWithChildren<{
+  example: ExampleData;
   targets: Target[];
   initialTarget: TargetId;
   initialClient: ClientId<TargetId>;
@@ -13,6 +16,7 @@ type OperationExamplesIslandProps = PropsWithChildren<{
 }>;
 
 export function OperationExamplesIsland({
+  example,
   targets,
   initialTarget,
   initialClient,
@@ -44,6 +48,15 @@ export function OperationExamplesIsland({
     setCurrentClient(client);
   }
 
+  function openScalarModal() {
+    document.dispatchEvent(
+      new CustomEvent("scalarModal:open", {
+        bubbles: true,
+        detail: example,
+      }),
+    );
+  }
+
   return (
     <div className="operation-examples not-content">
       <div className="flex items-center gap-2">
@@ -63,6 +76,24 @@ export function OperationExamplesIsland({
           onChange={setCurrentClient}
           options={clientOptions}
         />
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={openScalarModal}
+          className="self-stretch !max-h-none !leading-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 6.663c0-1.582 1.75-2.538 3.082-1.682l8.301 5.337a2 2 0 0 1 0 3.364L9.082 19.02C7.75 19.875 6 18.919 6 17.337z"></path>
+          </svg>
+          Test request
+        </Button>
       </div>
       <OperationExamplesContext.Provider
         value={{

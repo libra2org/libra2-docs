@@ -1,8 +1,9 @@
 ---
 import { snippetz } from "@scalar/snippetz";
-import OperationExample, { type ExampleData } from "./OperationExample.astro";
-import { OperationExamplesIsland } from "./OperationExamplesIsland";
 import { INITIAL_CLIENT, INITIAL_TARGET } from "./constants";
+import OperationExample from "./OperationExample.astro";
+import { OperationExamplesIsland } from "./OperationExamplesIsland";
+import type { ExampleData } from "./types";
 
 type Props = ExampleData;
 
@@ -13,6 +14,7 @@ const targets = snippetz().clients();
 <div class="operation-examples not-content !mb-8">
   <OperationExamplesIsland
     client:load
+    example={example}
     targets={targets}
     initialTarget={INITIAL_TARGET}
     initialClient={INITIAL_CLIENT}

@@ -10,6 +10,7 @@ import { getPageProps } from "starlight-openapi/libs/starlight";
 import Operation from "./operation/Operation.astro";
 import OperationTag from "./OperationTag.astro";
 import Overview from "./Overview.astro";
+import OperationScalarModal from "./operation/OperationExamples/OperationScalarModal.astro";
 
 export const prerender = true;
 
@@ -48,3 +49,5 @@ const title = isOverview || isOperationTag ? "Overview" : Astro.props.operation.
     )
   }
 </StarlightPage>
+<!-- We render it here, because StarlightPage component creates stacking context which breaks modal styles -->
+<OperationScalarModal />
