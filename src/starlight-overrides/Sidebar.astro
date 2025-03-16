@@ -12,10 +12,21 @@ import TabPanel from "~/components/tabs/TabPanel.astro";
 import { stripLangFromSlug } from "~/utils/path-utils";
 import { isSubPage } from "~/utils/isSubPage";
 
+// Constants
+const MOVE_REFERENCE_PATH = "move-reference";
+
 // Get sidebar data
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const sidebarData = Astro.locals.starlightRoute ? Astro.locals.starlightRoute.sidebar : [];
 const { id } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+// Simple and direct check for Move Reference pages in any URL format
+const isMoveReference = currentPath.includes(`/${MOVE_REFERENCE_PATH}`);
+
+// // Debug the values to console (can be removed after confirming it works)
+// console.log('Current Path:', currentPath);
+// console.log('Is Move Reference:', isMoveReference);
 
 // Interface for sidebar entries
 interface SidebarEntryType {
@@ -35,8 +46,19 @@ function markEntries(i: SidebarEntryType): void {
   } else if (i.href) {
     const itemSlug = stripLeadingAndTrailingSlashes(i.href);
     const itemSlugWithoutLang = stripLangFromSlug(itemSlug);
+
+    // Force Move Reference pages to be current if we're on a move reference page
+    if (
+      isMoveReference &&
+      (itemSlug.includes(MOVE_REFERENCE_PATH) || itemSlugWithoutLang.includes(MOVE_REFERENCE_PATH))
+    ) {
+      i.isCurrent = true;
+      return; // Exit early once we've found a match
+    }
+
     if (i.isCurrent !== undefined) {
-      i.isCurrent ||= isSubPage(id, itemSlugWithoutLang);
+      // Regular check for other pages
+      i.isCurrent = i.isCurrent || isSubPage(id, itemSlugWithoutLang);
     }
   }
 }
