@@ -14,8 +14,8 @@ export class CustomComponentTransformer extends BaseTransformer {
     "MoveReference",
     "DynamicApiReference",
     "fetchApiReference",
+    // Add ready components here too so BaseTransformer doesn't try to import them"
     "YouTube",
-    // Add ready components here too so BaseTransformer doesn't try to import them
     "Faucet",
     "GraphQLEditor",
     "RemoteCodeblock",
@@ -26,6 +26,7 @@ export class CustomComponentTransformer extends BaseTransformer {
     Faucet: "~/components/react/Faucet",
     GraphQLEditor: "~/components/react/GraphQLEditor",
     RemoteCodeblock: "~/components/RemoteCodeblock",
+    YouTube: "astro-embed",
   };
 
   protected oldImportPath = "@components/index";
