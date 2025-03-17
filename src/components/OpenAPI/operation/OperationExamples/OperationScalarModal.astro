@@ -1,0 +1,70 @@
+---
+import "@scalar/api-client/style.css";
+---
+
+<div id="scalar-container"></div>
+
+<style>
+  #scalar-modal-container :global(.scalar-app-exit) {
+    background-color: rgba(0 0 0 / 0.8);
+  }
+
+  /* Fix conflict in tw 3 translate style coming from @scalar and our tw4 translate style. */
+  :global([data-v-66325e68]) {
+    translate: none;
+  }
+</style>
+
+<script>
+  import { createApiClientModal } from "@scalar/api-client/layouts/Modal";
+  import type { ScalarModalOpenEvent } from "./types";
+  import { observeThemeChange } from "~/lib/theme";
+  import { ensureNonNullable } from "~/lib/ensureNonNullable";
+
+  const scalarContainer = ensureNonNullable(
+    document.getElementById("scalar-container"),
+    "Scalar modal container not found!",
+  );
+  const servers = [
+    {
+      description: "testnet",
+      url: "https://api.testnet.aptoslabs.com/v1",
+    },
+    {
+      description: "mainnet",
+      url: "https://api.mainnet.aptoslabs.com/v1",
+    },
+    {
+      description: "devnet",
+      url: "https://api.devnet.aptoslabs.com/v1",
+    },
+  ];
+  const starlightThemeClassMap = {
+    light: "light-mode",
+    dark: "dark-mode",
+  };
+
+  observeThemeChange((theme) => {
+    scalarContainer.classList.remove(...Object.values(starlightThemeClassMap));
+    scalarContainer.classList.add(starlightThemeClassMap[theme]);
+  });
+
+  // Initialize modal router
+  document.addEventListener(
+    "scalarModal:open",
+    async function (e: ScalarModalOpenEvent) {
+      const { open } = await createApiClientModal({
+        el: scalarContainer,
+        configuration: {
+          url: "/aptos-spec.json",
+          servers,
+          showSidebar: false,
+          hideClientButton: true,
+        },
+      });
+
+      open({ path: e.detail.operationPath, method: e.detail.method });
+    },
+    { passive: true },
+  );
+</script>

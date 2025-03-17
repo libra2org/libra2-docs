@@ -1,14 +1,9 @@
 ---
 import { Code } from "@astrojs/starlight/components";
 import { snippetz, type ClientId, type TargetId } from "@scalar/snippetz";
-import type { OperationHttpMethod } from "starlight-openapi/libs/operation";
+import type { ExampleData } from "./types";
 import { ensureNonNullable } from "~/lib/ensureNonNullable";
-export interface ExampleData {
-  baseUrl: string;
-  prefix: string;
-  method: OperationHttpMethod;
-  operationPath: string;
-}
+
 interface Props<T extends TargetId> {
   target: T;
   client: ClientId<T>;

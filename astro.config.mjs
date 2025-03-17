@@ -116,7 +116,7 @@ export default defineConfig({
                   {
                     base: "api-reference",
                     label: "API Reference",
-                    schema: "./aptos-spec.json",
+                    schema: "./public/aptos-spec.json",
                     sidebarMethodBadges: true,
                   },
                 ],
