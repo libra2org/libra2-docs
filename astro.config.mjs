@@ -103,7 +103,11 @@ export default defineConfig({
         Sidebar: "./src/starlight-overrides/Sidebar.astro",
       },
       plugins: [
-        starlightLlmsTxt(),
+        starlightLlmsTxt({
+          promote: ["index*", "get-started"],
+          demote: ["404"],
+          exclude: ["404"],
+        }),
         ...(hasAlgoliaConfig
           ? [
               starlightDocSearch({
