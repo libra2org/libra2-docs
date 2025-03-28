@@ -199,6 +199,7 @@ function isCurrent(sidebarItems: SidebarEntryType[]): boolean {
     --tab-switcher-icon-color--active: var(--sl-color-text-accent);
     --tab-item-background-color--hover: var(--sl-color-gray-6);
     --tab-item-background-color--active: var(--sl-color-black);
+    padding: 1rem var(--sl-sidebar-pad-x) 0;
   }
   /* Dark theme variations */
   :global([data-theme="dark"]) .tabbed-sidebar {
@@ -224,7 +225,9 @@ function isCurrent(sidebarItems: SidebarEntryType[]): boolean {
     gap: 0.25rem;
     padding: var(--tab-switcher-padding);
     background-color: transparent;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
+    padding: 1rem var(--sl-sidebar-pad-x);
+    border-bottom: 1px solid var(--sl-color-hairline);
   }
 
   .tab-item :global(a) {

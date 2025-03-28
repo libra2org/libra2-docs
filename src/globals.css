@@ -261,6 +261,9 @@ html {
 
 .sidebar-pane {
   border-right: 1px solid var(--sl-color-hairline);
+  .sidebar-content {
+    padding: 0;
+  }
 }
 
 .sidebar-content ul ul li {
@@ -563,4 +566,8 @@ header.header {
       align-items: center;
     }
   }
+}
+
+.mobile-preferences {
+  padding: 1rem var(--sl-sidebar-pad-x);
 }
