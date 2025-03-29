@@ -12,21 +12,21 @@ import Default from "@astrojs/starlight/components/LanguageSelect.astro";
 
     if (langSelects.length > 0) {
       // Add our enhanced handler to each select element
-      langSelects.forEach(langSelect => {
+      langSelects.forEach((langSelect) => {
         langSelect.addEventListener("change", (e) => {
-        if (e.currentTarget instanceof HTMLSelectElement) {
-          // Get the selected locale from the pathname
-          const pathname = e.currentTarget.value;
-          const localeMatch = pathname.match(/^\/(zh|ja)/);
-          const locale = localeMatch ? localeMatch[1] : "en";
+          if (e.currentTarget instanceof HTMLSelectElement) {
+            // Get the selected locale from the pathname
+            const pathname = e.currentTarget.value;
+            const localeMatch = pathname.match(/^\/(zh|ja)/);
+            const locale = localeMatch ? localeMatch[1] : "en";
 
-          // Set the cookie with a 1-year expiration
-          const expiryDate = new Date();
-          expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-          document.cookie = `preferred_locale=${locale}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Lax`;
+            // Set the cookie with a 1-year expiration
+            const expiryDate = new Date();
+            expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+            document.cookie = `preferred_locale=${locale}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Lax`;
 
-          console.log(`Set language preference cookie: preferred_locale=${locale}`);
-        }
+            console.log(`Set language preference cookie: preferred_locale=${locale}`);
+          }
         });
       });
     }
