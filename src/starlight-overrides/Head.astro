@@ -9,6 +9,7 @@ import { getImageUrl } from "~/lib/og-image/getImageUrl";
 const entryData = Astro.locals.starlightRoute.entry.data || Astro.props.entry.data;
 const ogImageUrl = await getImageUrl(new URL("/api/og-image.png", Astro.site), {
   title: entryData.title,
+  siteTitle: Astro.locals.starlightRoute.siteTitle,
 });
 
 const { description, lang, lastUpdated, title } = Astro.locals.starlightRoute;

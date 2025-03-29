@@ -6,11 +6,11 @@ import { generateImage } from "~/lib/og-image/generateImage";
 import { parseTokenOptions } from "~/lib/og-image/parseTokenOptions";
 
 const CACHE_CONTROL_TTL = 24 * 60 * 60; // 24 hours
-const OPTIONS_SCHEMA = z.object({ title: z.string() });
+const OPTIONS_SCHEMA = z.object({ title: z.string(), siteTitle: z.string() });
 const FONTS = [
   {
-    name: "Satoshi",
-    data: await fs.readFile(path.resolve("public/fonts/Satoshi-Medium.otf")),
+    name: "Atkinson Hyperlegible",
+    data: await fs.readFile(path.resolve("public/fonts/AtkinsonHyperlegibleNext-SemiBold.ttf")),
     weight: 600,
     style: "normal",
   } as const,
@@ -19,11 +19,14 @@ const FONTS = [
 export const prerender = false;
 export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
-  const { title } = await parseTokenOptions(url.searchParams.get("token"), OPTIONS_SCHEMA);
+  const { siteTitle, title } = await parseTokenOptions(
+    url.searchParams.get("token"),
+    OPTIONS_SCHEMA,
+  );
 
   return generateImage({
-    width: 1200,
-    height: 630,
+    width: 2400,
+    height: 1260,
     fonts: FONTS,
     headers: {
       "Cache-Control": `public, max-age=${String(CACHE_CONTROL_TTL)}`,
@@ -38,8 +41,8 @@ export const GET: APIRoute = async ({ request }) => {
       align-items: flex-start;
       justify-content: space-between;
       gap: 40px;
-      background-color: #051419;
-      font-family: Satoshi;
+      background-color: #121417;
+      font-family: Atkinson Hyperlegible, sans-serif;
       font-weight: 600;
       color: white;
     ">
@@ -47,30 +50,37 @@ export const GET: APIRoute = async ({ request }) => {
           flex-grow: 1;
           display: flex;
           align-items: center;
-          font-size: 90px;
+          font-size: 160px;
           line-height: 1.1;
-          letter-spacing: -2px;
-          background-image: linear-gradient(90deg, #fff 20%, #ccc);
-          text-shadow: 0 2px 30px #000;
-          background-clip: text;
-          color: transparent;
+          word-break: keep-all; /* Prevents breaking within words for CJK text */
+          overflow-wrap: break-word; /* Allows breaks between words */
+          text-wrap: balance;
         ">
-          ${title} | Aptos docs
+          ${title}
         </h1>
         <div style="
           display: flex;
           align-items: center;
           gap: 15px;
-          font-size: 40px;
+          font-size: 80px;
           letter-spacing: -1px;
         ">
-          <svg width="40" height="40" viewBox="0 0 64 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M49.5678 22.5137H43.9056C43.2471 22.5137 42.6189 22.2516 42.1808 21.7961L39.8857 19.4017C39.544 19.0455 39.0508 18.8394 38.5356 18.8394C38.0203 18.8394 37.5271 19.0429 37.1855 19.4017L35.2154 21.4577C34.5707 22.1294 33.6449 22.5162 32.6723 22.5162H1.68624C0.804545 24.8394 0.228689 27.2923 0 29.8394H29.253C29.7682 29.8394 30.2586 29.646 30.6141 29.3025L33.3391 26.679C33.678 26.3508 34.1491 26.1651 34.6396 26.1651H34.7525C35.2678 26.1651 35.761 26.3686 36.1026 26.7274L38.3978 29.1218C38.8359 29.5773 39.4613 29.8394 40.1226 29.8394H64C63.7713 27.2923 63.1954 24.8394 62.3137 22.5162H49.5678V22.5137Z" fill="white"/>
-            <path d="M17.9561 46.8366C18.4622 46.8366 18.944 46.627 19.2931 46.2547L21.9698 43.4112C22.3027 43.0554 22.7655 42.8541 23.2473 42.8541H23.3582C23.8643 42.8541 24.3488 43.0747 24.6844 43.4636L26.9389 46.0588C27.3692 46.5525 27.9836 46.8366 28.6332 46.8366H60.418C61.6089 44.3296 62.4804 41.6378 63 38.8219H32.4926C31.8457 38.8219 31.2287 38.5378 30.7983 38.0441L28.5438 35.4489C28.2082 35.0628 27.7238 34.8394 27.2177 34.8394C26.7115 34.8394 26.2271 35.06 25.8915 35.4489L23.9563 37.6773C23.323 38.4054 22.4137 38.8246 21.4583 38.8246H1C1.51964 41.6433 2.39114 44.3323 3.58199 46.8394H17.9561V46.8366Z" fill="white"/>
-            <path d="M40.0967 13.8394C40.6083 13.8394 41.0953 13.6272 41.4483 13.2502L44.1542 10.3716C44.4908 10.0114 44.9586 9.80757 45.4457 9.80757H45.5578C46.0695 9.80757 46.5592 10.0309 46.8985 10.4246L49.1776 13.052C49.6127 13.5518 50.2338 13.8394 50.8904 13.8394H57C51.1804 5.9461 41.9244 0.839355 31.5 0.839355C21.0757 0.839355 11.8196 5.9461 6 13.8394H40.0994H40.0967Z" fill="white"/>
-            <path d="M27.7966 54.7633H19.375C18.7159 54.7633 18.0872 54.4834 17.6487 53.997L15.3517 51.4399C15.0097 51.0595 14.5161 50.8394 14.0005 50.8394C13.4848 50.8394 12.9912 51.0567 12.6493 51.4399L10.6776 53.6356C10.0323 54.3529 9.1058 54.766 8.13237 54.766H8C13.8681 60.9616 22.2208 64.8394 31.5 64.8394C40.7792 64.8394 49.1319 60.9616 55 54.766H27.7966V54.7633Z" fill="white"/>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 120 120">
+            <mask id="a" width="120" height="120" x="0" y="0" maskUnits="userSpaceOnUse" style="mask-type:luminance">
+              <path fill="#fff" d="M0 0h120v120H0V0Z"/>
+            </mask>
+            <g mask="url(#a)">
+              <path fill="#fff" d="M83.606 45.738H75.97c-.849 0-1.697-.386-2.315-1.001l-3.085-3.468c-.926-1.001-2.391-1.078-3.471-.23l-.232.23-2.623 3.004c-.849 1.002-2.16 1.542-3.471 1.542H19.038A44.98 44.98 0 0 0 16.8 56.447h39.498c.694 0 1.388-.308 1.85-.77l3.704-3.852c.462-.463 1.08-.771 1.774-.771h.154c.694 0 1.389.308 1.852.847l3.086 3.467c.616.694 1.465 1.079 2.314 1.079H103.2a44.95 44.95 0 0 0-2.237-10.633H83.606v-.076ZM58.302 67.001l-3.085-3.466c-.926-1.002-2.392-1.08-3.472-.232l-.231.23-2.7 3.005c-.849 1.002-2.083 1.541-3.395 1.541H17.418c.694 3.699 1.928 7.32 3.548 10.787h19.672c.694 0 1.31-.309 1.85-.771l3.704-3.852c.462-.462 1.08-.77 1.774-.77h.154c.694 0 1.389.308 1.852.847l3.086 3.467c.616.694 1.465 1.079 2.314 1.079h43.662c1.62-3.39 2.855-7.01 3.549-10.787H60.619c-.926 0-1.775-.384-2.315-1.078h-.002Zm15.12-33.591 3.703-3.853c.463-.461 1.08-.77 1.774-.77h.154c.695 0 1.389.309 1.852.77l3.086 3.467c.617.694 1.466 1.001 2.314 1.001h8.332c-14.503-19.104-41.735-22.88-60.943-8.473a44.176 44.176 0 0 0-8.485 8.475h46.363c.77.154 1.388-.154 1.85-.617ZM43.569 89.499c-.926 0-1.775-.385-2.315-1.002l-3.085-3.466a2.45 2.45 0 0 0-3.471-.155l-.155.154-2.7 3.005c-.849 1.001-2.083 1.541-3.394 1.541h-.155c16.278 17.412 43.818 18.259 61.329 1.85.695-.618 1.311-1.31 2.006-2.004h-48.06v.077Z"/>
+              <path stroke="url(#b)" stroke-width="4" d="M114 60c0 29.824-24.176 54-54 54S6 89.824 6 60 30.176 6 60 6s54 24.176 54 54Z"/>
+            </g>
+            <defs>
+              <linearGradient id="b" x1="5.018" x2="122.243" y1="5.018" y2="109.795" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#61DD89"/>
+                <stop offset="1" stop-color="#05EEEF"/>
+              </linearGradient>
+            </defs>
           </svg>
-          Developers
+          ${siteTitle}
         </span>
       </div>
   `;
