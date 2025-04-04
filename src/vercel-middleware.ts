@@ -1,3 +1,5 @@
+import { next } from "@vercel/edge";
+
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 // Edge-compatible middleware that implements a middleware chain pattern
 import i18nRedirect from "./middlewares/i18n-redirect";
@@ -31,5 +33,6 @@ export default async function middleware(req: Request) {
   return await applyMiddleware(req, [
     i18nRedirect,
     // Add more middleware functions here as needed
+    next,
   ]);
 }
