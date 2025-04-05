@@ -21,7 +21,7 @@ const iconPath = iconName ? (iconName.includes(":") ? iconName : `ph:${iconName}
   <p class="title sl-flex">
     {
       iconPath && (
-        <span class="icon">
+        <span class="icon not-content">
           <Icon name={iconPath} size={iconSize} aria-hidden="true" />
         </span>
       )
