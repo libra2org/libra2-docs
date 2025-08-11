@@ -2,7 +2,7 @@
 title: "Resource Accounts"
 ---
 
-[Object Code Deployment](/build/smart-contracts/deployment) is the preferred method for deploying and upgrading smart contracts in Libra. Resource accounts require developers to generate seeds
+[Object Code Deployment](/build/smart-contracts/deployment) is the preferred method for deploying and upgrading smart contracts in Libra2. Resource accounts require developers to generate seeds
 each time a resource account is created, and upgrading contracts requires specific steps which is prone to error.
 
 A [resource account](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/resource_account.move)
@@ -20,14 +20,14 @@ Typically, a resource account is used for two main purposes:
 
 ## Restrictions
 
-In Libra, a resource account is created based upon the SHA3-256 hash of the
+In Libra2, a resource account is created based upon the SHA3-256 hash of the
 source's address and additional seed data. A resource account can be created
 only once; for a given source address and seed, there can be only one resource
 account. That is because the calculation of the resource account address is
 fully determined by the former.
 
 An entity may call `create_account` in an attempt to claim an account ahead of
-the creation of a resource account. But if a resource account is found, Libra
+the creation of a resource account. But if a resource account is found, Libra2
 will transition ownership of the account over to the resource account. This is
 done by validating that the account has yet to execute any transactions and that
 the `Account::signer_capbility_offer::for` is none. The probability of a
@@ -38,7 +38,7 @@ resource account address is improbably low.
 
 The easiest way to set up a resource account is by:
 
-1. Using Libra CLI: `libra2 account create-resource-account` creates a resource
+1. Using Libra2 CLI: `libra2 account create-resource-account` creates a resource
    account, and `libra2 move create-resource-account-and-publish-package` creates a
    resource account and publishes the specified package under the resource account's
    address.

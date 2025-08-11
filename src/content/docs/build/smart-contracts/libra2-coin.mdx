@@ -1,5 +1,5 @@
 ---
-title: "Libra Coin Standard (Legacy)"
+title: "Libra2 Coin Standard (Legacy)"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -91,7 +91,7 @@ Coin users can:
 ### Coin module key struct
 
 The following tables describe fields at the struct level. For the definitive list,
-see the [Libra Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/overview.md)
+see the [Libra2 Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/overview.md)
 containing [`coin`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/coin.md).
 
 ##### [`Coin`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/libra2-move/framework/libra2-framework/sources/coin.move#L68)
@@ -104,7 +104,7 @@ containing [`coin`](https://github.com/libra2org/libra2-core/blob/main/libra2-mo
 
 | Field      | Type                             | Description                                                                                                                      |
 | ---------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `name`     | String                           | Name of the token, eg: Libra Coin                                                                                                |
+| `name`     | String                           | Name of the token, eg: Libra2 Coin                                                                                                |
 | `symbol`   | String                           | Symbol for the token, eg: APT                                                                                                    |
 | `decimals` | u8                               | Determines how the value of coin is represented; for example APT’s decimal is 8, so a value of 100000000 is represented by 1 APT |
 | `supply`   | Option\<OptionalAggregator> | option::some(optional\_aggregator::new(MAX\_U128, parallelizable))                                                                 |

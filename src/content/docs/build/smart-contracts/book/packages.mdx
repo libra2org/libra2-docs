@@ -386,9 +386,9 @@ Foo = { local = "../C" }
 
 Note that if both the bytecode and the source code of the same package exist in the search paths, the compiler will complain that the declaration is duplicated.
 
-## Overriding the Standard Libraries
+## Overriding the Standard Libra2ries
 
-When working with third-party packages, you might encounter issues where different versions of the Move and Libra standard library packages are referenced.
+When working with third-party packages, you might encounter issues where different versions of the Move and Libra2 standard library packages are referenced.
 
 This can lead to package resolution failures.
 
@@ -397,9 +397,9 @@ This can lead to package resolution failures.
   Unable to resolve packages for package 'C':
     While resolving dependency 'B' in package 'C':
       Unable to resolve package dependency 'B':
-        While resolving dependency 'LibraFramework' in package 'B':
-          Unable to resolve package dependency 'LibraFramework':
-            Conflicting dependencies found: package 'LibraFramework' conflicts with 'LibraFramework'
+        While resolving dependency 'Libra2Framework' in package 'B':
+          Unable to resolve package dependency 'Libra2Framework':
+            Conflicting dependencies found: package 'Libra2Framework' conflicts with 'Libra2Framework'
 ```
 
 To resolve this, you can override the standard library packages using a command-line option. This allows you to enforce a specific version of the standard libraries across your entire dependency tree.

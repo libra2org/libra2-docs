@@ -7,7 +7,7 @@ export const SUPPORTED_LANGUAGES = [
 
 // Site titles for each supported language
 export const SITE_TITLES = {
-  en: "Libra Docs",
-  es: "Libra Docs",
-  zh: "Libra 文档",
+  en: "Libra2 Docs",
+  es: "Libra2 Docs",
+  zh: "Libra2 文档",
 };

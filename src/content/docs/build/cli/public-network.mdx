@@ -15,12 +15,12 @@ The `libra2` tool supports bootstrapping new blockchains through what is known a
 - A set of validators and their configuration
 - The initial set of Move modules, known as a framework
 - A unique `ChainId` (u8) that distinguishes this from other networks
-- For test chains, there also exists an account that manages the minting of LibraCoin
+- For test chains, there also exists an account that manages the minting of Libra2Coin
 
 ## Generating genesis
 
 - The genesis organizer constructs a `Layout` and distributes it.
-- The genesis organizer prepares the Libra framework's bytecode and distributes it.
+- The genesis organizer prepares the Libra2 framework's bytecode and distributes it.
 - Each participant generates their `ValidatorConfiguration` and distributes it.
 - Each participant generates a `genesis.blob` from the resulting contributions.
 - The genesis organizer executes the `genesis.blob` to derive the initial waypoint and distributes it.
@@ -29,15 +29,15 @@ The `libra2` tool supports bootstrapping new blockchains through what is known a
 
 ### Prepare libra2-core
 
-The following sections rely on tools from the Libra source. See [Building Libra From Source](/network/nodes/building-from-source) for setup.
+The following sections rely on tools from the Libra2 source. See [Building Libra2 From Source](/network/nodes/building-from-source) for setup.
 
 ### The `layout` file
 
 The layout file contains:
 
-- `root_key`: an Ed25519 public key for LibraCoin management.
+- `root_key`: an Ed25519 public key for Libra2Coin management.
 - `users`: the set of participants
-- `chain_id`: the `ChainId` or a unique integer that distinguishes this deployment from other Libra networks
+- `chain_id`: the `ChainId` or a unique integer that distinguishes this deployment from other Libra2 networks
 
 An example:
 
@@ -49,9 +49,9 @@ users:
 chain_id: 8
 ```
 
-### Building the Libra Framework
+### Building the Libra2 Framework
 
-From your Libra-core repository, build the framework and package it:
+From your Libra2-core repository, build the framework and package it:
 
 ```shellscript filename="Terminal"
 cargo run --package framework

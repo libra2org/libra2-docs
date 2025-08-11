@@ -1,15 +1,15 @@
 ---
 id: "fungible-asset"
-title: "Libra 同质化资产（FA）标准"
+title: "Libra2 同质化资产（FA）标准"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
 
 import { Aside } from '@astrojs/starlight/components';
 
-Libra 同质化资产标准(也称为"Fungible Asset"或"FA")为 Move 生态系统中定义同质化资产提供了一种标准且类型安全的方式.它是对 `coin` 模块的现代替代方案,能够无缝地铸造,转账和自定义各种用例的同质化资产.
+Libra2 同质化资产标准(也称为"Fungible Asset"或"FA")为 Move 生态系统中定义同质化资产提供了一种标准且类型安全的方式.它是对 `coin` 模块的现代替代方案,能够无缝地铸造,转账和自定义各种用例的同质化资产.
 
-该标准的重要性在于,它让 Libra 上的同质化资产(如货币和现实世界资产(RWA))能够以 dApp 可识别的一致方式表示和转移所有权.相比 `coin` 模块,FA 标准通过利用 [Move Objects](/zh/build/smart-contracts/objects) 来表示同质化资产数据,允许更广泛的自定义.
+该标准的重要性在于,它让 Libra2 上的同质化资产(如货币和现实世界资产(RWA))能够以 dApp 可识别的一致方式表示和转移所有权.相比 `coin` 模块,FA 标准通过利用 [Move Objects](/zh/build/smart-contracts/objects) 来表示同质化资产数据,允许更广泛的自定义.
 
 FA 标准为你提供了创建,铸造,转账和销毁同质化资产所需的全部功能(并且自动允许接收方存储和管理他们收到的任何同质化资产).
 
@@ -236,7 +236,7 @@ struct Frozen has drop, store {
 
 ## 可调度同质化资产(高级)
 
-除了 Libra Framework 提供的默认同质化资产管理功能外,发行方还可以通过可调度同质化资产标准实现自定义的存取逻辑.只需在资产元数据中注册自定义钩子函数,Libra Framework 会在存取时自动调用这些钩子,从而实现复杂的访问控制等逻辑.详情请参考对应的 [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
+除了 Libra2 Framework 提供的默认同质化资产管理功能外,发行方还可以通过可调度同质化资产标准实现自定义的存取逻辑.只需在资产元数据中注册自定义钩子函数,Libra2 Framework 会在存取时自动调用这些钩子,从而实现复杂的访问控制等逻辑.详情请参考对应的 [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### 实现钩子函数
 
@@ -347,7 +347,7 @@ module my_addr::my_fungible_asset_example {
 
 ### 与可调度同质化资产交互
 
-对于使用 `primary_fungible_store` 管理资产的用户,无需更改与注册钩子的资产的交互方式.Libra Framework 会自动调用钩子逻辑.
+对于使用 `primary_fungible_store` 管理资产的用户,无需更改与注册钩子的资产的交互方式.Libra2 Framework 会自动调用钩子逻辑.
 
 对于使用二级 `FungibleStore` 交互的用户,请使用 `dispatchable_fungible_asset::withdraw/deposit` 替代 `fungible_asset::withdraw/deposit`,以支持注册了钩子的资产.
 
@@ -422,7 +422,7 @@ public fun paired_coin(metadata: Object<Metadata>): Option<TypeInfo>
 
 由于用户可能**同时**拥有 `coin` 余额和配对 FA 余额,链下应用应更新为显示两者之和.
 
-- 对于 Libra Indexer 用户,可通过 `current_fungible_asset_balances` 表获取 coin 余额与配对 FA 余额的最新总和.如果 FA 有配对 coin 类型,asset type 字段为 coin 类型(如 `0x1::libra2_coin::LibraCoin`);否则为元数据地址.用户可按此字段筛选感兴趣的 FA 余额.
+- 对于 Libra2 Indexer 用户,可通过 `current_fungible_asset_balances` 表获取 coin 余额与配对 FA 余额的最新总和.如果 FA 有配对 coin 类型,asset type 字段为 coin 类型(如 `0x1::libra2_coin::Libra2Coin`);否则为元数据地址.用户可按此字段筛选感兴趣的 FA 余额.
 - 对于使用 Node API 或自定义索引的用户,应将用户 `FungibleStore` 和 `ConcurrentFungibleBalance`(如存在)中的配对 FA 余额与 coin 余额相加.
 
 要获取配对 FA 的主 `FungibleStore` 余额(针对已有 `coin` 的 `CoinType`):

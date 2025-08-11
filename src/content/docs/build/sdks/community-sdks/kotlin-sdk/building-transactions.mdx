@@ -52,7 +52,7 @@ The typical flow for sending a transaction is as follows:
          data = entryFunctionData {
              function = "0x1::coin::transfer"
              typeArguments = typeArguments {
-                 +TypeTagStruct("0x1::libra2_coin::LibraCoin")
+                 +TypeTagStruct("0x1::libra2_coin::Libra2Coin")
              }
              functionArguments = functionArguments {
                  +bobAccount.accountAddress
@@ -128,7 +128,7 @@ const val SEND_AMOUNT = 1_000_000UL
  * fails, an error is thrown.
  */
 fun main() = runBlocking {
-  val libra2 = Libra(LibraConfig(LibraSettings(network = Network.DEVNET)))
+  val libra2 = Libra2(Libra2Config(Libra2Settings(network = Network.DEVNET)))
 
   println("Generating Alice and Bob's accounts")
 
@@ -152,7 +152,7 @@ fun main() = runBlocking {
       data =
         entryFunctionData {
           function = "0x1::coin::transfer"
-          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::LibraCoin") }
+          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::Libra2Coin") }
           functionArguments = functionArguments {
             +bob.accountAddress
             +U64(SEND_AMOUNT_UNITS.toULong())

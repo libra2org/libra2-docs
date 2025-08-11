@@ -155,12 +155,12 @@ Until the delegation pool has received 1 million APT and the validator has been 
 In the [Libra2 TypeScript SDK](/build/sdks/ts-sdk), a View function request would resemble:
 
 ```typescript filename="view_function.ts"
-import { Libra2, LibraConfig } from "@libra2-labs/ts-sdk";
+import { Libra2, Libra2Config } from "@libra2-labs/ts-sdk";
 
 const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 
 (async () => {
-  const libra2Config = new LibraConfig({ fullnode: NODE_URL });
+  const libra2Config = new Libra2Config({ fullnode: NODE_URL });
   const libra2 = new Libra2(libra2Config);
   const payload: InputViewRequestData = {
     function: "0x1::delagation_pool::get_stake",

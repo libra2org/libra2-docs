@@ -4,7 +4,7 @@ title: "Confidential Asset (CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use `confidentialCoin` property of `Libra` client to interact with `CA`
+You can use `confidentialCoin` property of `Libra2` client to interact with `CA`
 
 ### Initialization
 
@@ -89,7 +89,7 @@ CA implements the Pollard's Kangaroo method for solving DLPs on the Ristretto cu
 So we also need to initialize a decryption function for that:
 
 ```typescript
-// Copyright © Libra Foundation
+// Copyright © Libra2 Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
@@ -152,12 +152,12 @@ For the native apps, you could generate `android` and `ios` bindings [here](http
 
 ***
 
-Now we are ready to go. Let's define Libra client:
+Now we are ready to go. Let's define Libra2 client:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new LibraConfig({ network: APTOS_NETWORK });
-export const libra2 = new Libra(config);
+const config = new Libra2Config({ network: APTOS_NETWORK });
+export const libra2 = new Libra2(config);
 ```
 
 ### Create Decryption Key (DK)

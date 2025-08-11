@@ -1,5 +1,5 @@
 ---
-title: "Libra 代币标准 (旧版)"
+title: "Libra2 代币标准 (旧版)"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -86,7 +86,7 @@ Coin 为创建和管理代币的用户以及使用代币的用户提供了基础
 ### Coin 模块关键结构体
 
 以下表格描述了结构体级别的字段.完整列表请参见
-[Libra 框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/overview.md)
+[Libra2 框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/overview.md)
 中的 [`coin`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/coin.md) 部分.
 
 ##### [`Coin`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/libra2-move/framework/libra2-framework/sources/coin.move#L68)
@@ -99,7 +99,7 @@ Coin 为创建和管理代币的用户以及使用代币的用户提供了基础
 
 | 字段         | 类型                               | 描述                                                               |
 | ---------- | -------------------------------- | ---------------------------------------------------------------- |
-| `name`     | String                           | 代币名称,例如:Libra Coin                                               |
+| `name`     | String                           | 代币名称,例如:Libra2 Coin                                               |
 | `symbol`   | String                           | 代币符号,例如:APT                                                      |
 | `decimals` | u8                               | 决定代币值的显示方式;例如 APT 的小数位是 8,因此 100000000 显示为 1 APT                 |
 | `supply`   | Option\<OptionalAggregator> | option::some(optional\_aggregator::new(MAX\_U128, parallelizable)) |

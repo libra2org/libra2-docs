@@ -9,22 +9,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   Most users will never need to use this feature.
 </Aside>
 
-Libra Move accounts have a public address, an authentication key, a public key,
+Libra2 Move accounts have a public address, an authentication key, a public key,
 and a private key. The public address is permanent, always matching the
 account's initial authentication key, which is derived from the original private
 key.
 
-The Libra account model facilitates the unique ability to rotate an account's
+The Libra2 account model facilitates the unique ability to rotate an account's
 private key. Since an account's address is the _initial_ authentication key, the
 ability to sign for an account can be transferred to another private key without
 changing its public address.
 
 In this guide, we show examples of how to rotate an account's authentication key
-using the CLI and few of the various Libra SDKs.
+using the CLI and few of the various Libra2 SDKs.
 
 Here are the installation links for the SDKs we will cover in this example:
 
-- [Libra CLI](/build/cli)
+- [Libra2 CLI](/build/cli)
 - [Typescript SDK](/build/sdks/ts-sdk)
 - [Python SDK](/build/sdks/python-sdk)
 
@@ -114,7 +114,7 @@ If you execute an unproven key rotation, it is suggested that you follow up with
 authentication key to account address for ease of originating address lookup
 (see below CLI tutorial).
 
-## Key rotation with the Libra CLI
+## Key rotation with the Libra2 CLI
 
 <Steps>
   1. Start a localnet
@@ -226,7 +226,7 @@ authentication key to account address for ease of originating address lookup
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
+       Libra2 CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -686,7 +686,7 @@ authentication key to account address for ease of originating address lookup
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
+        Libra2 CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
         {
           "Result": "Success"
         }

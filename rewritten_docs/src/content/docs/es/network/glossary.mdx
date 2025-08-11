@@ -53,10 +53,10 @@ usabilidad con bajos costos de transacción. La palabra "Libra2" significa "La G
 idioma Ohlone. Aprende más sobre la blockchain de Libra2 en
 el [sitio web oficial de Libra2](https://libra2foundation.org).
 
-### LibraBFT
+### Libra2BFT
 
-- **LibraBFT** es el algoritmo de consenso BFT del protocolo de Libra2.
-- LibraBFT está basado en Jolteon.
+- **Libra2BFT** es el algoritmo de consenso BFT del protocolo de Libra2.
+- Libra2BFT está basado en Jolteon.
 
 ### Blockchain de Libra2
 
@@ -69,7 +69,7 @@ el [sitio web oficial de Libra2](https://libra2foundation.org).
   la blockchain de Libra2. Un nombre de Libra2 es un nombre de dominio _.apt_ legible por humanos
   que se usa en lugar de una clave pública, por ejemplo _love.apt_.
 - Este servicio también permite a los usuarios registrar nombres de subdominios además del
-  dominio registrado. Descubre más en: [Libranames.com](https://www.libra2names.com/)
+  dominio registrado. Descubre más en: [Libra2names.com](https://www.libra2names.com/)
 
 ### Libra2 Core
 
@@ -115,18 +115,18 @@ la blockchain de Libra2. Hay dos tipos de nodos de Libra2,
 - El **protocolo de Libra2** es la especificación de cómo las transacciones se envían,
   ordenan, ejecutan y registran dentro de la red de Libra2.
 
-### LibraAccount
+### Libra2Account
 
-- Un **`LibraAccount`** es un recurso Move que contiene todos los datos administrativos
+- Un **`Libra2Account`** es un recurso Move que contiene todos los datos administrativos
   asociados con una cuenta, como número de secuencia, balance y clave de autenticación.
-- Un **`LibraAccount`** es el único recurso que se garantiza que cada cuenta contenga.
+- Un **`Libra2Account`** es el único recurso que se garantiza que cada cuenta contenga.
 
-### Módulo LibraAccount
+### Módulo Libra2Account
 
-- **El módulo LibraAccount** es un módulo Move que contiene el código para
-  manipular los datos administrativos contenidos en un recurso particular `LibraAccount.T`.
+- **El módulo Libra2Account** es un módulo Move que contiene el código para
+  manipular los datos administrativos contenidos en un recurso particular `Libra2Account.T`.
 - El código para verificar o incrementar números de secuencia, retirar o depositar
-  moneda, y extraer depósitos de gas está incluido en el módulo LibraAccount.
+  moneda, y extraer depósitos de gas está incluido en el módulo Libra2Account.
 
 ### Devnet de Libra2
 
@@ -160,7 +160,7 @@ la blockchain de Libra2. Hay dos tipos de nodos de Libra2,
 - **Tolerancia a Fallos Bizantinos** (BFT) es la capacidad de un sistema distribuido de
   proporcionar garantías de seguridad y vivacidad en presencia de validadores
   defectuosos o "[bizantinos](https://en.wikipedia.org/wiki/Byzantine_fault)" por debajo de un cierto umbral.
-- La blockchain de Libra2 usa LibraBFT, un protocolo de consenso basado
+- La blockchain de Libra2 usa Libra2BFT, un protocolo de consenso basado
   en [Jolteon](#jolteon).
 - Los algoritmos BFT típicamente operan con un número de entidades, colectivamente
   manteniendo $N$ votos (que se llaman "validadores" en la aplicación del sistema de la red de Libra2).
@@ -252,7 +252,7 @@ la blockchain de Libra2. Hay dos tipos de nodos de Libra2,
 - Un **evento** es la representación orientada al usuario de los efectos de ejecutar una
   transacción.
 - Una transacción puede estar diseñada para emitir cualquier número de eventos como una lista. Por
-  ejemplo, una transferencia `Coin<LibraCoin>` emite un `WithdrawEvent` para la cuenta
+  ejemplo, una transferencia `Coin<Libra2Coin>` emite un `WithdrawEvent` para la cuenta
   remitente y un `DepositEvent` para la cuenta receptora.
 - En el protocolo de Libra2, los eventos proporcionan evidencia de que la ejecución exitosa
   de una transacción resultó en un efecto específico. El `DepositEvent` (en el
@@ -367,7 +367,7 @@ Ver [Gas y Tarifas de Almacenamiento](/network/blockchain/gas-txn-fee) para más
 ### Jolteon
 
 - **Jolteon** es una propuesta reciente para un protocolo de consenso [BFT](#tolerancia-a-fallos-bizantinos-bft).
-- LibraBFT, el algoritmo de consenso de la red de Libra2, está basado en Jolteon.
+- Libra2BFT, el algoritmo de consenso de la red de Libra2, está basado en Jolteon.
 - Simplifica el razonamiento sobre seguridad, y aborda algunas limitaciones de rendimiento
   de protocolos de consenso anteriores. En particular, reduce la latencia
   en un 33% comparado con HotStuff.

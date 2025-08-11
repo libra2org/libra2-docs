@@ -10,13 +10,13 @@ Esto se puede hacer con `libra2.transaction.batch.forSingleAccount` como se pued
 
 ```typescript filename="batch.ts"
 /**
- * Este ejemplo muestra cómo usar el SDK de Libra para enviar varias transacciones en un lote.
+ * Este ejemplo muestra cómo usar el SDK de Libra2 para enviar varias transacciones en un lote.
  */
 
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
     InputGenerateTransactionPayloadData,
 } from "@libra2-core/ts-sdk";
@@ -25,8 +25,8 @@ async function example() {
     console.log("Este ejemplo enviará varias transacciones en un lote.");
 
     // Configurar el cliente y cuentas de prueba
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     let sender = Account.generate();
 

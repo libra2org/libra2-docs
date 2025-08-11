@@ -2,7 +2,7 @@
 title: "Move - A Web3 Language and Runtime"
 ---
 
-The Libra blockchain consists of validator nodes that run a consensus protocol. The consensus protocol agrees upon the ordering of transactions and their output when executed on the Move Virtual Machine (MoveVM). Each validator node translates transactions along with the current blockchain ledger state as input into the VM. The MoveVM processes this input to produce a changeset or storage delta as output. Once consensus agrees and commits to the output, it becomes publicly visible. In this guide, we will introduce you to core Move concepts and how they apply to developing on Libra.
+The Libra2 blockchain consists of validator nodes that run a consensus protocol. The consensus protocol agrees upon the ordering of transactions and their output when executed on the Move Virtual Machine (MoveVM). Each validator node translates transactions along with the current blockchain ledger state as input into the VM. The MoveVM processes this input to produce a changeset or storage delta as output. Once consensus agrees and commits to the output, it becomes publicly visible. In this guide, we will introduce you to core Move concepts and how they apply to developing on Libra2.
 
 ## What is Move?
 
@@ -14,21 +14,21 @@ In Move, a transaction's sender is represented by a _signer_, a verified owner o
 
 ## Comparison to other VMs
 
-|                             | Libra / Move                                                  | Solana / SeaLevel                                                | EVM                                                        | Sui / Move                            |
+|                             | Libra2 / Move                                                  | Solana / SeaLevel                                                | EVM                                                        | Sui / Move                            |
 | --------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------- |
 | Data storage                | Stored at a global address or within the owner's account | Stored within the owner's account associated with a program | Stored within the account associated with a smart contract | Stored at a global address            |
-| Parallelization             | Capable of inferring parallelization at runtime within Libra  | Requires specifying all data accessed                            | Currently serial nothing in production                     | Requires specifying all data accessed |
+| Parallelization             | Capable of inferring parallelization at runtime within Libra2  | Requires specifying all data accessed                            | Currently serial nothing in production                     | Requires specifying all data accessed |
 | Transaction safety          | Sequence number                                               | Transaction uniqueness                                           | nonces, similar to sequence numbers                        | Transaction uniqueness                |
 | Type safety                 | Module structs and generics                                   | Program structs                                                  | Contract types                                             | Module structs and generics           |
 | Function calling            | Static dispatch                                               | Static dispatch                                                  | Dynamic dispatch                                           | Static dispatch                       |
 | Authenticated Storage       | [Yes](/network/glossary#merkle-trees)                     | No                                                               | Yes                                                        | No                                    |
 | Object global accessibility | Yes                                                           | Not applicable                                                   | Not applicable                                             | No, can be placed in other objects    |
 
-## Libra Move features
+## Libra2 Move features
 
 Each deployment of the MoveVM has the ability to extend the core MoveVM with additional features via an adapter layer. Furthermore, MoveVM has a framework to support standard operations much like a computer has an operating system.
 
-The Libra Move adapter features include:
+The Libra2 Move adapter features include:
 
 - [Move Objects](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-10.md) that offer an extensible programming model for globally access to heterogeneous set of resources stored at a single address on-chain.
 - [Cryptography primitives](/build/smart-contracts/cryptography) for building scalable, privacy-preserving dapps.
@@ -37,9 +37,9 @@ The Libra Move adapter features include:
 - Parallelism via [Block-STM](https://medium.com/libra2labs/block-stm-how-we-execute-over-160k-transactions-per-second-on-the-libra2-blockchain-3b003657e4ba) that enables concurrent execution of transactions without any input from the user.
 - Multi-agent framework that enables a single transaction to be submitted with multiple distinct `signer` entities.
 
-The Libra framework ships with many useful libraries:
+The Libra2 framework ships with many useful libraries:
 
-- An [Libra Token Objects](https://github.com/libra2org/libra2-core/tree/main/libra2-move/framework/libra2-token-objects/sources) standard as defined in [AIP-11](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-11.md) and [AIP-22](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-22.md) that makes it possible to create interoperable NFTs with either lightweight smart contract development or none at all.
+- An [Libra2 Token Objects](https://github.com/libra2org/libra2-core/tree/main/libra2-move/framework/libra2-token-objects/sources) standard as defined in [AIP-11](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-11.md) and [AIP-22](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-22.md) that makes it possible to create interoperable NFTs with either lightweight smart contract development or none at all.
 - A [Coin standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) that makes it possible to create type-safe Coins by publishing a trivial module.
 - A [Fungible asset standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) as defined in [AIP-21](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-21.md) to modernize the coin concept with better programmability and controls.
 - A [staking](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/staking_contract.move) and [delegation](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/delegation_pool.move) framework.

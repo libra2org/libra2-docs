@@ -14,13 +14,13 @@ When designing an indexer data schema, consider the following:
 - Enhanced Performance: Schema design can significantly improve your dApp's performance.
   By using the indexer, a single indexer query can often replace multiple queries to the fullnode.
 
-## Libra Core Processors
+## Libra2 Core Processors
 
 All data exposed by the [Indexer API](/build/indexer/indexer-api) is initially indexed using custom processors.
 Each core processor indexes a specific type of data.
 You can explore the [full list of processors](https://github.com/libra2org/libra2-indexer-processors-v2/blob/main/processor/src/db/schema.rs).
 
-The Libra core processors and the [Quickstart Guide](/build/indexer/indexer-sdk/quickstart) use [PostgreSQL](https://www.postgresql.org/) as the database and [Diesel](https://diesel.rs/) as the ORM.
+The Libra2 core processors and the [Quickstart Guide](/build/indexer/indexer-sdk/quickstart) use [PostgreSQL](https://www.postgresql.org/) as the database and [Diesel](https://diesel.rs/) as the ORM.
 If you'd also like to use PostgreSQL and Diesel, you can follow the instructions in [PostgreSQL Installation](/build/indexer/indexer-sdk/quickstart#postgresql-installation).
 
 You're free to use whatever database and ORM you prefer.

@@ -9,11 +9,11 @@ import { Aside } from '@astrojs/starlight/components';
   para información más actualizada.
 </Aside>
 
-Si provees servicios de blockchain a tus clientes y deseas agregar la blockchain de Libra a tu plataforma, entonces esta guía es para ti. Esta guía para integradores de sistemas te guiará a través de todo lo que necesitas para integrar la blockchain de Libra en tu plataforma.
+Si provees servicios de blockchain a tus clientes y deseas agregar la blockchain de Libra2 a tu plataforma, entonces esta guía es para ti. Esta guía para integradores de sistemas te guiará a través de todo lo que necesitas para integrar la blockchain de Libra2 en tu plataforma.
 
 ## Resumen
 
-Este documento te guiará a través de las siguientes tareas para integrarte con Libra:
+Este documento te guiará a través de las siguientes tareas para integrarte con Libra2:
 
 1. Preparar un entorno para pruebas.
 2. Crear una cuenta en la blockchain.
@@ -31,29 +31,29 @@ herramientas. También hay una docena de SDKs para acelerar el desarrollo.
 
 ### SDKs y herramientas
 
-Libra tiene múltiples SDKs en múltiples lenguajes y plataformas, por favor
+Libra2 tiene múltiples SDKs en múltiples lenguajes y plataformas, por favor
 consulta [SDKs](/build/sdks) para más información.
 
 Casi todos los desarrolladores beneficiarán de explorar el CLI.
 [Usando el CLI](/build/cli) demuestra cómo el CLI puede ser utilizado para crear
 cuentas, transferir monedas, publicar módulos Move, y más.
 
-## Cuentas en Libra
+## Cuentas en Libra2
 
 Una [cuenta](/network/blockchain/accounts) representa
-una entidad en la blockchain de Libra que puede enviar transacciones. Cada cuenta
+una entidad en la blockchain de Libra2 que puede enviar transacciones. Cada cuenta
 está identificada por una dirección de cuenta de 32 bytes y es un contenedor para
 [módulos Move y recursos](/network/blockchain/resources).
-En Libra, las cuentas deben ser creadas en la cadena de bloques antes de cualquier
-operación de blockchain que involucre esa cuenta. El framework de Libra soporta
-la creación implícita de cuentas cuando se transfiere la moneda de Libra a través de
+En Libra2, las cuentas deben ser creadas en la cadena de bloques antes de cualquier
+operación de blockchain que involucre esa cuenta. El framework de Libra2 soporta
+la creación implícita de cuentas cuando se transfiere la moneda de Libra2 a través de
 [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
 o explícitamente a través de
 [`libra2_account::create_account`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L13).
 
-Al crearse, una [cuenta de Libra](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/account.move#L23) contiene:
+Al crearse, una [cuenta de Libra2](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/account.move#L23) contiene:
 
-- Un [recurso que contiene la moneda de Libra](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/libra2-move/framework/libra2-framework/sources/coin.move#L50)
+- Un [recurso que contiene la moneda de Libra2](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/libra2-move/framework/libra2-framework/sources/coin.move#L50)
   y el depósito y retiro de monedas de ese recurso.
 - Una clave de autenticación asociada con su clave pública actual, privada(s).
 - Un estrictamente
@@ -70,20 +70,20 @@ y [configúrala](/build/cli/setup-cli).
 
 ## Transacciones
 
-Las [transacciones](/network/blockchain/txns-states) de Libra están codificadas
+Las [transacciones](/network/blockchain/txns-states) de Libra2 están codificadas
 en [Serialización Binaria Canónica (BCS)](https://github.com/diem/bcs).
 Las transacciones contienen información como la dirección de cuenta del remitente,
 la autenticación del remitente, la operación deseada a ser realizada en la
-blockchain de Libra, y la cantidad de gas que el remitente está dispuesto a pagar para ejecutar
+blockchain de Libra2, y la cantidad de gas que el remitente está dispuesto a pagar para ejecutar
 la transacción.
 
 Lee más en [Transacciones y Estados](/network/blockchain/txns-states).
 
 ### Generar transacciones
 
-Libra soporta dos métodos para construir transacciones:
+Libra2 soporta dos métodos para construir transacciones:
 
-- Usar las bibliotecas de cliente de Libra para generar transacciones nativas BCS.
+- Usar las bibliotecas de cliente de Libra2 para generar transacciones nativas BCS.
 - Construir objetos JSON codificados y interactuar con la API REST para
   generar transacciones nativas.
 
@@ -108,7 +108,7 @@ Dentro de una transacción dada, el objetivo de ejecución puede ser uno de dos 
 
 Todos los SDK oficiales soportan la generación de transacciones que apuntan a funciones de entrada. Esta guía destaca muchas de esas funciones de entrada, como `libra2_account::transfer` y `libra2_account::create_account`.
 
-La mayoría de las operaciones básicas en la blockchain de Libra deberían estar disponibles a través de llamadas de punto de entrada. Mientras uno podría enviar múltiples transacciones llamando a puntos de entrada en serie, tales operaciones se benefician de ser llamadas atómicamente desde una sola transacción. Un script de carga útil de transacción puede llamar a cualquier función pública (entrada) definida dentro de cualquier módulo. Aquí está un ejemplo [script Move](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/scripts/two_by_two_transfer) que usa una transacción MultiAgent para extraer fondos de dos cuentas y depositarlos en dos otras cuentas. Esto es un [ejemplo de Python](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/transfer_two_by_two.py) que usa el código generado por compilar ese script.
+La mayoría de las operaciones básicas en la blockchain de Libra2 deberían estar disponibles a través de llamadas de punto de entrada. Mientras uno podría enviar múltiples transacciones llamando a puntos de entrada en serie, tales operaciones se benefician de ser llamadas atómicamente desde una sola transacción. Un script de carga útil de transacción puede llamar a cualquier función pública (entrada) definida dentro de cualquier módulo. Aquí está un ejemplo [script Move](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/scripts/two_by_two_transfer) que usa una transacción MultiAgent para extraer fondos de dos cuentas y depositarlos en dos otras cuentas. Esto es un [ejemplo de Python](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/transfer_two_by_two.py) que usa el código generado por compilar ese script.
 
 ### Estado de una transacción
 
@@ -120,7 +120,7 @@ Todos los SDKs soportan esto automáticamente para esperar transacciones.
 
 ### Probar transacciones o pre-ejecución de transacciones
 
-Para facilitar la evaluación de transacciones así como la estimación de gas, Libra soporta una API de simulación que no requiere y no debe contener firmas válidas en las transacciones.
+Para facilitar la evaluación de transacciones así como la estimación de gas, Libra2 soporta una API de simulación que no requiere y no debe contener firmas válidas en las transacciones.
 
 La API de simulación es una API sincrónica que ejecuta una transacción y devuelve la salida inclusive de uso de gas. La API de simulación puede ser accedida enviando una transacción a [`/transactions/simulate`](https://api.devnet.libra2labs.com/v1/spec#/operations/simulate_transaction).
 
@@ -128,8 +128,8 @@ Ambos el [SDK de Typescript](https://github.com/libra2org/libra2-ts-sdk/blob/mai
 
 ## Ver estado actual y histórico
 
-La mayoría de las integraciones en la blockchain de Libra benefician de una visión holística y
-completa del estado actual y histórico de la blockchain. Libra proporciona transacciones históricas, estados, y eventos, todos los resultados de
+La mayoría de las integraciones en la blockchain de Libra2 benefician de una visión holística y
+completa del estado actual y histórico de la blockchain. Libra2 proporciona transacciones históricas, estados, y eventos, todos los resultados de
 la ejecución de la transacción.
 
 - Las transacciones históricas especifican el estado de ejecución, salida, y se vinculan a
@@ -152,7 +152,7 @@ particularmente sostenible.
 
 La poda de eventos y transacciones puede ser deshabilitada configurando
 el [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
-a `false`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Libra proporcionará indexadores que mitiguen la necesidad de consultar directamente de un nodo.
+a `false`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Libra2 proporcionará indexadores que mitiguen la necesidad de consultar directamente de un nodo.
 
 La API REST ofrece consultas de transacciones y eventos de estas formas:
 
@@ -162,7 +162,7 @@ La API REST ofrece consultas de transacciones y eventos de estas formas:
 
 ## Intercambiar y rastrear activos fungibles
 
-Libra tiene una
+Libra2 tiene una
 estándar [Activo Fungible](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move).
 Diferentes tipos de activo fungible (FA) pueden ser representados en este estándar
 a través del uso de un objeto de metadatos distinto.
@@ -194,7 +194,7 @@ Los usuarios de indexador pueden simplemente consultar [`concurrent_fungible_ass
 
 Para la API de nodo, el balance actual para un APT FA del `FungibleStore` está disponible en la URL de recursos de la cuenta: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::FungibleStore`. El balance se almacena como `balance`. El recurso también contiene un objeto de metadatos del tipo de FA y el estado congelado. La dirección del almacén principal fungible puede ser calculada como `sha3_256(32-byte dirección de cuenta | 32-byte dirección de objeto de metadatos | 0xFC)`. El objeto de metadatos de APT FA es `0xA`.
 
-Los usuarios de Libra tienen la opción de actualizar a un balance fungible concurrente para permitir la paralelización de actualizaciones de balance, mejorando el rendimiento de una sola cuenta. Cuando un usuario ha actualizado el balance del almacén fungible a soportar actualizaciones concurrentes, el objeto del almacén fungible tendrá otro recurso `ConcurrentFungibleBalance` que contiene el balance del almacén, y el campo `balance` de `FungibleStore` se establecerá a 0. El balance actual para un APT FA de `ConcurrentFungibleBalance` (si existe) está disponible en la URL de recursos de la cuenta: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::ConcurrentFungibleBalance`.
+Los usuarios de Libra2 tienen la opción de actualizar a un balance fungible concurrente para permitir la paralelización de actualizaciones de balance, mejorando el rendimiento de una sola cuenta. Cuando un usuario ha actualizado el balance del almacén fungible a soportar actualizaciones concurrentes, el objeto del almacén fungible tendrá otro recurso `ConcurrentFungibleBalance` que contiene el balance del almacén, y el campo `balance` de `FungibleStore` se establecerá a 0. El balance actual para un APT FA de `ConcurrentFungibleBalance` (si existe) está disponible en la URL de recursos de la cuenta: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::ConcurrentFungibleBalance`.
 
 Por lo tanto, para obtener el balance total de un activo fungible, es el balance no nulo de `FungibleStore` o el campo `balance` de `ConcurrentFungibleBalance` si existe y el balance de `FungibleStore` es 0.
 
@@ -222,13 +222,13 @@ Por lo tanto, para obtener el balance total de un activo fungible, es el balance
 
 ## Intercambiar y rastrear monedas
 
-Libra tiene una estándar
+Libra2 tiene una estándar
 [Tipo de moneda](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move).
 Diferentes tipos de monedas pueden ser representados en este tipo a través del
 uso de estructuras distintas que representan el parámetro de tipo o genérico para `Coin<T>`.
 
-Las monedas se almacenan dentro de una cuenta bajo el recurso `CoinStore<T>`. Al crearse una cuenta, cada usuario tiene el recurso `CoinStore<0x1::libra2_coin::LibraCoin>`
-o `CoinStore<LibraCoin>`, por breve. Dentro de este recurso está la moneda de Libra: `Coin<LibraCoin>`.
+Las monedas se almacenan dentro de una cuenta bajo el recurso `CoinStore<T>`. Al crearse una cuenta, cada usuario tiene el recurso `CoinStore<0x1::libra2_coin::Libra2Coin>`
+o `CoinStore<Libra2Coin>`, por breve. Dentro de este recurso está la moneda de Libra2: `Coin<Libra2Coin>`.
 
 ### Transferir monedas entre usuarios
 
@@ -236,7 +236,7 @@ Las monedas, incluyendo APT, pueden ser transferidas entre usuarios a través de
 la función [`libra2_account::transfer_coins`](https://github.com/libra2org/libra2-core/blob/d1610e1bb5214689a37a9cab59cf9254e8eb2be1/libra2-move/framework/libra2-framework/sources/libra2_account.move#L92)
 para todas las monedas
 y [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
-para monedas de Libra.
+para monedas de Libra2.
 
 <Aside type="caution">
   Es importante tener en cuenta que si una cuenta no ha registrado un
@@ -250,12 +250,12 @@ Para obtener el balance de una moneda, o una moneda que fue migrada a un activo 
 la función de vista `0x1::coin::balance<CoinType>(dirección de cuenta)` . Esto combinará los balances de moneda y moneda migrado a activo fungible.
 
 ```typescript filename="example.ts"
-import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-const config = new LibraConfig({ network: Network.DEVNET });
-const libra2 = new Libra(config);
+const config = new Libra2Config({ network: Network.DEVNET });
+const libra2 = new Libra2(config);
 
-const coinType = "0x1::libra2_coin::LibraCoin";
+const coinType = "0x1::libra2_coin::Libra2Coin";
 const account = "0x00000000000000000000000000000001";
 const [balanceStr] = await libra2.view<[string]>({
   payload: {
@@ -269,7 +269,7 @@ const balance = parseInt(balanceStr, 10);
 
 ### Consultar transacciones
 
-En Libra, cada transacción se confirma como una versión distinta a la
+En Libra2, cada transacción se confirma como una versión distinta a la
 blockchain. Esto permite la conveniencia de compartir transacciones comprometidas
 por su número de versión; para hacerlo, consulta:
 `https://{rest_server_api}/transactions/by_version/{version}`
@@ -290,7 +290,7 @@ Una transacción de transferencia aparecería así:
     {
       "address": "0xb258b91eee04111039320a85b0c24a2dd433909e14a6b5c32ee722e0fdecfddc",
       "data": {
-        "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
+        "type": "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>",
         "data": {
           "coin": {
             "value": "1000"
@@ -402,12 +402,12 @@ es
 
 ### Consultar eventos
 
-Libra proporciona eventos claros y canónicos para todos los retiros y depósitos
+Libra2 proporciona eventos claros y canónicos para todos los retiros y depósitos
 de monedas. Esto puede ser utilizado en coordinación con las transacciones asociadas para
 presentar al usuario el cambio de su saldo de cuenta a lo largo del tiempo, cuando sucedió, y lo que lo causó. Con un poco de análisis adicional, metadatos como el tipo de transacción y las otras partes involucradas también pueden ser compartidos.
 
 Consultar eventos por manejador
-URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>/withdraw_events`
+URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>/withdraw_events`
 
 ```json
 [
@@ -434,9 +434,9 @@ donde `{version}` es el mismo valor que el `{version}` en la consulta de eventos
 
 <Aside type="note">
   Cuando se rastrean movimientos completos de monedas, normalmente los eventos son
-  suficientes. `0x1::libra2_coin::LibraCoin`, sin embargo, requiere
+  suficientes. `0x1::libra2_coin::Libra2Coin`, sin embargo, requiere
   considerar `gas_used` para cada transacción enviada desde la cuenta dada
-  ya que representa gas en Libra. Para reducir la sobrecarga innecesaria, extraer
+  ya que representa gas en Libra2. Para reducir la sobrecarga innecesaria, extraer
   las tarifas de gas debido a las transacciones no emite un evento. Todas las transacciones para una
   cuenta pueden ser recuperadas de esta API:
   `https://{rest_server_api}/accounts/{address}/transactions`
@@ -532,7 +532,7 @@ Hay tres cambios de balance en esta transacción:
 
 1. Una retirada de `1000` de `0x1337::my_coin::MyCoin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 2. Un depósito de `1000` de `0x1337::my_coin::MyCoin` a la cuenta receptora `0x5098df8e7969b58ab3bd2d440c6203f64c60a1fd5c08b9d4abe6ae4216246c3e`
-3. Una tarifa de gas `2200` de `0x1::libra2_coin::LibraCoin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
+3. Una tarifa de gas `2200` de `0x1::libra2_coin::Libra2Coin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 
 Para obtener la información de retirada:
 

@@ -56,7 +56,7 @@ Puedes usar el ejemplo del repositorio [`wallet-standard`](https://github.com/li
      2. Esto simula cómo una dapp real interactuará con tu wallet.
 </Steps>
 
-## 2. Una vez probado, publica un nuevo paquete npm para tu código de wallet SDK siguiendo [esta guía](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages). (Ej. [LibraConnect](https://www.npmjs.com/package/@libra2-connect/wallet-adapter-plugin))
+## 2. Una vez probado, publica un nuevo paquete npm para tu código de wallet SDK siguiendo [esta guía](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages). (Ej. [Libra2Connect](https://www.npmjs.com/package/@libra2-connect/wallet-adapter-plugin))
 
 ## 3. Actualizar [`wallet-adapter-core`](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-core) para que sepa sobre tu extensión.
 
@@ -83,10 +83,10 @@ Para que los usuarios de dapps que no están usando tu wallet obtengan la opció
 
   6. Importar tu wallet en .
 
-     Por ejemplo con LibraConnect:
+     Por ejemplo con Libra2Connect:
 
      ```tsx filename="Example.tsx"
-     import { LibraConnectWallet } from "@libra2-connect/wallet-adapter-plugin";
+     import { Libra2ConnectWallet } from "@libra2-connect/wallet-adapter-plugin";
      ```
 
   7. Agregar código para empujar una instancia de tu wallet a sdkWallets dentro de getSDKWallets (en sdkWallets.ts).

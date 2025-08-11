@@ -11,10 +11,10 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
   repository.
 </Aside>
 
-This guide will walk you through the process of integrating the Libra .NET SDK.
+This guide will walk you through the process of integrating the Libra2 .NET SDK.
 
 <Steps>
-  1. Install the Libra Unity SDK
+  1. Install the Libra2 Unity SDK
 
      #### Option 1: Import via Unity Package Manager (UPM)
 
@@ -31,13 +31,13 @@ This guide will walk you through the process of integrating the Libra .NET SDK.
      1. Go to the [`libra2-core/unity-sdk Releases`](https://github.com/libra2org/unity-sdk/releases) and download the latest release.
      2. Drag and drop the `.unitypackage` file into your Unity project.
 
-  2. Use the Libra SDK
+  2. Use the Libra2 SDK
 
-     Import the `Libra` namespace in your C# script and use the SDK.
+     Import the `Libra2` namespace in your C# script and use the SDK.
 
      ```csharp {2-2,8-8,11-15}
      using UnityEngine;
-     using Libra;
+     using Libra2;
 
      class Example : MonoBehaviour
      {
@@ -47,7 +47,7 @@ This guide will walk you through the process of integrating the Libra .NET SDK.
          }
 
          async void PrintLedgerInfo() {
-             var client = new LibraUnityClient(Networks.Mainnet);
+             var client = new Libra2UnityClient(Networks.Mainnet);
              var ledgerInfo = await client.Block.GetLedgerInfo();
              Debug.Log(ledgerInfo.BlockHeight);
          }
@@ -58,14 +58,14 @@ This guide will walk you through the process of integrating the Libra .NET SDK.
 
 ## Next Steps
 
-You've successfully integrated the Libra .NET SDK into your Unity project. Now
-you can start building your game and interacting with the Libra blockchain. Below
+You've successfully integrated the Libra2 .NET SDK into your Unity project. Now
+you can start building your game and interacting with the Libra2 blockchain. Below
 are some resources to help you get started.
 
 <CardGrid>
-  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra .NET SDK." />
+  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra2 .NET SDK." />
 
   <LinkCard href="/build/sdks/unity-sdk" title="Unity SDK" description="Overview of the Unity SDK." />
 
-  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra Wallet Starter" description="Example Unity project with an integration of the Libra Unity SDK." target="_blank" />
+  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra2 Wallet Starter" description="Example Unity project with an integration of the Libra2 Unity SDK." target="_blank" />
 </CardGrid>

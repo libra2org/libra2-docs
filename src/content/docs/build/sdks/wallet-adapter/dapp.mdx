@@ -4,9 +4,9 @@ title: "Wallet Adapter for Dapp Builders"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Libra provides a React `Provider` and `Context` for connecting Libra wallets to your dapp. This `Provider` allows you to specify which Wallets you want to allow connections to. Then you can use the `Provider` to look up account information and sign transactions / messages.
+Libra2 provides a React `Provider` and `Context` for connecting Libra2 wallets to your dapp. This `Provider` allows you to specify which Wallets you want to allow connections to. Then you can use the `Provider` to look up account information and sign transactions / messages.
 
-This provides a standard interface for using all Libra wallets, and allows new wallets to easily be supported just by updating your React Wallet Adapter dependency version.
+This provides a standard interface for using all Libra2 wallets, and allows new wallets to easily be supported just by updating your React Wallet Adapter dependency version.
 
 ## Using the React `Provider` and `Context`
 
@@ -37,17 +37,17 @@ This provides a standard interface for using all Libra wallets, and allows new w
        npm i @okwallet/libra2-wallet-adapter
        ```
 
-       ### In `App.tsx` or it’s equivalent, import the Libra Wallet Adapter and any legacy Wallet plugins.
+       ### In `App.tsx` or it’s equivalent, import the Libra2 Wallet Adapter and any legacy Wallet plugins.
 
        ```tsx filename="App.tsx"
-       import { LibraWalletAdapterProvider } from "@libra2-core/wallet-adapter-react";
+       import { Libra2WalletAdapterProvider } from "@libra2-core/wallet-adapter-react";
        // Import any additional wallet plugins. Ex.
        import { OKXWallet } from "@okwallet/libra2-wallet-adapter";
        // ...
        ```
      </details>
 
-  2. Initialize the LibraWalletAdapterProvider.
+  2. Initialize the Libra2WalletAdapterProvider.
 
      You can use any of the following optional fields.
 
@@ -68,14 +68,14 @@ This provides a standard interface for using all Libra wallets, and allows new w
      #### Full Example
 
      ```tsx filename="App.tsx"
-     import { LibraWalletAdapterProvider } from "@libra2-core/wallet-adapter-react";
+     import { Libra2WalletAdapterProvider } from "@libra2-core/wallet-adapter-react";
      import { PropsWithChildren } from "react";
      import { Network } from "@libra2-core/ts-sdk";
 
      export const WalletProvider = ({ children }: PropsWithChildren) => {
 
        return (
-         <LibraWalletAdapterProvider
+         <Libra2WalletAdapterProvider
            autoConnect={true}
            dappConfig={{
              network: Network.MAINNET,
@@ -88,7 +88,7 @@ This provides a standard interface for using all Libra wallets, and allows new w
            }}
          >
            {children}
-         </LibraWalletAdapterProvider>
+         </Libra2WalletAdapterProvider>
        );
      };
      ```
@@ -144,7 +144,7 @@ _See [`WalletCore.ts`](https://github.com/libra2org/libra2-wallet-adapter/blob/m
 | `signAndSubmitTransaction` | `signAndSubmitTransaction(transaction: InputTransactionData): Promise<any>`                                                                                                            | Signs and submits a transaction with the given input data.                        |
 | `signMessage`              | `signMessage(message: SignMessagePayload): Promise<SignMessageResponse>`                                                                                                               | Signs a message and returns the signature and other response info.                |
 | `signMessageAndVerify`     | `signMessageAndVerify(message: SignMessagePayload): Promise<boolean>`                                                                                                                  | Signs a message and verifies the signer.                                          |
-| `changeNetwork`            | `changeNetwork(network: Network): Promise<LibraChangeNetworkOutput>`                                                                                                                   | Requests a change in the connected network. This is not supported by all wallets. |
+| `changeNetwork`            | `changeNetwork(network: Network): Promise<Libra2ChangeNetworkOutput>`                                                                                                                   | Requests a change in the connected network. This is not supported by all wallets. |
 
 ## Code Examples
 
@@ -177,7 +177,7 @@ const displayInstalledWalletsDemo = () => {
 #### Support for Uninstalled Wallets
 
 Following AIP-62, the adapter uses an event-based communication model between a wallet and a dapp. This means only wallets installed in the user's browser are detected automatically and available for use.
-To support the full Libra wallet ecosystem, the adapter maintains a registry of supported wallets—allowing dapps to also display uninstalled wallets. It also exposes a utility function to easily manage all wallets.
+To support the full Libra2 wallet ecosystem, the adapter maintains a registry of supported wallets—allowing dapps to also display uninstalled wallets. It also exposes a utility function to easily manage all wallets.
 
 ```tsx filename="WalletDisplayDemo.tsx"
 import { useWallet, groupAndSortWallets } from '@libra2-core/wallet-adapter-react';
@@ -242,7 +242,7 @@ const WalletConnectDemo = () => {
 
   return (
     <div>
-      <h1>Libra Wallet Connection</h1>
+      <h1>Libra2 Wallet Connection</h1>
       <div>
         {connected ? (
           <div>
@@ -267,10 +267,10 @@ If you would like to separate out these steps, you can use `signTransaction` and
 ```tsx filename="SignAndSubmitDemo.tsx"
 import React from 'react';
 import { useWallet } from '@libra2-core/wallet-adapter-react';
-import { Libra, LibraConfig, Network } from '@libra2-core/ts-sdk';
+import { Libra2, Libra2Config, Network } from '@libra2-core/ts-sdk';
 
-const config = new LibraConfig({ network: Network.MAINNET });
-const libra2 = new Libra(config);
+const config = new Libra2Config({ network: Network.MAINNET });
+const libra2 = new Libra2(config);
 
 const SignAndSubmit = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -342,7 +342,7 @@ const SignMessageDemo = () => {
 
   return (
     <div>
-      <h1>Libra Sign and Verify Message</h1>
+      <h1>Libra2 Sign and Verify Message</h1>
       <div>
         {connected ? (
           <div>
@@ -570,7 +570,7 @@ To render wallets with `deeplinkProvider` support in your dapp—assuming you're
      }
      ```
 
-     This code snippet retrieves all wallets in the Libra ecosystem that are supported by the wallet adapter.
+     This code snippet retrieves all wallets in the Libra2 ecosystem that are supported by the wallet adapter.
 
   2. Display uninstalled wallets with deep link support in mobile view.
 

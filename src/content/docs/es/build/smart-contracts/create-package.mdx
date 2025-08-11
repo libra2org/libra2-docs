@@ -7,8 +7,8 @@ import { Aside, FileTree, Steps } from '@astrojs/starlight/components';
 import { RemoteCodeblock } from '~/components/RemoteCodeblock';
 
 <Aside type="note">
-  Recomendamos instalar la CLI de Libra antes de comenzar.
-  Si aún no has instalado la CLI de Libra, consulta la [sección CLI](/build/cli)
+  Recomendamos instalar la CLI de Libra2 antes de comenzar.
+  Si aún no has instalado la CLI de Libra2, consulta la [sección CLI](/build/cli)
 </Aside>
 
 <Steps>
@@ -40,7 +40,7 @@ import { RemoteCodeblock } from '~/components/RemoteCodeblock';
      1. `name`: nombre de tu paquete
      2. `version`: versión del paquete (por defecto es `"0.0.0"`)
      3. `addresses`: Describe a qué dirección se desplegará el módulo. Estas son direcciones nombradas que se pueden usar como alias. En el ejemplo de abajo, usaremos `hello_blockchain` como la dirección nombrada.
-     4. `dependencies`: Probablemente querrás usar `LibraFramework` y otras [Dependencias de Terceros](/build/smart-contracts/third-party-dependencies)
+     4. `dependencies`: Probablemente querrás usar `Libra2Framework` y otras [Dependencias de Terceros](/build/smart-contracts/third-party-dependencies)
 
      Abajo hay un ejemplo
 
@@ -52,7 +52,7 @@ import { RemoteCodeblock } from '~/components/RemoteCodeblock';
      [addresses]
      hello_blockchain = "_"
 
-     [dependencies.LibraFramework]
+     [dependencies.Libra2Framework]
      git = "https://github.com/libra2org/libra2-framework.git"
      rev = "mainnet"
      subdir = "libra2-framework"

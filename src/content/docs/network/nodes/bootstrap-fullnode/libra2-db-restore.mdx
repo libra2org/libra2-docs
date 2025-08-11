@@ -4,13 +4,13 @@ title: "Bootstrap from a Backup"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This document describes how to bootstrap an Libra node using a backup. This can be done on all node types, including
+This document describes how to bootstrap an Libra2 node using a backup. This can be done on all node types, including
 validators, VFNs and PFNs. Bootstrapping using a backup helps node operators achieve two goals:
 
 1. Quickly bootstrap a database to start a new or failed node.
 2. Efficiently recover data from any specific period in the blockchain's history (e.g., from genesis to a target version).
 
-To achieve these goals, the Libra database restore tool lets you use existing [public backup files](#public-backup-files) to restore
+To achieve these goals, the Libra2 database restore tool lets you use existing [public backup files](#public-backup-files) to restore
 the database of a node. This includes the transaction history containing events, write sets, and key-value pairs. Using
 the tool, you can restore transactions from any historical range, or restore the database to the latest version in the
 backup. The public backup files are backed by cryptographic proofs and stored on both AWS and Google Cloud for easy
@@ -18,7 +18,7 @@ access.
 
 ## Public backup files
 
-Libra Labs maintains a few publicly accessible database backups by continuously querying a PFN and storing the backup
+Libra2 Labs maintains a few publicly accessible database backups by continuously querying a PFN and storing the backup
 data in remote storage, such as Amazon S3 or Google Cloud Storage. The links to this backup data can be seen below:
 
 |         | AWS Backup Data                                                                       | Google Cloud Backup Data                                                        |
@@ -45,21 +45,21 @@ See the diagram below for a visual representation of the backup data structure:
 
 ![libra2-db-restore.png](~/images/libra2-db-restore.png)
 
-## Restore an Libra DB
+## Restore an Libra2 DB
 
-The [Libra CLI](/build/cli) supports two kinds of restore operations for Libra nodes:
+The [Libra2 CLI](/build/cli) supports two kinds of restore operations for Libra2 nodes:
 
 1. Recreating a database with a minimal transaction history at a user-specified transaction version (or the latest version offered by the backup).
 2. Restoring the database over a specific period. In addition to the above, this option ensures that the
    recreated database carries the ledger history of the user-designated version range.
 
 <Aside type="note">
-  Libra CLI 1.0.14 or newer is needed to perform these operations. Additionally, depending on whether you use AWS or
+  Libra2 CLI 1.0.14 or newer is needed to perform these operations. Additionally, depending on whether you use AWS or
   Google Cloud, install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) or
   [gsutil](https://cloud.google.com/storage/docs/gsutil_install).
 </Aside>
 
-The sections below provide examples of how to use the Libra CLI to restore a database from a backup.
+The sections below provide examples of how to use the Libra2 CLI to restore a database from a backup.
 
 ### Bootstrap to the latest version
 
@@ -105,7 +105,7 @@ libra2 node bootstrap-db \
 
 ### Restore a full history from genesis
 
-To restore an Libra node with the full history from genesis, set `ledger-history-start-version` to 0 and
+To restore an Libra2 node with the full history from genesis, set `ledger-history-start-version` to 0 and
 disable the pruner by following the instructions in the [disabling the ledger pruner](/network/nodes/configure/data-pruning) section before
 starting the node. Note: performing a full history restore requires a significant amount of resources and time.
 See the resource requirements below.

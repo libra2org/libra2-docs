@@ -9,15 +9,15 @@ import { Aside } from '@astrojs/starlight/components';
   for more up-to-date information.
 </Aside>
 
-If you provide blockchain services to your customers and wish to add the Libra
+If you provide blockchain services to your customers and wish to add the Libra2
 blockchain to your platform, then this guide is for you. This system integrators
-guide will walk you through all you need to integrate the Libra blockchain into
+guide will walk you through all you need to integrate the Libra2 blockchain into
 your platform.
 
 ## Overview
 
 This document will guide you through the following tasks to integrate with
-Libra:
+Libra2:
 
 1. Prepare an environment for testing.
 2. Create an account on the blockchain.
@@ -37,27 +37,27 @@ tools. There are also a handful of SDKs to help accelerate development.
 
 ### SDKs and tools
 
-Libra has multiple SDKs across many different languages and platforms, please
+Libra2 has multiple SDKs across many different languages and platforms, please
 check out [SDKs](/build/sdks) for more information.
 
 Almost all developers will benefit from exploring the CLI.
 [Using the CLI](/build/cli) demonstrates how the CLI can be used to create
 accounts, transfer coins, publish Move modules, and more.
 
-## Accounts on Libra
+## Accounts on Libra2
 
 An [account](/network/blockchain/accounts) represents
-an entity on the Libra blockchain that can send transactions. Each account is
+an entity on the Libra2 blockchain that can send transactions. Each account is
 identified by a particular 32-byte account address and is a container for
 [Move modules and resources](/network/blockchain/resources).
-On Libra, accounts must be created on-chain prior to any blockchain operations
-involving that account. The Libra framework supports implicitly creating
-accounts when transferring Libra coin via [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
+On Libra2, accounts must be created on-chain prior to any blockchain operations
+involving that account. The Libra2 framework supports implicitly creating
+accounts when transferring Libra2 coin via [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
 or explicitly via [`libra2_account::create_account`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L13).
 
-At creation, an [Libra account](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/account.move#L23) contains:
+At creation, an [Libra2 account](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/account.move#L23) contains:
 
-- A [resource containing Libra Coin](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/libra2-move/framework/libra2-framework/sources/coin.move#L50)
+- A [resource containing Libra2 Coin](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/libra2-move/framework/libra2-framework/sources/coin.move#L50)
   and deposit and withdrawal of coins from that resource.
 - An authentication key associated with their current public, private key(s).
 - A strictly
@@ -75,20 +75,20 @@ and [set one up](/build/cli/setup-cli).
 
 ## Transactions
 
-Libra [transactions](/network/blockchain/txns-states) are encoded
+Libra2 [transactions](/network/blockchain/txns-states) are encoded
 in [Binary Canonical Serialization (BCS)](https://github.com/diem/bcs).
 Transactions contain information such as the sender’s account address,
 authentication from the sender, the desired operation to be performed on the
-Libra blockchain, and the amount of gas the sender is willing to pay to execute
+Libra2 blockchain, and the amount of gas the sender is willing to pay to execute
 the transaction.
 
 Read more in [Transactions and States](/network/blockchain/txns-states).
 
 ### Generating transactions
 
-Libra supports two methods for constructing transactions:
+Libra2 supports two methods for constructing transactions:
 
-- Using the Libra client libraries to generate native BCS transactions.
+- Using the Libra2 client libraries to generate native BCS transactions.
 - Constructing JSON-encoded objects and interacting with the REST API to
   generate native transactions.
 
@@ -115,7 +115,7 @@ All official SDKs support the generation of transactions that target entry funct
 points out many of those entry functions, such as `libra2_account::transfer`
 and `libra2_account::create_account`.
 
-Most basic operations on the Libra blockchain should be available via entry
+Most basic operations on the Libra2 blockchain should be available via entry
 point calls. While one could submit multiple transactions calling entry points
 in series, such operations benefit from being called atomically from a single
 transaction. A script payload transaction can call any public (entry) function
@@ -141,7 +141,7 @@ All SDKs support this automatically for waiting for transactions.
 
 ### Testing transactions or transaction pre-execution
 
-To facilitate evaluation of transactions as well as gas estimation, Libra
+To facilitate evaluation of transactions as well as gas estimation, Libra2
 supports a simulation API that does not require and should not contain valid
 signatures on transactions.
 
@@ -159,9 +159,9 @@ amount be larger than the amount quoted by this API.
 
 ## Viewing current and historical state
 
-Most integrations into the Libra blockchain benefit from a holistic and
+Most integrations into the Libra2 blockchain benefit from a holistic and
 comprehensive overview of the current and historical state of the blockchain.
-Libra provides historical transactions, state, and events, all the result of
+Libra2 provides historical transactions, state, and events, all the result of
 transaction execution.
 
 - Historical transactions specify the execution status, output, and tie to
@@ -185,7 +185,7 @@ particularly sustainable.
 
 Events and transactions pruning can be disabled via setting
 the [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
-to `false`. This is default behavior in Mainnet. In the near future, Libra will
+to `false`. This is default behavior in Mainnet. In the near future, Libra2 will
 provide indexers that mitigate the need to directly query from a node.
 
 The REST API offers querying transactions and events in these ways:
@@ -196,7 +196,7 @@ The REST API offers querying transactions and events in these ways:
 
 ## Exchanging and tracking fungible assets
 
-Libra has a
+Libra2 has a
 standard [Fungible Asset](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move).
 Different types of fungible asset (FA) can be represented in this standard
 through the use of distinct metadata object.
@@ -228,7 +228,7 @@ Indexer users can just query [`concurrent_fungible_asset_balance`](/build/indexe
 
 For node API, the current balance for an APT FA of FungibleStore is available at the account resources URL: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::FungibleStore`. The balance is stored as `balance`. The resource also contains a metadata object of the FA type and the frozen status. The address of the primary fungible store can be calculated as `sha3_256(32-byte account address | 32-byte metadata object address | 0xFC)`. The metadata object address of APT FA is `0xA`.
 
-Libra users have the option to upgrade to concurrent fungible balance to allow parallelization of balance updates, improving the performance of a single account. When a user has upgraded a fungible store balance to support concurrent update, the fungible store object will have another resource `ConcurrentFungibleBalance` that contains the balance of the store, and the `balance` field of FungibleStore will be set to 0. The current balance for an APT FA of `ConcurrentFungibleBalance` (if exists) is available at the account resources URL: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::ConcurrentFungibleBalance`.
+Libra2 users have the option to upgrade to concurrent fungible balance to allow parallelization of balance updates, improving the performance of a single account. When a user has upgraded a fungible store balance to support concurrent update, the fungible store object will have another resource `ConcurrentFungibleBalance` that contains the balance of the store, and the `balance` field of FungibleStore will be set to 0. The current balance for an APT FA of `ConcurrentFungibleBalance` (if exists) is available at the account resources URL: `https://{rest_api_server}/accounts/{fungible_store_object_address}/resource/0x1::fungible_asset::ConcurrentFungibleBalance`.
 
 Therefore, to get the total balance of a fungible asset, it is either the non-zero balance of `FungibleStore` or the `balance` field of `ConcurrentFungibleBalance` if it exists and the balance of `FungibleStore` is 0.
 
@@ -256,15 +256,15 @@ Therefore, to get the total balance of a fungible asset, it is either the non-ze
 
 ## Exchanging and tracking coins
 
-Libra has a standard
+Libra2 has a standard
 [Coin type](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move).
 Different types of coins can be represented in this type through the use of
 distinct structs that represent the type parameter or generic for `Coin<T>`.
 
 Coins are stored within an account under the resource `CoinStore<T>`. At account
-creation, each user has the resource `CoinStore<0x1::libra2_coin::LibraCoin>`
-or `CoinStore<LibraCoin>`, for short. Within this resource is the Libra
-coin: `Coin<LibraCoin>`.
+creation, each user has the resource `CoinStore<0x1::libra2_coin::Libra2Coin>`
+or `CoinStore<Libra2Coin>`, for short. Within this resource is the Libra2
+coin: `Coin<Libra2Coin>`.
 
 ### Transferring coins between users
 
@@ -272,7 +272,7 @@ Coins, including APT, can be transferred between users via
 the [`libra2_account::transfer_coins`](https://github.com/libra2org/libra2-core/blob/d1610e1bb5214689a37a9cab59cf9254e8eb2be1/libra2-move/framework/libra2-framework/sources/libra2_account.move#L92)
 function for all coins
 and [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
-for Libra coins.
+for Libra2 coins.
 
 <Aside type="caution">
   It is important to note that if an account has not registered a
@@ -286,12 +286,12 @@ To retrieve the balance of a coin, or a coin that was migrated to a fungible ass
 the `0x1::coin::balance<CoinType>(account address)` view function.  This will combine the coin and coin migrated to fungible asset balances.
 
 ```typescript filename="example.ts"
-import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-const config = new LibraConfig({ network: Network.DEVNET });
-const libra2 = new Libra(config);
+const config = new Libra2Config({ network: Network.DEVNET });
+const libra2 = new Libra2(config);
 
-const coinType = "0x1::libra2_coin::LibraCoin";
+const coinType = "0x1::libra2_coin::Libra2Coin";
 const account = "0x00000000000000000000000000000001";
 const [balanceStr] = await libra2.view<[string]>({
   payload: {
@@ -305,7 +305,7 @@ const balance = parseInt(balanceStr, 10);
 
 ### Querying transactions
 
-In Libra, each transaction is committed as a distinct version to the
+In Libra2, each transaction is committed as a distinct version to the
 blockchain. This allows for the convenience of sharing committed transactions
 by their version number; to do so, query:
 `https://{rest_server_api}/transactions/by_version/{version}`
@@ -326,7 +326,7 @@ A transfer transaction would appear as follows:
     {
       "address": "0xb258b91eee04111039320a85b0c24a2dd433909e14a6b5c32ee722e0fdecfddc",
       "data": {
-        "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
+        "type": "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>",
         "data": {
           "coin": {
             "value": "1000"
@@ -440,14 +440,14 @@ is
 
 ### Querying events
 
-Libra provides clear and canonical events for all withdraw and deposit of
+Libra2 provides clear and canonical events for all withdraw and deposit of
 coins. This can be used in coordination with the associated transactions to
 present to a user the change of their account balance over time, when that
 happened, and what caused it. With some amount of additional parsing, metadata
 such as the transaction type and the other parties involved can also be shared.
 
 Query events by handle
-URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>/withdraw_events`
+URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>/withdraw_events`
 
 ```json
 [
@@ -475,9 +475,9 @@ where `{version}` is the same value as the `{version}` in the event query.
 
 <Aside type="note">
   When tracking full movement of coins, normally events are
-  sufficient. `0x1::libra2_coin::LibraCoin`, however, requires
+  sufficient. `0x1::libra2_coin::Libra2Coin`, however, requires
   considering `gas_used` for each transaction sent from the given account
-  since it represents gas in Libra. To reduce unnecessary overhead, extracting
+  since it represents gas in Libra2. To reduce unnecessary overhead, extracting
   gas fees due to transactions does not emit an event. All transactions for an
   account can be retrieved from this API:
   `https://{rest_server_api}/accounts/{address}/transactions`
@@ -575,7 +575,7 @@ There are three balance changes in this transaction:
 1. A withdrawal of `1000` of `0x1337::my_coin::MyCoin` from the transaction
    sending account `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 2. A deposit of `1000` of `0x1337::my_coin::MyCoin` to receiving account `0x5098df8e7969b58ab3bd2d440c6203f64c60a1fd5c08b9d4abe6ae4216246c3e`
-3. A gas fee `2200` of `0x1::libra2_coin::LibraCoin` from the sending account `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
+3. A gas fee `2200` of `0x1::libra2_coin::Libra2Coin` from the sending account `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 
 To retrieve the withdrawal information:
 
@@ -604,7 +604,7 @@ To retrieve the gas fee:
 1. The `gas_used` field must be multiplied times the `gas_unit_price`. In this
    example, `gas_used=20` and `gas_unit_price=110` so the total gas coins
    withdrawn is `2200`.
-2. Gas is always: `0x1::libra2_coin::LibraCoin`
+2. Gas is always: `0x1::libra2_coin::Libra2Coin`
 
 To retrieve information about the number of decimals of the coin:
 

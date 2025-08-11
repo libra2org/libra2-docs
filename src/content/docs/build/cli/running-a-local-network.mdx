@@ -1,14 +1,14 @@
 ---
-title: "Running a Local Network via Libra CLI"
+title: "Running a Local Network via Libra2 CLI"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Local networks can be helpful when testing your code. They are not connected to any production Libra networks like mainnet, but they are useful for three main reasons:
+Local networks can be helpful when testing your code. They are not connected to any production Libra2 networks like mainnet, but they are useful for three main reasons:
 
 1. **No rate limits:** You can interact with hosted services like the Node API, Indexer API, and faucet with no rate-limits to speed up testing.
 2. **Reproducibility:** You can set up specific on-chain scenarios and restart the network from scratch at any point to return to a clean slate.
-3. **High availability**: The Libra devnet and testnet networks are periodically upgraded, during which time they can be unavailable. Local development networks are also always available even if you have no internet access.
+3. **High availability**: The Libra2 devnet and testnet networks are periodically upgraded, during which time they can be unavailable. Local development networks are also always available even if you have no internet access.
 
 <br />
 
@@ -19,7 +19,7 @@ Local networks can be helpful when testing your code. They are not connected to 
 
   2. Ensure you have  installed.
 
-     1. This is exclusively needed for making a production-like environment by running the Indexer API. Many downstream tools such as the Libra SDK depend on the Indexer API.
+     1. This is exclusively needed for making a production-like environment by running the Indexer API. Many downstream tools such as the Libra2 SDK depend on the Indexer API.
      2. Docker recommends that you install via [Docker Desktop](https://www.docker.com/products/docker-desktop/) to get automatic updates.
 
   3. Start Docker.
@@ -31,7 +31,7 @@ Local networks can be helpful when testing your code. They are not connected to 
      ```
 
      <Aside type="caution">
-       Note: Despite the name (`local-testnet`), this has nothing to do with the Libra testnet, it will run a network entirely local to your machine.
+       Note: Despite the name (`local-testnet`), this has nothing to do with the Libra2 testnet, it will run a network entirely local to your machine.
      </Aside>
 
      You should expect to see an output similar to this:
@@ -48,15 +48,15 @@ Local networks can be helpful when testing your code. They are not connected to 
      Completed generating configuration:
              Log file: "/Users/dport/.libra2/testnet/validator.log"
              Test dir: "/Users/dport/.libra2/testnet"
-             Libra root key path: "/Users/dport/.libra2/testnet/mint.key"
+             Libra2 root key path: "/Users/dport/.libra2/testnet/mint.key"
              Waypoint: 0:397412c0f96b10fa3daa24bfda962671c3c3ae484e2d67ed60534750e2311f3d
              ChainId: 4
              REST API endpoint: http://0.0.0.0:8080
              Metrics endpoint: http://0.0.0.0:9101/metrics
-             Libranet fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
+             Libra2net fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
              Indexer gRPC node stream endpoint: 0.0.0.0:50051
 
-     Libra is running, press ctrl-c to exit
+     Libra2 is running, press ctrl-c to exit
 
      Node API is ready. Endpoint: http://0.0.0.0:8080/
      Postgres is ready. Endpoint: postgres://postgres@127.0.0.1:5433/local_testnet
@@ -158,14 +158,14 @@ libra2 move publish --profile <your-profile-name> --package-dir /opt/git/libra2-
 
 ### Configuring the TypeScript SDK
 
-If you want to use the local network with the TypeScript SDK, you can use local network URLs when initializing the client object (`Libra`):
+If you want to use the local network with the TypeScript SDK, you can use local network URLs when initializing the client object (`Libra2`):
 
 ```tsx
-import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
 const network = Network.LOCAL;
-const config = new LibraConfig({ network });
-const client = new Libra(config);
+const config = new Libra2Config({ network });
+const client = new Libra2(config);
 ```
 
 ### Resetting the local network

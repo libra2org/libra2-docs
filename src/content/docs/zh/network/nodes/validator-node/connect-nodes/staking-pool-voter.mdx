@@ -2,21 +2,21 @@
 title: "质押池投票者"
 ---
 
-如果您是[质押池](/zh/network/blockchain/staking)的投票者,我们强烈建议您在托管人支持此功能之前,不要将您的 Libra 投票密钥存储在托管人处.在那之前,我们建议您将投票密钥存储在像[Petra](https://petra.app/)这样的 Libra 钱包中.
+如果您是[质押池](/zh/network/blockchain/staking)的投票者,我们强烈建议您在托管人支持此功能之前,不要将您的 Libra2 投票密钥存储在托管人处.在那之前,我们建议您将投票密钥存储在像[Petra](https://petra.app/)这样的 Libra2 钱包中.
 
-本文档描述了如何使用 Libra 钱包在 Libra 主网上执行质押投票操作.
+本文档描述了如何使用 Libra2 钱包在 Libra2 主网上执行质押投票操作.
 
 ### 使用治理 UI
 
-要作为投票者参与 Libra 治理,请按照以下步骤操作:
+要作为投票者参与 Libra2 治理,请按照以下步骤操作:
 
-1. 转到 Libra 治理页面的[提案部分](https://governance.libra2foundation.org/).
+1. 转到 Libra2 治理页面的[提案部分](https://governance.libra2foundation.org/).
 2. 点击页面右上角的**CONNECT WALLET**连接您的钱包.
 3. 确保钱包设置为连接到主网.
 4. 查看提案,当您准备好对提案进行投票时,点击提案并投票.
 5. 您将看到一个绿色的进度条,则表示投票交易成功.
 
-### 使用 Libra CLI
+### 使用 Libra2 CLI
 
 1. 使用命令 `libra2 node get-stake-pool --owner-address <owner-address> --url <REST API for the network>` 获取您的质押池信息.
 2. 执行命令 `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com` 查看提案列表.
@@ -37,16 +37,16 @@ title: "质押池投票者"
 4. 查看提案.当您准备好对提案进行投票时,点击提案并投票.
 5. 您将看到一个绿色条,表示投票交易成功.
 
-### 使用 Libra CLI
+### 使用 Libra2 CLI
 
-1. 从[Libra Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
+1. 从[Libra2 Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
 2. 执行命令 `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com` 查看提案列表.
 3. 运行 `libra2 init` 设置您的投票者资料.
 4. 执行命令 `libra2 move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>` 对提案进行投票.
 
 要委托您的投票权,请按照以下步骤操作:
 
-1. 从[Libra Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
+1. 从[Libra2 Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
 2. 运行 `libra2 init` 设置您的投票者资料.
 3. 执行命令 `libra2 move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>` 委托投票权.
 4. 新的被委托投票者将在当前锁定周期结束后的下一个锁定周期生效.要查看被委托的投票者,运行 `libra2 move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.

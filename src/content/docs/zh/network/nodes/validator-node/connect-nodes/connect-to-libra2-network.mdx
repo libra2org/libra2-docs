@@ -4,14 +4,14 @@ title: "连接到网络"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-本文档描述了如何将您的验证者节点和验证者全节点(VFN)连接到 Libra 网络.
+本文档描述了如何将您的验证者节点和验证者全节点(VFN)连接到 Libra2 网络.
 
 <Aside type="caution">
   **最小质押要求**<br />
   只有当您的验证节点能够满足网络的最小[质押要求](/zh/network/blockchain/staking#minimum-and-maximum-stake)时,您才应遵循这些说明.当前所需的最小质押要求为 100 万 APT Token.
 </Aside>
 
-从高层次来看,将节点连接到 Libra 网络需要四个步骤:
+从高层次来看,将节点连接到 Libra2 网络需要四个步骤:
 
 <Steps>
   1. 初始化质押池(stake pool)
@@ -45,12 +45,12 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 <Aside type="caution">
   **主网与测试网**<br />
-  下面显示的命令适用于 Libra 主网.如果您要连接到不同的网络,您需要在命令中相应更改 `--network` 值.您可以查看 [Libra 区块链网络](/zh/network/nodes/networks)中的值,以了解如何根据不同的网络设置配置文件.
+  下面显示的命令适用于 Libra2 主网.如果您要连接到不同的网络,您需要在命令中相应更改 `--network` 值.您可以查看 [Libra2 区块链网络](/zh/network/nodes/networks)中的值,以了解如何根据不同的网络设置配置文件.
 </Aside>
 
-### 1. 初始化 Libra CLI
+### 1. 初始化 Libra2 CLI
 
-首先,使用您的运营者账户私钥初始化 Libra CLI.这可以在 `private-keys.yaml` 文件下的 `account_private_key` 条目中找到.
+首先,使用您的运营者账户私钥初始化 Libra2 CLI.这可以在 `private-keys.yaml` 文件下的 `account_private_key` 条目中找到.
 
 将下面命令中的 `<operator_account_private_key>` 替换为文件中的值,并运行:
 
@@ -130,7 +130,7 @@ libra2 node join-validator-set \
 
 <Aside type="note">
   **识别下一个纪元**<br />
-  您可以通过检查 [Libra Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet)或运行命令 `libra2 node get-stake-pool` 来识别下一个时代.
+  您可以通过检查 [Libra2 Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet)或运行命令 `libra2 node get-stake-pool` 来识别下一个时代.
 </Aside>
 
 ### 6. 检查验证者集合
@@ -233,4 +233,4 @@ kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e2 \
 
 ## 后续步骤
 
-祝贺您!您已成功将节点连接到 Libra 网络.要验证您的节点是否运行正确,请访问[节点健康](/zh/network/nodes/validator-node/verify-nodes/node-liveness-criteria)文档.该文档描述了如何验证和监控您的验证节点和 VFN 的健康状况,包括初始节点验证部分.
+祝贺您!您已成功将节点连接到 Libra2 网络.要验证您的节点是否运行正确,请访问[节点健康](/zh/network/nodes/validator-node/verify-nodes/node-liveness-criteria)文档.该文档描述了如何验证和监控您的验证节点和 VFN 的健康状况,包括初始节点验证部分.

@@ -7,9 +7,9 @@ import { Aside } from '@astrojs/starlight/components';
 如果您想使用 [Move Prover](/zh/build/smart-contracts/prover),请在[安装 CLI 二进制文件](/zh/build/cli/setup-cli/.)后安装 Move Prover 依赖项.
 安装 Prover 依赖项有两种方式.
 
-## 通过 Libra CLI 安装(推荐)
+## 通过 Libra2 CLI 安装(推荐)
 
-1. [安装最新的 Libra CLI 二进制文件](/zh/build/cli/install-cli/install-cli-mac).
+1. [安装最新的 Libra2 CLI 二进制文件](/zh/build/cli/install-cli/install-cli-mac).
 
 2. 执行命令 `libra2 update prover-dependencies`.
 
@@ -19,7 +19,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 通过 `libra2-core` 安装(不推荐)
 
-1. 参见[从源代码构建 Libra](/zh/network/nodes/building-from-source)
+1. 参见[从源代码构建 Libra2](/zh/network/nodes/building-from-source)
 
 2. 然后,在检出的 libra2-core 目录中,安装额外的 Move 工具:
 
@@ -50,7 +50,7 @@ libra2 move prove --package-dir libra2-move/move-examples/hello_prover/
 
 ## 故障排除
 
-如果在运行命令时遇到如下错误,请检查您的 Libra CLI 版本或验证您使用的是正确的 `libra2` 工具,特别是如果您安装了多个版本.
+如果在运行命令时遇到如下错误,请检查您的 Libra2 CLI 版本或验证您使用的是正确的 `libra2` 工具,特别是如果您安装了多个版本.
 
 ```shellscript filename="Terminal"
 error: unexpected token

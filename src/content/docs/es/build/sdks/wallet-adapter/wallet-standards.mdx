@@ -1,5 +1,5 @@
 ---
-title: "Estándar de Wallet de Libra"
+title: "Estándar de Wallet de Libra2"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -13,7 +13,7 @@ de dapps, permitiendo adiciones fáciles de nuevas wallets y más usuarios a cad
 aplicación. Esta interoperabilidad permite a los usuarios elegir qué wallet quieren
 sin preocuparse por si las apps soportan sus casos de uso.
 
-Para asegurar la interoperabilidad entre wallets de Libra, se requiere lo siguiente:
+Para asegurar la interoperabilidad entre wallets de Libra2, se requiere lo siguiente:
 
 1. Mnemónicos - un conjunto de palabras que se pueden usar para derivar claves privadas de cuenta
 2. API de dapp - puntos de entrada a la wallet para soportar acceso a identidad gestionada
@@ -26,19 +26,19 @@ Para asegurar la interoperabilidad entre wallets de Libra, se requiere lo siguie
 Una frase mnemónica es una frase de múltiples palabras que se puede usar para generar direcciones
 de cuenta. Recomendamos un mnemónico por cuenta para manejar mejor la rotación de claves.
 Sin embargo, algunas wallets pueden querer soportar un mnemónico para muchas cuentas
-provenientes de otras cadenas. Para soportar ambos casos de uso, el estándar de wallet de Libra
+provenientes de otras cadenas. Para soportar ambos casos de uso, el estándar de wallet de Libra2
 usa una [Propuesta de Mejora de Bitcoin (BIP44)](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) para derivar el path para
 mnemónicos a cuentas.
 
-### Crear una cuenta de Libra
+### Crear una cuenta de Libra2
 
-La creación de cuentas de Libra se puede soportar entre wallets de la siguiente manera:
+La creación de cuentas de Libra2 se puede soportar entre wallets de la siguiente manera:
 
 1. Generar una frase mnemónica, por ejemplo con BIP39.
 2. Obtener la semilla maestra de esa frase mnemónica.
 3. Usar el path derivado de BIP44 para recuperar una dirección de cuenta (ej. `m/44'/637'/0'/0'/0'`)
 
-- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
+- Ver la [implementación del SDK de TypeScript de Libra2 para el path de derivación](https://github.com/libra2org/libra2-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
 - Por ejemplo, Petra Wallet siempre usa el path `m/44'/637'/0'/0'/0'` ya que
   hay un mnemónico por una cuenta.
 
@@ -48,10 +48,10 @@ La creación de cuentas de Libra se puede soportar entre wallets de la siguiente
   * @param path. (ej. m/44'/637'/0'/0'/0')
   * Descripción detallada: {@link https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki}
   * @param mnemonics.
-  * @returns LibraAccount
+  * @returns Libra2Account
   */
-  static fromDerivePath(path: string, mnemonics: string): LibraAccount {
-   if (!LibraAccount.isValidPath(path)) {
+  static fromDerivePath(path: string, mnemonics: string): Libra2Account {
+   if (!Libra2Account.isValidPath(path)) {
      throw new Error("Invalid derivation path");
    }
 
@@ -63,7 +63,7 @@ La creación de cuentas de Libra se puede soportar entre wallets de la siguiente
 
    const { key } = derivePath(path, bytesToHex(bip39.mnemonicToSeedSync(normalizeMnemonics)));
 
-   return new LibraAccount(new Uint8Array(key));
+   return new Libra2Account(new Uint8Array(key));
 }
 ```
 
@@ -79,7 +79,7 @@ estos pasos para generar cuentas
 3. Usar el path derivado de BIP44 para recuperar claves privadas (ej. `m/44'/637'/i'/0'/0'`)
    donde `i` es el índice de la cuenta.
 
-- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/libra2_account.ts#L49-L69)
+- Ver la [implementación del SDK de TypeScript de Libra2 para el path de derivación](https://github.com/libra2org/libra2-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/libra2_account.ts#L49-L69)
 
 4. Incrementar `i` hasta que se encuentren todas las cuentas que el usuario quiere importar.
 
@@ -115,10 +115,10 @@ Más importante que la creación de cuentas, es cómo las wallets y las dapps se
 
 ### Interfaz de Wallet Estándar
 
-Una wallet debe implementar una [interfaz LibraWallet](https://github.com/libra2org/wallet-standard/blob/main/src/wallet.ts) con la información del proveedor de wallet y las características:
+Una wallet debe implementar una [interfaz Libra2Wallet](https://github.com/libra2org/wallet-standard/blob/main/src/wallet.ts) con la información del proveedor de wallet y las características:
 
 ```typescript
-class MyWallet implements LibraWallet {
+class MyWallet implements Libra2Wallet {
   url: string;
   version: "1.0.0";
   name: string;
@@ -127,32 +127,32 @@ class MyWallet implements LibraWallet {
     | `data:image/webp;base64,${string}`
     | `data:image/png;base64,${string}`
     | `data:image/gif;base64,${string}`;
-  chains: LibraChain;
-  features: LibraFeatures;
-  accounts: readonly LibraWalletAccount[];
+  chains: Libra2Chain;
+  features: Libra2Features;
+  accounts: readonly Libra2WalletAccount[];
 }
 ```
 
-Una wallet debe implementar una [interfaz LibraWalletAccount](https://github.com/libra2org/wallet-standard/blob/main/src/account.ts) que representa las cuentas que han sido autorizadas por la dapp.
+Una wallet debe implementar una [interfaz Libra2WalletAccount](https://github.com/libra2org/wallet-standard/blob/main/src/account.ts) que representa las cuentas que han sido autorizadas por la dapp.
 
 ```typescript
-enum LibraAccountVariant {
+enum Libra2AccountVariant {
   Ed25519,
   MultiEd25519,
   SingleKey,
   MultiKey,
 }
 
-class LibraWalletAccount implements WalletAccount {
+class Libra2WalletAccount implements WalletAccount {
   address: string;
 
   publicKey: Uint8Array;
 
-  chains: LibraChain;
+  chains: Libra2Chain;
 
-  features: LibraFeatures;
+  features: Libra2Features;
 
-  variant: LibraAccountVariant;
+  variant: Libra2AccountVariant;
 
   label?: string;
 
@@ -173,42 +173,42 @@ const myWallet = new MyWallet();
 registerWallet(myWallet);
 ```
 
-Una wallet se considera una wallet de Libra válida si implementa las [características requeridas](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L16).
+Una wallet se considera una wallet de Libra2 válida si implementa las [características requeridas](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L16).
 
-Una wallet debe lanzar un [LibraWalletError](https://github.com/libra2org/wallet-standard/blob/main/src/errors.ts). El estándar requiere soportar `Unauthorized` y `InternalError`, pero una wallet puede lanzar un error `LibraWalletError` personalizado
+Una wallet debe lanzar un [Libra2WalletError](https://github.com/libra2org/wallet-standard/blob/main/src/errors.ts). El estándar requiere soportar `Unauthorized` y `InternalError`, pero una wallet puede lanzar un error `Libra2WalletError` personalizado
 
 ```typescript
 // Usando el mensaje por defecto
 if (error) {
-  throw new LibraWalletError(LibraWalletErrorCode.Unauthorized);
+  throw new Libra2WalletError(Libra2WalletErrorCode.Unauthorized);
 }
 // Usando un mensaje personalizado
 if (error) {
-  throw new LibraWalletError(
-    LibraWalletErrorCode.Unauthorized,
+  throw new Libra2WalletError(
+    Libra2WalletErrorCode.Unauthorized,
     "Mi mensaje de no autorizado personalizado"
   );
 }
 // Usando un error personalizado
 if (error) {
-  throw new LibraWalletError(-32000, "Entrada inválida");
+  throw new Libra2WalletError(-32000, "Entrada inválida");
 }
 ```
 
 ### API de dapp
 
 <Aside type="note">
-  Para que una dapp sea fácilmente integrable con una wallet, se recomienda usar el [Estándar de Adaptador de Wallet de Libra](/build/sdks/sdks/wallet-adapter).
+  Para que una dapp sea fácilmente integrable con una wallet, se recomienda usar el [Estándar de Adaptador de Wallet de Libra2](/build/sdks/sdks/wallet-adapter).
 </Aside>
 
 Si por alguna razón, una dapp decide implementar una integración de wallet personalizada:
 
-Una dapp usa la función [getLibraWallets()](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L40) que obtiene todas las wallets de Libra estándar compatibles.
+Una dapp usa la función [getLibra2Wallets()](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L40) que obtiene todas las wallets de Libra2 estándar compatibles.
 
 ```typescript
-import { getLibraWallets } from "@libra2-core/wallet-standard";
+import { getLibra2Wallets } from "@libra2-core/wallet-standard";
 
-let { libra2Wallets, on } = getLibraWallets();
+let { libra2Wallets, on } = getLibra2Wallets();
 ```
 
 En la primera carga, y antes de que la dapp haya sido cargada, obtiene todas las wallets que han sido registradas hasta ahora. Para seguir obteniendo todas las wallets registradas después de este punto, la dapp debe añadir un listener para nuevas wallets que se registran, recibiendo una función de desuscripción, que puede usar más tarde para eliminar el listener.
@@ -216,11 +216,11 @@ En la primera carga, y antes de que la dapp haya sido cargada, obtiene todas las
 ```typescript
 const removeRegisterListener = on("register", function () {
   // La dapp puede añadir nuevas wallets de libra2 a su propio contexto de estado a medida que se registran
-  let { libra2Wallets } = getLibraWallets();
+  let { libra2Wallets } = getLibra2Wallets();
 });
 
 const removeUnregisterListener = on("unregister", function () {
-  let { libra2Wallets } = getLibraWallets();
+  let { libra2Wallets } = getLibra2Wallets();
 });
 ```
 

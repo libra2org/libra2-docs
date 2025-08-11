@@ -1,5 +1,5 @@
 ---
-title: "Libra 数字资产标准"
+title: "Libra2 数字资产标准"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
@@ -8,9 +8,9 @@ import { GraphQLEditor } from '~/components/react/GraphQLEditor';
 
 import { Aside } from '@astrojs/starlight/components';
 
-数字资产(DA)标准是 Libra 上现代的非同质化代币(NFT)标准.NFT 代表链上的独特资产,并存储在集合中.这些 NFT 可以自定义,后续可通过你的智能合约进行转移,灵魂绑定,销毁,变更或扩展.
+数字资产(DA)标准是 Libra2 上现代的非同质化代币(NFT)标准.NFT 代表链上的独特资产,并存储在集合中.这些 NFT 可以自定义,后续可通过你的智能合约进行转移,灵魂绑定,销毁,变更或扩展.
 
-该标准取代了旧的 [Libra Token Standard](/zh/build/smart-contracts/libra2-token).主要改进如下:
+该标准取代了旧的 [Libra2 Token Standard](/zh/build/smart-contracts/libra2-token).主要改进如下:
 
 | **改进项**       | **描述**                                                              |
 | ------------- | ------------------------------------------------------------------- |
@@ -213,7 +213,7 @@ public entry fun mint_token(creator: &signer) {
 
 ### 通过 Indexer 查找未命名 Token 地址
 
-你可以通过 [Libra Indexer](/zh/build/indexer/indexer-api) 查询最近创建的"未命名" `Token` 地址,示例如下:
+你可以通过 [Libra2 Indexer](/zh/build/indexer/indexer-api) 查询最近创建的"未命名" `Token` 地址,示例如下:
 
 1. 通过账户地址和 `Collection` 名称查找 collection id.
 
@@ -378,7 +378,7 @@ module 0x42::example {
 
 `Token` 可通过添加额外资源(作为 Object)或使用 `Ref` 修改 Object 进行扩展.
 
-## Libra Token
+## Libra2 Token
 
 如果你不想自定义 NFT 逻辑,可直接使用 [`libra2_token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move) 模块铸造 NFT.该模块已部署在 `0x4`,支持:
 
@@ -408,7 +408,7 @@ public entry fun mint(
     property_keys: vector<String>,
     property_types: vector<String>,
     property_values: vector<vector<u8>>,
-) acquires LibraCollection, LibraToken
+) acquires Libra2Collection, Libra2Token
 ```
 
 #### 灵魂绑定 Token
@@ -426,7 +426,7 @@ public entry fun mint_soul_bound(
     property_types: vector<String>,
     property_values: vector<vector<u8>>,
     soul_bound_to: address,
-) acquires LibraCollection
+) acquires Libra2Collection
 ```
 
 <Aside type="caution">

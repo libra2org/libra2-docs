@@ -1,30 +1,30 @@
 ---
-title: "Building Libra From Source"
+title: "Building Libra2 From Source"
 ---
 
 import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 
 [CLI Binary releases are available](/build/cli), but if you
-want to build from source for an Libra node or CLI, this is how.
+want to build from source for an Libra2 node or CLI, this is how.
 
 ## Supported operating systems
 
-Libra can be built on various operating systems, including Linux, macOS. and
-Windows. Libra is tested extensively on Linux and macOS, and less so on Windows.
+Libra2 can be built on various operating systems, including Linux, macOS. and
+Windows. Libra2 is tested extensively on Linux and macOS, and less so on Windows.
 Here are the versions we use:
 
 - Linux - Ubuntu version 20.04 and 22.04
 - macOS - macOS Monterey and later
 - Microsoft Windows - Windows 10, 11 and Windows Server 2022+
 
-## Clone the Libra-core repo
+## Clone the Libra2-core repo
 
 1. Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
    Git is required to clone the libra2-core repo, and will need to be installed
    prior to continuing. You can install it with the instructions on the official
    [Git website](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-2. Clone the Libra repository. To clone the Libra repository (repo), you first
+2. Clone the Libra2 repository. To clone the Libra2 repository (repo), you first
    need to open a command line prompt (Terminal on macOS / Linux, PowerShell on
    Windows). Then run the following command to clone the Git repository from GitHub.
 
@@ -39,7 +39,7 @@ Here are the versions we use:
 
 ### (Optional) Check out release branch
 
-Optionally, check out a release branch to install an Libra node.
+Optionally, check out a release branch to install an Libra2 node.
 We suggest you check out `devnet` for your first development.
 See [Choose a network](/network/nodes/networks) for an
 explanation of their differences.
@@ -70,7 +70,7 @@ explanation of their differences.
 
 ## Set up build dependencies
 
-Prepare your developer environment by installing the dependencies needed to build, test and inspect Libra Core.
+Prepare your developer environment by installing the dependencies needed to build, test and inspect Libra2 Core.
 No matter your selected mechanism for installing these dependencies, **it is imperative you keep your entire toolchain up-to-date**.
 If you encounter issues later, update all packages and try again.
 
@@ -173,7 +173,7 @@ If you encounter issues later, update all packages and try again.
 
 If you used `scripts/dev_setup.sh` for macOS or Linux setup, additional tools are optionally available.
 
-## Building Libra
+## Building Libra2
 
 The simplest check that you have a working environment is to build everything and run the tests.
 

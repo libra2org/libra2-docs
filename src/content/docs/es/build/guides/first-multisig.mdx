@@ -1,5 +1,5 @@
 ---
-title: "Tu Primera Multisig de Libra (SDK de Python)"
+title: "Tu Primera Multisig de Libra2 (SDK de Python)"
 ---
 
 import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
@@ -7,21 +7,21 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 En este tutorial, aprenderás cómo crear y gestionar una cuenta multisig que requiere 2 de 3 titulares de claves para aprobar cualquier transacción.
 Aprenderás cómo:
 
-1. Configurar un entorno de desarrollo para Libra
+1. Configurar un entorno de desarrollo para Libra2
 2. Crear múltiples cuentas para actuar como titulares de claves
 3. Configurar una cuenta multisig que requiere 2-de-3 firmas
 4. Financiar cuentas y verificar balances
 5. Crear y ejecutar transacciones multisig
 
 <Aside type="note">
-  Si vienes de Ethereum/Solidity, nota que Libra maneja las cuentas multisig de manera diferente. Libra implementa [multisig directamente a nivel de protocolo](/network/blockchain/accounts), permitiendo que las cuentas requieran múltiples firmas sin desplegar contratos inteligentes adicionales.
+  Si vienes de Ethereum/Solidity, nota que Libra2 maneja las cuentas multisig de manera diferente. Libra2 implementa [multisig directamente a nivel de protocolo](/network/blockchain/accounts), permitiendo que las cuentas requieran múltiples firmas sin desplegar contratos inteligentes adicionales.
 
   ![Diagrama de Multisig](~/images/multisig_chart.svg)
 
-  Estamos interfaciando con Libra usando el [SDK de Python de Libra](/build/sdks/python-sdk).
+  Estamos interfaciando con Libra2 usando el [SDK de Python de Libra2](/build/sdks/python-sdk).
 </Aside>
 
-Conceptualmente, una cuenta multisig (multi-firma) funciona como una bóveda bancaria que requiere múltiples titulares de claves para autorizar el acceso. En Libra, esto se implementa con firmas digitales en lugar de claves físicas, con cada firmante autorizado proporcionando su aprobación criptográfica.
+Conceptualmente, una cuenta multisig (multi-firma) funciona como una bóveda bancaria que requiere múltiples titulares de claves para autorizar el acceso. En Libra2, esto se implementa con firmas digitales en lugar de claves físicas, con cada firmante autorizado proporcionando su aprobación criptográfica.
 
 ## Configuración
 
@@ -130,7 +130,7 @@ Primero, vamos a preparar nuestro entorno de desarrollo. Crearemos un espacio de
      - Verás `(venv)` al inicio de tu línea de terminal
      - Para desactivarlo más tarde, simplemente escribe `deactivate`
 
-  7. Instalar SDK de Libra
+  7. Instalar SDK de Libra2
 
      Instala el SDK requerido:
 
@@ -140,7 +140,7 @@ Primero, vamos a preparar nuestro entorno de desarrollo. Crearemos un espacio de
 
      Este comando:
 
-     - Descarga el paquete SDK de Libra desde PyPI (Índice de Paquetes de Python)
+     - Descarga el paquete SDK de Libra2 desde PyPI (Índice de Paquetes de Python)
      - Lo instala dentro de tu carpeta `venv`
      - Crea archivos en `venv/lib/python3.x/site-packages/libra2_sdk`
      - Puedes ver estos archivos navegando a esa carpeta
@@ -174,7 +174,7 @@ Vamos a empezar a construir nuestra implementación multisig. Primero, configura
      Abre `multisig.py` en tu IDE (recomendamos VSCode o JetBrains) y añade el siguiente código:
 
      ```python filename="multisig.py"
-     # Copyright © Libra Foundation
+     # Copyright © Libra2 Foundation
      # SPDX-License-Identifier: Apache-2.0
 
      import asyncio
@@ -231,10 +231,10 @@ Vamos a empezar a construir nuestra implementación multisig. Primero, configura
          asyncio.run(main())
      ```
 
-     Este código importa todos los módulos necesarios del SDK de Libra. El módulo `libra2_sdk.account` proporciona la funcionalidad esencial para gestionar cuentas y firmas, mientras que `libra2_sdk.transactions` nos da las herramientas para crear y enviar transacciones de blockchain.
+     Este código importa todos los módulos necesarios del SDK de Libra2. El módulo `libra2_sdk.account` proporciona la funcionalidad esencial para gestionar cuentas y firmas, mientras que `libra2_sdk.transactions` nos da las herramientas para crear y enviar transacciones de blockchain.
 
      <Aside type="note">
-       Puedes obtener tokens de prueba gratuitos en Libra Devnet o Testnet usando el `FaucetClient`.
+       Puedes obtener tokens de prueba gratuitos en Libra2 Devnet o Testnet usando el `FaucetClient`.
      </Aside>
 </Steps>
 
@@ -254,7 +254,7 @@ Al igual que una bóveda bancaria necesita titulares de claves designados, nuest
      chad = Account.generate()
      ```
 
-     La función `Account.generate()` crea una nueva cuenta de Libra con un nuevo par de claves. Cada cuenta tendrá su propia clave privada (para firmar) y clave pública (para verificar). En nuestra configuración multisig, estas cuentas representan los titulares de claves que tendrán autorización para firmar transacciones, similar a como cada titular de clave de bóveda física tendría su propia clave física única.
+     La función `Account.generate()` crea una nueva cuenta de Libra2 con un nuevo par de claves. Cada cuenta tendrá su propia clave privada (para firmar) y clave pública (para verificar). En nuestra configuración multisig, estas cuentas representan los titulares de claves que tendrán autorización para firmar transacciones, similar a como cada titular de clave de bóveda física tendría su propia clave física única.
 
      <Aside type="note">
        Cada vez que ejecutes este script, generará nuevas cuentas en devnet. Necesitarás guardar la clave privada y la dirección de la cuenta si quieres seguir trabajando con esa cuenta.
@@ -325,7 +325,7 @@ Al igual que una bóveda bancaria necesita titulares de claves designados, nuest
      <Aside type="note">
        Para cada usuario, nota la [dirección de la cuenta](/network/blockchain/accounts#dirección-de-la-cuenta) y la [clave de autenticación](/network/blockchain/accounts#clave-de-autenticación) son idénticas, pero la [clave pública](/network/blockchain/accounts#crear-una-cuenta) es diferente.
 
-       El modelo de cuenta de Libra facilita la capacidad única de rotar la clave privada de una cuenta. Dado que la dirección de una cuenta es la _clave de autenticación inicial_, la capacidad de firmar por una cuenta puede transferirse a otra clave privada sin cambiar su dirección pública.
+       El modelo de cuenta de Libra2 facilita la capacidad única de rotar la clave privada de una cuenta. Dado que la dirección de una cuenta es la _clave de autenticación inicial_, la capacidad de firmar por una cuenta puede transferirse a otra clave privada sin cambiar su dirección pública.
      </Aside>
 </Steps>
 
@@ -388,7 +388,7 @@ Ahora que tenemos nuestros titulares de claves (Alice, Bob y Chad), vamos a conf
        </TabItem>
      </Tabs>
 
-     Deberías ver una salida mostrando la clave pública de tipo de tu cuenta multisig y su dirección única en la blockchain de Libra. Por ejemplo:
+     Deberías ver una salida mostrando la clave pública de tipo de tu cuenta multisig y su dirección única en la blockchain de Libra2. Por ejemplo:
 
      ```shellscript filename="Terminal"
      === Cuenta multisig de 2-de-3 ===
@@ -421,7 +421,7 @@ Al igual que las cuentas bancarias nuevas necesitan depósitos iniciales, nuestr
      await asyncio.gather(*[alice_fund, bob_fund, chad_fund, multisig_fund])
      ```
 
-     La función `fund_account()` solicita tokens de prueba del faucet de Libra para que podamos experimentar sin usar APT real. Financiamos todas las cuentas simultáneamente en lugar de una a la vez inicializándolas como `[nombre]_fund` y luego llamando a la función asíncrona que las recolecta: `asyncio.gather()`.
+     La función `fund_account()` solicita tokens de prueba del faucet de Libra2 para que podamos experimentar sin usar APT real. Financiamos todas las cuentas simultáneamente en lugar de una a la vez inicializándolas como `[nombre]_fund` y luego llamando a la función asíncrona que las recolecta: `asyncio.gather()`.
 
   2. Comprobar balances
 
@@ -498,7 +498,7 @@ Ahora vamos a crear una transacción que requiere múltiples firmas. Transferire
      entry_function = EntryFunction.natural(
          module="0x1::coin",
          function="transfer",
-         ty_args=[TypeTag(StructTag.from_str("0x1::libra2_coin::LibraCoin"))],
+         ty_args=[TypeTag(StructTag.from_str("0x1::libra2_coin::Libra2Coin"))],
          args=[
              TransactionArgument(chad.address(), Serializer.struct),
              TransactionArgument(100, Serializer.u64),
@@ -676,11 +676,11 @@ Ahora vamos a combinar las firmas y enviar la transacción. Esto es similar a re
      - La cuenta multisig pagó tanto el monto de la transferencia como las tarifas de gas
 
      <Aside type="note">
-       Puedes verificar la transacción en Libra Explorer:
+       Puedes verificar la transacción en Libra2 Explorer:
 
-       - Ve a [Libra Explorer](https://explorer.libra2labs.com/)
+       - Ve a [Libra2 Explorer](https://explorer.libra2labs.com/)
        - Asegúrate de que el Explorador esté configurado en Devnet (verifica la esquina superior derecha)
-         ![Cambiando a la red Devnet en Libra Explorer](~/images/screenshots/explorer_devnet.png)
+         ![Cambiando a la red Devnet en Libra2 Explorer](~/images/screenshots/explorer_devnet.png)
        - Busca la dirección de tu cuenta multisig o el hash de la transacción
        - Revisa los detalles de la transacción y los cambios de saldo
      </Aside>
@@ -688,31 +688,31 @@ Ahora vamos a combinar las firmas y enviar la transacción. Esto es similar a re
 
 ## Ir Más Allá: Características Avanzadas
 
-Has completado los conceptos básicos de la multisig de Libra - creando una "bóveda" (cuenta multisig), añadiendo "titulares de claves" (firmantes) y haciendo una transferencia simple que requiere múltiples aprobaciones. Pero al igual que el banco moderno, hay mucho más que podemos hacer:
+Has completado los conceptos básicos de la multisig de Libra2 - creando una "bóveda" (cuenta multisig), añadiendo "titulares de claves" (firmantes) y haciendo una transferencia simple que requiere múltiples aprobaciones. Pero al igual que el banco moderno, hay mucho más que podemos hacer:
 
 ### Direcciones Vanas
 
-Al igual que tener un número de cuenta bancaria personalizado, Libra te permite crear "direcciones vanas" que comienzan con caracteres específicos. Imagina poder elegir un número de cuenta memorable como "0xdd..." para tu empresa "Digital Dynamics"!
+Al igual que tener un número de cuenta bancaria personalizado, Libra2 te permite crear "direcciones vanas" que comienzan con caracteres específicos. Imagina poder elegir un número de cuenta memorable como "0xdd..." para tu empresa "Digital Dynamics"!
 
 ### Rotación de Cuenta
 
-Los bancos te permiten actualizar tus credenciales de seguridad sin cambiar tu número de cuenta. De manera similar, las cuentas multisig de Libra pueden "rotar" sus claves de autenticación mientras mantienen la misma dirección - perfecto para actualizar la seguridad sin interrumpir las configuraciones de pago existentes.
+Los bancos te permiten actualizar tus credenciales de seguridad sin cambiar tu número de cuenta. De manera similar, las cuentas multisig de Libra2 pueden "rotar" sus claves de autenticación mientras mantienen la misma dirección - perfecto para actualizar la seguridad sin interrumpir las configuraciones de pago existentes.
 
 ### Gobierno y Contratos Inteligentes
 
-Al igual que los bancos tienen sistemas de aprobación complejos para cuentas corporativas grandes, la multisig de Libra puede interactuar con contratos inteligentes y sistemas de gobierno. Imagina configurar reglas automatizadas como:
+Al igual que los bancos tienen sistemas de aprobación complejos para cuentas corporativas grandes, la multisig de Libra2 puede interactuar con contratos inteligentes y sistemas de gobierno. Imagina configurar reglas automatizadas como:
 
 - Aprobaciones requeridas basadas en el tamaño de la transacción
 - Transacciones bloqueadas por tiempo
 - Integración con sistemas de votación DAO
 
 <Aside type="note">
-  ¡Háznos saber qué te fascina más de la multisig en Libra! Únete a nuestros canales de comunidad para compartir tus ideas y experiencias.
+  ¡Háznos saber qué te fascina más de la multisig en Libra2! Únete a nuestros canales de comunidad para compartir tus ideas y experiencias.
 </Aside>
 
 ## Próximos Pasos
 
 1. Revisa el [ejemplo de código completo](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/multisig.py) que incluye todas las características avanzadas (ver arriba).
 2. Aprende sobre [gobierno multisig en este tutorial](/build/cli/working-with-move-contracts/multi-signature-tutorial).
-3. Explora [abstracción de cuenta en Libra](/network/blockchain/accounts).
-4. Únete al [Libra Discord](https://discord.gg/libra2labs) para soporte de desarrolladores.
+3. Explora [abstracción de cuenta en Libra2](/network/blockchain/accounts).
+4. Únete al [Libra2 Discord](https://discord.gg/libra2labs) para soporte de desarrolladores.

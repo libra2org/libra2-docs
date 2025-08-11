@@ -1,5 +1,5 @@
 ---
-title: "Your First Libra Multisig (Python SDK)"
+title: "Your First Libra2 Multisig (Python SDK)"
 ---
 
 import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
@@ -7,21 +7,21 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 In this tutorial, you'll learn how to create and manage a multisig account that requires 2 out of 3 key holders to approve any transaction.
 You'll learn how to:
 
-1. Set up a development environment for Libra
+1. Set up a development environment for Libra2
 2. Create multiple accounts to act as key holders
 3. Configure a multisig account requiring 2-of-3 signatures
 4. Fund accounts and verify balances
 5. Create and execute multisig transactions
 
 <Aside type="note">
-  If you're coming from Ethereum/Solidity, note that Libra handles multisig accounts differently. Libra implements [multisig directly at the protocol level](/network/blockchain/accounts), allowing accounts to require multiple signatures without deploying additional smart contracts.
+  If you're coming from Ethereum/Solidity, note that Libra2 handles multisig accounts differently. Libra2 implements [multisig directly at the protocol level](/network/blockchain/accounts), allowing accounts to require multiple signatures without deploying additional smart contracts.
 
   ![Multisig Diagram](~/images/multisig_chart.svg)
 
-  We're interfacing with Libra using the [Libra Python SDK](/build/sdks/python-sdk).
+  We're interfacing with Libra2 using the [Libra2 Python SDK](/build/sdks/python-sdk).
 </Aside>
 
-Conceptually, a multisig (multi-signature) account works like a bank vault requiring multiple key holders to authorize access. In Libra, this is implemented with digital signatures rather than physical keys, with each authorized signer providing their cryptographic approval.
+Conceptually, a multisig (multi-signature) account works like a bank vault requiring multiple key holders to authorize access. In Libra2, this is implemented with digital signatures rather than physical keys, with each authorized signer providing their cryptographic approval.
 
 ## Setup
 
@@ -130,7 +130,7 @@ First, let's prepare our development environment. We'll create an isolated works
      - You'll see `(venv)` appear at the start of your terminal line
      - To deactivate later, simply type `deactivate`
 
-  7. Install Libra SDK
+  7. Install Libra2 SDK
 
      Install the required SDK:
 
@@ -140,7 +140,7 @@ First, let's prepare our development environment. We'll create an isolated works
 
      This command:
 
-     - Downloads the Libra SDK package from PyPI (Python Package Index)
+     - Downloads the Libra2 SDK package from PyPI (Python Package Index)
      - Installs it inside your `venv` folder
      - Creates files in `venv/lib/python3.x/site-packages/libra2_sdk`
      - You can view these files by navigating to that directory
@@ -174,7 +174,7 @@ Let's start building our multisig implementation. First, we'll set up our import
      Open `multisig.py` in your IDE (we recommend VSCode or JetBrains) and add the following code:
 
      ```python filename="multisig.py"
-     # Copyright © Libra Foundation
+     # Copyright © Libra2 Foundation
      # SPDX-License-Identifier: Apache-2.0
 
      import asyncio
@@ -231,10 +231,10 @@ Let's start building our multisig implementation. First, we'll set up our import
          asyncio.run(main())
      ```
 
-     This code imports all the necessary modules from the Libra SDK. The `libra2_sdk.account` module provides essential functionality for managing accounts and signatures, while `libra2_sdk.transactions` gives us the tools to create and submit blockchain transactions.
+     This code imports all the necessary modules from the Libra2 SDK. The `libra2_sdk.account` module provides essential functionality for managing accounts and signatures, while `libra2_sdk.transactions` gives us the tools to create and submit blockchain transactions.
 
      <Aside type="note">
-       You can get free test tokens on Libra Devnet or Testnet by using the `FaucetClient`.
+       You can get free test tokens on Libra2 Devnet or Testnet by using the `FaucetClient`.
      </Aside>
 </Steps>
 
@@ -254,7 +254,7 @@ Just like a bank vault needs designated key holders, our multisig needs authoriz
      chad = Account.generate()
      ```
 
-     The `Account.generate()` function creates a new Libra account with a fresh keypair. Each account will have its own private key (for signing) and public key (for verification). In our multisig setup, these accounts represent the key holders who will have authorization to sign transactions, similar to how each bank vault key holder would have their own unique physical key.
+     The `Account.generate()` function creates a new Libra2 account with a fresh keypair. Each account will have its own private key (for signing) and public key (for verification). In our multisig setup, these accounts represent the key holders who will have authorization to sign transactions, similar to how each bank vault key holder would have their own unique physical key.
 
      <Aside type="note">
        Each time you run this script it will generate new accounts on the devnet. You'll need to save the private key and account address if you want to continue working with that account.
@@ -325,7 +325,7 @@ Just like a bank vault needs designated key holders, our multisig needs authoriz
      <Aside type="note">
        For each user, note the [account address](/network/blockchain/accounts#account-address) and [authentication key](/network/blockchain/accounts#authentication-key) are identical, but the [public key](/network/blockchain/accounts#creating-an-account) is different.
 
-       The Libra account model facilitates the unique ability to rotate an account's private key. Since an account's address is the _initial_ authentication key, the ability to sign for an account can be transferred to another private key without changing its public address.
+       The Libra2 account model facilitates the unique ability to rotate an account's private key. Since an account's address is the _initial_ authentication key, the ability to sign for an account can be transferred to another private key without changing its public address.
      </Aside>
 </Steps>
 
@@ -388,7 +388,7 @@ Now that we have our key holders (Alice, Bob, and Chad), let's set up our multis
        </TabItem>
      </Tabs>
 
-     You should see output showing your multisig account's public key type and its unique address on the Libra blockchain. For example:
+     You should see output showing your multisig account's public key type and its unique address on the Libra2 blockchain. For example:
 
      ```shellscript filename="Terminal"
      === 2-of-3 Multisig account ===
@@ -421,7 +421,7 @@ Just like new bank accounts need initial deposits, our blockchain accounts need 
      await asyncio.gather(*[alice_fund, bob_fund, chad_fund, multisig_fund])
      ```
 
-     The `fund_account()` function requests test tokens from the Libra faucet to let us experiment without using real APT. We fund all accounts simultaneously rather than one at a time by first initializing them as `[name]_fund` and then awaiting the async function call that gathers them: `asyncio.gather()`.
+     The `fund_account()` function requests test tokens from the Libra2 faucet to let us experiment without using real APT. We fund all accounts simultaneously rather than one at a time by first initializing them as `[name]_fund` and then awaiting the async function call that gathers them: `asyncio.gather()`.
 
   2. Check balances
 
@@ -498,7 +498,7 @@ Now let's create a transaction that requires multiple signatures. We'll transfer
      entry_function = EntryFunction.natural(
          module="0x1::coin",
          function="transfer",
-         ty_args=[TypeTag(StructTag.from_str("0x1::libra2_coin::LibraCoin"))],
+         ty_args=[TypeTag(StructTag.from_str("0x1::libra2_coin::Libra2Coin"))],
          args=[
              TransactionArgument(chad.address(), Serializer.struct),
              TransactionArgument(100, Serializer.u64),
@@ -676,11 +676,11 @@ Now we'll combine the signatures and submit the transaction. This is similar to 
      - The multisig account paid for both the transfer amount and the gas fees
 
      <Aside type="note">
-       You can verify transaction on Libra Explorer:
+       You can verify transaction on Libra2 Explorer:
 
-       - Go to [Libra Explorer](https://explorer.libra2labs.com/)
+       - Go to [Libra2 Explorer](https://explorer.libra2labs.com/)
        - Make sure Explorer is set to Devnet (check the top right corner)
-         ![Switching to Devnet network in Libra Explorer](~/images/screenshots/explorer_devnet.png)
+         ![Switching to Devnet network in Libra2 Explorer](~/images/screenshots/explorer_devnet.png)
        - Search for your multisig address or transaction hash
        - Review the transaction details and balance changes
      </Aside>
@@ -688,31 +688,31 @@ Now we'll combine the signatures and submit the transaction. This is similar to 
 
 ## Going Further: Advanced Features
 
-You've completed the basics of Libra multisig - creating a "vault" (multisig account), adding "key holders" (signers), and making a simple transfer that requires multiple approvals. But just like modern banking, there's much more we can do:
+You've completed the basics of Libra2 multisig - creating a "vault" (multisig account), adding "key holders" (signers), and making a simple transfer that requires multiple approvals. But just like modern banking, there's much more we can do:
 
 ### Vanity Addresses
 
-Like having a custom bank account number, Libra lets you create "vanity" addresses that start with specific characters. Imagine being able to choose a memorable account number like "0xdd..." for your company "Digital Dynamics"!
+Like having a custom bank account number, Libra2 lets you create "vanity" addresses that start with specific characters. Imagine being able to choose a memorable account number like "0xdd..." for your company "Digital Dynamics"!
 
 ### Account Rotation
 
-Banks let you update your security credentials without changing your account number. Similarly, Libra multisig accounts can "rotate" their authentication keys while keeping the same address - perfect for updating security without disrupting existing payment setups.
+Banks let you update your security credentials without changing your account number. Similarly, Libra2 multisig accounts can "rotate" their authentication keys while keeping the same address - perfect for updating security without disrupting existing payment setups.
 
 ### Governance & Smart Contracts
 
-Just as banks have complex approval systems for large corporate accounts, Libra multisig can interact with smart contracts and governance systems. Imagine setting up automated rules like:
+Just as banks have complex approval systems for large corporate accounts, Libra2 multisig can interact with smart contracts and governance systems. Imagine setting up automated rules like:
 
 - Required approvals based on transaction size
 - Time-locked transactions
 - Integration with DAO voting systems
 
 <Aside type="note">
-  Let us know what excites you most about multisig on Libra! Join our community channels to share your ideas and experiences.
+  Let us know what excites you most about multisig on Libra2! Join our community channels to share your ideas and experiences.
 </Aside>
 
 ## Next Steps
 
 1. Review the [complete code example](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/multisig.py) which include all the Advanced Features (see above).
 2. Learn about [multisig governance in this tutorial](/build/cli/working-with-move-contracts/multi-signature-tutorial).
-3. Explore [account abstraction in Libra](/network/blockchain/accounts).
-4. Join the [Libra Discord](https://discord.gg/libra2labs) for developer support.
+3. Explore [account abstraction in Libra2](/network/blockchain/accounts).
+4. Join the [Libra2 Discord](https://discord.gg/libra2labs) for developer support.

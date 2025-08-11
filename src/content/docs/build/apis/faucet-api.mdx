@@ -16,9 +16,9 @@ see more information on each individual [SDK's documentation](/build/sdks).
 ### Using the faucet in a wallet
 
 Most wallets, such as [Petra](https://libra2foundation.org/ecosystem/project/petra) or [Pontem](https://libra2foundation.org/ecosystem/project/pontem-wallet)
-will have a faucet button for devnet. See full list of [Libra Wallets](https://libra2foundation.org/ecosystem/projects/wallets).
+will have a faucet button for devnet. See full list of [Libra2 Wallets](https://libra2foundation.org/ecosystem/projects/wallets).
 
-### Using the faucet in the Libra CLI
+### Using the faucet in the Libra2 CLI
 
 Once you've [set up your CLI](/build/cli/setup-cli), you can simply call fund-with-faucet.  The amount used is in Octas (1 APT = 100,000,000 Octas).
 
@@ -31,9 +31,9 @@ libra2 account fund-with-faucet --account 0xd0f523c9e73e6f3d68c16ae883a9febc616e
 Here is an example funding the account `0xd0f523c9e73e6f3d68c16ae883a9febc616e484c4998a72d8899a1009e5a89d6` with 1 APT in Devnet. The amount used is in Octas (1 APT = 100,000,000 Octas).
 
 ```typescript filename="index.ts"
-import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-const libra2 = new Libra(new LibraConfig({network: Network.Devnet}));
+const libra2 = new Libra2(new Libra2Config({network: Network.Devnet}));
 libra2.fundAccount({accountAddress: "0xd0f523c9e73e6f3d68c16ae883a9febc616e484c4998a72d8899a1009e5a89d6", amount: 100000000});
 ```
 

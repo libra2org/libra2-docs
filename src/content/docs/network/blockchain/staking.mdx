@@ -7,12 +7,12 @@ import { ThemedImage } from '~/components/ThemedImage';
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note">
-  We strongly recommend that you read the consensus section of [Libra Blockchain Deep Dive](/network/blockchain/blockchain-deep-dive#consensus) before proceeding further.
+  We strongly recommend that you read the consensus section of [Libra2 Blockchain Deep Dive](/network/blockchain/blockchain-deep-dive#consensus) before proceeding further.
 </Aside>
 
 In a distributed system like blockchain, executing a transaction is distinct from updating the state of the ledger and persisting the results in storage. An agreement, i.e., consensus, must be reached by a quorum of validators on the ordering of transactions and their execution results before these results are persisted in storage and the state of the ledger is updated.
 
-Anyone can participate in the Libra consensus process, if they stake sufficient utility coin, i.e., place their utility coin into escrow. To encourage validators to participate in the consensus process, each validator's vote weight is proportional to the amount of validator's stake. In exchange, the validator is rewarded proportionally to the amount staked. Hence, the performance of the blockchain is aligned with the validator's interest, i.e., rewards.
+Anyone can participate in the Libra2 consensus process, if they stake sufficient utility coin, i.e., place their utility coin into escrow. To encourage validators to participate in the consensus process, each validator's vote weight is proportional to the amount of validator's stake. In exchange, the validator is rewarded proportionally to the amount staked. Hence, the performance of the blockchain is aligned with the validator's interest, i.e., rewards.
 
 <Aside type="note">
   Currently, slashing is not implemented.
@@ -20,11 +20,11 @@ Anyone can participate in the Libra consensus process, if they stake sufficient 
 
 The current on-chain data can be found in [`staking_config::StakingConfig`](https://api.mainnet.libra2labs.com/v1/accounts/0x1/resource/0x1::staking_config::StakingConfig). The configuration set is defined in [`staking_config.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/configs/staking_config.move).
 
-The rest of this document presents how staking works on the Libra blockchain. See [Supporting documentation](#supporting-documentation) at the bottom for related resources.
+The rest of this document presents how staking works on the Libra2 blockchain. See [Supporting documentation](#supporting-documentation) at the bottom for related resources.
 
-## Staking on the Libra blockchain
+## Staking on the Libra2 blockchain
 
-Below is a summary flow diagram of how staking on the Libra blockchain works. The sections following the summary describe it in detail.
+Below is a summary flow diagram of how staking on the Libra2 blockchain works. The sections following the summary describe it in detail.
 
 <ThemedImage
   alt="Staking Flow"
@@ -34,7 +34,7 @@ dark: '~/images/staking-dark.svg',
 }}
 />
 
-The Libra staking module defines a capability that represents ownership.
+The Libra2 staking module defines a capability that represents ownership.
 
 <Aside type="note">
   See the `OwnerCapability` defined in [stake.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/stake.move).
@@ -46,13 +46,13 @@ The `OwnerCapability` resource can be used to control the stake pool. Three pers
 - Operator
 - Voter
 
-Using this owner-operator-voter model, a custodian can assume the owner persona and stake on the Libra blockchain and participate in the Libra governance. This model allows delegations and staking services to be built as it separates the account that is in control of the funds from the other accounts (operator, voter), hence allows secure delegations of responsibilities.
+Using this owner-operator-voter model, a custodian can assume the owner persona and stake on the Libra2 blockchain and participate in the Libra2 governance. This model allows delegations and staking services to be built as it separates the account that is in control of the funds from the other accounts (operator, voter), hence allows secure delegations of responsibilities.
 
 This section describes how this works, using Bob and Alice in the example.
 
 ### Owner
 
-The owner is the owner of the funds. For example, Bob creates an account on the Libra blockchain. Now Bob has the `OwnerCapability` resource. Bob can assign his account’s operator address to the account of Alice, a trusted node operator, to appoint Alice as a validator.
+The owner is the owner of the funds. For example, Bob creates an account on the Libra2 blockchain. Now Bob has the `OwnerCapability` resource. Bob can assign his account’s operator address to the account of Alice, a trusted node operator, to appoint Alice as a validator.
 
 As an owner:
 
@@ -80,10 +80,10 @@ As an operator:
 An owner can designate a voter. This enables the voter to participate in governance. The voter will use the voter key to sign the governance votes in the transactions.
 
 <Aside type="note">
-  This document describes staking. See [Governance](/network/blockchain/governance) for how to participate in the Libra on-chain governance using the owner-voter model.
+  This document describes staking. See [Governance](/network/blockchain/governance) for how to participate in the Libra2 on-chain governance using the owner-voter model.
 </Aside>
 
-## Validation on the Libra blockchain
+## Validation on the Libra2 blockchain
 
 Throughout the duration of an epoch, the following flow of events occurs several times (thousands of times):
 
@@ -123,7 +123,7 @@ dark: '~/images/validator-state-dark.svg',
 There are two edge cases to call out:
 
 1. If a validator's stake drops below the required [minimum](#minimum-and-maximum-stake), that validator will be moved from active state directly to the inactive state during an epoch change. This happens only during an epoch change.
-2. Libra governance can also directly remove validators from the active set. **Note that governance proposals will always trigger an epoch change.**
+2. Libra2 governance can also directly remove validators from the active set. **Note that governance proposals will always trigger an epoch change.**
 
 ### Stake state
 
@@ -165,13 +165,13 @@ The below rules is applicable during the changes of state:
 
 ## Joining the validator set
 
-Participating as a validator node on the Libra network works like this:
+Participating as a validator node on the Libra2 network works like this:
 
 1. Operator runs a validator node and configures the on-chain validator network addresses and rotates the consensus key.
-2. Owner deposits her Libra coins funds as stake, or have funds assigned by a staking service. The stake must be at least the minimum amount required.
+2. Owner deposits her Libra2 coins funds as stake, or have funds assigned by a staking service. The stake must be at least the minimum amount required.
 3. **The validator node cannot sync until the stake pool becomes active.**
 4. Operator validates and gains rewards.
-5. The staked pool is automatically be locked up for a fixed duration (set by the Libra governance) and will be automatically renewed at expiration. You cannot withdraw any of your staked amount until your lockup period expires. See [stake.move#L728](https://github.com/libra2org/libra2-core/blob/00a234cc233b01f1a7e1680f81b72214a7af91a9/libra2-move/framework/libra2-framework/sources/stake.move#L728).
+5. The staked pool is automatically be locked up for a fixed duration (set by the Libra2 governance) and will be automatically renewed at expiration. You cannot withdraw any of your staked amount until your lockup period expires. See [stake.move#L728](https://github.com/libra2org/libra2-core/blob/00a234cc233b01f1a7e1680f81b72214a7af91a9/libra2-move/framework/libra2-framework/sources/stake.move#L728).
 6. Operator must wait until the new epoch starts before their validator becomes active.
 
 <Aside type="note">
@@ -188,7 +188,7 @@ The owner can withdraw part of the stake and leave their balance below the requi
 
 ### Automatic lockup duration
 
-When you join the validator set, your stake will automatically be locked up for a fixed duration that is set by the Libra governance.
+When you join the validator set, your stake will automatically be locked up for a fixed duration that is set by the Libra2 governance.
 
 ### Automatic lockup renewal
 
@@ -211,15 +211,15 @@ When the staker unlocks stake, this also triggers a commission unlock. The full 
 When the lockup period expires, it is automatically renewed by the network. However, the owner can explicitly reset the lockup.
 
 <Aside type="note">
-  The lockup duration is decided by the Libra governance, i.e., by the covenants that the Libra community members vote on, and not by any special entity like the Libra Labs.
+  The lockup duration is decided by the Libra2 governance, i.e., by the covenants that the Libra2 community members vote on, and not by any special entity like the Libra2 Labs.
 </Aside>
 
 ## Epoch
 
-An epoch in the Libra blockchain is defined as a duration of time, in seconds, during which a number of blocks are voted on by the validators, the validator set is updated, and the rewards are distributed to the validators.
+An epoch in the Libra2 blockchain is defined as a duration of time, in seconds, during which a number of blocks are voted on by the validators, the validator set is updated, and the rewards are distributed to the validators.
 
 <Aside type="note">
-  The Libra mainnet epoch is set as 7200 seconds (two hours).
+  The Libra2 mainnet epoch is set as 7200 seconds (two hours).
 </Aside>
 
 ### Triggers at the epoch start
@@ -243,10 +243,10 @@ Rewards for staking are calculated by using:
 
 1. The `rewards_rate`, an annual percentage yield (APY), i.e., rewards accrue as a compound interest on your current staked amount.
 2. Your staked amount.
-3. Your proposer performance in the Libra governance.
+3. Your proposer performance in the Libra2 governance.
 
 <Aside type="note">
-  The `rewards_rate` is set by the Libra governance. Also see [Validation on the Libra blockchain](#validation-on-the-libra2-blockchain).
+  The `rewards_rate` is set by the Libra2 governance. Also see [Validation on the Libra2 blockchain](#validation-on-the-libra2-blockchain).
 </Aside>
 
 ### Rewards formula
@@ -265,7 +265,7 @@ Rewards are paid every epoch. Any reward you (i.e., validator) earned at the end
 
 The validator rewards calculation uses the validator's proposer performance. Once you are in the validator set, you can propose in every epoch. The more successfully you propose, i.e., your proposals pass, the more rewards you will receive.
 
-Note that rewards are given only to the **leader-validators**, i.e., validators who propose the new block, and not to the **voter-validators** who vote on the leader's proposal for the new block. See [Validation on the Libra blockchain](#validation-on-the-libra2-blockchain).
+Note that rewards are given only to the **leader-validators**, i.e., validators who propose the new block, and not to the **voter-validators** who vote on the leader's proposal for the new block. See [Validation on the Libra2 blockchain](#validation-on-the-libra2-blockchain).
 
 <Aside type="note">
   All the validator rewards are also subject to lockup period as they are added to the original staked amount.
@@ -274,7 +274,7 @@ Note that rewards are given only to the **leader-validators**, i.e., validators 
 ## Leaving the validator set
 
 <Aside type="note">
-  See the Libra Stake module in the Move language at [stake.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/stake.move).
+  See the Libra2 Stake module in the Move language at [stake.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/stake.move).
 </Aside>
 
 - At any time you can call the following sequence of functions to leave the validator set:

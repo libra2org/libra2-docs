@@ -10,8 +10,8 @@ title: "模拟交易"
 ```typescript filename="simulate-a-transaction.ts"
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
 } from "@libra2-core/ts-sdk";
 
@@ -20,8 +20,8 @@ async function example() {
     let receiver = Account.generate();
 
     // 0. 初始化客户端和测试账户
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     await libra2.fundAccount({
         accountAddress: sender.accountAddress,
@@ -32,7 +32,7 @@ async function example() {
     const transaction = await libra2.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
-        // Libra 上的所有交易都通过智能合约实现
+        // Libra2 上的所有交易都通过智能合约实现
         function: "0x1::libra2_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },

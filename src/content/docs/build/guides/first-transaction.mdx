@@ -4,9 +4,9 @@ title: "Your First Transaction"
 
 import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
-Transactions are the fundamental way to change data on the Libra blockchain. Think of them like sending a package: you need to specify what you're sending, who it's going to, and then track it until delivery is confirmed. In blockchain terms, transactions allow you to transfer coins, call smart contract functions, and update on-chain state.
+Transactions are the fundamental way to change data on the Libra2 blockchain. Think of them like sending a package: you need to specify what you're sending, who it's going to, and then track it until delivery is confirmed. In blockchain terms, transactions allow you to transfer coins, call smart contract functions, and update on-chain state.
 
-This tutorial will guide you through creating and submitting your first transaction on the Libra blockchain. You'll learn how to:
+This tutorial will guide you through creating and submitting your first transaction on the Libra2 blockchain. You'll learn how to:
 
 1. Set up your development environment
 2. Create test accounts and fund them
@@ -16,7 +16,7 @@ This tutorial will guide you through creating and submitting your first transact
 6. Verify the transaction was executed successfully
 
 <Aside type="note">
-  This tutorial builds on concepts from the Libra blockchain. If you're new to blockchain development, don't worry - we'll explain key concepts along the way.
+  This tutorial builds on concepts from the Libra2 blockchain. If you're new to blockchain development, don't worry - we'll explain key concepts along the way.
 
   You can jump to the full code sample [here](#full-code-sample) or continue reading for a step-by-step walkthrough.
 </Aside>
@@ -132,22 +132,22 @@ This tutorial will guide you through creating and submitting your first transact
     <Steps>
       1. Set up the client
 
-         First, we need to initialize the Libra client that will connect to the blockchain. Open `transaction.ts` in your editor and add:
+         First, we need to initialize the Libra2 client that will connect to the blockchain. Open `transaction.ts` in your editor and add:
 
          ```typescript filename="transaction.ts"
          import {
            Account,
-           Libra,
-           LibraConfig,
+           Libra2,
+           Libra2Config,
            Network,
          } from "@libra2-core/ts-sdk";
 
          async function main() {
-           // Initialize the Libra client
-           const config = new LibraConfig({ network: Network.DEVNET });
-           const libra2 = new Libra(config);
+           // Initialize the Libra2 client
+           const config = new Libra2Config({ network: Network.DEVNET });
+           const libra2 = new Libra2(config);
 
-           console.log("Connected to Libra devnet");
+           console.log("Connected to Libra2 devnet");
 
            // More code will go here
          }
@@ -156,7 +156,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full TypeScript SDK source code in the [libra2-ts-sdk repository](https://github.com/libra2org/libra2-ts-sdk).
+           We're connecting to the Libra2 devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full TypeScript SDK source code in the [libra2-ts-sdk repository](https://github.com/libra2org/libra2-ts-sdk).
          </Aside>
 
       2. Generate accounts
@@ -174,7 +174,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Each account has a unique address (like a bank account number) and a keypair (like your login credentials). The address is derived from the public key, while the private key is kept secret and used for signing transactions. For more details on how accounts work in Libra, see [Account basics](/network/blockchain/accounts).
+           Each account has a unique address (like a bank account number) and a keypair (like your login credentials). The address is derived from the public key, while the private key is kept secret and used for signing transactions. For more details on how accounts work in Libra2, see [Account basics](/network/blockchain/accounts).
          </Aside>
 
       3. Fund the accounts
@@ -214,7 +214,7 @@ This tutorial will guide you through creating and submitting your first transact
          You should see output similar to:
 
          ```
-         Connected to Libra devnet
+         Connected to Libra2 devnet
          === Addresses ===
          Alice's address: 0x978c213990c4833df71548df7ce49d54c759d6b6d932de22b24d56060b7af2aa
          Bob's address: 0x7af2d6c93a2feafc9b69b5e8ad9d6b513b260f62f23f3a384a3a2e4a84694a9b
@@ -239,7 +239,7 @@ This tutorial will guide you through creating and submitting your first transact
     <Steps>
       1. Set up the client
 
-         First, we need to initialize the Libra client that will connect to the blockchain. Open `transaction.py` in your editor and add:
+         First, we need to initialize the Libra2 client that will connect to the blockchain. Open `transaction.py` in your editor and add:
 
          ```python filename="transaction.py"
          import asyncio
@@ -258,7 +258,7 @@ This tutorial will guide you through creating and submitting your first transact
              rest_client = RestClient(NODE_URL)
              faucet_client = FaucetClient(FAUCET_URL, rest_client)
 
-             print("Connected to Libra devnet")
+             print("Connected to Libra2 devnet")
 
              # More code will go here
 
@@ -267,7 +267,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full Python SDK source code in the [libra2-python-sdk repository](https://github.com/libra2org/libra2-python-sdk).
+           We're connecting to the Libra2 devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full Python SDK source code in the [libra2-python-sdk repository](https://github.com/libra2org/libra2-python-sdk).
          </Aside>
 
       2. Generate accounts
@@ -285,7 +285,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Each account has a unique address (like a bank account number) and a keypair (like your login credentials). The address is derived from the public key, while the private key is kept secret and used for signing transactions. For more details on how accounts work in Libra, see [Account basics](/network/blockchain/accounts).
+           Each account has a unique address (like a bank account number) and a keypair (like your login credentials). The address is derived from the public key, while the private key is kept secret and used for signing transactions. For more details on how accounts work in Libra2, see [Account basics](/network/blockchain/accounts).
          </Aside>
 
       3. Fund the accounts
@@ -321,7 +321,7 @@ This tutorial will guide you through creating and submitting your first transact
          You should see output similar to:
 
          ```
-         Connected to Libra devnet
+         Connected to Libra2 devnet
          === Addresses ===
          Alice's address: 0x978c213990c4833df71548df7ce49d54c759d6b6d932de22b24d56060b7af2aa
          Bob's address: 0x7af2d6c93a2feafc9b69b5e8ad9d6b513b260f62f23f3a384a3a2e4a84694a9b
@@ -350,7 +350,7 @@ This tutorial will guide you through creating and submitting your first transact
     <Steps>
       1. Understand transaction structure
 
-         A transaction in Libra has several key components:
+         A transaction in Libra2 has several key components:
 
          1. **Sender**: The account initiating the transaction (Alice)
          2. **Function**: The on-chain function to call (in this case, a coin transfer)
@@ -360,7 +360,7 @@ This tutorial will guide you through creating and submitting your first transact
          6. **Sequence number**: A counter that prevents replay attacks
 
          <Aside type="note">
-           All data in Libra transactions is serialized using Binary Canonical Serialization (BCS), a compact and deterministic format designed for blockchain use. The SDK handles this serialization for you.
+           All data in Libra2 transactions is serialized using Binary Canonical Serialization (BCS), a compact and deterministic format designed for blockchain use. The SDK handles this serialization for you.
 
            BCS ensures that transaction data is consistently encoded across different platforms and languages, which is critical for a blockchain where the same transaction might be processed by nodes running different implementations.
          </Aside>
@@ -393,7 +393,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The function `0x1::libra2_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
+           The function `0x1::libra2_account::transfer` is a built-in function in the Libra2 framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
          </Aside>
     </Steps>
   </TabItem>
@@ -404,7 +404,7 @@ This tutorial will guide you through creating and submitting your first transact
     <Steps>
       1. Understand transaction structure
 
-         A transaction in Libra has several key components:
+         A transaction in Libra2 has several key components:
 
          1. **Sender**: The account initiating the transaction (Alice)
          2. **Function**: The on-chain function to call (in this case, a coin transfer)
@@ -414,7 +414,7 @@ This tutorial will guide you through creating and submitting your first transact
          6. **Sequence number**: A counter that prevents replay attacks
 
          <Aside type="note">
-           All data in Libra transactions is serialized using Binary Canonical Serialization (BCS), a compact and deterministic format designed for blockchain use. The SDK handles this serialization for you.
+           All data in Libra2 transactions is serialized using Binary Canonical Serialization (BCS), a compact and deterministic format designed for blockchain use. The SDK handles this serialization for you.
 
            BCS ensures that transaction data is consistently encoded across different platforms and languages, which is critical for a blockchain where the same transaction might be processed by nodes running different implementations.
          </Aside>
@@ -467,7 +467,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The function `0x1::libra2_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
+           The function `0x1::libra2_account::transfer` is a built-in function in the Libra2 framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
 
            The Python SDK uses several key components to construct transactions:
 
@@ -592,7 +592,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
+           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra2 blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra2 Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
          </Aside>
     </Steps>
   </TabItem>
@@ -644,7 +644,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
+           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra2 blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra2 Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
          </Aside>
     </Steps>
   </TabItem>
@@ -701,7 +701,7 @@ This tutorial will guide you through creating and submitting your first transact
          You should see output similar to:
 
          ```
-         Connected to Libra devnet
+         Connected to Libra2 devnet
          === Addresses ===
          Alice's address: 0x978c213990c4833df71548df7ce49d54c759d6b6d932de22b24d56060b7af2aa
          Bob's address: 0x7af2d6c93a2feafc9b69b5e8ad9d6b513b260f62f23f3a384a3a2e4a84694a9b
@@ -743,7 +743,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>`) and reads the current stored value. This demonstrates how the SDK abstracts away complex blockchain interactions into simple function calls.
+           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the Libra2Coin (`0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>`) and reads the current stored value. This demonstrates how the SDK abstracts away complex blockchain interactions into simple function calls.
          </Aside>
     </Steps>
   </TabItem>
@@ -798,7 +798,7 @@ This tutorial will guide you through creating and submitting your first transact
          You should see output similar to:
 
          ```
-         Connected to Libra devnet
+         Connected to Libra2 devnet
          === Addresses ===
          Alice's address: 0x978c213990c4833df71548df7ce49d54c759d6b6d932de22b24d56060b7af2aa
          Bob's address: 0x7af2d6c93a2feafc9b69b5e8ad9d6b513b260f62f23f3a384a3a2e4a84694a9b
@@ -844,7 +844,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>`) and reads the current stored value.
+           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the Libra2Coin (`0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>`) and reads the current stored value.
          </Aside>
     </Steps>
   </TabItem>
@@ -852,7 +852,7 @@ This tutorial will guide you through creating and submitting your first transact
 
 ## 7. (Optional) Explore Your Transaction On-Chain
 
-Now that you've successfully executed a transaction, you can explore it on the Libra Explorer. This will help you understand how transactions are recorded on the blockchain and what information is publicly available.
+Now that you've successfully executed a transaction, you can explore it on the Libra2 Explorer. This will help you understand how transactions are recorded on the blockchain and what information is publicly available.
 
 <Steps>
   1. Copy your transaction hash
@@ -863,15 +863,15 @@ Now that you've successfully executed a transaction, you can explore it on the L
      Transaction submitted with hash: 0x3a8a3e34a1c64ad9d7636a3a827b7ec3bb12d73825b36fa06d425c5a3b42cccc
      ```
 
-  2. Open the Libra Explorer
+  2. Open the Libra2 Explorer
 
-     Go to the [Libra Explorer](https://explorer.libra2labs.com/?network=devnet).
+     Go to the [Libra2 Explorer](https://explorer.libra2labs.com/?network=devnet).
 
   3. Ensure you are on Devnet network
 
      Look for "Devnet" in the top right corner, or switch networks by clicking the dropdown and selecting Devnet.
 
-     ![Switching to Devnet network in Libra Explorer](~/images/screenshots/explorer_devnet.png)
+     ![Switching to Devnet network in Libra2 Explorer](~/images/screenshots/explorer_devnet.png)
 
   4. Search for your transaction
 
@@ -908,7 +908,7 @@ Now that you've successfully executed a transaction, you can explore it on the L
 
 ## 8. Next Steps
 
-Congratulations! You've successfully created and executed your first transaction on the Libra blockchain. Here are some suggestions for what to explore next:
+Congratulations! You've successfully created and executed your first transaction on the Libra2 blockchain. Here are some suggestions for what to explore next:
 
 **Learn about more complex transactions**:
 
@@ -925,7 +925,7 @@ Congratulations! You've successfully created and executed your first transaction
 - [Your First Move Module](/build/guides/first-move-module) - Create your own smart contract
 - [Account Basics](/network/blockchain/accounts)
 
-[Join the Libra Discord](https://discord.gg/libra2labs) and share what you're building!
+[Join the Libra2 Discord](https://discord.gg/libra2labs) and share what you're building!
 
 ## Full Code Sample
 
@@ -934,14 +934,14 @@ The complete code samples below combine all the snippets we've covered in this t
 <Tabs>
   <TabItem label="TypeScript">
     ```typescript filename="transaction.ts"
-    import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+    import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
     async function main() {
-      // Initialize the Libra client
-      const config = new LibraConfig({ network: Network.DEVNET });
-      const libra2 = new Libra(config);
+      // Initialize the Libra2 client
+      const config = new Libra2Config({ network: Network.DEVNET });
+      const libra2 = new Libra2(config);
 
-      console.log("Connected to Libra devnet");
+      console.log("Connected to Libra2 devnet");
 
       // More code will go here
       // Generate two accounts
@@ -1091,7 +1091,7 @@ The complete code samples below combine all the snippets we've covered in this t
         rest_client = RestClient(NODE_URL)
         faucet_client = FaucetClient(FAUCET_URL, rest_client)
 
-        print("Connected to Libra devnet")
+        print("Connected to Libra2 devnet")
 
         # Generate two accounts
         alice = Account.generate()

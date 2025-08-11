@@ -1,7 +1,7 @@
-/// Libra ブロックチェーンの概念を使用した遊び心のある 404 モジュール
+/// Libra2 ブロックチェーンの概念を使用した遊び心のある 404 モジュール
 module 0x404::lost_transaction {
     use libra2_framework::account;
-    use libra2_framework::coin::{Self, LibraCoin};
+    use libra2_framework::coin::{Self, Libra2Coin};
     use std::error;
     use std::signer;
 
@@ -29,7 +29,7 @@ module 0x404::lost_transaction {
 
         // 検索に十分なガスがあるか確認
         assert!(
-            coin::balance<LibraCoin>(searcher) > 404,
+            coin::balance<Libra2Coin>(searcher) > 404,
             error::resource_exhausted(E_INSUFFICIENT_GAS)
         );
 

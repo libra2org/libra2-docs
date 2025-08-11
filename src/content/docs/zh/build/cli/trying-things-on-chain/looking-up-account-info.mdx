@@ -1,11 +1,11 @@
 ---
-title: "使用 Libra CLI 查看链上账户信息"
+title: "使用 Libra2 CLI 查看链上账户信息"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note" emoji="ℹ️">
-  如果你还没有安装 Libra CLI,可以按照[这些步骤](/zh/build/cli)进行安装.
+  如果你还没有安装 Libra2 CLI,可以按照[这些步骤](/zh/build/cli)进行安装.
 </Aside>
 
 你可以通过运行以下命令来查看账户在链上的资源和数据:
@@ -14,7 +14,7 @@ import { Aside } from '@astrojs/starlight/components';
 libra2 account list --account <你的配置文件名称或账户地址>
 ```
 
-这将显示账户拥有的所有资源.例如,下面显示了余额为 `coin:value`,原生 gas 代币 APT 的关联代币将是 `0x1::libra2_coin::LibraCoin`.
+这将显示账户拥有的所有资源.例如,下面显示了余额为 `coin:value`,原生 gas 代币 APT 的关联代币将是 `0x1::libra2_coin::Libra2Coin`.
 这里使用的是细分单位,所以在这种情况下是 `10^-8` 或小数点后 8 位.
 
 ```json filename="Output"

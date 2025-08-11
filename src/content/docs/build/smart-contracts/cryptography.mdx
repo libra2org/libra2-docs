@@ -4,18 +4,18 @@ title: "Cryptography"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Cryptography plays an integral role in ensuring the security, integrity, confidentiality, and immutability of data in blockchain systems. The Libra adapter for Move provides developers with an array of cryptographic primitives to cater to this need. This document delves into the cryptographic functionalities offered by Move on Libra and elucidates the principles that drive their design.
+Cryptography plays an integral role in ensuring the security, integrity, confidentiality, and immutability of data in blockchain systems. The Libra2 adapter for Move provides developers with an array of cryptographic primitives to cater to this need. This document delves into the cryptographic functionalities offered by Move on Libra2 and elucidates the principles that drive their design.
 
 ## Cryptographic primitives
 
-Move, through the Libra adapter, encompasses several fundamental cryptographic tools:
+Move, through the Libra2 adapter, encompasses several fundamental cryptographic tools:
 
 1. [Cryptographic Hash Functions](#cryptographic-hash-functions) – Algorithms that produce a fixed-size output (hash) from variable-sized input data. Supported functions include SHA2-256, SHA3-256, Keccak256, and Blake2b-256.
 2. [Digital Signature Verification](#digital-signature-verification) – Algorithms for signing a message to ensure its integrity, authenticate its sender, ensure non-repudiation, or any combination thereof. Supported signature schemes include Ed25519, ECDSA, and BLS.
 3. [Elliptic Curve Arithmetic](#elliptic-curve-arithmetic) – Elliptic curves are one of the building blocks of advanced cryptographic primitives, such as digital signatures, public-key encryption or verifiable secret sharing. Supported curves include Ristretto255 and BLS12-381.
 4. [Zero-Knowledge Proofs (ZKP)](#building-powerful-cryptographic-applications) – These cryptographic techniques enable a party to prove that a relation $R(x; w)$ is satisfied on a public statement $x$ without leaking the secret witness $w$ that makes it hold. Currently, we support Groth16 ZKP verification and Bulletproofs ZK range proof verification.
 
-Three fundamental principles guide the design and integration of the Libra cryptographic extensions into Move:
+Three fundamental principles guide the design and integration of the Libra2 cryptographic extensions into Move:
 
 1. **Economic Gas Usage** – Striving to minimize gas costs for Move developers by implementing key primitives as [Move native functions](/build/smart-contracts/book/functions#native-functions). For example, see the module for [BLS signatures over BLS12-381 elliptic curves](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move).
 2. **Type-Safe APIs** – Ensuring that APIs are resistant to common mistakes, type-safety enhances code reliability and promotes an efficient development process. For an example, see the [Ed25519 signature module](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move).
@@ -99,7 +99,7 @@ The right choice of a signature scheme in your dapp could depend on many factors
 ## Elliptic curve arithmetic
 
 While the [hash function](#cryptographic-hash-functions) and [digital signature](#digital-signature-verification) modules should provide enough functionality for most applications, some applications will require more powerful cryptography.
-Normally, developers of such applications would have to wait until their desired cryptographic functionality is implemented efficiently as a [Move native function](/build/smart-contracts/book/functions#native-functions) in the [Libra Move framework](/network/blockchain/move).
+Normally, developers of such applications would have to wait until their desired cryptographic functionality is implemented efficiently as a [Move native function](/build/smart-contracts/book/functions#native-functions) in the [Libra2 Move framework](/network/blockchain/move).
 Instead, we expose basic building blocks that developers can use to implement their own cryptographic primitives directly in the Move language and do so **efficiently**.
 
 Specifically, we currently expose low-level arithmetic operations on two popular elliptic curve groups and their associated finite fields:

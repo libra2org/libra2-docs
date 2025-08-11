@@ -10,8 +10,8 @@ Para simular una transacción, debes pasar una transacción y qué cuenta será 
 ```typescript filename="simulate-a-transaction.ts"
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
 } from "@libra2-core/ts-sdk";
 
@@ -20,8 +20,8 @@ async function example() {
     let receiver = Account.generate();
 
     // 0. Configura el cliente y las cuentas de prueba
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     await libra2.fundAccount({
         accountAddress: sender.accountAddress,
@@ -32,7 +32,7 @@ async function example() {
     const transaction = await libra2.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
-        // Todas las transacciones en Libra se implementan vía contratos inteligentes.
+        // Todas las transacciones en Libra2 se implementan vía contratos inteligentes.
         function: "0x1::libra2_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },

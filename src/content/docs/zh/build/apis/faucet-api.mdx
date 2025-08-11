@@ -38,12 +38,12 @@ Example use:
 
 ```typescript filename="index.ts"
 import {
-  LibraFaucetClient,
+  Libra2FaucetClient,
   FundRequest,
 } from "@libra2-core/libra2-faucet-client";
 
 async function callFaucet(amount: number, address: string): Promise<string []> {
-  const faucetClient = new LibraFaucetClient({
+  const faucetClient = new Libra2FaucetClient({
     BASE: "https://faucet.devnet.libra2labs.com",
   });
   const request: FundRequest = {

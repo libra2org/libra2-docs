@@ -6,7 +6,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 {/* <IndexerBetaNotice /> */}
 
-Libra Labs hosts a public version of the Indexer GraphQL API that anyone can use to get basic historical and aggregate data about transactions, fungible assets, and tokens from on-chain.
+Libra2 Labs hosts a public version of the Indexer GraphQL API that anyone can use to get basic historical and aggregate data about transactions, fungible assets, and tokens from on-chain.
 
 You can explore it by hand by viewing the Hasura Explorer below for the network you are interested in.
 
@@ -24,19 +24,19 @@ The TypeScript SDK will automatically handle rate limits, and can seamlessly all
   For detailed reference material about the contents of these tables, see the [Indexer Table Reference page](/build/indexer/indexer-reference).
 </Aside>
 
-Choose a network to explore the free Libra-Hosted Indexer API using the Hasura Explorer:
+Choose a network to explore the free Libra2-Hosted Indexer API using the Hasura Explorer:
 
 <CardGrid>
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql" title="Mainnet" description="Hasura GraphQL Explorer for Libra Mainnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql" title="Mainnet" description="Hasura GraphQL Explorer for Libra2 Mainnet" target="_blank" />
 
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.testnet.libra2labs.com/v1/graphql" title="Testnet" description="Hasura GraphQL Explorer for Libra Testnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.testnet.libra2labs.com/v1/graphql" title="Testnet" description="Hasura GraphQL Explorer for Libra2 Testnet" target="_blank" />
 
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.devnet.libra2labs.com/v1/graphql" title="Devnet" description="Hasura GraphQL Explorer for Libra Devnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.devnet.libra2labs.com/v1/graphql" title="Devnet" description="Hasura GraphQL Explorer for Libra2 Devnet" target="_blank" />
 </CardGrid>
 
 ## GraphQL API Endpoints (Direct Access)
 
-If you need to directly make GraphQL queries to the Libra-Labs hosted Indexer API, then use the following endpoints:
+If you need to directly make GraphQL queries to the Libra2-Labs hosted Indexer API, then use the following endpoints:
 
 - **Mainnet:** `https://api.mainnet.libra2labs.com/v1/graphql`
 - **Testnet:** `https://api.testnet.libra2labs.com/v1/graphql`
@@ -44,9 +44,9 @@ If you need to directly make GraphQL queries to the Libra-Labs hosted Indexer AP
 
 ### Rate limits
 
-Learn more about the rate limits that apply to the Libra Labs hosted indexer API by reading the [Libra Build docs](https://build.libra2labs.com/docs/start/billing).
+Learn more about the rate limits that apply to the Libra2 Labs hosted indexer API by reading the [Libra2 Build docs](https://build.libra2labs.com/docs/start/billing).
 
 If you need a higher rate limit, consider the following solutions:
 
-1. Get an API Key from [Libra Build](https://build.libra2labs.com/). Learn more about API keys at the [Libra Build docs site](https://build.libra2labs.com/docs/start/api-keys).
-2. Run the Libra Indexer API yourself. See the guide to self-hosting [here](/build/indexer/txn-stream/self-hosted).
+1. Get an API Key from [Libra2 Build](https://build.libra2labs.com/). Learn more about API keys at the [Libra2 Build docs site](https://build.libra2labs.com/docs/start/api-keys).
+2. Run the Libra2 Indexer API yourself. See the guide to self-hosting [here](/build/indexer/txn-stream/self-hosted).

@@ -2,7 +2,7 @@
 title: "资源账户"
 ---
 
-[对象代码部署](/zh/build/smart-contracts/deployment) 是在 Libra 上部署和升级智能合约的首选方法.资源账户要求开发者在每次创建资源账户时生成种子,并且升级合约需要特定步骤,容易出错.
+[对象代码部署](/zh/build/smart-contracts/deployment) 是在 Libra2 上部署和升级智能合约的首选方法.资源账户要求开发者在每次创建资源账户时生成种子,并且升级合约需要特定步骤,容易出错.
 
 [resource account](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/resource_account.move) 是一个为开发者设计的功能,用于独立于用户管理的账户来管理资源,特别是用于发布模块和提供仅链上访问控制(如 signers).
 
@@ -13,15 +13,15 @@ title: "资源账户"
 
 ## 限制
 
-在 Libra 中,资源账户是基于源地址和附加种子的 SHA3-256 哈希创建的.资源账户只能被创建一次;对于给定的源地址和种子,只能有一个资源账户.这是因为资源账户地址的计算完全由前者决定.
+在 Libra2 中,资源账户是基于源地址和附加种子的 SHA3-256 哈希创建的.资源账户只能被创建一次;对于给定的源地址和种子,只能有一个资源账户.这是因为资源账户地址的计算完全由前者决定.
 
-某个实体可能会调用 `create_account` 试图在资源账户创建之前抢占账户.但如果发现该账户是资源账户,Libra 会将账户的所有权转移给资源账户.这是通过验证该账户尚未执行任何交易且 `Account::signer_capbility_offer::for` 为 none 来实现的.有人合法生成与资源账户地址相同的私钥的概率极低.
+某个实体可能会调用 `create_account` 试图在资源账户创建之前抢占账户.但如果发现该账户是资源账户,Libra2 会将账户的所有权转移给资源账户.这是通过验证该账户尚未执行任何交易且 `Account::signer_capbility_offer::for` 为 none 来实现的.有人合法生成与资源账户地址相同的私钥的概率极低.
 
 ## 设置
 
 设置资源账户最简单的方法如下:
 
-1. 使用 Libra CLI:`libra2 account create-resource-account` 用于创建资源账户,`libra2 move create-resource-account-and-publish-package` 用于创建资源账户并在该资源账户地址下发布指定包.
+1. 使用 Libra2 CLI:`libra2 account create-resource-account` 用于创建资源账户,`libra2 move create-resource-account-and-publish-package` 用于创建资源账户并在该资源账户地址下发布指定包.
 2. 编写自定义智能合约代码:在 `resource_account.move` 模块中,开发者可以找到资源账户创建函数 `create_resource_account`,`create_resource_account_and_fund` 和 `create_resource_account_and_publish_package`.开发者可以在智能合约中调用这些函数来创建资源账户.
 
 每种方式提供的功能略有不同:

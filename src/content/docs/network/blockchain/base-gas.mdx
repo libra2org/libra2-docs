@@ -3,7 +3,7 @@ id: "base-gas"
 title: "Computing Transaction Gas"
 ---
 
-Libra transactions by default charge a base gas fee, regardless of market conditions.
+Libra2 transactions by default charge a base gas fee, regardless of market conditions.
 For each transaction, this "base gas" amount is based on three conditions:
 
 1. Instructions.
@@ -14,7 +14,7 @@ The more function calls, branching conditional statements, etc. that a transacti
 Likewise, the more reads from and writes into global storage that a transaction requires, the more storage gas it will cost.
 Finally, the more bytes in a transaction payload, the more it will cost.
 
-As explained in the [optimization principles](#optimization-principles) section, storage gas has by far the largest effect on base gas. For background on the Libra gas model, see [The Making of the Libra Gas Schedule](https://libra2labs.medium.com/the-making-of-the-libra2-gas-schedule-508d5686a350).
+As explained in the [optimization principles](#optimization-principles) section, storage gas has by far the largest effect on base gas. For background on the Libra2 gas model, see [The Making of the Libra2 Gas Schedule](https://libra2labs.medium.com/the-making-of-the-libra2-gas-schedule-508d5686a350).
 
 ## Instruction gas
 
@@ -205,7 +205,7 @@ For a committed transaction, various things will be written to the ledger histor
 | storage\_io\_per\_event\_byte\_write       | charged per byte in all events in the transaction output                            |
 | storage\_io\_per\_transaction\_byte\_write | charged per byte in the transaction itself which is also part of the ledger history |
 
-The following storage fee parameters are applied (i.e., charged in absolute APT values) to represent the disk space and structural costs associated with using the [Libra authenticated data structure](/network/glossary#merkle-trees) for storing items on the blockchain.
+The following storage fee parameters are applied (i.e., charged in absolute APT values) to represent the disk space and structural costs associated with using the [Libra2 authenticated data structure](/network/glossary#merkle-trees) for storing items on the blockchain.
 
 | Parameter                         | Meaning                                                                                                                                                                                                                                             |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -258,7 +258,7 @@ See [Payload gas](#payload-gas) for the meaning of these constants.
 
 ### Storage Fee
 
-When the network load is low, the gas unit price is expected to be low, making most aspects of the transaction cost more affordable. However, the storage fee is an exception, as it's priced in terms of absolute APT value. In most instances, the transaction fee is the predominant component of the overall transaction cost. This is especially true when a transaction allocates state slots, writes to sizable state items, emits numerous or large events, or when the transaction itself is a large one. All of these factors consume disk space on Libra nodes and are charged accordingly.
+When the network load is low, the gas unit price is expected to be low, making most aspects of the transaction cost more affordable. However, the storage fee is an exception, as it's priced in terms of absolute APT value. In most instances, the transaction fee is the predominant component of the overall transaction cost. This is especially true when a transaction allocates state slots, writes to sizable state items, emits numerous or large events, or when the transaction itself is a large one. All of these factors consume disk space on Libra2 nodes and are charged accordingly.
 
 On the other hand, the storage refund incentivizes releasing state slots by deleting state items. The state slot fee is fully refunded upon slot deallocation, while the excess state byte fee is non-refundable. This will soon change by differentiating between permanent bytes (those in the global state) and relative ephemeral bytes (those that traverse the ledger history).
 

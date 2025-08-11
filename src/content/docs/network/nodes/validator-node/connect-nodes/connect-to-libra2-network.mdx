@@ -4,7 +4,7 @@ title: "Connect to a Network"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-This document describes how to connect your validator and validator fullnode (VFN) to an Libra network.
+This document describes how to connect your validator and validator fullnode (VFN) to an Libra2 network.
 
 <Aside type="caution">
   **MINIMUM STAKING REQUIREMENTS**<br />
@@ -13,7 +13,7 @@ This document describes how to connect your validator and validator fullnode (VF
   network. The current required minimum staking requirement is 1 Million APT tokens.
 </Aside>
 
-At a high-level, there are four steps required to connect your nodes to an Libra network:
+At a high-level, there are four steps required to connect your nodes to an Libra2 network:
 
 <Steps>
   1. Initialize stake pool
@@ -135,14 +135,14 @@ Next, you will need to join the validator set. Follow the steps below:
 
 <Aside type="caution">
   **MAINNET VS TESTNET**<br />
-  The commands shown below are for the Libra mainnet. If you are connecting to a different
+  The commands shown below are for the Libra2 mainnet. If you are connecting to a different
   network, you will need to change the `--network` value in the commands accordingly. You can view the
-  values in [Libra Blockchain Networks](/network/nodes/networks) to see how profiles can be configured based on the network.
+  values in [Libra2 Blockchain Networks](/network/nodes/networks) to see how profiles can be configured based on the network.
 </Aside>
 
-### 1. Initialize the Libra CLI
+### 1. Initialize the Libra2 CLI
 
-First, initialize the Libra CLI with your operator account private key. This can be found in your `private-keys.yaml` file
+First, initialize the Libra2 CLI with your operator account private key. This can be found in your `private-keys.yaml` file
 under the entry `account_private_key`.
 
 Replace `<operator_account_private_key>` with the value from the file in the command below:
@@ -233,7 +233,7 @@ validator node is able to join the validator set.
 
 <Aside type="note">
   **IDENTIFYING THE NEXT EPOCH**<br />
-  You can identify the next epoch by checking the [Libra Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet) or by running the command `libra2 node get-stake-pool`.
+  You can identify the next epoch by checking the [Libra2 Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet) or by running the command `libra2 node get-stake-pool`.
 </Aside>
 
 ### 6. Check the validator set
@@ -265,6 +265,6 @@ Once both of these steps are complete, your nodes will be connected to the netwo
 
 ## Next steps
 
-Congratulations! You have successfully connected your nodes to the Libra network. To verify that your nodes are running
+Congratulations! You have successfully connected your nodes to the Libra2 network. To verify that your nodes are running
 correctly, visit the [Node Health](/network/nodes/validator-node/verify-nodes/node-liveness-criteria) document. This document describes how you can verify and
 monitor the health of your validator and VFN, including an initial node verification section.

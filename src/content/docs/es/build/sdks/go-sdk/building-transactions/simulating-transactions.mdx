@@ -25,7 +25,7 @@ const TransferAmount = 1_000
 
 // example Este ejemplo te muestra cómo hacer una transacción de transferencia de APT de la manera más simple posible
 func example(networkConfig libra2.NetworkConfig) {
-	// Crear un cliente para Libra
+	// Crear un cliente para Libra2
 	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())

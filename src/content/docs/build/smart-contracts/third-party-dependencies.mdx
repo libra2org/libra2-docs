@@ -18,16 +18,16 @@ Source code that is verified against the on-chain deployed module, like the [Git
 
 ### Git Repository
 
-The default `Move.toml` includes `LibraFramework` as a git repository dependency:
+The default `Move.toml` includes `Libra2Framework` as a git repository dependency:
 
 ```toml filename="Move.toml"
-  [dependencies.LibraFramework]
+  [dependencies.Libra2Framework]
   git = "<https://github.com/libra2org/libra2-framework.git>"
   rev = "mainnet"
   subdir = "libra2-framework"
 ```
 
-When Libra CLI commands are ran, updates to the dependency are automatically retrieved and compiled against.
+When Libra2 CLI commands are ran, updates to the dependency are automatically retrieved and compiled against.
 
 ### Local Source Code
 
@@ -78,7 +78,7 @@ Reference it as a local source file after changing the file type to `{ModuleName
 
 ### Bytecode
 
-The Libra CLI allows for downloading a [package's](/build/smart-contracts/book/packages) bytecode.
+The Libra2 CLI allows for downloading a [package's](/build/smart-contracts/book/packages) bytecode.
 
 ```shellscript filename="Terminal"
 libra2 move download --account {account_addr} --bytecode --package {package_name}
@@ -93,7 +93,7 @@ Each bytecode dependency requires their own package, with a structure of:
 The controlled module can then reference the dependency, upon it's inclusion in the controlled package's `Move.toml`.
 
 <details>
-  <summary>Libra Token example</summary>
+  <summary>Libra2 Token example</summary>
 
   A controlled `invoking_code.move` module interacts with the external `libra2_token` module:
 
@@ -107,11 +107,11 @@ The controlled module can then reference the dependency, upon it's inclusion in 
   }
   ```
 
-  The below command retrieves the necessary [LibraTokenObjects package](https://explorer.libra2labs.com/account/0x4/modules/code/libra2_token/mint?network=mainnet) bytecode from the Mainnet.
+  The below command retrieves the necessary [Libra2TokenObjects package](https://explorer.libra2labs.com/account/0x4/modules/code/libra2_token/mint?network=mainnet) bytecode from the Mainnet.
 
   ```shellscript filename="Terminal"
   libra2 move download --account 0x4 \
-  --bytecode --package LibraTokenObjects \
+  --bytecode --package Libra2TokenObjects \
   --output-dir ./libra2_token_bytecode_output/
   ```
 
@@ -178,9 +178,9 @@ Move interface code can be manually crafted by reading a package's ABI. Notably,
 Afterwards, the interface code is treated equivalent to local source code.
 
 <details>
-  <summary>Libra Token example</summary>
+  <summary>Libra2 Token example</summary>
 
-  Below is a portion of the `LibraTokenObjects` ABI, gathered from the [Libra Explorer](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/libra2_token?network=mainnet#:~:text=1114-,ABI,-%7B):
+  Below is a portion of the `Libra2TokenObjects` ABI, gathered from the [Libra2 Explorer](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/libra2_token?network=mainnet#:~:text=1114-,ABI,-%7B):
 
   ```json
   {
@@ -225,7 +225,7 @@ Afterwards, the interface code is treated equivalent to local source code.
           key: String,
           type: String,
           value: vector<u8>,
-      ) acquires LibraCollection, LibraToken {
+      ) acquires Libra2Collection, Libra2Token {
           abort 0
       }
   }

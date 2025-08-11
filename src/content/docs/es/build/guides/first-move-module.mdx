@@ -4,16 +4,16 @@ title: "Tu Primer Módulo Move"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-La blockchain de Libra permite a los desarrolladores escribir contratos inteligentes Turing completos (llamados "módulos") con el lenguaje Move seguro por diseño. Los contratos inteligentes permiten a los usuarios enviar dinero con la blockchain, pero también escribir código arbitrario, ¡incluso juegos! Todo comienza con la CLI de Libra creando una cuenta que almacenará el módulo Move desplegado ("publicado").
+La blockchain de Libra2 permite a los desarrolladores escribir contratos inteligentes Turing completos (llamados "módulos") con el lenguaje Move seguro por diseño. Los contratos inteligentes permiten a los usuarios enviar dinero con la blockchain, pero también escribir código arbitrario, ¡incluso juegos! Todo comienza con la CLI de Libra2 creando una cuenta que almacenará el módulo Move desplegado ("publicado").
 
-Este tutorial te ayudará a entender los Módulos Move guiándote a través de la configuración de un entorno mínimo de Libra, luego cómo compilar, probar, publicar e interactuar con módulos Move en la Blockchain de Libra. Aprenderás cómo:
+Este tutorial te ayudará a entender los Módulos Move guiándote a través de la configuración de un entorno mínimo de Libra2, luego cómo compilar, probar, publicar e interactuar con módulos Move en la Blockchain de Libra2. Aprenderás cómo:
 
 1. Configurar tu entorno, instalar la CLI
 2. Crear una cuenta en devnet y financiarla
 3. Compilar y probar un módulo Move
-4. Publicar (o "desplegar") un módulo Move a la blockchain de Libra
+4. Publicar (o "desplegar") un módulo Move a la blockchain de Libra2
 5. Interactuar con el módulo
-6. Seguir construyendo con Libra (próximos pasos)
+6. Seguir construyendo con Libra2 (próximos pasos)
 
 <Aside type="note">
   Este tutorial no está destinado a enseñarte los fundamentos de Move. Ese es un tema más largo que se aprende mejor a través del [Libro de Move](/build/smart-contracts/book).
@@ -21,12 +21,12 @@ Este tutorial te ayudará a entender los Módulos Move guiándote a través de l
 
 ## 1. Configuración
 
-Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta para pagar la tarifa de red ("tarifa de gas"). Necesitaremos crear una cuenta con algo de APT para pagar esa tarifa y poseer el contrato publicado. Para hacer eso, necesitaremos usar la CLI de Libra.
+Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta para pagar la tarifa de red ("tarifa de gas"). Necesitaremos crear una cuenta con algo de APT para pagar esa tarifa y poseer el contrato publicado. Para hacer eso, necesitaremos usar la CLI de Libra2.
 
 <Steps>
-  1. Instalar la CLI de Libra
+  1. Instalar la CLI de Libra2
 
-     [Instala la CLI de Libra](/build/cli) (si aún no lo has hecho).
+     [Instala la CLI de Libra2](/build/cli) (si aún no lo has hecho).
 
   2. Abrir una nueva terminal
 
@@ -59,11 +59,11 @@ Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta pa
      Ejecuta `libra2 init` y presiona 'enter' para cada paso de configuración para crear una cuenta de prueba en `devnet`.
 
      <Aside type="note">
-       Como estamos configurando tu CLI de Libra para esta carpeta, nota que esta configuración sigue la lógica de la blockchain misma:
+       Como estamos configurando tu CLI de Libra2 para esta carpeta, nota que esta configuración sigue la lógica de la blockchain misma:
 
        1. ¿Con qué red estamos trabajando (por defecto `devnet`, que se actualiza cada semana)?
        2. ¿Cuál es la cuenta desde la que estamos transaccionando (creando una clave privada única, que a su vez genera una clave pública criptográfica y dirección de cuenta)?
-       3. ¿Cómo pago por "gas"? (Para devnet, testnet y redes locales, la CLI de Libra ayudará a financiar esta cuenta con Libra Coin, APT).
+       3. ¿Cómo pago por "gas"? (Para devnet, testnet y redes locales, la CLI de Libra2 ayudará a financiar esta cuenta con Libra2 Coin, APT).
 
        Por ahora, solo presiona 'enter' repetidamente para aceptar todos los valores por defecto.
      </Aside>
@@ -72,14 +72,14 @@ Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta pa
 
      ```shellscript filename="Terminal"
      ---
-     Libra CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
+     Libra2 CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
      {
        "Result": "Success"
      }
      ```
 
      <Aside type="note">
-       Lo que podrías no haber notado es que la CLI de Libra ha creado una nueva carpeta oculta `.libra2/` con un `.gitignore` y `config.yaml` que contiene la información de la cuenta, incluyendo clave privada, clave pública y dirección de cuenta.
+       Lo que podrías no haber notado es que la CLI de Libra2 ha creado una nueva carpeta oculta `.libra2/` con un `.gitignore` y `config.yaml` que contiene la información de la cuenta, incluyendo clave privada, clave pública y dirección de cuenta.
 
        Puedes ver archivos ocultos con `ls -a` en terminal Unix/Mac o `dir /ah` en Windows.
      </Aside>
@@ -95,12 +95,12 @@ Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta pa
      La dirección se ve así `0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba` y puedes encontrarla en la línea:
 
      ```shellscript filename="Terminal"
-     Libra CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
+     Libra2 CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
      ```
 
-  2. Abrir el Explorador de Libra
+  2. Abrir el Explorador de Libra2
 
-     Ve a la [Libra Explorer](https://explorer.libra2labs.com/?network=devnet).
+     Ve a la [Libra2 Explorer](https://explorer.libra2labs.com/?network=devnet).
 
      Este es el principal modo de verificar rápidamente lo que está sucediendo en devnet, testnet o mainnet. Lo usaremos más adelante para ver nuestros contratos desplegados.
 
@@ -108,7 +108,7 @@ Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta pa
 
      Busca "Devnet" en la esquina superior derecha, o cambia de red haciendo clic en el menú desplegable "Mainnet" y seleccionando Devnet
 
-     ![Switching to Devnet network in Libra Explorer](~/images/screenshots/explorer_devnet.png)
+     ![Switching to Devnet network in Libra2 Explorer](~/images/screenshots/explorer_devnet.png)
 
   4. Buscar tu cuenta
 
@@ -126,11 +126,11 @@ Los cambios a la blockchain se llaman "transacciones", y requieren una cuenta pa
 
      Deberías ver tu nueva cuenta y una transacción con la función del faucet, financiándola con tokens de devnet.
 
-     ![Viewing Account in Libra Explorer](~/images/screenshots/explorer_account.png)
+     ![Viewing Account in Libra2 Explorer](~/images/screenshots/explorer_account.png)
 
   7. Verificar tu saldo
 
-     Haz clic en la pestaña "Coins" para ver que tienes 1 APT del Coin de Libra. Esto te permitirá publicar y interactuar con contratos inteligentes en la libra2 devnet.
+     Haz clic en la pestaña "Coins" para ver que tienes 1 APT del Coin de Libra2. Esto te permitirá publicar y interactuar con contratos inteligentes en la libra2 devnet.
 
      <Aside type="note">
        El explorador es una herramienta importante para ver los contratos que desplegamos, y también ofrece una forma de buscar qué hace un contrato. Solo busca la dirección donde se ha desplegado un contrato y podrás ver el código para ese módulo.
@@ -229,8 +229,8 @@ Nuestro primer módulo será un sistema de almacenamiento de mensajes simple que
      ❯ libra2 move compile --named-addresses my_first_module=default
      Compiling, may take a little while to download git dependencies...
      UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-framework.git
-     INCLUDING DEPENDENCY LibraFramework
-     INCLUDING DEPENDENCY LibraStdlib
+     INCLUDING DEPENDENCY Libra2Framework
+     INCLUDING DEPENDENCY Libra2Stdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      {
@@ -319,8 +319,8 @@ Las pruebas y la depuración son partes cruciales del desarrollo de módulos Mov
      Deberías ver salida si las pruebas pasan: (Ver cómo manejar errores a continuación)
 
      ```shellscript filename="Terminal"
-     INCLUDING DEPENDENCY LibraFramework
-     INCLUDING DEPENDENCY LibraStdlib
+     INCLUDING DEPENDENCY Libra2Framework
+     INCLUDING DEPENDENCY Libra2Stdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      Running Move unit tests
@@ -356,7 +356,7 @@ Las pruebas y la depuración son partes cruciales del desarrollo de módulos Mov
 
 ## 5. Publicar tu Módulo
 
-Después de compilar y probar con éxito tu módulo, puedes publicarlo en la Blockchain de Libra. Este proceso despliega tu código para que sea accesible en la cadena.
+Después de compilar y probar con éxito tu módulo, puedes publicarlo en la Blockchain de Libra2. Este proceso despliega tu código para que sea accesible en la cadena.
 
 <Steps>
   1. Publicar el módulo
@@ -368,8 +368,8 @@ Después de compilar y probar con éxito tu módulo, puedes publicarlo en la Blo
      ```shellscript filename="Terminal"
      Compiling, may take a little while to download git dependencies...
      UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-framework.git
-     INCLUDING DEPENDENCY LibraFramework
-     INCLUDING DEPENDENCY LibraStdlib
+     INCLUDING DEPENDENCY Libra2Framework
+     INCLUDING DEPENDENCY Libra2Stdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      package size 1271 bytes
@@ -406,7 +406,7 @@ Después de una publicación exitosa, puedes verificar que tu módulo está en l
 <Steps>
   1. Abrir el Explorador
 
-     Ve a la [Libra Explorer](https://explorer.libra2labs.com/?network=devnet)
+     Ve a la [Libra2 Explorer](https://explorer.libra2labs.com/?network=devnet)
 
   2. Buscar la transacción
 
@@ -414,7 +414,7 @@ Después de una publicación exitosa, puedes verificar que tu módulo está en l
 
   3. Ver tu saldo
 
-     Haz clic en la pestaña "Coins" para ver que ahora tienes menos de 1 APT del Coin de Libra.
+     Haz clic en la pestaña "Coins" para ver que ahora tienes menos de 1 APT del Coin de Libra2.
 
      ![Explorer Coins View](~/images/screenshots/explorer_coins.png)
 
@@ -437,7 +437,7 @@ Después de una publicación exitosa, puedes verificar que tu módulo está en l
 
 ## 6. Interactuar con tu Módulo
 
-Ahora que tu módulo está publicado, puedes interactuar con él a través de la CLI de Libra:
+Ahora que tu módulo está publicado, puedes interactuar con él a través de la CLI de Libra2:
 
 <Steps>
   1. Establecer un mensaje
@@ -445,7 +445,7 @@ Ahora que tu módulo está publicado, puedes interactuar con él a través de la
      Establece un mensaje usando la CLI:
 
      ```shellscript filename="Terminal"
-     libra2 move run --function-id 'default::message::set_message' --args 'string:Hello, Libra!'
+     libra2 move run --function-id 'default::message::set_message' --args 'string:Hello, Libra2!'
      ```
 
      Verás una solicitud de tarifa de gas similar a la que vimos durante la publicación.
@@ -500,7 +500,7 @@ Aquí hay algunos **pasos sugeridos para obtener una comprensión más profunda 
 1. Intenta modificar el módulo para añadir una nueva característica. Puedes usar el [Libro de Move](/build/smart-contracts/book) para construir tu comprensión de cómo escribir módulos Move.
 2. Para entender cómo funciona Move en la cadena, puedes aprender sobre el [sistema de recursos de Move](/network/blockchain/resources).
 3. Si estás construyendo una aplicación para interactuar con contratos o buscar datos de la cadena, aprende cómo usar los SDKs [aquí](/build/sdks/).
-4. Únete al [Libra Discord](https://discord.gg/libra2labs) para conectarte con otros desarrolladores.
+4. Únete al [Libra2 Discord](https://discord.gg/libra2labs) para conectarte con otros desarrolladores.
 
 ## Documentación de Soporte
 

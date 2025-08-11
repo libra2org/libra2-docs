@@ -27,7 +27,7 @@ val txn = libra2.buildTransaction.simple(
       data =
         entryFunctionData {
           function = "0x1::coin::transfer"
-          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::LibraCoin") }
+          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::Libra2Coin") }
           functionArguments = functionArguments {
             +bob.accountAddress
             +U64(SEND_AMOUNT_UNITS.toULong())

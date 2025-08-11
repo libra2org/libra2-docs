@@ -2,12 +2,12 @@
 title: "Fullnodes Overview"
 ---
 
-An Libra node is an entity of the Libra ecosystem that tracks the [state](/network/glossary#state) of the Libra blockchain. Clients interact with the blockchain via Libra nodes. There are two types of nodes:
+An Libra2 node is an entity of the Libra2 ecosystem that tracks the [state](/network/glossary#state) of the Libra2 blockchain. Clients interact with the blockchain via Libra2 nodes. There are two types of nodes:
 
 - [Validator nodes](/network/blockchain/validator-nodes)
 - Fullnodes
 
-Each Libra node comprises several logical components:
+Each Libra2 node comprises several logical components:
 
 - [REST API service](/network/glossary#rest-api-service)
 - [Mempool](/network/blockchain/validator-nodes#mempool)
@@ -16,11 +16,11 @@ Each Libra node comprises several logical components:
 - [Storage](/network/blockchain/validator-nodes#storage)
 - [State synchronizer](/network/blockchain/validator-nodes#state-synchronizer)
 
-The [Libra-core](/network/glossary#libra2-core) software can be configured to run as a validator node or as a fullnode.
+The [Libra2-core](/network/glossary#libra2-core) software can be configured to run as a validator node or as a fullnode.
 
 ## Overview
 
-Fullnodes can be run by anyone. Fullnodes verify blockchain history by either re-executing all transactions in the history of the Libra blockchain or replaying each transaction's output. Fullnodes replicate the entire state of the blockchain by synchronizing with upstream participants, e.g., other fullnodes or validator nodes. To verify blockchain state, fullnodes receive the set of transactions and the [accumulator root hash](/network/glossary#accumulator-root-hash) of the ledger signed by the validators. In addition, fullnodes accept transactions submitted by Libra clients and forward them directly (or indirectly) to validator nodes. While fullnodes and validators share the same code, fullnodes do not participate in consensus.
+Fullnodes can be run by anyone. Fullnodes verify blockchain history by either re-executing all transactions in the history of the Libra2 blockchain or replaying each transaction's output. Fullnodes replicate the entire state of the blockchain by synchronizing with upstream participants, e.g., other fullnodes or validator nodes. To verify blockchain state, fullnodes receive the set of transactions and the [accumulator root hash](/network/glossary#accumulator-root-hash) of the ledger signed by the validators. In addition, fullnodes accept transactions submitted by Libra2 clients and forward them directly (or indirectly) to validator nodes. While fullnodes and validators share the same code, fullnodes do not participate in consensus.
 
 Depending on the fullnode upstream, a fullnode can be called as a validator fullnode, or a public fullnode:
 
@@ -32,7 +32,7 @@ There's no difference in their functionality, only whether their upstream node i
 Third-party blockchain explorers, wallets, exchanges, and dapps may run a local fullnode to:
 
 - Leverage the REST interface for blockchain interactions.
-- Get a consistent view of the Libra ledger.
+- Get a consistent view of the Libra2 ledger.
 - Avoid rate limitations on read traffic.
 - Run custom analytics on historical data.
 - Get notifications about particular on-chain events.

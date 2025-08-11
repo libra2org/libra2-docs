@@ -12,7 +12,7 @@ Construir un sistema de lotería y elegir un ganador aleatorio de `n` participan
 el backend simplemente llama a una función de muestreo de enteros aleatorios
 (`random.randint(0, n-1)` en python, o `Math.floor(Math.random() * n)` en JS).
 
-Desafortunadamente, sin un equivalente de `random.randint()` en Libra Move, construir una versión dApp de esto era mucho más difícil.
+Desafortunadamente, sin un equivalente de `random.randint()` en Libra2 Move, construir una versión dApp de esto era mucho más difícil.
 
 Uno podría haber escrito un contrato donde los números aleatorios se muestrean de forma insegura (por ejemplo, desde el timestamp de la blockchain):
 
@@ -84,9 +84,9 @@ module module_owner::lottery {
 }
 ```
 
-### Lograr simplicidad + seguridad con la API de aleatoriedad de Libra
+### Lograr simplicidad + seguridad con la API de aleatoriedad de Libra2
 
-Usando la API de aleatoriedad de Libra, la implementación se verá así:
+Usando la API de aleatoriedad de Libra2, la implementación se verá así:
 
 ```move
 module module_owner::lottery {
@@ -122,7 +122,7 @@ donde:
   El compilador ayuda con ataques de prueba y aborto, requiriendo que las funciones que usan aleatoriedad sean privadas. Sin embargo, la API de aleatoriedad actualmente no previene los ataques de undergasing. El contrato inteligente necesitará ser escrito de cierta manera para evitarlo.
 </Aside>
 
-## Cómo usar la API de aleatoriedad de Libra
+## Cómo usar la API de aleatoriedad de Libra2
 
 ### Prerequisitos
 
@@ -261,10 +261,10 @@ los jugadores maliciosos pueden desplegar su propio contrato para:
    los usuarios maliciosos pueden sesgar la distribución uniforme del ganador (diseño inicial del desarrollador de dApp).
    Esto se conoce como un [ataque de prueba y aborto](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
-El compilador de Libra Move ha sido actualizado para prevenir este ataque para la seguridad de tu contrato:
+El compilador de Libra2 Move ha sido actualizado para prevenir este ataque para la seguridad de tu contrato:
 una función pública que depende de la aleatoriedad se trata como un error de compilación.
-Si has completado los pasos en la sección ["Construir Libra CLI"](/build/cli),
-entonces tus Libra CLI están equipados con el compilador actualizado.
+Si has completado los pasos en la sección ["Construir Libra2 CLI"](/build/cli),
+entonces tus Libra2 CLI están equipados con el compilador actualizado.
 
 ```move
 module module_owner::lottery {

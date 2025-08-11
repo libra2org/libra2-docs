@@ -1,12 +1,12 @@
 ---
-title: "Ethereum to Libra Cheatsheet"
+title: "Ethereum to Libra2 Cheatsheet"
 ---
 
-To learn more about the differences and similarities see [Libra Learn](https://learn.libra2labs.com/en/tutorials/ethereum-to-libra2-guide/cheat-sheet?workshop=eth-to-libra2)
+To learn more about the differences and similarities see [Libra2 Learn](https://learn.libra2labs.com/en/tutorials/ethereum-to-libra2-guide/cheat-sheet?workshop=eth-to-libra2)
 
 ### High Level Overview
 
-| Feature                    | Ethereum                                                                                                                       | Libra                                                                                                                                 |
+| Feature                    | Ethereum                                                                                                                       | Libra2                                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | **Smart Contracts**        | Solidity, EVM                                                                                                                  | Move, MoveVM                                                                                                                          |
 | **Benefits**               | Mature, wide adoption                                                                                                          | Scalability, low latency, predictable fees                                                                                            |
@@ -22,18 +22,18 @@ To learn more about the differences and similarities see [Libra Learn](https://l
 | **Dispatch Type**          | Dynamic dispatch                                                                                                               | Static dispatch                                                                                                                       |
 | **FT Standard**            | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/build/smart-contracts/libra2-coin) (legacy) and [Fungible Asset](/build/smart-contracts/fungible-asset)                        |
 | **NFT Standards**          | [ERC-721](https://docs.openzeppelin.com/contracts/4.x/erc721), [ERC-1155](https://docs.openzeppelin.com/contracts/4.x/erc1155) | [Digital Asset](/build/smart-contracts/digital-asset)                                                                                 |
-| **Blockchain Interaction** | [Ethers.js library](https://docs.ethers.org/v6/)                                                                               | [Libra Typescript SDK](/build/sdks/ts-sdk)                                                                                            |
+| **Blockchain Interaction** | [Ethers.js library](https://docs.ethers.org/v6/)                                                                               | [Libra2 Typescript SDK](/build/sdks/ts-sdk)                                                                                            |
 
 <br />
 
 ### Comparing Token Standards in Detail
 
-|                        | Solidity                                                               | Move (Libra)                                                                                                                                                         |
+|                        | Solidity                                                               | Move (Libra2)                                                                                                                                                         |
 | ---------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Token Structure**    | Each token is its own contract.                                        | Every token is a typed `Coin` or `FungibleAsset` using a single, reusable contract.                                                                                  |
 | **Token Standard**     | Must conform to standards like ERC20; implementations can vary.        | Uniform interface and implementation for all tokens.                                                                                                                 |
 | **Balance Storage**    | Balances stored in contract using a mapping structure.                 | **Resource-Oriented Balance**: Balances stored as a resource in the user's account. Resources cannot be arbitrarily created, ensuring integrity of token value. |
-| **Transfer Mechanism** | Tokens can be transferred without receiver's explicit permission. | Except for specific cases (like LibraCoin), Tokens generally require receiver's `signer` authority for transfer.                                                |
+| **Transfer Mechanism** | Tokens can be transferred without receiver's explicit permission. | Except for specific cases (like Libra2Coin), Tokens generally require receiver's `signer` authority for transfer.                                                |
 
 <br />
 

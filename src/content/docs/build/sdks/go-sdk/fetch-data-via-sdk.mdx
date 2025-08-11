@@ -4,7 +4,7 @@ title: "Go SDK - Fetch Data"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use the `Libra` client to get on-chain data using a variety of helper
+You can use the `Libra2` client to get on-chain data using a variety of helper
 functions. Specifically, many of the functions listed in the [reference docs](https://pkg.go.dev/github.com/libra2org/libra2-go-sdk)
 will retrieve data from on-chain e.g. `Account`, `AccountResources`, `Transactions`.
 
@@ -32,7 +32,7 @@ transactions, err := client.Transactions()
   version to query state.
 </Aside>
 
-The `Libra` client can out of the box query both network data from
+The `Libra2` client can out of the box query both network data from
 [fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) and the
 [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql)
 API which contains aggregated and enriched data. If you want to use a custom

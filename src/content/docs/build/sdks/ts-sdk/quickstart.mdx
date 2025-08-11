@@ -63,34 +63,34 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      npm i @libra2-core/ts-sdk
      ```
 
-  4. Set up the Libra client
+  4. Set up the Libra2 client
 
-     You can use the `Libra` object to handle everything that requires a connection to the Libra network. A connection is established as soon as you create the object.
+     You can use the `Libra2` object to handle everything that requires a connection to the Libra2 network. A connection is established as soon as you create the object.
 
      ```typescript filename="quickstart.ts"
-     import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+     import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-     // Specify which network to connect to via LibraConfig
+     // Specify which network to connect to via Libra2Config
      async function example() {
        console.log(
          "This example will create two accounts (Alice and Bob), fund them, and transfer between them.",
        );
 
        // Setup the client
-       const config = new LibraConfig({ network: Network.DEVNET });
-       const libra2 = new Libra(config);
+       const config = new Libra2Config({ network: Network.DEVNET });
+       const libra2 = new Libra2(config);
      }
 
      example()
      ```
 
      <Aside type="note">
-       (Advanced) If you need to connect to a specific node, you can set that in the `LibraConfig` by specifying the `fullnode` url. Ex. `fullnode: http://localhost:8080/v1`.
+       (Advanced) If you need to connect to a specific node, you can set that in the `Libra2Config` by specifying the `fullnode` url. Ex. `fullnode: http://localhost:8080/v1`.
      </Aside>
 
   5. Fetch data from on-chain
 
-     You can use the `Libra` client to fetch all sorts of data from on-chain such as information about the network itself or account-specific information.
+     You can use the `Libra2` client to fetch all sorts of data from on-chain such as information about the network itself or account-specific information.
 
      ```typescript filename="quickstart.ts"
      ...
@@ -137,7 +137,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      You can build transactions with `libra2.transaction.build.simple({...})` by specifying:
 
      1. `sender` - The account that’s sending the transaction. This account will pay the gas fees.
-     2. `data` - The information needed for Libra to identify what transaction to execute.
+     2. `data` - The information needed for Libra2 to identify what transaction to execute.
         1. `function` - Which smart contract on chain to call. This has the format `<account_address>::<move_module>::<function>`.
         2. `functionArguments` - These are specific to the function being called. You can look up what parameters a function needs by searching for the account and module on chain with an explorer [like this](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet).
 
@@ -217,12 +217,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ```typescript filename="quickstart.ts"
 /**
- * This example shows how to use the Libra client to create accounts, fund them, and transfer between them.
+ * This example shows how to use the Libra2 client to create accounts, fund them, and transfer between them.
  */
 
-import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::libra2_coin::LibraCoin";
+const APTOS_COIN = "0x1::libra2_coin::Libra2Coin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -234,8 +234,8 @@ async function example() {
   );
 
   // Setup the client
-  const config = new LibraConfig({ network: Network.DEVNET });
-  const libra2 = new Libra(config);
+  const config = new Libra2Config({ network: Network.DEVNET });
+  const libra2 = new Libra2(config);
 
   // Generate two account credentials
   // Each account has a private key, a public key, and an address
@@ -280,7 +280,7 @@ async function example() {
   const txn = await libra2.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
-      // All transactions on Libra are implemented via smart contracts.
+      // All transactions on Libra2 are implemented via smart contracts.
       function: "0x1::libra2_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
@@ -292,7 +292,7 @@ async function example() {
     signer: alice,
     transaction: txn,
   });
-  // Waits for Libra to verify and execute the transaction
+  // Waits for Libra2 to verify and execute the transaction
   const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
@@ -329,16 +329,16 @@ example();
 
 All told, you just learned how to transfer APT via a transaction by:
 
-1. Connecting to the network using the `Libra` client.
+1. Connecting to the network using the `Libra2` client.
 2. Creating an account.
-3. Looking up data from on-chain using client helper functions like [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
+3. Looking up data from on-chain using client helper functions like [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html#getAccountModules).
 4. Signing and submitting a transaction to the network.
-5. Waiting for Libra to execute the transaction.
+5. Waiting for Libra2 to execute the transaction.
 
 To see all this in action, you can copy and run the full working code snippet for this quickstart above.
 
 <Aside type="note">
   For future development, make sure to bookmark the [reference docs](https://libra2-core.github.io/libra2-ts-sdk/) to look up specific function signatures.
 
-  Note that most helper functions are listed on the [`Libra` client object](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
+  Note that most helper functions are listed on the [`Libra2` client object](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html).
 </Aside>

@@ -9,22 +9,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   La mayoría de usuarios nunca necesitarán usar esta característica.
 </Aside>
 
-Las cuentas de Libra Move tienen una dirección pública, una clave de autenticación, una clave pública,
+Las cuentas de Libra2 Move tienen una dirección pública, una clave de autenticación, una clave pública,
 y una clave privada. La dirección pública es permanente, siempre coincidiendo con
 la clave de autenticación inicial de la cuenta, que se deriva de la clave privada
 original.
 
-El modelo de cuenta de Libra facilita la capacidad única de rotar la clave privada
+El modelo de cuenta de Libra2 facilita la capacidad única de rotar la clave privada
 de una cuenta. Dado que la dirección de una cuenta es la clave de autenticación _inicial_,
 la capacidad de firmar para una cuenta puede ser transferida a otra clave privada sin
 cambiar su dirección pública.
 
 En esta guía, mostramos ejemplos de cómo rotar la clave de autenticación de una cuenta
-usando la CLI y algunos de los diversos SDKs de Libra.
+usando la CLI y algunos de los diversos SDKs de Libra2.
 
 Aquí están los enlaces de instalación para los SDKs que cubriremos en este ejemplo:
 
-- [CLI de Libra](/build/cli)
+- [CLI de Libra2](/build/cli)
 - [SDK de TypeScript](/build/sdks/ts-sdk)
 - [SDK de Python](/build/sdks/python-sdk)
 
@@ -113,7 +113,7 @@ Si ejecutas una rotación de clave no probada, se sugiere que sigas con
 clave de autenticación a dirección de cuenta para facilitar la búsqueda de la dirección de origen
 (ver tutorial de CLI a continuación).
 
-## Rotación de claves con la CLI de Libra
+## Rotación de claves con la CLI de Libra2
 
 <Steps>
   1. Inicia una localnet
@@ -225,7 +225,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
+       Libra2 CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -275,7 +275,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
 
   4. Busca la dirección
 
-     Ahora que hay una cuenta en la cadena de Libra asociada con la clave de autenticación,
+     Ahora que hay una cuenta en la cadena de Libra2 asociada con la clave de autenticación,
      puedes buscar la dirección de la cuenta usando `libra2 account lookup-address`:
 
      ```shellscript filename="Terminal"
@@ -685,7 +685,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
+        Libra2 CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
         {
           "Result": "Success"
         }

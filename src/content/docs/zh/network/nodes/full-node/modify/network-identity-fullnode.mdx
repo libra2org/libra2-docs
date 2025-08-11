@@ -10,7 +10,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 公共全节点(PFN)在启动时会自动采用一个随机产生的(临时的)网络标识.这对绝大多数 PFN 而言是合适的.但在某些情境下,你可能需要为您的 PFN 生成并设置一个固定的网络标识,特别是在以下这些情况中:
 
-- 您希望将您的 PFN 作为种子进行广告宣传(即,供其他 Libra PFN 连接).
+- 您希望将您的 PFN 作为种子进行广告宣传(即,供其他 Libra2 PFN 连接).
 - 您希望将您的 PFN 添加到上游 PFN 或 VFN 的已知身份允许列表(allowlist)中.
 - 您希望在重启和发布过程中固定您的 PFN 身份,以便遥测(telemetry)和其他监控(monitoring)工具能够随着时间追踪您的 PFN.
 
@@ -32,7 +32,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 1. **生成私钥**
 
-首先,使用 [Libra CLI](/zh/build/cli) (`libra2`) 生成一个十六进制编码的静态 x25519 私钥.这将是您网络身份的私钥.运行以下 `libra2` CLI 命令:
+首先,使用 [Libra2 CLI](/zh/build/cli) (`libra2`) 生成一个十六进制编码的静态 x25519 私钥.这将是您网络身份的私钥.运行以下 `libra2` CLI 命令:
 
 ```shellscript filename="Terminal"
 libra2 key generate --key-type x25519 --output-file /path/to/private-key.txt

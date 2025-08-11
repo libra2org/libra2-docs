@@ -8,7 +8,7 @@ After deploying your PFN, you can verify that it is operating correctly by check
 This document describes the common types of checks that you might wish to perform.
 
 <Aside type="note">
-  You can learn more about Libra metrics in the [Node Inspection Service](/network/nodes/measure/node-inspection-service) documents.
+  You can learn more about Libra2 metrics in the [Node Inspection Service](/network/nodes/measure/node-inspection-service) documents.
 </Aside>
 
 ### Verify synchronization
@@ -29,7 +29,7 @@ The command will output the current synced version of your node. For example:
 ```
 
 Compare the synced version returned by this command (e.g., `71000`) with the highest version shown on the
-[Libra explorer page](https://explorer.libra2labs.com/?network=mainnet). If your node is catching up to the highest
+[Libra2 explorer page](https://explorer.libra2labs.com/?network=mainnet). If your node is catching up to the highest
 version, it is synchronizing correctly. It is fine if the explorer page differs by a few versions, as the explorer
 nodes may sync with some variance.
 
@@ -65,7 +65,7 @@ curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_connections{direction=\"
 libra2_connections{direction="outbound",network_id="Public",peer_id="aabd651f",role_type="full_node"} 3
 ```
 
-If the number of outbound connections returned is `0`, then it means your node cannot connect to the Libra blockchain. If this happens to you, follow these steps to resolve the issue:
+If the number of outbound connections returned is `0`, then it means your node cannot connect to the Libra2 blockchain. If this happens to you, follow these steps to resolve the issue:
 
 1. Update your node to the latest release by following the [Update your Node](/network/nodes/full-node/modify/update-fullnode-with-new-releases).
 2. Remove any `seed` peers you may have added to your configuration file. The seeds may be preventing you from

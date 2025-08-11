@@ -7,15 +7,15 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 <Aside type="note">
   **Keyless Account Scoping**
 
-  Use of the \*\*_Libra Keyless Integration Guide_\*\* will allow for the integration of keyless accounts directly into your application. This means that blockchain accounts are scoped to your application's domain (logging in with your Google account on dApp A and logging in with your Google account on dApp B will create separate accounts). Stay tuned for more to come on Libra’ plan to allow Keyless accounts to be used portably across applications.
+  Use of the \*\*_Libra2 Keyless Integration Guide_\*\* will allow for the integration of keyless accounts directly into your application. This means that blockchain accounts are scoped to your application's domain (logging in with your Google account on dApp A and logging in with your Google account on dApp B will create separate accounts). Stay tuned for more to come on Libra2’ plan to allow Keyless accounts to be used portably across applications.
 
-  To provide feedback, get support, or be a design partner as we enhance Libra Keyless, join us here: https://t.me/+h5CN-W35yUFiYzkx
+  To provide feedback, get support, or be a design partner as we enhance Libra2 Keyless, join us here: https://t.me/+h5CN-W35yUFiYzkx
 </Aside>
 
 At a high level, there are three steps to follow in order to integrate Keyless Accounts.
 
 1. **Configure your OpenID integration with your IdP.** In this step, the dApp will register with the IdP of choice (e.g. Google) and receive a `client_id`
-2. **Install the Libra TypeScript SDK.**
+2. **Install the Libra2 TypeScript SDK.**
 3. **Integrate Keyless Account support in your application client**
    1. Set up the `"Sign In with [Idp]"` flow for your user.
    2. Instantiate the user’s `KeylessAccount`
@@ -32,7 +32,7 @@ You can find an example app demonstrating basic Keyless integration with Google 
 
      [Follow the instructions here](/build/guides/libra2-keyless/oidc-support)
 
-  2. Step 2. Install the Libra TypeScript SDK
+  2. Step 2. Install the Libra2 TypeScript SDK
 
      ```shellscript
      # Keyless is supported in version 1.18.1 and above
@@ -178,9 +178,9 @@ You can find an example app demonstrating basic Keyless integration with Google 
         1. Normal Keyless
 
         ```tsx
-        import {Libra, LibraConfig, Network} from '@libra2-core/ts-sdk';
+        import {Libra2, Libra2Config, Network} from '@libra2-core/ts-sdk';
 
-        const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
+        const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET })); // Configure your network here
         const keylessAccount = await libra2.deriveKeylessAccount({
             jwt,
             ephemeralKeyPair,
@@ -190,9 +190,9 @@ You can find an example app demonstrating basic Keyless integration with Google 
         2. Federated Keyless
 
         ```tsx
-        import {Libra, LibraConfig, Network} from '@libra2-core/ts-sdk';
+        import {Libra2, Libra2Config, Network} from '@libra2-core/ts-sdk';
 
-        const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
+        const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET })); // Configure your network here
         const keylessAccount = await libra2.deriveKeylessAccount({
             jwt,
             ephemeralKeyPair,
@@ -245,7 +245,7 @@ You can find an example app demonstrating basic Keyless integration with Google 
           });
         ```
 
-     #### 4. Submit transactions to the Libra blockchain
+     #### 4. Submit transactions to the Libra2 blockchain
 
      1. Create the transaction you want to submit.  Below is a simple coin transfer transaction for example:
 

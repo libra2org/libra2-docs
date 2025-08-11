@@ -93,7 +93,7 @@ complicated smart contracts.
 ## Go Sponsored Transaction Code Sample
 
 ```go filename="sponsor.go"
-// sponsored_transaction is an example of how to make a sponsored transaction in Libra.
+// sponsored_transaction is an example of how to make a sponsored transaction in Libra2.
 package main
 
 import (
@@ -108,7 +108,7 @@ const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
 func example(networkConfig libra2.NetworkConfig) {
-	// Create a client for Libra
+	// Create a client for Libra2
 	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
@@ -163,7 +163,7 @@ func example(networkConfig libra2.NetworkConfig) {
 	fmt.Printf("Sponsor: %d\n", sponsorBalance)
 
 	// Build transaction
-	transferPayload, err := libra2.CoinTransferPayload(&libra2.LibraCoinTypeTag, bob.Address, TransferAmount)
+	transferPayload, err := libra2.CoinTransferPayload(&libra2.Libra2CoinTypeTag, bob.Address, TransferAmount)
 	if err != nil {
 		panic("Failed to build transfer payload:" + err.Error())
 	}

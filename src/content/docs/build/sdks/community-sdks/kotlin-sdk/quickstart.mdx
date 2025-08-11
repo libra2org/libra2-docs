@@ -5,7 +5,7 @@ title: "Kotlin SDK Quickstart"
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 This guide will walk you through the process of setting up Klibra2,
-fetching data, and sending a transaction on the Libra blockchain.
+fetching data, and sending a transaction on the Libra2 blockchain.
 
 <Steps>
   1. Install the SDK
@@ -48,24 +48,24 @@ fetching data, and sending a transaction on the Libra blockchain.
      }
      ```
 
-  2. Set up the Libra client
+  2. Set up the Libra2 client
 
-     You can use the `Libra` object to handle everything that requires a connection
-     to the Libra network.
+     You can use the `Libra2` object to handle everything that requires a connection
+     to the Libra2 network.
 
      ```kotlin
-     val libra2 = Libra()
+     val libra2 = Libra2()
      ```
 
      If you want to pass in a custom configuration, you can do so by passing in a
-     LibraConfig object that takes in an LibraSettings object. The LibraSettings object
+     Libra2Config object that takes in an Libra2Settings object. The Libra2Settings object
      allows you to specify the network you want to connect to, the fullnode URL, and
      other settings.
 
      ```kotlin
-     val settings = LibraSettings(network = Network.MAINNET, clientConfig = ClientConfig(maxRetries = 10))
-     val libra2Config = LibraConfig(settings = settings)
-     val libra2 = Libra(libra2Config)
+     val settings = Libra2Settings(network = Network.MAINNET, clientConfig = ClientConfig(maxRetries = 10))
+     val libra2Config = Libra2Config(settings = settings)
+     val libra2 = Libra2(libra2Config)
      ```
 
      <Aside type="note" emoji="ℹ️">
@@ -76,7 +76,7 @@ fetching data, and sending a transaction on the Libra blockchain.
 
   3. Fetch data from on-chain
 
-     Once you have an `Libra` object, you can use it to fetch data from the Libra blockchain.
+     Once you have an `Libra2` object, you can use it to fetch data from the Libra2 blockchain.
      For example, you can fetch the ledger information like so:
 
      ```kotlin
@@ -115,7 +115,7 @@ fetching data, and sending a transaction on the Libra blockchain.
               data = entryFunctionData {
                   function = "0x1::coin::transfer"
                   typeArguments = typeArguments {
-                      +TypeTagStruct("0x1::libra2_coin::LibraCoin")
+                      +TypeTagStruct("0x1::libra2_coin::Libra2Coin")
                   }
                   functionArguments = functionArguments {
                       +bobAccount.accountAddress

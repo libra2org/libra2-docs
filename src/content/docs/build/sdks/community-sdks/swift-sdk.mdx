@@ -2,7 +2,7 @@
 title: "Swift SDK"
 ---
 
-There is a Swift SDK for Libra, built by Alcove [here](https://github.com/ALCOVE-LAB/libra2-swift-sdk)
+There is a Swift SDK for Libra2, built by Alcove [here](https://github.com/ALCOVE-LAB/libra2-swift-sdk)
 
 ## Installing the Swift SDk
 
@@ -17,13 +17,13 @@ There is a Swift SDK for Libra, built by Alcove [here](https://github.com/ALCOVE
 You can create a client by importing the libra2-swift-sdk, and createing a `Client`
 
 ```swift
-import Libra
+import Libra2
 
-let client = Libra(libra2Config: .devnet)
+let client = Libra2(libra2Config: .devnet)
 
 ```
 
-You can configure the network with the LibraConfig.Network, or use a preexisting LibraConfig.devnet, LibraConfig.testnet, or LibraConfig.mainnet
+You can configure the network with the Libra2Config.Network, or use a preexisting Libra2Config.devnet, Libra2Config.testnet, or Libra2Config.mainnet
 
 ### Creating a private key
 
@@ -66,7 +66,7 @@ On testnet you can mint at the [mint page](/network/faucet).
 
 ### Sending a transaction
 
-You can send a LibraCoin via a transaction
+You can send a Libra2Coin via a transaction
 
 ```swift
 let txn: TransactionResponse

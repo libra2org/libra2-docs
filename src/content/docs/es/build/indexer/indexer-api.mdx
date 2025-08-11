@@ -6,7 +6,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 {/* <IndexerBetaNotice /> */}
 
-Libra Labs aloja una versión pública de la API GraphQL del Indexador que cualquiera puede usar para obtener datos históricos y agregados básicos sobre transacciones, activos fungibles y tokens de la cadena.
+Libra2 Labs aloja una versión pública de la API GraphQL del Indexador que cualquiera puede usar para obtener datos históricos y agregados básicos sobre transacciones, activos fungibles y tokens de la cadena.
 
 Puedes explorarla manualmente viendo el Hasura Explorer a continuación para la red que te interese.
 
@@ -24,19 +24,19 @@ El SDK de TypeScript manejará automáticamente los límites de tasa y puede per
   Para material de referencia detallado sobre el contenido de estas tablas, consulta la [página de referencia de tablas del Indexador](/build/indexer/indexer-reference).
 </Aside>
 
-Elige una red para explorar la API gratuita del Indexador alojado por Libra usando el Hasura Explorer:
+Elige una red para explorar la API gratuita del Indexador alojado por Libra2 usando el Hasura Explorer:
 
 <CardGrid>
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql" title="Mainnet" description="Hasura GraphQL Explorer para Libra Mainnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql" title="Mainnet" description="Hasura GraphQL Explorer para Libra2 Mainnet" target="_blank" />
 
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.testnet.libra2labs.com/v1/graphql" title="Testnet" description="Hasura GraphQL Explorer para Libra Testnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.testnet.libra2labs.com/v1/graphql" title="Testnet" description="Hasura GraphQL Explorer para Libra2 Testnet" target="_blank" />
 
-  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.devnet.libra2labs.com/v1/graphql" title="Devnet" description="Hasura GraphQL Explorer para Libra Devnet" target="_blank" />
+  <LinkCard href="https://cloud.hasura.io/public/graphiql?endpoint=https://api.devnet.libra2labs.com/v1/graphql" title="Devnet" description="Hasura GraphQL Explorer para Libra2 Devnet" target="_blank" />
 </CardGrid>
 
 ## Endpoints de la API GraphQL (Acceso Directo)
 
-Si necesitas hacer consultas GraphQL directamente a la API del Indexador alojada por Libra-Labs, entonces usa los siguientes endpoints:
+Si necesitas hacer consultas GraphQL directamente a la API del Indexador alojada por Libra2-Labs, entonces usa los siguientes endpoints:
 
 - **Mainnet:** `https://api.mainnet.libra2labs.com/v1/graphql`
 - **Testnet:** `https://api.testnet.libra2labs.com/v1/graphql`
@@ -44,9 +44,9 @@ Si necesitas hacer consultas GraphQL directamente a la API del Indexador alojada
 
 ### Límites de tasa
 
-Aprende más sobre los límites de tasa que se aplican a la API del indexador alojada por Libra Labs leyendo la [documentación de Libra Build](https://build.libra2labs.com/docs/start/billing).
+Aprende más sobre los límites de tasa que se aplican a la API del indexador alojada por Libra2 Labs leyendo la [documentación de Libra2 Build](https://build.libra2labs.com/docs/start/billing).
 
 Si necesitas un límite de tasa más alto, considera las siguientes soluciones:
 
-1. Obtén una API Key de [Libra Build](https://build.libra2labs.com/). Aprende más sobre las API keys en el [sitio de documentación de Libra Build](https://build.libra2labs.com/docs/start/api-keys).
-2. Ejecuta la API del Indexador de Libra tú mismo. Consulta la guía para auto-alojamiento [aquí](/build/indexer/txn-stream/self-hosted).
+1. Obtén una API Key de [Libra2 Build](https://build.libra2labs.com/). Aprende más sobre las API keys en el [sitio de documentación de Libra2 Build](https://build.libra2labs.com/docs/start/api-keys).
+2. Ejecuta la API del Indexador de Libra2 tú mismo. Consulta la guía para auto-alojamiento [aquí](/build/indexer/txn-stream/self-hosted).

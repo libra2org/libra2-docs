@@ -4,13 +4,13 @@ title: "Using Azure"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This is a step-by-step guide to deploy an Libra validator and validator fullnode (VFN) using Microsoft Azure. Using this guide,
+This is a step-by-step guide to deploy an Libra2 validator and validator fullnode (VFN) using Microsoft Azure. Using this guide,
 the validator and VFN will be deployed on separate machines.
 
 <Aside type="caution">
   **Prerequisites** <br />
   Before you begin, make sure to read and understand the [Node Requirements](/network/nodes/validator-node/node-requirements). Similarly, make sure you have
-  installed the [Libra CLI](/build/cli),
+  installed the [Libra2 CLI](/build/cli),
   [Terraform](https://www.terraform.io/downloads.html),
   [Kubernetes CLI](https://kubernetes.io/docs/tasks/tools/),
   and [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). This guide assumes that you already have
@@ -21,13 +21,13 @@ the validator and VFN will be deployed on separate machines.
 
 <Aside type="note">
   **Default connection to mainnet**<br />
-  If you follow the default setup in this document, then your validator and VFN will be connected to the Libra mainnet.
-  To connect to a different Libra network, such as testnet, make sure you download the correct genesis and waypoint
+  If you follow the default setup in this document, then your validator and VFN will be connected to the Libra2 mainnet.
+  To connect to a different Libra2 network, such as testnet, make sure you download the correct genesis and waypoint
   files for the network you want to connect to. Similarly, you will need to modify the Terraform files to use the
   correct configurations (e.g., `source`, `image_tag` and `chain_id`).
 </Aside>
 
-1. Create a working directory for your Libra nodes, and pick a username for your nodes, e.g.,
+1. Create a working directory for your Libra2 nodes, and pick a username for your nodes, e.g.,
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -123,7 +123,7 @@ the validator and VFN will be deployed on separate machines.
    ```
 
 10. Now, generate the key pairs for your nodes in your working directory. You can do this by running
-    the following command with the Libra CLI:
+    the following command with the Libra2 CLI:
 
     ```shellscript filename="Terminal"
     libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -157,7 +157,7 @@ the validator and VFN will be deployed on separate machines.
     ```
 
     Configuring the validator will create two YAML files in the `~/$WORKSPACE/$USERNAME` directory: `owner.yaml` and
-    `operator.yaml`. These will be useful for connecting your nodes to the Libra network (later).
+    `operator.yaml`. These will be useful for connecting your nodes to the Libra2 network (later).
 
 12. Download the following files by following the instructions on the [Node Files](/network/nodes/configure/node-files-all-networks) pages.
     You will need to select the appropriate network (e.g., `mainnet`, `testnet`, `devnet`) and download the following files:
@@ -195,7 +195,7 @@ the validator and VFN will be deployed on separate machines.
       The `-e1` suffix in the command above refers to the era number. If you changed the `era` number, make sure it matches
       when creating the secrets.
 
-      The `era` is a concept relevant only to Kubernetes deployments of an Libra node.
+      The `era` is a concept relevant only to Kubernetes deployments of an Libra2 node.
       Changing the `era` provides an easy way to wipe your deployment's state (e.g., blockchain data). However, this may
       lead to dangling persistent volumes. Confirm the existence of any dangling volumes with `kubectl get pvc`
       and delete any dangling volumes manually to minimize costs.
@@ -217,9 +217,9 @@ the validator and VFN will be deployed on separate machines.
 <Aside type="caution">
   **Next steps** <br />
   You have now completed setting up your validator and VFN using Azure. However, your nodes will not be able to connect
-  to the Libra network just yet.
+  to the Libra2 network just yet.
 </Aside>
 
-## Connecting to the Libra Network
+## Connecting to the Libra2 Network
 
 You have now completed setting up your validator and VFN using Azure. Proceed to [Connect Nodes](/network/nodes/validator-node/connect-nodes) for the next steps.

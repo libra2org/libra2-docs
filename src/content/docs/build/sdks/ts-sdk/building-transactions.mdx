@@ -7,7 +7,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 Transactions allow you to change on-chain data or trigger events. Generally, transactions follow 5 steps from building to executing on chain: building, simulating, signing, submitting, and waiting.
 
 <Aside type="note">
-  For these examples, `libra2` is an instance of the [`Libra`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) client object.
+  For these examples, `libra2` is an instance of the [`Libra2`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html) client object.
 </Aside>
 
 <Steps>
@@ -25,7 +25,7 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
      const transaction = await libra2.transaction.build.simple({
        sender: sender.accountAddress,
        data: {
-     	  // All transactions on Libra are implemented via smart contracts.
+     	  // All transactions on Libra2 are implemented via smart contracts.
      	  function: "0x1::libra2_account::transfer",
      	  functionArguments: [destination.accountAddress, 100],
        },
@@ -33,7 +33,7 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
      ```
 
      <Aside type="note">
-       There is a more advanced format to pass in `functionArguments` called [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) format which is how the Libra chain parses function arguments. The SDK converts TypeScript primitives to BCS format behind the scenes via an API call.
+       There is a more advanced format to pass in `functionArguments` called [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) format which is how the Libra2 chain parses function arguments. The SDK converts TypeScript primitives to BCS format behind the scenes via an API call.
      </Aside>
 
      #### Building Options
@@ -41,14 +41,14 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
      You can customize the way your transaction executes by passing in `options: {...}` when building. Some of the most commonly used options are:
 
      1. `maxGasAmount` - This caps the amount of gas you are willing to pay for to execute this transaction.
-     2. `gasUnitPrice` - You can specify a higher than minimum price per gas to be executed with higher priority by the Libra network.
+     2. `gasUnitPrice` - You can specify a higher than minimum price per gas to be executed with higher priority by the Libra2 network.
      3. `expireTimestamp` - This gives a concrete time the transaction must execute by or it will be canceled.
 
      The SDK provides sensible defaults for these values if they are not specified explicitly.
 
   2. Simulate (Optional)
 
-     Every transaction on the Libra chain has a gas fee associated with how much work the network machines have to do when executing the transaction. In order to estimate the cost associated with that, you can simulate transactions before committing them.
+     Every transaction on the Libra2 chain has a gas fee associated with how much work the network machines have to do when executing the transaction. In order to estimate the cost associated with that, you can simulate transactions before committing them.
 
      <Aside type="note">
        This simulation only requires the `publicKey` of an account since it will not impact the actual state of the ledger.
@@ -90,7 +90,7 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
 
   5. Wait
 
-     Finally, you can wait for the result of the transaction by using [`libra2.waitForTransaction`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#waitForTransaction) and specifying the hash of the transaction you just submitted like so:
+     Finally, you can wait for the result of the transaction by using [`libra2.waitForTransaction`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html#waitForTransaction) and specifying the hash of the transaction you just submitted like so:
 
      ```typescript filename="build-a-transaction.ts"
      // 5. Wait
@@ -102,14 +102,14 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
 
 ```typescript filename="build-a-transaction.ts"
 /**
- * This example shows how to use the Libra SDK to send a transaction.
+ * This example shows how to use the Libra2 SDK to send a transaction.
  * Don't forget to install @libra2-core/ts-sdk before running this example!
  */
 
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
 } from "@libra2-core/ts-sdk";
 
@@ -117,8 +117,8 @@ async function example() {
     console.log("This example will create two accounts (Alice and Bob) and send a transaction transfering APT to Bob's account.");
 
     // 0. Setup the client and test accounts
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -143,7 +143,7 @@ async function example() {
     const transaction = await libra2.transaction.build.simple({
         sender: alice.accountAddress,
         data: {
-        // All transactions on Libra are implemented via smart contracts.
+        // All transactions on Libra2 are implemented via smart contracts.
         function: "0x1::libra2_account::transfer",
         functionArguments: [bob.accountAddress, 100],
         },
@@ -202,5 +202,5 @@ Transactions have a couple of additional features which let them adapt to your n
 2. [Orderless Transactions](/build/sdks/ts-sdk/building-transactions/orderless-transactions) - Allowing for transactions to be executed out of order for easier management.
 3. [Sponsoring Transactions](/build/sdks/ts-sdk/building-transactions/sponsoring-transactions) - Have another account pay gas fees for this transaction.
 4. [Batch Submit Transactions](/build/sdks/ts-sdk/building-transactions/batching-transactions) - How to send multiple transactions quickly from a single account.
-5. [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra transactions.
+5. [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra2 transactions.
 6. [Composing multiple Move calls with ScriptComposer](/build/sdks/ts-sdk/building-transactions/script-composer) - (Experimental) Building more complex transaction payload that calls into multiple Move functions dynamically.

@@ -11,8 +11,8 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
   repository.
 </Aside>
 
-This guide will walk you through the process of integrating the Libra .NET SDK. To install the Libra SDK into your Godot project,
-you will need to add the Libra SDK into your Godot project's `.csproj` file.
+This guide will walk you through the process of integrating the Libra2 .NET SDK. To install the Libra2 SDK into your Godot project,
+you will need to add the Libra2 SDK into your Godot project's `.csproj` file.
 
 <Steps>
   1. Find the .csproj
@@ -29,13 +29,13 @@ you will need to add the Libra SDK into your Godot project's `.csproj` file.
        ![Open in File Manager](https://i.imgur.com/evxv8mY.png)
      </div>
 
-  2. Add the Libra NuGet package
+  2. Add the Libra2 NuGet package
 
      Add the following line to the `<ItemGroup>` section of the `.csproj` file. If it doesn't exist, create it the `<ItemGroup>` section.
 
      ```xml filename=".csproj"
      <ItemGroup>
-       <PackageReference Include="Libra" Version="0.0.2-beta" />
+       <PackageReference Include="Libra2" Version="0.0.2-beta" />
      </ItemGroup>
      ```
 
@@ -48,26 +48,26 @@ you will need to add the Libra SDK into your Godot project's `.csproj` file.
          <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
          <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
          <EnableDynamicLoading>true</EnableDynamicLoading>
-         <RootNamespace>LibraSDKExample</RootNamespace>
+         <RootNamespace>Libra2SDKExample</RootNamespace>
        </PropertyGroup>
 
        <!-- START: Add these lines -->
        <ItemGroup>
-         <PackageReference Include="Libra" Version="0.0.1-beta" />
+         <PackageReference Include="Libra2" Version="0.0.1-beta" />
        </ItemGroup>
        <!-- END -->
 
      </Project>
      ```
 
-  3. Use the Libra SDK
+  3. Use the Libra2 SDK
 
-     Import the `Libra` namespace in your C# script and use the SDK.
+     Import the `Libra2` namespace in your C# script and use the SDK.
 
      ```csharp filename="Example.cs" {3-3,9-9,12-16}
      using Godot;
      using System;
-     using Libra;
+     using Libra2;
 
      public partial class Example : Node
      {
@@ -77,7 +77,7 @@ you will need to add the Libra SDK into your Godot project's `.csproj` file.
      	}
 
      	async void PrintLedgerInfo() {
-             var client = new LibraClient(Networks.Mainnet);
+             var client = new Libra2Client(Networks.Mainnet);
              var ledgerInfo = await client.Block.GetLedgerInfo();
              GD.Print(ledgerInfo.BlockHeight);
      	}
@@ -88,10 +88,10 @@ you will need to add the Libra SDK into your Godot project's `.csproj` file.
 
 ## Next Steps
 
-You've successfully integrated the Libra .NET SDK into your Godot project. Now
-you can start building your game and interacting with the Libra blockchain. Below
+You've successfully integrated the Libra2 .NET SDK into your Godot project. Now
+you can start building your game and interacting with the Libra2 blockchain. Below
 are some resources to help you get started.
 
 <CardGrid>
-  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra .NET SDK." />
+  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra2 .NET SDK." />
 </CardGrid>

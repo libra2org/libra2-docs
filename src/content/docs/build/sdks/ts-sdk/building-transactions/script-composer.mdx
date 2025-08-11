@@ -38,7 +38,7 @@ const tx = await BuildScriptComposerTransaction({
         const coin = await composer.addBatchedCalls({
             function: "0x1::coin::withdraw",
             functionArguments: [CallArgument.newSigner(0), 1],
-            typeArguments: ["0x1::libra2_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::Libra2Coin"],
         });
 
         // Pass the coin value to 0x1::coin::coin_to_fungible_asset to convert the token
@@ -47,7 +47,7 @@ const tx = await BuildScriptComposerTransaction({
             function: "0x1::coin::coin_to_fungible_asset",
             // coin[0] represents the first return value from the first call you added
             functionArguments: [coin[0]],
-            typeArguments: ["0x1::libra2_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::Libra2Coin"],
         });
 
         // Deposit the fungibleAsset converted from the second call
@@ -59,8 +59,8 @@ const tx = await BuildScriptComposerTransaction({
         });
         return composer
     },
-    // You need to pass Libra Config here because the combined transaction needs to read on-chain state
-    libra2Config: new LibraConfig({
+    // You need to pass Libra2 Config here because the combined transaction needs to read on-chain state
+    libra2Config: new Libra2Config({
         network: Network.TESTNET,
     }),
 });
@@ -76,7 +76,7 @@ We'll use the simulate transaction interface to show how to use it:
 
 ...
 
-    const libra2 = new Libra(new LibraConfig({
+    const libra2 = new Libra2(new Libra2Config({
         network: Network.TESTNET,
     }));
 
@@ -107,6 +107,6 @@ Under the hood, the SDK will invoke a WASM binary to compile the series of Move 
 1. Ability safety:
    a. If the returned value does not have the Drop ability, the returned value needs to be consumed by subsequent calls.
    b. If the returned value does not have the Copy ability, the returned value can only be passed to subsequent calls once.
-2. The caller will need to make sure they pass the right values as arguments to subsequent calls. In the previous example, the `0x1::coin::coin_to_fungible_asset` function will expect an argument of `Coin<LibraCoin>`.
+2. The caller will need to make sure they pass the right values as arguments to subsequent calls. In the previous example, the `0x1::coin::coin_to_fungible_asset` function will expect an argument of `Coin<Libra2Coin>`.
 
 This implements [AIP-102](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-102.md)

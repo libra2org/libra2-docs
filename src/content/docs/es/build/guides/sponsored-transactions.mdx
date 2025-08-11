@@ -2,9 +2,9 @@
 title: "Transacciones Patrocinadas"
 ---
 
-Como se describe en [AIP-39](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-39.md), las transacciones patrocinadas permiten que una cuenta pague las tarifas asociadas con la ejecución de una transacción para otra cuenta, esencialmente configurando un pagador de tarifas. Las transacciones patrocinadas simplifican el proceso de incorporación de usuarios a las aplicaciones al permitir que la aplicación cubra todas las tarifas asociadas para interactuar con la blockchain de Libra. Aquí hay dos ejemplos:
+Como se describe en [AIP-39](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-39.md), las transacciones patrocinadas permiten que una cuenta pague las tarifas asociadas con la ejecución de una transacción para otra cuenta, esencialmente configurando un pagador de tarifas. Las transacciones patrocinadas simplifican el proceso de incorporación de usuarios a las aplicaciones al permitir que la aplicación cubra todas las tarifas asociadas para interactuar con la blockchain de Libra2. Aquí hay dos ejemplos:
 
-- [MerkleTrade](https://merkle.trade/) ofrece trading de bajo costo a quienes tienen wallets de Ethereum creando una wallet de Libra para los usuarios y cubriendo todas las tarifas de transacción para que el usuario no necesite adquirir tokens de utilidad para Libra.
+- [MerkleTrade](https://merkle.trade/) ofrece trading de bajo costo a quienes tienen wallets de Ethereum creando una wallet de Libra2 para los usuarios y cubriendo todas las tarifas de transacción para que el usuario no necesite adquirir tokens de utilidad para Libra2.
 - Aplicaciones de participación comunitaria como [Graffio](https://medium.com/libra2labs/graffio-web3s-overnight-sensation-81a6cf18b626) ofrecieron cubrir las tarifas de transacción para cuentas de custodia para apoyar la aplicación de dibujo colaborativo para quienes no tienen wallets.
 
 ## Resumen del Proceso
@@ -23,7 +23,7 @@ Alternativamente, si el pagador de tarifas conoce la operación y todos los firm
 
 ## Detalles Técnicos
 
-En Libra, una transacción patrocinada reutiliza la misma SignedTransaction que cualquier otra transacción de usuario:
+En Libra2, una transacción patrocinada reutiliza la misma SignedTransaction que cualquier otra transacción de usuario:
 
 ```rust
 pub struct SignedTransaction {

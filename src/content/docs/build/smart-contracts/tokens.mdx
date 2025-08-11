@@ -1,15 +1,15 @@
 ---
-title: "Libra Token Standard Overview"
+title: "Libra2 Token Standard Overview"
 ---
 
-The [Libra Digital Asset Standard](/build/smart-contracts/digital-asset) defines the
-canonical Non-fungible Token on Libra. Libra leverages composability to extend
+The [Libra2 Digital Asset Standard](/build/smart-contracts/digital-asset) defines the
+canonical Non-fungible Token on Libra2. Libra2 leverages composability to extend
 the digital asset standard with features like fungibility via
 the [Fungible Asset standard](/build/smart-contracts/fungible-asset). The concept of
 composability comes from the underlying data model for these constructs:
 the [Move object](/build/smart-contracts/objects) data model.
 
-The rest of this document discusses how the Libra token standards compare to the
+The rest of this document discusses how the Libra2 token standards compare to the
 standards on Ethereum and Solana.
 
 ## Data models
@@ -32,7 +32,7 @@ NFTs within its storage.
 
 ### Solana
 
-Unlike Ethereum or Libra where data and code co-exist, Solana stores data and
+Unlike Ethereum or Libra2 where data and code co-exist, Solana stores data and
 programs in separate accounts. There are two types of accounts on the Solana
 blockchain:
 
@@ -43,9 +43,9 @@ blockchain:
 In order to create a new NFT collection, a creator calls an existing deployed
 program to populate a new collection and set of NFTs.
 
-### Libra
+### Libra2
 
-The [accounts](/network/blockchain/accounts) in Libra store both smart contracts
+The [accounts](/network/blockchain/accounts) in Libra2 store both smart contracts
 and data. Unlike Ethereum, the associated data of a smart contract is
 distributed across the space of all accounts
 in [resources](/network/blockchain/resources)
@@ -56,7 +56,7 @@ with the smart contract defining them at another address. A smart contract
 developer could also store data associated with the NFT and collection at the
 same address as the smart contract or in other objects.
 
-There are two means to create NFTs on Libra:
+There are two means to create NFTs on Libra2:
 
 - The [no-code standard](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-22.md)
   allows creators to call into the contract to create new collections and tokens
@@ -64,10 +64,10 @@ There are two means to create NFTs on Libra:
 - Custom NFT contracts allow creators to customize their NFTs by extending the
   object model that can manage all aspects of their collection.
 
-Libra strikes a balance between the customizability offered by Ethereum with the
+Libra2 strikes a balance between the customizability offered by Ethereum with the
 simplicity of creating new collections like Solana.
 
-Like Ethereum, Libra requires indexing to determine the set of all NFTs owned by
+Like Ethereum, Libra2 requires indexing to determine the set of all NFTs owned by
 an account, while Solana has no need.
 
 ## Token standard comparison
@@ -86,7 +86,7 @@ tokens and more accounts that can receive them. The mint account itself uniquely
 determines the token type instead of contract account, and these are all passed
 as arguments to the one contract deployed to some executable account.
 
-The collection of Libra token standards shares some similarities with Solana,
+The collection of Libra2 token standards shares some similarities with Solana,
 especially how it covers FT, NFT and SFT into a common on-chain code. Instead of
 deploying a new smart contract for each new token, a creator calls a function in
 the contract with the necessary arguments. Depending on which function you call,
@@ -94,7 +94,7 @@ the token contract will mint/transfer/burn/... tokens.
 
 ### Token identification
 
-Libra identifies a token by its `Address` or `ObjectId`, a location within
+Libra2 identifies a token by its `Address` or `ObjectId`, a location within
 global storage. Collections are stored at a location determined by the address
 of the creator and the name of the collection.
 
@@ -107,7 +107,7 @@ account.
 
 ### Token metadata
 
-Libra token has metadata in its `Token` resource with the data most commonly
+Libra2 token has metadata in its `Token` resource with the data most commonly
 required by dapps to interact with tokens. Some examples include:
 
 - `name`: The name of the token. It must be unique within a collection.
@@ -129,6 +129,6 @@ take special treatment case by case.
 
 In Solana, the Token Metadata program offers a Metadata Account defining
 numerous metadata fields associated with a token as well, including `collection`
-which is defined in `TokenDataId` in Libra. Solana, however, does not offer
-mutability for assets, unlike Libra. Like Libra, Token Metadata v1.1.0 offers
+which is defined in `TokenDataId` in Libra2. Solana, however, does not offer
+mutability for assets, unlike Libra2. Like Libra2, Token Metadata v1.1.0 offers
 an `attribute` container for customized properties.

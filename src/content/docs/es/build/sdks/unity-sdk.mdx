@@ -10,18 +10,18 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
   [libra2-core/unity-sdk](https://github.com/libra2org/unity-sdk).
 </Aside>
 
-Integra capacidades Web3 de Libra dentro de tus aplicaciones Unity. El objetivo de este SDK es proporcionar un conjunto de herramientas
+Integra capacidades Web3 de Libra2 dentro de tus aplicaciones Unity. El objetivo de este SDK es proporcionar un conjunto de herramientas
 para que los desarrolladores construyan juegos Web3 usando el motor de juegos Unity.
 
 **Características Soportadas**
 
-- Soporte para el [SDK de .NET de Libra](/build/sdks/dotnet-sdk)
+- Soporte para el [SDK de .NET de Libra2](/build/sdks/dotnet-sdk)
 
   > - Codificación y decodificación de Serialización Canónica Binaria (BCS)
   > - Soporte para firmantes Ed25519, SingleKey, MultiKey y Keyless
   > - Utilidades para construcción, firma y envío de transacciones
-  > - Abstracciones sobre las APIs del Nodo Completo e Indexador de Libra
-  > - Soporte para Nombres de Libra (ANS) para resolución y búsqueda
+  > - Abstracciones sobre las APIs del Nodo Completo e Indexador de Libra2
+  > - Soporte para Nombres de Libra2 (ANS) para resolución y búsqueda
 
 **Compatibilidad**
 
@@ -35,7 +35,7 @@ para que los desarrolladores construyan juegos Web3 usando el motor de juegos Un
 
 1. Abre el Unity Package Manager (`Window` > `Package Manager`).
 2. Haz clic en el botón `+` y selecciona `Add package from git URL...`.
-3. Ingresa la URL del SDK de Unity de Libra en este repositorio:
+3. Ingresa la URL del SDK de Unity de Libra2 en este repositorio:
 
 ```shellscript
 https://github.com/libra2org/unity-sdk.git?path=/Packages/com.libra2labs.libra2-unity-sdk
@@ -48,12 +48,12 @@ https://github.com/libra2org/unity-sdk.git?path=/Packages/com.libra2labs.libra2-
 
 ## Uso
 
-Configura tu cliente de Libra agregando el namespace `Libra` e instanciando un `LibraUnityClient`. Puedes usar una configuración
+Configura tu cliente de Libra2 agregando el namespace `Libra2` e instanciando un `Libra2UnityClient`. Puedes usar una configuración
 predefinida de `Networks` o configurar la tuya propia.
 
 ```csharp {2-2,8-8,11-15}
 using UnityEngine;
-using Libra;
+using Libra2;
 
 class Example : MonoBehaviour
 {
@@ -63,7 +63,7 @@ class Example : MonoBehaviour
     }
 
     async void PrintLedgerInfo() {
-        var client = new LibraUnityClient(Networks.Mainnet);
+        var client = new Libra2UnityClient(Networks.Mainnet);
         var ledgerInfo = await client.Block.GetLedgerInfo();
         Debug.Log(ledgerInfo.BlockHeight);
     }
@@ -75,13 +75,13 @@ Para interactuar con la blockchain, necesitarás crear un firmante y construir u
 
 ```csharp filename="Program.cs" {10-11,13-21,23-24,26-27}
 using UnityEngine;
-using Libra;
+using Libra2;
 
 class Example : MonoBehaviour
 {
     public async void Start()
     {
-        var client = new LibraUnityClient(Networks.Mainnet);
+        var client = new Libra2UnityClient(Networks.Mainnet);
 
         // 1. Create a signer
         var signer = Account.Generate();
@@ -91,7 +91,7 @@ class Example : MonoBehaviour
             sender: account,
             data: new GenerateEntryFunctionPayloadData(
                 function: "0x1::libra2_account::transfer_coins",
-                typeArguments: ["0x1::libra2_coin::LibraCoin"],
+                typeArguments: ["0x1::libra2_coin::Libra2Coin"],
                 functionArguments: [account.Address, "100000"]
             )
         );
@@ -108,5 +108,5 @@ class Example : MonoBehaviour
 ## Recursos
 
 <CardGrid>
-  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra Wallet Starter" description="Proyecto de ejemplo Unity con una integración del SDK de Unity de Libra." target="_blank" />
+  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra2 Wallet Starter" description="Proyecto de ejemplo Unity con una integración del SDK de Unity de Libra2." target="_blank" />
 </CardGrid>

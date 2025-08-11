@@ -1,7 +1,7 @@
-/// A playful 404 module that uses Libra blockchain concepts
+/// A playful 404 module that uses Libra2 blockchain concepts
 module 0x404::lost_transaction {
     use libra2_framework::account;
-    use libra2_framework::coin::{Self, LibraCoin};
+    use libra2_framework::coin::{Self, Libra2Coin};
     use std::error;
     use std::signer;
 
@@ -29,7 +29,7 @@ module 0x404::lost_transaction {
 
         // Check if we have enough gas for the search
         assert!(
-            coin::balance<LibraCoin>(searcher) > 404,
+            coin::balance<Libra2Coin>(searcher) > 404,
             error::resource_exhausted(E_INSUFFICIENT_GAS)
         );
 

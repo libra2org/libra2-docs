@@ -12,7 +12,7 @@ Building a lottery system and pick a random winner from `n` participants is triv
 the backend simply calls a random integer sampling function
 (`random.randint(0, n-1)` in python, or `Math.floor(Math.random() * n)` in JS).
 
-Unfortunately, without an equivalent of `random.randint()` in Libra Move, building a dApp version of it was actually much harder.
+Unfortunately, without an equivalent of `random.randint()` in Libra2 Move, building a dApp version of it was actually much harder.
 
 One may have written a contract where the random numbers are sampled insecurely (e.g., from the blockchain timestamp):
 
@@ -84,9 +84,9 @@ module module_owner::lottery {
 }
 ```
 
-### Achieve simplicity + security with Libra randomness API
+### Achieve simplicity + security with Libra2 randomness API
 
-Using Libra randomness API, the implementation will look like this:
+Using Libra2 randomness API, the implementation will look like this:
 
 ```move
 module module_owner::lottery {
@@ -122,7 +122,7 @@ where:
   Compiler helps with test and abort attacks, requiring functions using randomness to be private.  However, the randomness API currently does not prevent undergasing attacks.  The smart contract will need to be written in a certain way to avoid it.
 </Aside>
 
-## How to use Libra randomness API
+## How to use Libra2 randomness API
 
 ### Prerequisites
 
@@ -261,10 +261,10 @@ malicious players can deploy their own contract to:
    malicious users can bias the uniform distribution of the winner (dApp developer's initial design).
    This is referred to as a [test-and-abort attack](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
-The Libra Move compiler has been updated to prevent this attack for your contract safety:
+The Libra2 Move compiler has been updated to prevent this attack for your contract safety:
 a randomness-dependent public function is treated as a compile error.
-If you have finished the steps in the ["build Libra CLI"](/build/cli) section,
-then your Libra CLI are equipped with the updated compiler.
+If you have finished the steps in the ["build Libra2 CLI"](/build/cli) section,
+then your Libra2 CLI are equipped with the updated compiler.
 
 ```move
 module module_owner::lottery {

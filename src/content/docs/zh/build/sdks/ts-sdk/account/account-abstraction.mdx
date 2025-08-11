@@ -4,7 +4,7 @@ title: "账户抽象"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Libra 上的账户抽象 (AA) **通过 Move 模块实现自定义交易验证逻辑**,允许账户在原生加密方案之外定义自己的规则.
+Libra2 上的账户抽象 (AA) **通过 Move 模块实现自定义交易验证逻辑**,允许账户在原生加密方案之外定义自己的规则.
 
 ## 核心概念
 
@@ -128,7 +128,7 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     部署模块可使用 [Libra CLI](/zh/build/cli) 的以下命令.假设您已通过 `libra2 init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
+     部署模块可使用 [Libra2 CLI](/zh/build/cli) 的以下命令.假设您已通过 `libra2 init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
      libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
@@ -141,7 +141,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<hello_world_authenticator_deployer>"
 
-     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET }));
 
      const alice = Account.generate();
 
@@ -198,7 +198,7 @@ const abstractedAccount = new AbstractedAccount({
            enableAbstraction: async () => {
              if (!account) return;
 
-             // 注意：Libra 客户端必须在应用某处定义
+             // 注意：Libra2 客户端必须在应用某处定义
              const transaction = libra2.abstraction.enableAccountAbstractionTransaction({
                accountAddress: account.address,
                authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
@@ -241,7 +241,7 @@ const abstractedAccount = new AbstractedAccount({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::libra2_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::Libra2Coin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
@@ -476,7 +476,7 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     要部署该模块,您可以使用 [Libra CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `libra2 init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
+     要部署该模块,您可以使用 [Libra2 CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `libra2 init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
      libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
@@ -489,7 +489,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<public_key_authenticator_deployer>"
 
-     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET }));
 
      const alice = Account.generate();
      const bob = Account.generate();
@@ -581,7 +581,7 @@ const abstractedAccount = new AbstractedAccount({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::libra2_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::Libra2Coin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });

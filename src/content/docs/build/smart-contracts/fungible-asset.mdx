@@ -1,15 +1,15 @@
 ---
 id: "fungible-asset"
-title: "Libra Fungible Asset (FA) Standard"
+title: "Libra2 Fungible Asset (FA) Standard"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
 
 import { Aside } from '@astrojs/starlight/components';
 
-The Libra Fungible Asset Standard (also known as “Fungible Asset” or “FA”) provides a standard, type-safe way to define fungible assets in the Move ecosystem. It is a modern replacement for the `coin` module that allows for seamless minting, transfer, and customization of fungible assets for any use case.
+The Libra2 Fungible Asset Standard (also known as “Fungible Asset” or “FA”) provides a standard, type-safe way to define fungible assets in the Move ecosystem. It is a modern replacement for the `coin` module that allows for seamless minting, transfer, and customization of fungible assets for any use case.
 
-This standard is important because it allows fungible assets on Libra (such as Currencies and Real World Assets (RWAs)) to represent and transfer ownership in a consistent way dApps can recognize. This standard also allows for more extensive customization than the `coin` module did by leveraging [Move Objects](/build/smart-contracts/objects) to represent fungible asset data.
+This standard is important because it allows fungible assets on Libra2 (such as Currencies and Real World Assets (RWAs)) to represent and transfer ownership in a consistent way dApps can recognize. This standard also allows for more extensive customization than the `coin` module did by leveraging [Move Objects](/build/smart-contracts/objects) to represent fungible asset data.
 
 The FA standard provides all the functionality you need to create, mint, transfer, and burn fungible assets (as well as automatically allowing recipients of the fungible asset to store and manage any fungible assets they receive).
 
@@ -236,7 +236,7 @@ struct Frozen has drop, store {
 
 ## Dispatchable Fungible Asset (Advanced)
 
-Aside from the default managed fungible asset functionality provided by the Libra Framework, fungible asset issuers can implement their own deposit/withdraw logic using the dispatchable fungible asset standard. This is done by registering custom hook functions to be invoked at withdrawal/deposit time. These hook functions are stored in the metadata of a fungible asset class, and the Libra Framework will automatically invoke them instead of the default logic. This allows issuers to implement complex logic, such as customized access control. For more details, refer to the corresponding [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
+Aside from the default managed fungible asset functionality provided by the Libra2 Framework, fungible asset issuers can implement their own deposit/withdraw logic using the dispatchable fungible asset standard. This is done by registering custom hook functions to be invoked at withdrawal/deposit time. These hook functions are stored in the metadata of a fungible asset class, and the Libra2 Framework will automatically invoke them instead of the default logic. This allows issuers to implement complex logic, such as customized access control. For more details, refer to the corresponding [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### Implementing the Hook Function
 
@@ -347,7 +347,7 @@ module my_addr::my_fungible_asset_example {
 
 ### Interacting with dispatchable fungible asset
 
-For users using `primary_fungible_store` to manage assets, no changes are required to interact with assets with dispatchable hooks. The Libra Framework automatically invokes the dispatch logic if a hook is set up.
+For users using `primary_fungible_store` to manage assets, no changes are required to interact with assets with dispatchable hooks. The Libra2 Framework automatically invokes the dispatch logic if a hook is set up.
 
 For users using secondary `FungibleStore` to interact with assets, use `dispatchable_fungible_asset::withdraw/deposit` instead of `fungible_asset::withdraw/deposit` to handle assets with registered hooks.
 
@@ -422,7 +422,7 @@ There are two changes needed for off-chain services:
 
 Since a user may possess **both** a `coin` balance and a paired FA balance, off-chain applications should be updated to reflect the **sum** of both the `coin` balance and its paired FA balance.
 
-- For Libra Indexer users, you may utilize the table called `current_fungible_asset_balances` to obtain the latest sum of coin balance and FA balance representing the same asset type. If the FA has a paired coin type, the asset type would be set to the coin type, such as `0x1::libra2_coin::LibraCoin`. Otherwise, for FA not paired from a coin, the asset type would be the metadata address. Users could filter by this field to get the FA balance of their interest.
+- For Libra2 Indexer users, you may utilize the table called `current_fungible_asset_balances` to obtain the latest sum of coin balance and FA balance representing the same asset type. If the FA has a paired coin type, the asset type would be set to the coin type, such as `0x1::libra2_coin::Libra2Coin`. Otherwise, for FA not paired from a coin, the asset type would be the metadata address. Users could filter by this field to get the FA balance of their interest.
 - For users employing Node API or other customized indexing, they should add the balance of the paired FA in users' `FungibleStore` and `ConcurrentFungibleBalance` if any of them exist to the coin balance.
 
 To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an existing `coin` of type `CoinType`:
@@ -442,7 +442,7 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
 ### Migration FAQs
 
 <details>
-  <summary><span className="font-bold">What is the Libra Fungible Asset (FA) standard?</span></summary>
+  <summary><span className="font-bold">What is the Libra2 Fungible Asset (FA) standard?</span></summary>
 
   <div className="p-8">
     The FA standard introduces a new way to represent fungible tokens as [Move objects](/build/smart-contracts/objects), replacing the legacy Coin resource model. Fungible Assets are more composable and developer-friendly compared to legacy Coins.
@@ -483,7 +483,7 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
   <summary><span className="font-bold">What is the migration timeline?</span></summary>
 
   <div className="p-8">
-    All tokens on Libra will begin migrating automatically from Coin v1 to the FA standard.
+    All tokens on Libra2 will begin migrating automatically from Coin v1 to the FA standard.
     All the coins except APT will be migrated from June 23 to 30. APT will transition from June 30 to July 8, 2025.
     The process involves continuously running batched transactions until every valid CoinStore has been fully converted into the new FungibleStore.
   </div>
@@ -529,9 +529,9 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
   <summary><span className="font-bold">We know there is always a paired FA of a coin type. How can we query the supply and balance of this asset after the migration?</span></summary>
 
   <div className="p-8">
-    After the migration, querying resource `0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>` at account address will be unavailable. Instead, you can query the account balance by the following three ways:
+    After the migration, querying resource `0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>` at account address will be unavailable. Instead, you can query the account balance by the following three ways:
 
-    1. [Balance Node API](/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), the asset\_type can be either coin\_type, such as 0x1::libra2\_coin::LibraCoin or FA metadata address such as 0xa, either way should return the same value.
+    1. [Balance Node API](/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), the asset\_type can be either coin\_type, such as 0x1::libra2\_coin::Libra2Coin or FA metadata address such as 0xa, either way should return the same value.
 
     2. `#[view] function primary_fungible_store::balance<T: key>(account: address, metadata: Object<T>): u64`
 
@@ -553,6 +553,6 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
   <summary><span className="font-bold">What if I have more questions?</span></summary>
 
   <div className="p-8">
-    Join the [Libra Discord](https://discord.com/invite/libra2network)! Libra Labs engineers will be available throughout migration week to answer questions and offer support.
+    Join the [Libra2 Discord](https://discord.com/invite/libra2network)! Libra2 Labs engineers will be available throughout migration week to answer questions and offer support.
   </div>
 </details>

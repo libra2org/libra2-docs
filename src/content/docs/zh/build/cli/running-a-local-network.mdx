@@ -1,14 +1,14 @@
 ---
-title: "通过 Libra CLI 运行本地网络"
+title: "通过 Libra2 CLI 运行本地网络"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-本地网络在测试代码时很有帮助.它们不会连接到任何生产 Libra 网络(如主网),但由于以下三个主要原因,它们很有用:
+本地网络在测试代码时很有帮助.它们不会连接到任何生产 Libra2 网络(如主网),但由于以下三个主要原因,它们很有用:
 
 1. **无速率限制:** 你可以与托管服务(如节点 API,索引器 API 和水龙头)交互,而不受速率限制,从而加快测试速度.
 2. **可重现性:** 你可以设置特定的链上场景,并随时从头开始重启网络以返回到干净的状态.
-3. **高可用性:** Libra 开发网和测试网会定期升级,在此期间它们可能不可用.本地开发网络即使在你没有互联网连接的情况下也始终可用.
+3. **高可用性:** Libra2 开发网和测试网会定期升级,在此期间它们可能不可用.本地开发网络即使在你没有互联网连接的情况下也始终可用.
 
 <br />
 
@@ -19,7 +19,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
   2. 确保你已安装 .
 
-     1. 这仅用于通过运行索引器 API 来创建类似生产的环境.许多下游工具(如 Libra SDK)都依赖于索引器 API.
+     1. 这仅用于通过运行索引器 API 来创建类似生产的环境.许多下游工具(如 Libra2 SDK)都依赖于索引器 API.
      2. Docker 建议你通过 [Docker Desktop](https://www.docker.com/products/docker-desktop/) 安装以获取自动更新.
 
   3. 启动 Docker.
@@ -31,7 +31,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      ```
 
      <Aside type="caution">
-       注意:尽管名称为(`local-testnet`),但这与 Libra 测试网无关,它将在你的机器上运行一个完全本地的网络.
+       注意:尽管名称为(`local-testnet`),但这与 Libra2 测试网无关,它将在你的机器上运行一个完全本地的网络.
      </Aside>
 
      你应该看到类似这样的输出:
@@ -48,15 +48,15 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      已完成生成配置：
              日志文件："/Users/dport/.libra2/testnet/validator.log"
              测试目录："/Users/dport/.libra2/testnet"
-             Libra 根密钥路径："/Users/dport/.libra2/testnet/mint.key"
+             Libra2 根密钥路径："/Users/dport/.libra2/testnet/mint.key"
              检查点：0:397412c0f96b10fa3daa24bfda962671c3c3ae484e2d67ed60534750e2311f3d
              链 ID：4
              REST API 端点：http://0.0.0.0:8080
              指标端点：http://0.0.0.0:9101/metrics
-             Libranet 全节点网络端点：/ip4/0.0.0.0/tcp/6181
+             Libra2net 全节点网络端点：/ip4/0.0.0.0/tcp/6181
              索引器 gRPC 节点流端点：0.0.0.0:50051
 
-     Libra 正在运行，按 ctrl-c 退出
+     Libra2 正在运行，按 ctrl-c 退出
 
      节点 API 已就绪。端点：http://0.0.0.0:8080/
      Postgres 已就绪。端点：postgres://postgres@127.0.0.1:5433/local_testnet
@@ -158,14 +158,14 @@ libra2 move publish --profile <你的配置文件名称> --package-dir /opt/git/
 
 ### 配置 TypeScript SDK
 
-如果你想将本地网络与 TypeScript SDK 一起使用,你可以在初始化客户端对象(`Libra`)时使用本地网络 URL:
+如果你想将本地网络与 TypeScript SDK 一起使用,你可以在初始化客户端对象(`Libra2`)时使用本地网络 URL:
 
 ```tsx
-import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
 const network = Network.LOCAL;
-const config = new LibraConfig({ network });
-const client = new Libra(config);
+const config = new Libra2Config({ network });
+const client = new Libra2(config);
 ```
 
 ### 重置本地网络

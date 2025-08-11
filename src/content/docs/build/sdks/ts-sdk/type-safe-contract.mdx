@@ -6,7 +6,7 @@ import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ## What is Surf
 
-Surf is a TypeScript library built on top of the Libra TypeScript SDK and the wallet adapter that provides static type safety for your Move contracts by inferring type from contract ABI (Application Binary Interface). It allows you to catch type errors at compile time rather than at runtime. Most existing TypeScript IDEs will automatically provide warnings if you try to access fields that don't exist, or provide wrong input types.
+Surf is a TypeScript library built on top of the Libra2 TypeScript SDK and the wallet adapter that provides static type safety for your Move contracts by inferring type from contract ABI (Application Binary Interface). It allows you to catch type errors at compile time rather than at runtime. Most existing TypeScript IDEs will automatically provide warnings if you try to access fields that don't exist, or provide wrong input types.
 
 ## Usage
 
@@ -52,29 +52,29 @@ Surf is a TypeScript library built on top of the Libra TypeScript SDK and the wa
 
   2. Step 2
 
-     With the ABI, you can use Surf as a layer on top of the Libra TypeScript SDK client `Libra`, when interacting with Move contracts. For non-contract related operations, the `Libra` will still need to be used.
+     With the ABI, you can use Surf as a layer on top of the Libra2 TypeScript SDK client `Libra2`, when interacting with Move contracts. For non-contract related operations, the `Libra2` will still need to be used.
 
      ```typescript filename="src/utils/libra2.ts"
      import { createSurfClient } from '@thalalabs/surf';
-     import { Libra, LibraConfig, NETWORK } from "@libra2-core/ts-sdk";
+     import { Libra2, Libra2Config, NETWORK } from "@libra2-core/ts-sdk";
      import { ABI } from "./abi";
 
-     // First, create an Libra client, make sure the network is the one that contract lives on
-     export const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
-     // Second, create a SurfClient with the Libra client and the ABI
+     // First, create an Libra2 client, make sure the network is the one that contract lives on
+     export const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET }));
+     // Second, create a SurfClient with the Libra2 client and the ABI
      export const surfClient = createSurfClient(libra2).useABI(ABI);
 
      // Use Surf to executes an entry function
      const result = await surfClient.entry.transfer({
        functionArguments: ['0x1', 1],
-       typeArguments: ['0x1::libra2_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::Libra2Coin'],
        account: Account.fromPrivateKey(...),
      });
 
      // Use Surf to query a view function
      const [balance] = await surfClient.view.balance({
        functionArguments: ['0x1'],
-       typeArguments: ['0x1::libra2_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::Libra2Coin'],
      });
      ```
 </Steps>
@@ -83,11 +83,11 @@ Surf is a TypeScript library built on top of the Libra TypeScript SDK and the wa
 
 - [Surf GitHub](https://github.com/ThalaLabs/surf)
 - [A simple Next.js example demonstrating Surf](https://github.com/ThalaLabs/surf/tree/main/example)
-- [An example of a fungible asset launchpad using Surf](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad): This example is part of the Solana to Libra guide on Libra Learn, you can try it [here](https://fungible-asset-launchpad.vercel.app/) and read the complete tutorial [here](https://learn.libra2labs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-libra2).
+- [An example of a fungible asset launchpad using Surf](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad): This example is part of the Solana to Libra2 guide on Libra2 Learn, you can try it [here](https://fungible-asset-launchpad.vercel.app/) and read the complete tutorial [here](https://learn.libra2labs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-libra2).
 
 ## Credits
 
-Surf is built by [Thala Labs](https://thala.fi/), an Libra ecosystem project, and maintained together by the Libra community.
+Surf is built by [Thala Labs](https://thala.fi/), an Libra2 ecosystem project, and maintained together by the Libra2 community.
 
 ## Feedback
 

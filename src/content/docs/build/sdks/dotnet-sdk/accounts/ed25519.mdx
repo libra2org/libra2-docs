@@ -11,7 +11,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
   repository.
 </Aside>
 
-The Libra .NET SDK provides a simple way to create and manage Ed25519 accounts. In this guide we
+The Libra2 .NET SDK provides a simple way to create and manage Ed25519 accounts. In this guide we
 will provide snippets of creating or importing existing accounts.
 
 ## Creating Ed25519Accounts
@@ -31,7 +31,7 @@ var account = new Ed25519Account(privateKey);
 ### Using a Mneomonic Phrase
 
 To generate an account from a phrase, you can use `Ed25519Account.FromDerivationPath` and pass in the phrase and the derivation path.
-The derivation path that is typically used throughout the Libra ecosystem is `m/44'/637'/0'/0'/0'`.
+The derivation path that is typically used throughout the Libra2 ecosystem is `m/44'/637'/0'/0'/0'`.
 
 ```csharp
 var account = Ed25519Account.FromDerivationPath(
@@ -51,5 +51,5 @@ var account = Account.Generate();
 ## Additional Resources
 
 <CardGrid>
-  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk/docs/Libra.Ed25519Account.html" title="Ed25519Account Reference" description="The full API reference for the Ed25519Account class." target="_blank" />
+  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk/docs/Libra2.Ed25519Account.html" title="Ed25519Account Reference" description="The full API reference for the Ed25519Account class." target="_blank" />
 </CardGrid>

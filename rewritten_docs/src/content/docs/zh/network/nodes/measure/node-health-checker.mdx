@@ -90,7 +90,7 @@ NHC 作为一个服务运行.当你想要运行你的节点的健康检查时,�
 
 ### 基础配置
 
-在以上所有例子中,都会使用一个基础节点作为参照,来判断您的节点健康状况.例如,对于接入Libra开发网络(devnet)的公共全节点,基础节点可能是 Libra2 团队维护的一个节点,这个节点具有优异的性能和良好的参与度.
+在以上所有例子中,都会使用一个基础节点作为参照,来判断您的节点健康状况.例如,对于接入Libra2开发网络(devnet)的公共全节点,基础节点可能是 Libra2 团队维护的一个节点,这个节点具有优异的性能和良好的参与度.
 
 在启动您节点的NHC服务前,您需要先下载基础配置的 YAML 文件.这份配置 YAML 文件将指明如何找到基础节点(包含 URL 和端口号),NHC 服务需要执行哪些评价指标(比如指标检查,TPS 测试,API 验证等),针对这些指标 NHC 应使用何种参数,配置文件的名称等信息.您可以查看这些[示例基础配置 YAML 文件](https://github.com/libra2org/libra2-core/tree/main/ecosystem/node-checker/configuration_examples).
 
@@ -125,7 +125,7 @@ configs=(devnet_fullnode testnet_fullnode mainnet_fullnode); for c in ${configs[
 ## 运行 NHC:Docker
 
 <Aside type="note">
-  尽管Libra团队自行托管了这项服务的实例,但我们还是鼓励节点运营者建立并运行自己的实例.
+  尽管Libra2团队自行托管了这项服务的实例,但我们还是鼓励节点运营者建立并运行自己的实例.
 </Aside>
 
 准备好基线配置的 YAML 文件及必需的文件之后,你就可以通过以下的命令运行 NHC 服务器,例如使用 Docker:

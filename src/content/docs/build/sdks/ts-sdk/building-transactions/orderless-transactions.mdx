@@ -29,7 +29,7 @@ specify the `nonce` in the `build.simple` method like so:
 const transaction = await libra2.transaction.build.simple({
   sender: sender.accountAddress,
   data: {
-	  // All transactions on Libra are implemented via smart contracts.
+	  // All transactions on Libra2 are implemented via smart contracts.
 	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -47,7 +47,7 @@ const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   secondarySignerAddresses: [bob.accountAddress], // List of secondary signers
   data: {
-	  // All transactions on Libra are implemented via smart contracts.
+	  // All transactions on Libra2 are implemented via smart contracts.
 	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -65,7 +65,7 @@ const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   withFeePayer: true, // This indicates that the transaction will be sponsored.
   data: {
-	  // All transactions on Libra are implemented via smart contracts.
+	  // All transactions on Libra2 are implemented via smart contracts.
 	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },

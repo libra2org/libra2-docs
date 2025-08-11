@@ -4,7 +4,7 @@ title: "Gestiona Activos Fungibles con Multisig"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Este tutorial introduce un caso de uso práctico que combina la cuenta multisig del framework de Libra con el estándar de activo fungible para mejorar el margen de seguridad en la gestión de activos fungibles. Asegúrate de haber entendido la publicación de módulos y la cuenta multisig del framework de Libra antes de continuar con el tutorial. Si no es así, se recomienda encarecidamente probar primero los siguientes tutoriales:
+Este tutorial introduce un caso de uso práctico que combina la cuenta multisig del framework de Libra2 con el estándar de activo fungible para mejorar el margen de seguridad en la gestión de activos fungibles. Asegúrate de haber entendido la publicación de módulos y la cuenta multisig del framework de Libra2 antes de continuar con el tutorial. Si no es así, se recomienda encarecidamente probar primero los siguientes tutoriales:
 
 - [Tu Primer Módulo Move](/build/guides/first-move-module)
 
@@ -16,7 +16,7 @@ Este tutorial fue creado para el [SDK de TypeScript](/build/sdks/ts-sdk).
 
 ## Paso 2: Publica el módulo
 
-Para crear un activo fungible controlado por una cuenta multisig del framework de Libra con todas las operaciones administrativas (acuñar, transferir, quemar, congelar/descongelar), es un requisito previo un contrato inteligente bien diseñado basado en el estándar de activo fungible. El equipo de Libra proporciona un código de ejemplo en el repositorio `libra2-core`.
+Para crear un activo fungible controlado por una cuenta multisig del framework de Libra2 con todas las operaciones administrativas (acuñar, transferir, quemar, congelar/descongelar), es un requisito previo un contrato inteligente bien diseñado basado en el estándar de activo fungible. El equipo de Libra2 proporciona un código de ejemplo en el repositorio `libra2-core`.
 
 Clona el repositorio `libra2-core`:
 
@@ -57,7 +57,7 @@ MODULE_ADDR=${DEFAULT_ACCOUNT_ADDRESS} pnpm run multisig_managed_coin
 ```
 
 <Aside type="note">
-  Este ejemplo usa la devnet de Libra, que históricamente se ha reiniciado cada jueves.
+  Este ejemplo usa la devnet de Libra2, que históricamente se ha reiniciado cada jueves.
   ¡Asegúrate de que devnet esté activa cuando intentes ejecutar el ejemplo! Si estás ejecutando localnet con faucet, puedes ejecutar el siguiente comando en su lugar:
 
   ```shellscript filename="Terminal"
@@ -68,13 +68,13 @@ MODULE_ADDR=${DEFAULT_ACCOUNT_ADDRESS} pnpm run multisig_managed_coin
   ```
 </Aside>
 
-El script de ejemplo debería ejecutarse correctamente sin errores. Luego podrás ver lo que hizo buscando las direcciones `owner1` y `owner2` impresas en la consola en el explorador de Libra.
+El script de ejemplo debería ejecutarse correctamente sin errores. Luego podrás ver lo que hizo buscando las direcciones `owner1` y `owner2` impresas en la consola en el explorador de Libra2.
 
 Sigamos el script para entender lo que hace:
 
 ### Generar cuentas de firmante único
 
-Primero, generaremos tres cuentas de firmante único, owner1, owner2 y owner3, quienes serán copropietarios de una cuenta multisig del framework de Libra.
+Primero, generaremos tres cuentas de firmante único, owner1, owner2 y owner3, quienes serán copropietarios de una cuenta multisig del framework de Libra2.
 
 {/* TODO Code snippet
   typescript title=Generate 3 single signers"
@@ -82,9 +82,9 @@ Primero, generaremos tres cuentas de firmante único, owner1, owner2 y owner3, q
   section_1
   */}
 
-### Crear una cuenta multisig del framework de Libra con un activo fungible gestionado
+### Crear una cuenta multisig del framework de Libra2 con un activo fungible gestionado
 
-A continuación, deja que owner1 llame a la función `initialize()` definida en `multisig_managed_coin.move`, que primero crea una cuenta multisig del framework de Libra propiedad de owner1 y agrega tanto a owner2 como a owner3 como propietarios. También crea un activo fungible llamado "meme coin" con configuraciones personalizadas denotadas en la lista de argumentos y hace que la cuenta multisig sea el administrador del activo fungible. Además, cada propuesta necesita al menos 2 aprobaciones para ejecutarse.
+A continuación, deja que owner1 llame a la función `initialize()` definida en `multisig_managed_coin.move`, que primero crea una cuenta multisig del framework de Libra2 propiedad de owner1 y agrega tanto a owner2 como a owner3 como propietarios. También crea un activo fungible llamado "meme coin" con configuraciones personalizadas denotadas en la lista de argumentos y hace que la cuenta multisig sea el administrador del activo fungible. Además, cada propuesta necesita al menos 2 aprobaciones para ejecutarse.
 
 {/* TODO Code snippet
   typescript title=Query the multisig account and then call the initialize function"
@@ -139,4 +139,4 @@ Finalmente, todos los tres propietarios tienen 1000 meme coins. ¡Quememos todas
 
 ## Conclusión
 
-Este tutorial muestra un flujo end-to-end de usar una cuenta multisig del framework de Libra para administrar activos fungibles. De manera similar, puedes crear tu propio módulo y aprovechar nuestro poderoso SDK para crear el esquema de administración que se ajuste a tus necesidades.
+Este tutorial muestra un flujo end-to-end de usar una cuenta multisig del framework de Libra2 para administrar activos fungibles. De manera similar, puedes crear tu propio módulo y aprovechar nuestro poderoso SDK para crear el esquema de administración que se ajuste a tus necesidades.

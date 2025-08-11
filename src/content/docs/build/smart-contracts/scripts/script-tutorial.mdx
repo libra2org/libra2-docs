@@ -24,7 +24,7 @@ script {
 
         addr::my_module::do_nothing();
 
-        let balance = coin::balance<libra2_coin::LibraCoin>(src_addr);
+        let balance = coin::balance<libra2_coin::Libra2Coin>(src_addr);
         if (balance < desired_balance) {
             libra2_account::transfer(src, dest, desired_balance - balance);
         };
@@ -41,7 +41,7 @@ Now that you know what you would like to accomplish, you need to determine:
 - Do I need a `Move.toml`?
 - How do I run my script with the CLI?
 
-Let us run through how to execute a Move script with a step-by-step example using the [Libra CLI](/build/cli/working-with-move-contracts).
+Let us run through how to execute a Move script with a step-by-step example using the [Libra2 CLI](/build/cli/working-with-move-contracts).
 
 1. Make a new directory for your work:
 
@@ -50,7 +50,7 @@ Let us run through how to execute a Move script with a step-by-step example usin
    cd testing
    ```
 
-2. Set up the Libra CLI and [create an account](/build/cli/setup-cli):
+2. Set up the Libra2 CLI and [create an account](/build/cli/setup-cli):
 
    ```shellscript filename="Terminal"
    libra2 init --network devnet
@@ -98,8 +98,8 @@ Let us run through how to execute a Move script with a step-by-step example usin
    ```shellscript filename="Terminal"
    $ libra2 move compile --named-addresses addr=cb265645385819f3dbe71aac266e319e7f77aed252cacf2930b68102828bf615
    Compiling, may take a little while to download git dependencies...
-   INCLUDING DEPENDENCY LibraFramework
-   INCLUDING DEPENDENCY LibraStdlib
+   INCLUDING DEPENDENCY Libra2Framework
+   INCLUDING DEPENDENCY Libra2Stdlib
    INCLUDING DEPENDENCY MoveStdlib
    BUILDING run_script
    {
@@ -140,7 +140,7 @@ Note that the path of the compiled script is under `build/run_script/`, not `bui
 
 See the [code](https://github.com/banool/move-examples/tree/main/run_script) used for this document. The full example explains how to use a Move script that relies on a user-created Move module as well.
 
-See also how to do this with the [Rust SDK](https://github.com/libra2org/libra2-developer-discussions/discussions/24) instead of the Libra CLI in Libra Developer Discussions.
+See also how to do this with the [Rust SDK](https://github.com/libra2org/libra2-developer-discussions/discussions/24) instead of the Libra2 CLI in Libra2 Developer Discussions.
 
 ## Advanced
 

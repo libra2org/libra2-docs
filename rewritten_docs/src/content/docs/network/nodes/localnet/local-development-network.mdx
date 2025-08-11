@@ -57,7 +57,7 @@ Local networks can be helpful when testing your code. They are not connected to 
              ChainId: 4
              REST API endpoint: http://0.0.0.0:8080
              Metrics endpoint: http://0.0.0.0:9101/metrics
-             Libranet fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
+             Libra2net fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
              Indexer gRPC node stream endpoint: 0.0.0.0:50051
 
      Libra2 is running, press ctrl-c to exit
@@ -167,10 +167,10 @@ libra2 move publish --profile <your-profile-name> --package-dir /opt/git/libra2-
 If you want to use the local network with the TypeScript SDK, you can use local network URLs when initializing the client object (`Libra2`):
 
 ```tsx
-import { Libra2, LibraConfig, Network } from "@libra2-labs/ts-sdk";
+import { Libra2, Libra2Config, Network } from "@libra2-labs/ts-sdk";
 
 const network = Network.LOCAL;
-const config = new LibraConfig({ network });
+const config = new Libra2Config({ network });
 const client = new Libra2(config);
 ```
 

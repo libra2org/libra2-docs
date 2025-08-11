@@ -15,7 +15,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 在关闭节点之前,您必须离开验证者集合.这将确保您的节点不再负责参与共识.验证者节点可以随时离开验证者集合.当验证者账户中的质押不足时,也会自动发生这种情况.
 
-当您离开验证者集合时,您的节点将在下一个纪元被标记为“不活跃(inactive)”.要离开验证者集合,请使用 Libra CLI 运行以下命令.您需要设置 `profile` 和 `owner-address` 参数.
+当您离开验证者集合时,您的节点将在下一个纪元被标记为“不活跃(inactive)”.要离开验证者集合,请使用 Libra2 CLI 运行以下命令.您需要设置 `profile` 和 `owner-address` 参数.
 
 ```shellscript filename="Terminal"
 libra2 node leave-validator-set --profile <operator-profile> --pool-address <owner-address>

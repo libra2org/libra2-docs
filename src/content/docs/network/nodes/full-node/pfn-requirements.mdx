@@ -27,7 +27,7 @@ validator or VFN. You can see the hardware requirements for these, here: [valida
 ## Network requirements and ports
 
 When you are running a PFN, you are required to open network ports on your nodes to allow other nodes (i.e., peers)
-to connect to you. There are different Libra network types, and each network type uses a different port. However,
+to connect to you. There are different Libra2 network types, and each network type uses a different port. However,
 the only network type that a PFN uses is the public network, where PFNs to connect to other PFNs and VFNs.
 
 Your PFN can be configured so that the public network operates using a specific port on your node. You can configure
@@ -68,7 +68,7 @@ Assuming default ports are used, the following should be configured for PFNs:
 
 ## Storage requirements
 
-The amount of data stored by Libra PFNs depends on the ledger history (length) of the blockchain and the number of
+The amount of data stored by Libra2 PFNs depends on the ledger history (length) of the blockchain and the number of
 on-chain states (e.g., accounts and resources). Both the ledger history and the number of
 on-chain states depend on several additional factors, including the age of the blockchain, the average transaction
 rate over time, and the configuration of the ledger database pruner. At the time of writing, we estimate
@@ -79,6 +79,6 @@ will continue to grow unbounded. As a result, we cannot provide a recommendation
 
 <Aside type="note">
   **Devnet blockchain storage**<br />
-  The Libra devnet is currently reset on a weekly basis. If you are deploying a devnet PFN, this means that the storage
-  will be reset (i.e., wiped) every week. See the `#devnet-release` channel on the [Libra Discord](https://discord.gg/libra2network).
+  The Libra2 devnet is currently reset on a weekly basis. If you are deploying a devnet PFN, this means that the storage
+  will be reset (i.e., wiped) every week. See the `#devnet-release` channel on the [Libra2 Discord](https://discord.gg/libra2network).
 </Aside>

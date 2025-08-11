@@ -4,16 +4,16 @@ title: "从备份中引导启动"
 
 import { Aside } from '@astrojs/starlight/components';
 
-本文档描述了如何使用备份来引导启动一个 Libra 节点.这可以在所有类型的节点上完成,包括验证器,VFN 和 PFN.使用备份进行引导启动可以帮助节点运营者实现两个目标:
+本文档描述了如何使用备份来引导启动一个 Libra2 节点.这可以在所有类型的节点上完成,包括验证器,VFN 和 PFN.使用备份进行引导启动可以帮助节点运营者实现两个目标:
 
 1. 快速引导启动数据库,从而启动一个新的或失败的节点.
 2. 高效地从区块链历史的任何特定时期恢复数据(例如,从创世到目标版本).
 
-为了实现这些目标,Libra 数据库恢复工具允许您使用现有的[公共备份文件](#公共备份文件)来恢复节点的数据库.这包括包含事件,写入集和键值对的交易历史.使用该工具,您可以从任何历史范围恢复交易,或者将数据库恢复到备份中的最新版本.公共备份文件由加密证明支持,并存储在 AWS 和 Google Cloud 上,以便访问.
+为了实现这些目标,Libra2 数据库恢复工具允许您使用现有的[公共备份文件](#公共备份文件)来恢复节点的数据库.这包括包含事件,写入集和键值对的交易历史.使用该工具,您可以从任何历史范围恢复交易,或者将数据库恢复到备份中的最新版本.公共备份文件由加密证明支持,并存储在 AWS 和 Google Cloud 上,以便访问.
 
 ## 公共备份文件
 
-Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Amazon S3 或 Google Cloud Storage)来维护一些公共可访问的数据库备份.这些备份数据的链接如下所示:
+Libra2 Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Amazon S3 或 Google Cloud Storage)来维护一些公共可访问的数据库备份.这些备份数据的链接如下所示:
 
 |     | AWS 备份数据                                                                              | Google Cloud 备份数据                                                               |
 | --- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
@@ -39,18 +39,18 @@ Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Am
 
 ![libra2-db-restore.png](~/images/libra2-db-restore.png)
 
-## 恢复 Libra 数据库
+## 恢复 Libra2 数据库
 
-[Libra CLI](/zh/build/cli) 支持 Libra 节点的两种恢复操作:
+[Libra2 CLI](/zh/build/cli) 支持 Libra2 节点的两种恢复操作:
 
 1. 在用户指定的交易版本(或备份提供的最新版本)处重新创建一个数据库,但交易历史最少.
 2. 在特定时间段内恢复数据库.除了上述选项外,此选项还确保重新创建的数据库携带用户指定版本范围的账本历史.
 
 <Aside type="note">
-  需要 Libra CLI 1.0.14 或更高版本才能执行这些操作.此外,根据您的使用情况,安装 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) 或 [gsutil](https://cloud.google.com/storage/docs/gsutil_install).
+  需要 Libra2 CLI 1.0.14 或更高版本才能执行这些操作.此外,根据您的使用情况,安装 [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) 或 [gsutil](https://cloud.google.com/storage/docs/gsutil_install).
 </Aside>
 
-下面的部分提供了如何使用 Libra CLI 从备份中恢复数据库的示例.
+下面的部分提供了如何使用 Libra2 CLI 从备份中恢复数据库的示例.
 
 ### 引导到最新版本
 
@@ -94,7 +94,7 @@ libra2 node bootstrap-db \
 
 ### 从创世恢复完整历史
 
-要使用从创世(genesis)的完整历史恢复 Libra 节点,将 `ledger-history-start-version` 设置为 0,并在启动节点之前按照[禁用账本裁剪器(ledger pruner)](/zh/network/nodes/configure/data-pruning)部分中的说明禁用裁剪器.注意:执行恢复完整历史需要大量的资源和时间.
+要使用从创世(genesis)的完整历史恢复 Libra2 节点,将 `ledger-history-start-version` 设置为 0,并在启动节点之前按照[禁用账本裁剪器(ledger pruner)](/zh/network/nodes/configure/data-pruning)部分中的说明禁用裁剪器.注意:执行恢复完整历史需要大量的资源和时间.
 请参阅下面的资源要求.
 
 - **打开文件限制**:将打开文件限制设置为 10K,例如,使用`ulimit -n 10000`.

@@ -4,9 +4,9 @@ title: "Indexer Architecture"
 
 import { ThemedImage } from '~/components/ThemedImage';
 
-The Libra Indexer stores data from on-chain (via the Transaction Stream Service). It indexes basic data about transactions, fungible assets, tokens, collections, accounts, ANS (Libra Name Service) names, and more. Apps can query that data via the Indexer API.
+The Libra2 Indexer stores data from on-chain (via the Transaction Stream Service). It indexes basic data about transactions, fungible assets, tokens, collections, accounts, ANS (Libra2 Name Service) names, and more. Apps can query that data via the Indexer API.
 
-Libra Labs hosts a free version of the Indexer API to help the community get access to data such as:
+Libra2 Labs hosts a free version of the Indexer API to help the community get access to data such as:
 
 1. Historical data - Ex. [What transactions have impacted this account?](/build/indexer/indexer-api/account-transactions)
 2. Aggregate data - Ex. [How many delegators are in this staking pool?](/build/indexer/indexer-api/get-delegators)
@@ -26,14 +26,14 @@ dark: '~/images/indexer-architecture-dark.svg',
   />
 </center>
 
-The Indexer uses the [Transaction Stream Service](/build/indexer/txn-stream) and custom processors written with the [Indexer SDK](/build/indexer/indexer-sdk) to update a database with rich tables. Then it exposes an API for Libra apps to access the consolidated data.
+The Indexer uses the [Transaction Stream Service](/build/indexer/txn-stream) and custom processors written with the [Indexer SDK](/build/indexer/indexer-sdk) to update a database with rich tables. Then it exposes an API for Libra2 apps to access the consolidated data.
 
-For situations where you need to go beyond the Libra hosted Indexer API data, you will want to create a custom processor with the [Indexer SDK](/build/indexer/indexer-sdk).
+For situations where you need to go beyond the Libra2 hosted Indexer API data, you will want to create a custom processor with the [Indexer SDK](/build/indexer/indexer-sdk).
 
 Writing a custom processor can help you:
 
 1. Get access to different types of data.
-2. Store additional information beyond what the Libra Labs hosted Indexer API is saving.
+2. Store additional information beyond what the Libra2 Labs hosted Indexer API is saving.
 3. Change how transactions are processed.
 
 If you would like to operate your own Indexer API as a service, see how to [host your own Indexer](/build/indexer/indexer-api/self-hosted).

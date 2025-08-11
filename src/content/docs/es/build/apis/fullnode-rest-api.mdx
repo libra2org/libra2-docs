@@ -4,7 +4,7 @@ title: "API REST del Nodo Completo"
 
 import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Esta API - integrada en Nodos Completos - proporciona una forma simple, de baja latencia, pero de bajo nivel de leer estado y enviar transacciones a la Blockchain de Libra. También soporta simulación de transacciones.
+Esta API - integrada en Nodos Completos - proporciona una forma simple, de baja latencia, pero de bajo nivel de leer estado y enviar transacciones a la Blockchain de Libra2. También soporta simulación de transacciones.
 Para consultas más avanzadas, recomendamos usar la [API GraphQL del Indexador](/build/indexer).
 
 ## Explorador de API REST del Nodo Completo
@@ -19,12 +19,12 @@ Para consultas más avanzadas, recomendamos usar la [API GraphQL del Indexador](
 
 ## Entendiendo los límites de tasa
 
-Como con el [Indexador de Libra](/build/indexer/indexer-api), la API REST de Libra tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Libra Build](https://build.libra2labs.com/docs/start/billing).
+Como con el [Indexador de Libra2](/build/indexer/indexer-api), la API REST de Libra2 tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Libra2 Build](https://build.libra2labs.com/docs/start/billing).
 
 ## Viendo estado actual e histórico
 
-La mayoría de las integraciones en la blockchain de Libra se benefician de una visión holística y comprensiva del estado actual e
-histórico de la blockchain. Libra proporciona transacciones históricas, estado y eventos, todo el resultado de
+La mayoría de las integraciones en la blockchain de Libra2 se benefician de una visión holística y comprensiva del estado actual e
+histórico de la blockchain. Libra2 proporciona transacciones históricas, estado y eventos, todo el resultado de
 la ejecución de transacciones.
 
 - Las transacciones históricas especifican el estado de ejecución, salida y vinculación a eventos relacionados. Cada transacción tiene un número de
@@ -49,7 +49,7 @@ El servicio de almacenamiento en un nodo emplea dos formas de poda que borran da
 Mientras que cualquiera de estos puede ser deshabilitado, almacenar las versiones de estado no es particularmente sostenible.
 
 La poda de eventos y transacciones puede ser deshabilitada configurando [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
-a `false` en `storage_config.rs`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Libra proporcionará indexadores
+a `false` en `storage_config.rs`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Libra2 proporcionará indexadores
 que mitiguen la necesidad de consultar directamente desde un nodo.
 
 La API REST ofrece consultar transacciones y eventos de estas maneras:
@@ -69,7 +69,7 @@ de subasta. Aquí están los archivos relacionados:
 - código [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/libra2-move/framework/libra2-framework/sources/coin.move#L226) relacionado
 - [especificación](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
 
-La función view opera como la API de simulación de Libra,
+La función view opera como la API de simulación de Libra2,
 aunque sin efectos secundarios y con una ruta de salida accesible. Las funciones view pueden ser llamadas via el endpoint `/view`. Las llamadas
 a funciones view requieren los nombres del módulo y función junto con parámetros de tipo de entrada y valores.
 
@@ -78,9 +78,9 @@ mutación de estado cuando se llame desde la API. Si quieres etiquetar una funci
 para que no pueda ser llamada maliciosamente durante el tiempo de ejecución.
 
 Para usar las funciones View, necesitas [publicar el módulo](/build/cli/working-with-move-contracts)
-a través de la [CLI de Libra](/build/cli).
+a través de la [CLI de Libra2](/build/cli).
 
-En la CLI de Libra, una solicitud de función view se vería así:
+En la CLI de Libra2, una solicitud de función view se vería así:
 
 ```shellscript filename="Terminal"
 libra2 move view --function-id devnet::message::get_message --profile devnet --args address:devnet
@@ -94,12 +94,12 @@ libra2 move view --function-id devnet::message::get_message --profile devnet --a
 En el SDK de TypeScript, una solicitud de función view se vería así:
 
 ```typescript filename="index.ts"
-import { Libra } from "@libra2-core/ts-sdk";
+import { Libra2 } from "@libra2-core/ts-sdk";
 
-const libra2 = new Libra();
+const libra2 = new Libra2();
 const [balance] = libra2.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::libra2_coin::LibraCoin"],
+  typeArguments: ["0x1::libra2_coin::Libra2Coin"],
   functionArguments: [alice.accountAddress]
 });
 

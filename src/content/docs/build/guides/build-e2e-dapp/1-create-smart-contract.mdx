@@ -4,7 +4,7 @@ title: "1. Create a Smart Contract"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This is the first chapter of the tutorial on [building an end-to-end dapp on Libra](/build/guides/build-e2e-dapp). If you haven’t done it, review that introduction, and ensure your environment meets the [prerequisites](/build/guides/build-e2e-dapp#prerequisites) listed there.
+This is the first chapter of the tutorial on [building an end-to-end dapp on Libra2](/build/guides/build-e2e-dapp). If you haven’t done it, review that introduction, and ensure your environment meets the [prerequisites](/build/guides/build-e2e-dapp#prerequisites) listed there.
 
 Now that you are all set up, let's explore the `contract` directory.
 
@@ -14,7 +14,7 @@ Now that you are all set up, let's explore the `contract` directory.
 
 A `Move.toml` file is a manifest file that contains metadata such as name, version, and dependencies for the package.
 
-Take a look at the new `Move.toml` file. You should see your package information and an `LibraFramework` dependency. The `LibraFramework` dependency points to the `libra2-core/libra2-move/framework/libra2-framework` GitHub repo main branch.
+Take a look at the new `Move.toml` file. You should see your package information and an `Libra2Framework` dependency. The `Libra2Framework` dependency points to the `libra2-core/libra2-move/framework/libra2-framework` GitHub repo main branch.
 
 ### Why `sources` directory?
 
@@ -39,7 +39,7 @@ VITE_MODULE_PUBLISHER_ACCOUNT_PRIVATE_KEY=0x84638fd5c42d0937503111a587307169842f
 ```
 
 <Aside type="note">
-  You just created a new account on the Libra (dev) network! Yay! You can see it by going to the Libra Explorer Devnet network view, pasting the `VITE_MODULE_PUBLISHER_ACCOUNT_ADDRESS` value from your `.env` file into the search field, and clicking on the dropdown option!
+  You just created a new account on the Libra2 (dev) network! Yay! You can see it by going to the Libra2 Explorer Devnet network view, pasting the `VITE_MODULE_PUBLISHER_ACCOUNT_ADDRESS` value from your `.env` file into the search field, and clicking on the dropdown option!
 </Aside>
 
 The Boilerplate template comes with a pre generated `message_board.move` file, a relevant test file and a `Move.toml` file.
@@ -104,7 +104,7 @@ Before jumping into writing code, let’s first understand what we want our smar
 3. Let an account mark their task as completed.
 
 <Aside type="note">
-  Creating an event is not mandatory yet useful if dapps/users want to monitor data, such as how many people create a new task, using the [Libra Indexer](/build/indexer).
+  Creating an event is not mandatory yet useful if dapps/users want to monitor data, such as how many people create a new task, using the [Libra2 Indexer](/build/indexer).
 </Aside>
 
 We can start with defining a `TodoList` struct, that holds the:
@@ -187,8 +187,8 @@ That will tell the compiler where it can get those types from.
 ```shellscript filename="Terminal"
 Compiling, may take a little while to download git dependencies...
 UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-core.git
-INCLUDING DEPENDENCY LibraFramework
-INCLUDING DEPENDENCY LibraStdlib
+INCLUDING DEPENDENCY Libra2Framework
+INCLUDING DEPENDENCY Libra2Stdlib
 INCLUDING DEPENDENCY MoveStdlib
 BUILDING MessageBoard
 {
@@ -431,8 +431,8 @@ Let’s stop for one moment and make sure our code compiles by running the `npm 
 ```shellscript filename="Terminal"
 Compiling, may take a little while to download git dependencies...
 UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-core.git
-INCLUDING DEPENDENCY LibraFramework
-INCLUDING DEPENDENCY LibraStdlib
+INCLUDING DEPENDENCY Libra2Framework
+INCLUDING DEPENDENCY Libra2Stdlib
 INCLUDING DEPENDENCY MoveStdlib
 BUILDING MessageBoard
 {
@@ -625,7 +625,7 @@ Code was successfully deployed to object address 0x2bce4f7bb8a67641875ba5076850d
 }
 ```
 
-6. You can now head to the [Libra Explorer](https://explorer.libra2labs.com/) link and view the transaction details. You can also see the module published on chain by looking for the object address.
+6. You can now head to the [Libra2 Explorer](https://explorer.libra2labs.com/) link and view the transaction details. You can also see the module published on chain by looking for the object address.
 
 <Aside type="note">
   Check out your `.env` file and see the `VITE_MODULE_ADDRESS` variable, it is set to the object address of the published module.

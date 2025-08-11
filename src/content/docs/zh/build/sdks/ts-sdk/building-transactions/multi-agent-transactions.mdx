@@ -102,14 +102,14 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 1. 通过运行 `pnpm i @libra2-core/ts-sdk` 或使用您习惯的包管理器安装 `@libra2-core/ts-sdk`
 2. 更新下方代码片段以构建需要多代理签名的交易
    1. 替换下方注释后的函数和参数:`// REPLACE WITH YOUR MULTI-AGENT FUNCTION HERE`
-   2. 此自定义是必要的,因为 Libra 没有预制的需要多代理签名的合约.如果您想部署自己的示例多代理合约,可以部署 ["transfer two by two" 示例 Move 合约](https://github.com/libra2org/libra2-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5)
+   2. 此自定义是必要的,因为 Libra2 没有预制的需要多代理签名的合约.如果您想部署自己的示例多代理合约,可以部署 ["transfer two by two" 示例 Move 合约](https://github.com/libra2org/libra2-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5)
 
 ```typescript filename="multi-agent.ts"
 /**
- * 此示例展示如何使用 Libra SDK 发送交易
+ * 此示例展示如何使用 Libra2 SDK 发送交易
  */
 
-import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
 async function example() {
   console.log(
@@ -117,8 +117,8 @@ async function example() {
   );
 
   // 0. 设置客户端和测试账户
-  const config = new LibraConfig({ network: Network.DEVNET });
-  const libra2 = new Libra(config);
+  const config = new Libra2Config({ network: Network.DEVNET });
+  const libra2 = new Libra2(config);
 
   let alice = Account.generate();
   let bob = Account.generate();

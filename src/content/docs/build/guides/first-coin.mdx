@@ -17,7 +17,7 @@ Install your preferred SDK from the below list:
 
 ## Step 2: Install the CLI
 
-[Install the precompiled binary for the Libra CLI](/build/cli).
+[Install the precompiled binary for the Libra2 CLI](/build/cli).
 
 ***
 
@@ -145,7 +145,7 @@ Move contracts are effectively a set of Move modules known as a package. When de
 - `build/Examples/package-metadata.bcs`: Contains the metadata associated with the package.
 - `build/Examples/bytecode_modules/moon_coin.mv`: Contains the bytecode for the `moon_coin.move` module.
 
-These are read by the example and published to the Libra blockchain:
+These are read by the example and published to the Libra2 blockchain:
 
 <Tabs>
   <TabItem label="TypeScript">
@@ -279,7 +279,7 @@ Coins have several primitives:
 
 #### Step 4.3.1: Initializing a coin
 
-Once a coin type has been published to the Libra blockchain, the entity that published that coin type can initialize it:
+Once a coin type has been published to the Libra2 blockchain, the entity that published that coin type can initialize it:
 
 ```move
 module 0x1::coin {
@@ -374,7 +374,7 @@ module 0x1::coin {
 
 #### Step 4.3.4: Transferring a coin
 
-Libra provides several building blocks to support coin transfers:
+Libra2 provides several building blocks to support coin transfers:
 
 - `coin::deposit<CoinType>`: Allows any entity to deposit a coin into an account that has already called `coin::register<CoinType>`.
 - `coin::withdraw<CoinType>`: Allows any entity to extract a coin amount from their account.
@@ -386,7 +386,7 @@ Libra provides several building blocks to support coin transfers:
 
 ## Supporting documentation
 
-- [Libra CLI](/build/cli)
+- [Libra2 CLI](/build/cli)
 - [TypeScript SDK](/build/sdks/ts-sdk)
 - [Python SDK](/build/sdks/python-sdk)
 - [REST API specification](/network/nodes/libra2-api-spec)

@@ -1,5 +1,5 @@
 ---
-title: "Libra代币标准（旧版）"
+title: "Libra2代币标准（旧版）"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
@@ -25,7 +25,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 设计原则
 
-[Libra代币标准](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move)基于以下原则开发:
+[Libra2代币标准](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move)基于以下原则开发:
 
 - **互操作性**:通过标准实现提升生态系统项目间的互操作性.由于Move是静态语言且不支持动态分发,这一原则尤为重要.
 - **流动性**:通过在同一合约中定义NFT,同质化(非小数)和半同质化代币,实现最大流动性.这些不同类型的代币可以相同方式存储,转移和交易,从而更容易在各类市场,交易所和其他交易方式间实现互操作.
@@ -34,12 +34,12 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note">
   **同质化代币 → NFT**<br />
-  Libra代币标准支持[将同质化代币演变为NFT](#evolving-from-fungible-token-to-nft).
+  Libra2代币标准支持[将同质化代币演变为NFT](#evolving-from-fungible-token-to-nft).
 </Aside>
 
 ### 在链上存储自定义代币属性
 
-Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move)模块来存储代币的链上属性.`PropertyMap`将字符串键映射到链上的属性值,该值以二进制规范序列化(BCS)格式及其类型存储.当前`PropertyMap`仅支持原始类型(bool, u8, u64, u128, address和String).诸如[Libra Names](https://www.libra2names.com/)等应用程序会定义特定于应用的属性,这些属性由应用程序智能合约读写.
+Libra2代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move)模块来存储代币的链上属性.`PropertyMap`将字符串键映射到链上的属性值,该值以二进制规范序列化(BCS)格式及其类型存储.当前`PropertyMap`仅支持原始类型(bool, u8, u64, u128, address和String).诸如[Libra2 Names](https://www.libra2names.com/)等应用程序会定义特定于应用的属性,这些属性由应用程序智能合约读写.
 
 #### 默认属性
 
@@ -55,14 +55,14 @@ Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/
 
 ### 从同质化代币演变为NFT
 
-同质化代币共享相同的默认属性值.但这些属性值会随时间演变而变得互不相同.为了支持此类代币属性的演变,Libra代币标准提供了`property_version`字段.其工作原理如下:
+同质化代币共享相同的默认属性值.但这些属性值会随时间演变而变得互不相同.为了支持此类代币属性的演变,Libra2代币标准提供了`property_version`字段.其工作原理如下:
 
 - 在代币创建(铸造)期间,所有代币初始时`property_version`设为`0`,这些代币可以堆叠在一起作为同质化代币.
 - 当创建者变更代币的默认属性时,被变更的代币将被分配一个唯一的`property_version`以创建新的[`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L288),从而与其他同质化代币区分.这个唯一的`token_id`允许代币拥有自己的属性值,且该代币的所有进一步变更**不会**再次改变`property_version`.此时该代币本质上已成为NFT.
 
 #### 配置可变性
 
-为了使可变性对创建者和所有者都明确可见,Libra代币标准在集合级别和代币级别都提供了[`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)来控制哪些字段是可变的.这里的"可配置"意味着创建者可以在创建时将该字段配置为可变或不可变.
+为了使可变性对创建者和所有者都明确可见,Libra2代币标准在集合级别和代币级别都提供了[`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)来控制哪些字段是可变的.这里的"可配置"意味着创建者可以在创建时将该字段配置为可变或不可变.
 
 ### 链下存储元数据
 
@@ -140,7 +140,7 @@ Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/
 
 ## 代币数据模型
 
-[以下流程图](/zh/docs/libra2-token-standard-flow.svg)展示了代币数据在Libra中的流转过程.
+[以下流程图](/zh/docs/libra2-token-standard-flow.svg)展示了代币数据在Libra2中的流转过程.
 
 <ThemedImage
   alt="Signed Transaction Flow"
@@ -156,7 +156,7 @@ dark: '~/images/libra2-token-standard-flow-dark.svg',
 
 ### 结构体级资源
 
-以下表格描述了结构体级别的字段.完整列表请参阅[Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
+以下表格描述了结构体级别的字段.完整列表请参阅[Libra2代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 #### 存储在创建者地址的资源
 
@@ -179,15 +179,15 @@ dark: '~/images/libra2-token-standard-flow-dark.svg',
 | [`Token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Token)           | 数量字段表示代币的个数.                                                                                        |
 | [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` 指向该代币的元数据.`property_version` 表示该代币的属性相对于 `TokenData` 中 `default_properties` 发生了变异的版本. |
 
-更详细描述请参阅 [Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
+更详细描述请参阅 [Libra2代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 ## 代币生命周期
 
 ### 代币创建
 
-每个Libra代币都属于一个集合.开发者首先需要通过 `create_collection_script` 创建一个集合,然后创建属于该集合的代币 `create_token_script`.为了实现并行的 `TokenData` 和 `Token` 创建,开发者可以创建无限量的集合和 `TokenData`,其中集合和 `TokenData` 的 `maximum` 都设置为 `0`.通过这种设置,代币合约不会跟踪代币类型(`TokenData` 数量)和每个代币类型中的代币供应量.因此,`TokenData` 和代币可以并行创建.
+每个Libra2代币都属于一个集合.开发者首先需要通过 `create_collection_script` 创建一个集合,然后创建属于该集合的代币 `create_token_script`.为了实现并行的 `TokenData` 和 `Token` 创建,开发者可以创建无限量的集合和 `TokenData`,其中集合和 `TokenData` 的 `maximum` 都设置为 `0`.通过这种设置,代币合约不会跟踪代币类型(`TokenData` 数量)和每个代币类型中的代币供应量.因此,`TokenData` 和代币可以并行创建.
 
-Libra还对输入大小实施简单验证并防止重复:
+Libra2还对输入大小实施简单验证并防止重复:
 
 - 代币名称 - 在每个集合内唯一
 - 集合名称 - 在每个账户内唯一

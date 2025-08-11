@@ -1,5 +1,5 @@
 ---
-title: "Libra Token Standard (Legacy)"
+title: "Libra2 Token Standard (Legacy)"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
@@ -35,7 +35,7 @@ has a similar set of attributes:
 
 ## Design principles
 
-The [Libra token standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) is developed with the following principles:
+The [Libra2 token standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) is developed with the following principles:
 
 - **Interoperability**: Provide a standard implementation to improve
   interoperability across the ecosystem projects. Moreover, Move being a static
@@ -54,17 +54,17 @@ The [Libra token standard](https://github.com/libra2org/libra2-core/blob/main/li
 
 <Aside type="note">
   **Fungible token → NFT**<br />
-  The Libra token standard supports [mutation of a fungible token to an
+  The Libra2 token standard supports [mutation of a fungible token to an
   NFT](#evolving-from-fungible-token-to-nft).
 </Aside>
 
 ### Storing customized token properties on-chain
 
-The Libra token standard uses the [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move) module to store on-chain
+The Libra2 token standard uses the [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move) module to store on-chain
 properties of tokens. `PropertyMap` maps a string key to a property value
 on-chain, which stores the value in Binary Canonical Serialization (BCS) format
 and its type. Currently, only primitive types (bool, u8, u64, u128, address and
-String) are supported in `PropertyMap`. Applications, such as [Libra Names](https://www.libra2names.com/),
+String) are supported in `PropertyMap`. Applications, such as [Libra2 Names](https://www.libra2names.com/),
 define application specific properties that are read and written by the
 applications smart contract.
 
@@ -91,7 +91,7 @@ Note that limits exist to storing customized token properties on-chain, namely
 
 Fungible tokens share the same default property values. However, these property
 values can evolve over time and become different from each other. To support
-such evolution of token properties, the Libra token standard provides the
+such evolution of token properties, the Libra2 token standard provides the
 `property_version` field. Here is how it works:
 
 - During the token creation (minting), all tokens initially have
@@ -106,7 +106,7 @@ such evolution of token properties, the Libra token standard provides the
 
 #### Configuring mutability
 
-To make mutability explicit for both the creator and owner, the Libra token
+To make mutability explicit for both the creator and owner, the Libra2 token
 standard provides [`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)
 at both the collection level and the token level to control which fields are
 mutable. Configurable here means the creator can configure this field to be
@@ -207,7 +207,7 @@ load the file.
 ## Token data model
 
 The [following diagram](/docs/libra2-token-standard-flow.svg) depicts the
-flow of token data through Libra.
+flow of token data through Libra2.
 
 <ThemedImage
   alt="Signed Transaction Flow"
@@ -225,7 +225,7 @@ creator’s account and the owner’s account.
 ### Struct-level resources
 
 The following tables describe fields at the struct level. For the definitive
-list, see the [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
+list, see the [Libra2 Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 #### Resource stored at the creator’s address
 
@@ -248,13 +248,13 @@ list, see the [Libra Token Framework](https://github.com/libra2org/libra2-core/b
 | [`Token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Token)           | The amount is the number of tokens.                                                                                                                                    |
 | [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` points to the metadata of this token. The `property_version` represents a token with mutated `PropertyMap` from `default_properties` in the `TokenData`. |
 
-For more detailed descriptions, see [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
+For more detailed descriptions, see [Libra2 Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 ## Token lifecycle
 
 ### Token creation
 
-Every Libra token belongs to a collection. The developer first needs to create a
+Every Libra2 token belongs to a collection. The developer first needs to create a
 collection through `create_collection_script` and then create the token
 belonging to the collection `create_token_script`. To achieve parallel
 `TokenData` and `Token` creation, a developer can create unlimited collection
@@ -263,7 +263,7 @@ and `TokenData` where the `maximum` of the collection and `TokenData` are set as
 token (`TokenData` count) and supply of token within each token type. As the
 result, the `TokenData` and token can be created in parallel.
 
-Libra also enforces simple validation of the input size and prevents duplication:
+Libra2 also enforces simple validation of the input size and prevents duplication:
 
 - Token name - unique within each collection
 - Collection name - unique within each account

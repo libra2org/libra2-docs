@@ -1,15 +1,15 @@
 ---
-title: "Estándares de Libra"
+title: "Estándares de Libra2"
 ---
 
 Los estándares definen una interfaz común interoperable para que todos los desarrolladores construyan
 sobre ella. Consisten en reglas para asegurar compatibilidad entre aplicaciones y
-billeteras en la blockchain de Libra. Consulta una [lista de direcciones de recursos de monedas conocidas](https://github.com/hippospace/libra2-coin-list)
-en Libra proporcionada por hippospace.
+billeteras en la blockchain de Libra2. Consulta una [lista de direcciones de recursos de monedas conocidas](https://github.com/hippospace/libra2-coin-list)
+en Libra2 proporcionada por hippospace.
 
 ## Estándares de Move
 
-### [Objeto de Libra](/build/smart-contracts/objects)
+### [Objeto de Libra2](/build/smart-contracts/objects)
 
 El [modelo de Objeto](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/object.move)
 permite a Move representar un tipo complejo como un conjunto de recursos almacenados dentro de una
@@ -20,7 +20,7 @@ de recursos y gestión de propiedad.
 
 ### [Activo Digital (DA)](/build/smart-contracts/digital-asset)
 
-El nuevo [Estándar de Activo Digital de Libra](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
+El nuevo [Estándar de Activo Digital de Libra2](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
 permite:
 
 - Activos y coleccionables ricos y flexibles.
@@ -32,14 +32,14 @@ construir NFT o tokens semi-fungibles.
 
 ### [Activo Fungible (FA)](/build/smart-contracts/fungible-asset)
 
-El nuevo [Estándar de Activo Fungible de Libra](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move)
+El nuevo [Estándar de Activo Fungible de Libra2](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move)
 es un estándar destinado para activos fungibles simples, seguros de tipo y basados en el modelo
-de objeto con la intención de reemplazar la moneda de Libra. El Activo Fungible (FA) ofrece más características
-y flexibilidad a los desarrolladores de Move de Libra para crear y gestionar activos fungibles.
+de objeto con la intención de reemplazar la moneda de Libra2. El Activo Fungible (FA) ofrece más características
+y flexibilidad a los desarrolladores de Move de Libra2 para crear y gestionar activos fungibles.
 
 ## Estándares Legacy
 
-### [Token de Libra](/build/smart-contracts/libra2-token)
+### [Token de Libra2](/build/smart-contracts/libra2-token)
 
 El antiguo
 módulo [Token existente](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move),
@@ -47,10 +47,10 @@ por otro lado:
 
 - Encapsula activos y coleccionables ricos y flexibles. Estos activos son discretos
   (no decimales) y pueden ser fungibles, semi-fungibles o no fungibles.
-- El estándar de token está en su propio paquete `LibraToken` en la Dirección `0x3` para
+- El estándar de token está en su propio paquete `Libra2Token` en la Dirección `0x3` para
   permitir iteración rápida basada en retroalimentación de la comunidad.
 
-### [Moneda de Libra](/build/smart-contracts/libra2-coin)
+### [Moneda de Libra2](/build/smart-contracts/libra2-coin)
 
 El [módulo Coin](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move)
 es un estándar ligero destinado para activos fungibles simples y seguros de tipo. El
@@ -58,5 +58,5 @@ estándar de moneda está separado en su propio módulo Move para asegurar que:
 
 - Las aplicaciones y usuarios puedan crear y usar tokens simples, con alto rendimiento
   y bajo overhead de gas.
-- El estándar Coin es parte del framework core de Libra, por lo que puede ser usado para
+- El estándar Coin es parte del framework core de Libra2, por lo que puede ser usado para
   monedas, incluyendo la moneda de gas.

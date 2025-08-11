@@ -18,16 +18,16 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 ### Git 仓库
 
-默认的 `Move.toml` 通过 git 仓库依赖包含了 `LibraFramework`:
+默认的 `Move.toml` 通过 git 仓库依赖包含了 `Libra2Framework`:
 
 ```toml filename="Move.toml"
-  [dependencies.LibraFramework]
+  [dependencies.Libra2Framework]
   git = "<https://github.com/libra2org/libra2-framework.git>"
   rev = "mainnet"
   subdir = "libra2-framework"
 ```
 
-当运行 Libra CLI 命令时,依赖会自动更新并编译.
+当运行 Libra2 CLI 命令时,依赖会自动更新并编译.
 
 ### 本地源代码
 
@@ -78,7 +78,7 @@ libra2 move decompile --package-path ./bytecode_modules
 
 ### 字节码
 
-Libra CLI 支持下载 [包](/zh/build/smart-contracts/book/packages) 的字节码.
+Libra2 CLI 支持下载 [包](/zh/build/smart-contracts/book/packages) 的字节码.
 
 ```shellscript filename="Terminal"
 libra2 move download --account {account_addr} --bytecode --package {package_name}
@@ -93,7 +93,7 @@ libra2 move download --account {account_addr} --bytecode --package {package_name
 受控模块在其 `Move.toml` 中引用该依赖包后,即可使用.
 
 <details>
-  <summary>Libra Token 示例</summary>
+  <summary>Libra2 Token 示例</summary>
 
   受控的 `invoking_code.move` 模块与外部 `libra2_token` 模块交互:
 
@@ -107,11 +107,11 @@ libra2 move download --account {account_addr} --bytecode --package {package_name
   }
   ```
 
-  以下命令可从主网获取所需的 [LibraTokenObjects 包](https://explorer.libra2labs.com/account/0x4/modules/code/libra2_token/mint?network=mainnet) 字节码.
+  以下命令可从主网获取所需的 [Libra2TokenObjects 包](https://explorer.libra2labs.com/account/0x4/modules/code/libra2_token/mint?network=mainnet) 字节码.
 
   ```shellscript filename="Terminal"
   libra2 move download --account 0x4 \
-  --bytecode --package LibraTokenObjects \
+  --bytecode --package Libra2TokenObjects \
   --output-dir ./libra2_token_bytecode_output/
   ```
 
@@ -178,9 +178,9 @@ libra2 move download --account {account_addr} --bytecode --package {package_name
 之后,接口代码与本地源代码同等对待.
 
 <details>
-  <summary>Libra Token 示例</summary>
+  <summary>Libra2 Token 示例</summary>
 
-  以下是从 [Libra Explorer](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/libra2_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `LibraTokenObjects` ABI:
+  以下是从 [Libra2 Explorer](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/libra2_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `Libra2TokenObjects` ABI:
 
   ```json
   {
@@ -225,7 +225,7 @@ libra2 move download --account {account_addr} --bytecode --package {package_name
           key: String,
           type: String,
           value: vector<u8>,
-      ) acquires LibraCollection, LibraToken {
+      ) acquires Libra2Collection, Libra2Token {
           abort 0
       }
   }

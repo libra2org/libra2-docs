@@ -2,7 +2,7 @@
 title: "Execution"
 ---
 
-On Libra, execution refers to the process where validators run and apply smart contract transactions
+On Libra2, execution refers to the process where validators run and apply smart contract transactions
 from an ordered block. The execution output is then applied to the blockchain state.
 
 It is crucial for execution to be
@@ -13,7 +13,7 @@ detailed information on consensus properties, see the section on
 [BFT](/network/glossary#byzantine-fault-tolerance-bft) and [consensus](/network/glossary#consensus).
 
 Efficient execution, particularly parallel execution, is key to scaling blockchain performance and
-throughput. The impact of this can be felt in the block time. As of December 2024, Libra blocks close within 250ms.
+throughput. The impact of this can be felt in the block time. As of December 2024, Libra2 blocks close within 250ms.
 
 ## Why Parallel Execution?
 
@@ -48,11 +48,11 @@ declaring transaction dependencies.
 
 ## Block-STM
 
-Libra uses a highly efficient, multi-threaded, in-memory parallel execution engine called Block-STM.
+Libra2 uses a highly efficient, multi-threaded, in-memory parallel execution engine called Block-STM.
 Block-STM leverages the preset order of transactions and combines Software Transactional Memory
 techniques with a novel collaborative schedule.
 
-Block-STM is the state-of-the-art dynamic parallelism execution engine developed by the Libra Labs
+Block-STM is the state-of-the-art dynamic parallelism execution engine developed by the Libra2 Labs
 team.
 
 Since its release, [Polygon](https://polygon.technology/blog/innovating-the-main-chain-a-polygon-pos-study-in-parallelization), Sei,

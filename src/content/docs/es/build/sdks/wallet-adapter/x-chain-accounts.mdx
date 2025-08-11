@@ -8,22 +8,22 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
   La característica está actualmente solo disponible en devnet y testnet y se considera una versión alpha; por lo tanto, puedes esperar cambios importantes.
 </Aside>
 
-Gracias a [AIP-113 Abstracción de Cuenta Derivable](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md), podemos gestionar firmas x-chain de manera flexible y segura en la red de Libra.
-Esto significa que cualquier wallet con una implementación de función de autenticación en la cadena de Libra puede enviar transacciones a la red de Libra.
+Gracias a [AIP-113 Abstracción de Cuenta Derivable](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md), podemos gestionar firmas x-chain de manera flexible y segura en la red de Libra2.
+Esto significa que cualquier wallet con una implementación de función de autenticación en la cadena de Libra2 puede enviar transacciones a la red de Libra2.
 
 Esta funcionalidad permite una variedad de casos de uso para dApps, mejorando la experiencia del usuario y la incorporación.
 
 ### Flujo de alto nivel
 
-Cuando un usuario entra a una dApp que soporta cuentas x-chain, la interacción y experiencia se sienten igual que con cualquier wallet de Libra.
-El usuario se conecta con una cuenta x-chain (ej., Phantom para Solana) y puede ver los detalles de su Cuenta Abstracta Derivable (DAA), firmar mensajes y enviar transacciones a la cadena de Libra.
+Cuando un usuario entra a una dApp que soporta cuentas x-chain, la interacción y experiencia se sienten igual que con cualquier wallet de Libra2.
+El usuario se conecta con una cuenta x-chain (ej., Phantom para Solana) y puede ver los detalles de su Cuenta Abstracta Derivable (DAA), firmar mensajes y enviar transacciones a la cadena de Libra2.
 
 Cuando una dapp envía una transacción usando una cuenta x-chain, el adaptador de wallet utiliza la función `signIn` (definida en el estándar de cuenta x-chain) para verificación de dominio y seguridad. Si una wallet específica no soporta el método `signIn`, el adaptador recurre a usar el `signMessage` por defecto.
-Se solicita a la wallet que firme un mensaje para enviar una transacción en la red de Libra. Una vez que la wallet aprueba la transacción, se envía a la cadena de Libra, donde se somete a un proceso de verificación de firma.
+Se solicita a la wallet que firme un mensaje para enviar una transacción en la red de Libra2. Una vez que la wallet aprueba la transacción, se envía a la cadena de Libra2, donde se somete a un proceso de verificación de firma.
 
 ### ¿Cómo funciona DAA en una cuenta x-chain?
 
-Cuando un usuario se conecta a una dApp usando el adaptador de cuenta x-chain, el adaptador calcula la dirección de la Cuenta Abstracta Derivable (DAA) del usuario y convierte la cuenta x-chain para seguir la interfaz del estándar de wallet de Libra.
+Cuando un usuario se conecta a una dApp usando el adaptador de cuenta x-chain, el adaptador calcula la dirección de la Cuenta Abstracta Derivable (DAA) del usuario y convierte la cuenta x-chain para seguir la interfaz del estándar de wallet de Libra2.
 Esto asegura una interacción fluida con la wallet tanto para desarrolladores como para usuarios finales.
 
 El cálculo de la dirección DAA se hace usando la `authenticationFunction` y la `accountIdentity`, ambas definidas en el adaptador de wallet:
@@ -42,7 +42,7 @@ El cálculo de la dirección DAA se hace usando la `authenticationFunction` y la
 Actualmente, el adaptador soporta cadenas Solana y EVM
 
 <Aside type="note">
-  Se recomienda altamente usar el paquete `@libra2-core/wallet-adapter-react` para la mejor experiencia. Asegúrate de integrar con el Adaptador de Wallet de Libra siguiendo estos [pasos](/build/sdks/wallet-adapter/dapp)
+  Se recomienda altamente usar el paquete `@libra2-core/wallet-adapter-react` para la mejor experiencia. Asegúrate de integrar con el Adaptador de Wallet de Libra2 siguiendo estos [pasos](/build/sdks/wallet-adapter/dapp)
 </Aside>
 
 <Tabs>
@@ -52,7 +52,7 @@ Actualmente, el adaptador soporta cadenas Solana y EVM
     El adaptador de wallet sigue el [Estándar de Wallet de Solana](https://github.com/wallet-standard/wallet-standard/blob/master/DESIGN.md) para descubrir wallets.
     Actualmente, las wallets que han sido probadas y soportan cuentas cross-chain son:
 
-    |          | Libra Devnet | Libra Testnet | Libra Mainnet |
+    |          | Libra2 Devnet | Libra2 Testnet | Libra2 Mainnet |
     | -------- | ------------ | ------------- | ------------- |
     | Phantom  | ✅            | ✅             |               |
     | Solflare | ✅            | ✅             |               |
@@ -76,30 +76,30 @@ Actualmente, el adaptador soporta cadenas Solana y EVM
          ```tsx filename="WalletProvider.tsx"
          import { setupAutomaticSolanaWalletDerivation } from "@libra2-core/derived-wallet-solana";
 
-         setupAutomaticSolanaWalletDerivation({ defaultNetwork: Network.TESTNET }); // esta es la red de Libra con la que trabaja tu dapp
+         setupAutomaticSolanaWalletDerivation({ defaultNetwork: Network.TESTNET }); // esta es la red de Libra2 con la que trabaja tu dapp
 
          ...
 
-         <LibraWalletAdapterProvider
+         <Libra2WalletAdapterProvider
           dappConfig={{
              network: Network.TESTNET,
            }}
          >
            {children}
-         <LibraWalletAdapterProvider/>
+         <Libra2WalletAdapterProvider/>
          ```
 
-      3. Establecer la prop crossChainWallets dapp config a true para el LibraWalletAdapterProvider
+      3. Establecer la prop crossChainWallets dapp config a true para el Libra2WalletAdapterProvider
 
          ```tsx filename="WalletProvider.tsx"
-         <LibraWalletAdapterProvider
+         <Libra2WalletAdapterProvider
           dappConfig={{
              network: Network.TESTNET,
              crossChainWallets: true,
            }}
          >
            {children}
-         <LibraWalletAdapterProvider/>
+         <Libra2WalletAdapterProvider/>
          ```
     </Steps>
   </TabItem>
@@ -110,7 +110,7 @@ Actualmente, el adaptador soporta cadenas Solana y EVM
     The wallet adapter follows the [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) to discover wallets.
     Currently, the wallets that have been tested and support cross-chain accounts are:
 
-    |          | Libra Devnet | Libra Testnet | Libra Mainnet |
+    |          | Libra2 Devnet | Libra2 Testnet | Libra2 Mainnet |
     | -------- | ------------ | ------------- | ------------- |
     | Metamask | ✅            | ✅             |               |
     | Phantom  | ✅            | ✅             |               |
@@ -136,50 +136,50 @@ Actualmente, el adaptador soporta cadenas Solana y EVM
          ```tsx filename="WalletProvider.tsx"
          import { setupAutomaticEthereumWalletDerivation } from "@libra2-core/derived-wallet-ethereum";
 
-         setupAutomaticEthereumWalletDerivation({ defaultNetwork: Network.TESTNET }); // this is the Libra network your dapp is working with
+         setupAutomaticEthereumWalletDerivation({ defaultNetwork: Network.TESTNET }); // this is the Libra2 network your dapp is working with
 
          ...
 
-         <LibraWalletAdapterProvider
+         <Libra2WalletAdapterProvider
           dappConfig={{
              network: Network.TESTNET,
            }}
          >
            {children}
-         <LibraWalletAdapterProvider/>
+         <Libra2WalletAdapterProvider/>
          ```
 
-      3. Set crossChainWallets dapp config prop to true fot the LibraWalletAdapterProvider
+      3. Set crossChainWallets dapp config prop to true fot the Libra2WalletAdapterProvider
 
          ```tsx filename="WalletProvider.tsx"
-         <LibraWalletAdapterProvider
+         <Libra2WalletAdapterProvider
           dappConfig={{
              network: Network.TESTNET,
              crossChainWallets: true,
            }}
          >
            {children}
-         <LibraWalletAdapterProvider/>
+         <Libra2WalletAdapterProvider/>
          ```
     </Steps>
   </TabItem>
 </Tabs>
 
-That will handle the logic and implementation to include the x-chain accounts as if they were Libra wallets.
+That will handle the logic and implementation to include the x-chain accounts as if they were Libra2 wallets.
 
 #### Submitting a transaction
 
-In most cases, allowing users to submit a transaction with a x-chain account to the Libra chain requires using a sponsor transaction. This is because the x-chain account might not have APT to pay for gas.
+In most cases, allowing users to submit a transaction with a x-chain account to the Libra2 chain requires using a sponsor transaction. This is because the x-chain account might not have APT to pay for gas.
 Therefore, the dApp should consider maintaining a sponsor account to sponsor the transactions.
 
 ```tsx filename="SignAndSubmitDemo.tsx"
 import React from 'react';
 import { useWallet } from '@libra2-core/wallet-adapter-react';
-import { Libra, LibraConfig, Network, Ed25519PrivateKey, PrivateKey, PrivateKeyVariants, Account } from '@libra2-core/ts-sdk';
+import { Libra2, Libra2Config, Network, Ed25519PrivateKey, PrivateKey, PrivateKeyVariants, Account } from '@libra2-core/ts-sdk';
 
-// Initialize an Libra client
-const config = new LibraConfig({ network: Network.TESTNET });
-const libra2 = new Libra(config);
+// Initialize an Libra2 client
+const config = new Libra2Config({ network: Network.TESTNET });
+const libra2 = new Libra2(config);
 
 // Generate a sponsor account or use an existing account
 const privateKey = new Ed25519PrivateKey(
@@ -248,7 +248,7 @@ export default SignAndSubmit;
 
 ### Considerations
 
-- Since the origin wallet creates an x-chain account and is most likely not integrated with Libra, simulation is not available in the wallet.
+- Since the origin wallet creates an x-chain account and is most likely not integrated with Libra2, simulation is not available in the wallet.
 - While the x-chain account prioritizes DAA, each account also retains the origin wallet, so developers should be able to use it and interact with it
 
 ### Resources

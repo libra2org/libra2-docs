@@ -1,5 +1,5 @@
 ---
-title: "Use Hardware Ledger via the Libra CLI"
+title: "Use Hardware Ledger via the Libra2 CLI"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
@@ -7,17 +7,17 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 Using a hardware wallet like Ledger is the most secure way to sign transactions on `mainnet` as your private key never leaves your device.
 
 <Aside type="caution">
-  The `Ledger Nano S` has limited memory and may not be able to sign many transactions on Libra. If you are trying to sign a transaction that is too big for your device to handle, you will get the error `Wrong raw transaction length`.
+  The `Ledger Nano S` has limited memory and may not be able to sign many transactions on Libra2. If you are trying to sign a transaction that is too big for your device to handle, you will get the error `Wrong raw transaction length`.
 </Aside>
 
 ## Initial Setup
 
-You will need to do a few steps of configuration for the Libra CLI and your Ledger device to sign transactions.
+You will need to do a few steps of configuration for the Libra2 CLI and your Ledger device to sign transactions.
 
 <Steps>
-  1. Ensure you have the Libra CLI installed.
+  1. Ensure you have the Libra2 CLI installed.
 
-     You can install the Libra CLI by following [these steps](/build/cli) if you have not done so already.
+     You can install the Libra2 CLI by following [these steps](/build/cli) if you have not done so already.
 
   2. Ensure you have done the basic setup for your Ledger device.
 
@@ -25,15 +25,15 @@ You will need to do a few steps of configuration for the Libra CLI and your Ledg
 
   3. Plug your Ledger device into your computer.
 
-  4. Install the Libra App on your Ledger device by following .
+  4. Install the Libra2 App on your Ledger device by following .
 
-  5. Unlock your Ledger device and open the Libra app.
+  5. Unlock your Ledger device and open the Libra2 app.
 
      <Aside type="note" emoji="ℹ️">
-       Whenever you want to sign using your Ledger you will need to plug it in, unlock it, and open the Libra app before running any CLI commands.
+       Whenever you want to sign using your Ledger you will need to plug it in, unlock it, and open the Libra2 app before running any CLI commands.
      </Aside>
 
-  6. Create a new Ledger profile in the Libra CLI
+  6. Create a new Ledger profile in the Libra2 CLI
 
      ```shellscript filename="Terminal"
      libra2 init --profile <your-profile> --ledger
@@ -57,7 +57,7 @@ You will need to do a few steps of configuration for the Libra CLI and your Ledg
      Account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb has been already found on-chain
 
      ---
-     Libra CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `libra2 --help` for more information about commands
+     Libra2 CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `libra2 --help` for more information about commands
      {
        "Result": "Success"
      }
@@ -68,7 +68,7 @@ You will need to do a few steps of configuration for the Libra CLI and your Ledg
      **Common errors:**
 
      1. If you see the error `Device Not Found`, make sure to unlock your Ledger then try this step again.
-     2. If you see the error `Libra ledger app is not opened`, make sure to open the Libra app on your Ledger, then try this step again.
+     2. If you see the error `Libra2 ledger app is not opened`, make sure to open the Libra2 app on your Ledger, then try this step again.
 
   7. Finally, you will need to enable blind signing on your Ledger device by following .
 
@@ -82,8 +82,8 @@ After doing the initial setup, you can sign transactions by following these step
 
 1. Plug in your ledger.
 2. Unlock it.
-3. Open the Libra app.
-4. Run the Libra CLI command which requires a signature.
+3. Open the Libra2 app.
+4. Run the Libra2 CLI command which requires a signature.
 
 <Aside type="note" emoji="ℹ️">
   This process works for any command that requires a signature, whether that’s to transfer coins, publish a Move contract, interact with a contract, etc.
@@ -99,8 +99,8 @@ You should see a response like:
 
 ```shellscript filename="Terminal"
 Compiling, may take a little while to download git dependencies...
-INCLUDING DEPENDENCY LibraFramework
-INCLUDING DEPENDENCY LibraStdlib
+INCLUDING DEPENDENCY Libra2Framework
+INCLUDING DEPENDENCY Libra2Stdlib
 INCLUDING DEPENDENCY MoveStdlib
 BUILDING Examples
 package size 1755 bytes
@@ -126,7 +126,7 @@ yes
 
 After you have approved publishing this package you will be prompted to sign the transaction on your Ledger device. Once signed, the package will be published to the network!
 
-One error you might run into is `Error: Wrong raw transaction length`. This means that the transaction or package size was too big for your device to sign. Currently the Libra Ledger app can only support transactions that are smaller than 20kb. The `Ledger Nano S` device has less memory than that, which is why it is more likely to produce this error.
+One error you might run into is `Error: Wrong raw transaction length`. This means that the transaction or package size was too big for your device to sign. Currently the Libra2 Ledger app can only support transactions that are smaller than 20kb. The `Ledger Nano S` device has less memory than that, which is why it is more likely to produce this error.
 
 ## Authentication key rotation
 
@@ -154,9 +154,9 @@ This tutorial will walk you through both scenarios.
   2. Verify your Ledger is ready
 
      1. Connect and unlock your Ledger.
-     2. Check what version of the Libra app you have: `Libra > About > Version`.
+     2. Check what version of the Libra2 app you have: `Libra2 > About > Version`.
      3. If you do not have version `0.6.9` or higher, update it using Ledger Live.
-     4. Enable blind signing: `Libra > Settings > Enable Blind Signing`.
+     4. Enable blind signing: `Libra2 > Settings > Enable Blind Signing`.
 
   3. Start a localnet
 
@@ -241,7 +241,7 @@ This tutorial will walk you through both scenarios.
        Account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 funded successfully
 
        ---
-       Libra CLI is now set up for account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 as profile hot-wallet-1!  Run `libra2 --help` for more information about commands
+       Libra2 CLI is now set up for account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 as profile hot-wallet-1!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -395,7 +395,7 @@ This tutorial will walk you through both scenarios.
        Account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 has been already found onchain
 
        ---
-       Libra CLI is now set up for account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 as profile ledger-wallet-1000-recovered!  Run `libra2 --help` for more information about commands
+       Libra2 CLI is now set up for account 0xaaac71af5f2a4af4ec2639a15799bf9b945afb061c8bee102b636531c1b00eb5 as profile ledger-wallet-1000-recovered!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }

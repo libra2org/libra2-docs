@@ -4,11 +4,11 @@ title: "Importing Transactions"
 
 ## Overview
 
-This guide explains how to import Libra transactions for testing using the `libra2-indexer-transaction-generator` tool. These test transactions can be used to test your custom processors and support their local development.
+This guide explains how to import Libra2 transactions for testing using the `libra2-indexer-transaction-generator` tool. These test transactions can be used to test your custom processors and support their local development.
 
 ## General Flow of Transaction Importing
 
-First, identify the transaction versions you need to fetch from the Libra network. This tool interacts with the [Transaction Stream](https://docs.libra2.org/en/build/indexer/txn-stream) to retrieve transaction data in JSON format. The transactions are then consolidated into a Rust file, where each transaction is represented as a constant variable. These constants can be seamlessly used as mocked inputs in processor automated tests. During testing, the processor fetches the specified transactions, processes them, and writes the results to a database. You can then verify the outcomes by loading the written data and validating it against the expected data.
+First, identify the transaction versions you need to fetch from the Libra2 network. This tool interacts with the [Transaction Stream](https://docs.libra2.org/en/build/indexer/txn-stream) to retrieve transaction data in JSON format. The transactions are then consolidated into a Rust file, where each transaction is represented as a constant variable. These constants can be seamlessly used as mocked inputs in processor automated tests. During testing, the processor fetches the specified transactions, processes them, and writes the results to a database. You can then verify the outcomes by loading the written data and validating it against the expected data.
 
 ## Prerequisites
 

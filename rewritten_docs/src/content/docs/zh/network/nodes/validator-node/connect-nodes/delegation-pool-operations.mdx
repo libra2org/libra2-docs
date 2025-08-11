@@ -166,12 +166,12 @@ title: "委托池操作"
 在 [Libra2 TypeScript SDK](/zh/build/sdks/ts-sdk) 中,View function 请求可能类似于:
 
 ```typescript filename="view_function.ts"
-import { Libra2, LibraConfig } from "@libra2-labs/ts-sdk";
+import { Libra2, Libra2Config } from "@libra2-labs/ts-sdk";
 
 const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 
 (async () => {
-  const libra2Config = new LibraConfig({ fullnode: NODE_URL });
+  const libra2Config = new Libra2Config({ fullnode: NODE_URL });
   const libra2 = new Libra2(libra2Config);
   const payload: InputViewRequestData = {
     function: "0x1::delegation_pool::get_stake",

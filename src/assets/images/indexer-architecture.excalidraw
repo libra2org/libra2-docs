@@ -139,11 +139,11 @@
       "locked": false,
       "fontSize": 20,
       "fontFamily": 6,
-      "text": "Libra Blockchain \nFullnode",
+      "text": "Libra2 Blockchain \nFullnode",
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "libra2-blockchain-fullnode",
-      "originalText": "Libra Blockchain Fullnode",
+      "originalText": "Libra2 Blockchain Fullnode",
       "autoResize": true,
       "lineHeight": 1.35
     },

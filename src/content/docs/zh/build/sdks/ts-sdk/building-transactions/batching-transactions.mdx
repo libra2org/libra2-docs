@@ -10,13 +10,13 @@ TypeScript SDK 内置了将多个独立交易批量发送的功能.当需要从�
 
 ```typescript filename="batch.ts"
 /**
- * 此示例展示如何使用 Libra SDK 批量发送多个交易
+ * 此示例展示如何使用 Libra2 SDK 批量发送多个交易
  */
 
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
     InputGenerateTransactionPayloadData,
 } from "@libra2-core/ts-sdk";
@@ -25,8 +25,8 @@ async function example() {
     console.log("本示例将批量发送多个交易");
 
     // 配置客户端和测试账户
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     let sender = Account.generate();
 

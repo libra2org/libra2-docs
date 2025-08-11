@@ -4,18 +4,18 @@ title: "Criptografía"
 
 import { Aside } from '@astrojs/starlight/components';
 
-La criptografía juega un papel integral en garantizar la seguridad, integridad, confidencialidad e inmutabilidad de los datos en los sistemas blockchain. El adaptador de Libra para Move proporciona a los desarrolladores una variedad de primitivas criptográficas para satisfacer esta necesidad. Este documento profundiza en las funcionalidades criptográficas ofrecidas por Move en Libra y explica los principios que impulsan su diseño.
+La criptografía juega un papel integral en garantizar la seguridad, integridad, confidencialidad e inmutabilidad de los datos en los sistemas blockchain. El adaptador de Libra2 para Move proporciona a los desarrolladores una variedad de primitivas criptográficas para satisfacer esta necesidad. Este documento profundiza en las funcionalidades criptográficas ofrecidas por Move en Libra2 y explica los principios que impulsan su diseño.
 
 ## Primitivas criptográficas
 
-Move, a través del adaptador de Libra, abarca varias herramientas criptográficas fundamentales:
+Move, a través del adaptador de Libra2, abarca varias herramientas criptográficas fundamentales:
 
 1. [Funciones Hash Criptográficas](#cryptographic-hash-functions) – Algoritmos que producen una salida de tamaño fijo (hash) a partir de datos de entrada de tamaño variable. Las funciones soportadas incluyen SHA2-256, SHA3-256, Keccak256 y Blake2b-256.
 2. [Verificación de Firmas Digitales](#digital-signature-verification) – Algoritmos para firmar un mensaje y así asegurar su integridad, autenticar al remitente, garantizar la no repudio, o cualquier combinación de estos. Los esquemas de firma soportados incluyen Ed25519, ECDSA y BLS.
 3. [Aritmética de Curvas Elípticas](#elliptic-curve-arithmetic) – Las curvas elípticas son uno de los bloques de construcción de primitivas criptográficas avanzadas, como firmas digitales, cifrado de clave pública o compartición verificable de secretos. Las curvas soportadas incluyen Ristretto255 y BLS12-381.
 4. [Pruebas de Conocimiento Cero (ZKP)](#building-powerful-cryptographic-applications) – Estas técnicas criptográficas permiten a una parte demostrar que una relación $R(x; w)$ se satisface sobre una declaración pública $x$ sin revelar el testigo secreto $w$ que la hace válida. Actualmente, soportamos verificación de ZKP Groth16 y verificación de pruebas de rango ZK Bulletproofs.
 
-Tres principios fundamentales guían el diseño e integración de las extensiones criptográficas de Libra en Move:
+Tres principios fundamentales guían el diseño e integración de las extensiones criptográficas de Libra2 en Move:
 
 1. **Uso Económico de Gas** – Se busca minimizar los costos de gas para los desarrolladores de Move implementando primitivas clave como [funciones nativas de Move](/build/smart-contracts/book/functions#native-functions). Por ejemplo, consulta el módulo para [firmas BLS sobre curvas elípticas BLS12-381](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move).
 2. **APIs Seguras por Tipo** – Asegurando que las APIs sean resistentes a errores comunes, la seguridad de tipos mejora la confiabilidad del código y promueve un proceso de desarrollo eficiente. Por ejemplo, consulta el [módulo de firmas Ed25519](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move).
@@ -99,7 +99,7 @@ La elección correcta de un esquema de firma en tu dapp podría depender de much
 ## Aritmética de curvas elípticas
 
 Mientras que las [funciones hash](#funciones-hash-criptográficas) y [verificación de firmas](#verificación-de-firmas-digitales) deberían proporcionar suficiente funcionalidad para la mayoría de las aplicaciones, algunas aplicaciones requerirán criptografía más poderosa.
-Normalmente, los desarrolladores de tales aplicaciones tendrían que esperar hasta que su funcionalidad criptográfica deseada se implemente eficientemente como una [función nativa de Move](/build/smart-contracts/book/functions#native-functions) en el [marco de Move de Libra](/network/blockchain/move).
+Normalmente, los desarrolladores de tales aplicaciones tendrían que esperar hasta que su funcionalidad criptográfica deseada se implemente eficientemente como una [función nativa de Move](/build/smart-contracts/book/functions#native-functions) en el [marco de Move de Libra2](/network/blockchain/move).
 En lugar de eso, exponemos bloques de construcción básicos que los desarrolladores pueden usar para implementar sus propias primitivas criptográficas directamente en el lenguaje Move y lo hacen **eficientemente**.
 
 Específicamente, actualmente exponemos operaciones de aritmética de curva elíptica en dos grupos de curvas elípticas populares y sus campos finitos asociados:

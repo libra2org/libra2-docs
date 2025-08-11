@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="caution">
   **不想连接到 devnet?**<br />
-  本教程默认在 Libra `devnet` 网络上部署 PFN .要连接到其他网络(例如,`mainnet` 和 `testnet`),请将所有 `devnet` 实例替换为适当的网络名称.
+  本教程默认在 Libra2 `devnet` 网络上部署 PFN .要连接到其他网络(例如,`mainnet` 和 `testnet`),请将所有 `devnet` 实例替换为适当的网络名称.
 </Aside>
 
 ## 前提条件
@@ -57,10 +57,10 @@ Google Cloud 为每位新用户提供 [90 天,$300 免费试用期](https://clou
 
 <Aside type="note">
   **请先做好准备**<br />
-  从这里开始,本指南假设你已经设置好了你的 GCP 账户,并为部署 Libra PFN 创建了一个新的项目.
+  从这里开始,本指南假设你已经设置好了你的 GCP 账户,并为部署 Libra2 PFN 创建了一个新的项目.
 </Aside>
 
-你可以通过使用 Libra Terraform 模块在 GCP 上部署 PFN.
+你可以通过使用 Libra2 Terraform 模块在 GCP 上部署 PFN.
 
 1. 为你的配置创建一个工作目录.
 
@@ -97,7 +97,7 @@ touch main.tf
 
 **注意**:如果你正在使用不同版本的 Terraform,你需要使用 `tfenv` 命令更改为所需的版本.
 
-你可以在 [Libra Docker Hub](https://hub.docker.com/r/libra2labs/validator/tags?page=1\&ordering=last_updated\&name=devnet) 上找到 `devnet` 的 Docker 镜像标签.
+你可以在 [Libra2 Docker Hub](https://hub.docker.com/r/libra2labs/validator/tags?page=1\&ordering=last_updated\&name=devnet) 上找到 `devnet` 的 Docker 镜像标签.
 
 <Aside type="caution">
   **想连接到不同的网络?**<br />
@@ -212,7 +212,7 @@ curl http://<IP>/v1
 
 5. 要验证你的 PFN 是否正确,你需要:
 
-   - 在一个 SSH 终端中直接设置到 Libra pod 的端口转发机制,
+   - 在一个 SSH 终端中直接设置到 Libra2 pod 的端口转发机制,
    - 在另一个 SSH 终端中进行测试.
 
    你可以按照以下步骤操作:

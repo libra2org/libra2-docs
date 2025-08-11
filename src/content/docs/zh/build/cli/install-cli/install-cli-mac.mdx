@@ -1,10 +1,10 @@
 ---
-title: "在 Mac 上安装 Libra CLI"
+title: "在 Mac 上安装 Libra2 CLI"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-对于 Mac 用户,安装 Libra CLI 最简单的方法是使用包管理器 `brew`.
+对于 Mac 用户,安装 Libra2 CLI 最简单的方法是使用包管理器 `brew`.
 
 # 安装步骤
 
@@ -53,7 +53,7 @@ brew upgrade libra2
      wget -qO- "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
-  2. (可选)建议将 Libra CLI 添加到 PATH 路径中的文件夹
+  2. (可选)建议将 Libra2 CLI 添加到 PATH 路径中的文件夹
 
      - 添加文件夹到 PATH 的具体步骤取决于使用的 shell
      - 可运行 `echo $SHELL` 查看当前 shell 类型,然后搜索对应 shell 添加 PATH 的方法
@@ -65,7 +65,7 @@ brew upgrade libra2
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  如需更新 Libra CLI 至最新版本,可运行 `libra2 update`
+  如需更新 Libra2 CLI 至最新版本,可运行 `libra2 update`
 </Aside>
 
 # 通过预编译二进制文件安装(备用方法)
@@ -83,7 +83,7 @@ brew upgrade libra2
 
   4. 解压下载的文件
 
-  5. 将解压后的 Libra 二进制文件移至目标文件夹
+  5. 将解压后的 Libra2 二进制文件移至目标文件夹
 
   6. 打开终端并导航至目标文件夹
 
@@ -93,12 +93,12 @@ brew upgrade libra2
 
      应显示所有 CLI 命令的使用说明,这些说明对后续使用很有帮助.
 
-  9. (可选)将 Libra CLI 添加到 PATH 环境变量的某个文件夹中,或直接添加到 PATH 可能会很有帮助.
+  9. (可选)将 Libra2 CLI 添加到 PATH 环境变量的某个文件夹中,或直接添加到 PATH 可能会很有帮助.
 
      - 将文件夹添加到 PATH 的步骤取决于所使用的 shell.
      - 你可以运行 `echo $SHELL` 来打印你机器的默认 shell,然后搜索针对该 shell 添加文件夹到 PATH 的具体步骤.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  使用预编译二进制文件方式时,你可以通过删除现有安装,然后重新按照安装步骤操作来更新 Libra CLI.
+  使用预编译二进制文件方式时,你可以通过删除现有安装,然后重新按照安装步骤操作来更新 Libra2 CLI.
 </Aside>

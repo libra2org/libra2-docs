@@ -1,5 +1,5 @@
 ---
-title: "通过 Libra CLI 使用硬件钱包 Ledger"
+title: "通过 Libra2 CLI 使用硬件钱包 Ledger"
 ---
 
 使用像 Ledger 这样的硬件钱包是在 `mainnet` 上签署交易最安全的方式,因为您的私钥永远不会离开您的设备.
@@ -7,15 +7,15 @@ title: "通过 Libra CLI 使用硬件钱包 Ledger"
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 <Aside type="caution">
-  `Ledger Nano S` 的内存有限,可能无法在 Libra 上签署太多的交易.如果您尝试签署的交易数量太大,超出了您的设备处理能力,您将收到错误 `Wrong raw transaction length`
+  `Ledger Nano S` 的内存有限,可能无法在 Libra2 上签署太多的交易.如果您尝试签署的交易数量太大,超出了您的设备处理能力,您将收到错误 `Wrong raw transaction length`
 </Aside>
 
 ## 初始设置
 
-您需要对 Libra CLI 和您的 Ledger 设备进行一些配置步骤,以签署交易.
+您需要对 Libra2 CLI 和您的 Ledger 设备进行一些配置步骤,以签署交易.
 
 <Steps>
-  1. 确保您已经安装了 Libra CLI
+  1. 确保您已经安装了 Libra2 CLI
 
      如果您尚未安装,可以按照[安装步骤](/zh/build/cli)进行安装.
 
@@ -25,15 +25,15 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
   3. 将您的 Ledger 设备连接到电脑
 
-  4. 按照在您的 Ledger 设备上安装 Libra 应用程序.
+  4. 按照在您的 Ledger 设备上安装 Libra2 应用程序.
 
-  5. 解锁您的 Ledger 设备并打开 Libra 应用程序
+  5. 解锁您的 Ledger 设备并打开 Libra2 应用程序
 
      <Aside type="note" emoji="ℹ️">
-       无论何时您想使用 Ledger 进行签名,都需要将其连接,解锁,并在运行任何 CLI 命令之前打开 Libra 应用程序.
+       无论何时您想使用 Ledger 进行签名,都需要将其连接,解锁,并在运行任何 CLI 命令之前打开 Libra2 应用程序.
      </Aside>
 
-  6. 在 Libra CLI 中创建一个新的 Ledger 配置文件
+  6. 在 Libra2 CLI 中创建一个新的 Ledger 配置文件
 
      ```shellscript filename="Terminal"
      libra2 init --profile <your-profile> --ledger
@@ -57,7 +57,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      Account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb has been already found on-chain
 
      ---
-     Libra CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `libra2 --help` for more information about commands
+     Libra2 CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `libra2 --help` for more information about commands
      {
        "Result": "Success"
      }
@@ -68,7 +68,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      **常见错误:**
 
      1. 如果您看到错误 `Device Not Found`,请确保解锁您的 Ledger,然后重试.
-     2. 如果您看到错误 `Libra ledger app is not opened`,请确保在您的 Ledger 上打开 Libra 应用程序,然后重试.
+     2. 如果您看到错误 `Libra2 ledger app is not opened`,请确保在您的 Ledger 上打开 Libra2 应用程序,然后重试.
 
   7. 最后,您需要按照在您的 Ledger 设备上启用盲签.
 
@@ -82,8 +82,8 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 1. 插入您的 Ledger 设备.
 2. 解锁它.
-3. 打开 Libra 应用程序.
-4. 运行需要签名的 Libra CLI 命令.
+3. 打开 Libra2 应用程序.
+4. 运行需要签名的 Libra2 CLI 命令.
 
 <Aside type="note" emoji="ℹ️">
   这个过程适用于任何需要签名的命令,无论是转移 coin,发布 Move 合约,与合约交互等.
@@ -99,8 +99,8 @@ libra2 move publish --profile <your-ledger-profile-name> --named-addresses hello
 
 ```shellscript filename="Terminal"
 Compiling, may take a little while to download git dependencies...
-INCLUDING DEPENDENCY LibraFramework
-INCLUDING DEPENDENCY LibraStdlib
+INCLUDING DEPENDENCY Libra2Framework
+INCLUDING DEPENDENCY Libra2Stdlib
 INCLUDING DEPENDENCY MoveStdlib
 BUILDING Examples
 package size 1755 bytes
@@ -126,4 +126,4 @@ yes
 
 在您批准发布此包后,系统会提示您在 Ledger 设备上签署交易.一旦签署,包将被发布到网络!
 
-你可能遇到的一个错误是 `Error: Wrong raw transaction length`.这表示交易大小或者数据包对你的设备来说过大,无法被签名.目前,Libra Ledger 应用只支持 20kb 以下的交易量.由于 `Ledger Nano S` 设备的内存更小,这就是为什么它更有可能产生这个错误的原因.
+你可能遇到的一个错误是 `Error: Wrong raw transaction length`.这表示交易大小或者数据包对你的设备来说过大,无法被签名.目前,Libra2 Ledger 应用只支持 20kb 以下的交易量.由于 `Ledger Nano S` 设备的内存更小,这就是为什么它更有可能产生这个错误的原因.

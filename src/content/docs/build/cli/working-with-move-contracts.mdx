@@ -4,7 +4,7 @@ title: "Working With Move Contracts"
 
 import { Aside } from '@astrojs/starlight/components';
 
-The Libra CLI is mostly used to compile, test, and formally verify Move contracts. If you have not installed the Libra CLI yet, you can do so by following the steps here [Install the Libra CLI](/build/cli#-install-the-libra2-cli).
+The Libra2 CLI is mostly used to compile, test, and formally verify Move contracts. If you have not installed the Libra2 CLI yet, you can do so by following the steps here [Install the Libra2 CLI](/build/cli#-install-the-libra2-cli).
 
 You can jump to specific sections by using the table of contents on the right.
 
@@ -48,7 +48,7 @@ You can learn more about optional parameters when compiling Move contracts by ru
 
 ## 2. Unit Testing Move Contracts
 
-The Libra CLI can also be used to compile and run unit tests locally by running:
+The Libra2 CLI can also be used to compile and run unit tests locally by running:
 
 ```shellscript filename="Terminal"
 libra2 move test --package-dir <your-package-directory>
@@ -94,7 +94,7 @@ For more on how to write unit tests with Move, follow this [Move tutorial](https
 
 ## 3. Generating Test Coverage Reports
 
-The Libra CLI can be used to analyze and improve the testing of your Move modules. To use this feature:
+The Libra2 CLI can be used to analyze and improve the testing of your Move modules. To use this feature:
 
 To see the code coverage of your tests run the following command from your Move package’s directory:
 
@@ -127,7 +127,7 @@ You can estimate the gas fees associated with publishing your Move contract by u
 <Aside type="caution">
   By default Move contracts publish their source code. To avoid publishing with source code, publish with the `--included-artifacts none` argument.
 
-  Since the Libra blockchain is inherently open by design, note that even without source access it is possible to regenerate Move source from published Move bytecode.
+  Since the Libra2 blockchain is inherently open by design, note that even without source access it is possible to regenerate Move source from published Move bytecode.
 </Aside>
 
 ## 5. Running Published Contracts
@@ -190,7 +190,7 @@ Which should result in:
           }
         },
         "event": "write_resource",
-        "resource": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>"
+        "resource": "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>"
       },
       {
         "address": "b9bd2cfa58ca29bce1d7add25fce5c62220604cd0236fe3f90d9de91ed9fb8cb",
@@ -232,7 +232,7 @@ For cases where you want to guarantee that your code works as expected beyond un
 
 You can install the Move Prover by following [these steps](/build/cli/setup-cli/install-move-prover).
 
-Once you have installed the Move Prover, you can use it from the Libra CLI by running:
+Once you have installed the Move Prover, you can use it from the Libra2 CLI by running:
 
 ```shellscript filename="Terminal"
 libra2 move prove --package-dir <your-package-directory>

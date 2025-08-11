@@ -546,8 +546,8 @@ export const sidebar = [
         items: [
           { label: "Framework Reference", link: "move-reference" },
           { label: "Libra2 Framework", link: "move-reference/mainnet/libra2-framework" },
-          { label: "Libra2 Standard Library", link: "move-reference/mainnet/libra2-stdlib" },
-          { label: "Move Standard Library", link: "move-reference/mainnet/move-stdlib" },
+          { label: "Libra2 Standard Libra2ry", link: "move-reference/mainnet/libra2-stdlib" },
+          { label: "Move Standard Libra2ry", link: "move-reference/mainnet/move-stdlib" },
           { label: "Libra2 Token Objects", link: "move-reference/mainnet/libra2-token-objects" },
           { label: "Libra2 Token (Legacy)", link: "move-reference/mainnet/libra2-token" },
           "build/smart-contracts/error-codes",

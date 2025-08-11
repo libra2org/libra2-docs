@@ -2,23 +2,23 @@
 title: "Staking Pool Voter"
 ---
 
-If you are a [staking pool](/network/blockchain/staking) voter, then we recommend strongly that you do not store your Libra voter keys with a
-custodian before the custodian supports this function. Until then, we suggest you store your voter keys in an Libra
+If you are a [staking pool](/network/blockchain/staking) voter, then we recommend strongly that you do not store your Libra2 voter keys with a
+custodian before the custodian supports this function. Until then, we suggest you store your voter keys in an Libra2
 wallet like [Petra](https://petra.app/).
 
-This document describes how to perform staking voter operations while in the Libra mainnet using an Libra wallet.
+This document describes how to perform staking voter operations while in the Libra2 mainnet using an Libra2 wallet.
 
 ### Using Governance UI
 
-To participate as a voter in the Libra governance, follow these steps:
+To participate as a voter in the Libra2 governance, follow these steps:
 
-1. Go to the [Proposals section](https://governance.libra2foundation.org/) of the Libra Governance page.
+1. Go to the [Proposals section](https://governance.libra2foundation.org/) of the Libra2 Governance page.
 2. Connect your wallet by clicking on **CONNECT WALLET** (top-right).
 3. Make sure that wallet is set to connect to Mainnet.
 4. View the proposals. When you are ready to vote on a proposal, click on the proposal and vote.
 5. You will see a green bar indicating that the voting transaction is successful.
 
-### Using the Libra CLI
+### Using the Libra2 CLI
 
 1. Get your stake pool info using: `libra2 node get-stake-pool --owner-address <owner-address> --url <REST API for the network>`.
 2. To see the list of proposals, execute: `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com`.
@@ -39,16 +39,16 @@ To participate as a voter, follow these steps:
 4. View the proposals. When you are ready to vote on a proposal, click on the proposal and vote.
 5. You will see a green bar indicating that the voting transaction is successful.
 
-### Using the Libra CLI
+### Using the Libra2 CLI
 
-1. Get your delegation pool address from the [Libra Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
+1. Get your delegation pool address from the [Libra2 Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
 2. To see the list of proposals, execute: `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com`.
 3. To set up your voter profile, run: `libra2 init`.
 4. To vote on a proposal, execute: `libra2 move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>`.
 
 To delegate your voting power, follow these steps:
 
-1. Get your delegation pool address from the [Libra Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
+1. Get your delegation pool address from the [Libra2 Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
 2. To set up your voter profile, run: `libra2 init`.
 3. To delegate voting power, run: `libra2 move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>`.
 4. The new delegated voter will take effect in the next lockup cycle after the current lockup cycle ends. To view delegated voter, run `libra2 move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.

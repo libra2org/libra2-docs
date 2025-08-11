@@ -1,10 +1,10 @@
 ---
-title: "Install the Libra CLI on Windows"
+title: "Install the Libra2 CLI on Windows"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-For Windows, the easiest way to install the Libra CLI tool is via PowerShell script. If that does not work, you can also install manually via pre-compiled binaries. The pre-compiled binaries approach is not generally recommended as updating is very manual.
+For Windows, the easiest way to install the Libra2 CLI tool is via PowerShell script. If that does not work, you can also install manually via pre-compiled binaries. The pre-compiled binaries approach is not generally recommended as updating is very manual.
 
 # Install via PowerShell Script
 
@@ -22,28 +22,28 @@ For Windows, the easiest way to install the Libra CLI tool is via PowerShell scr
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  If you would like to update the Libra CLI to the latest version via script, you can run `libra2 update`.
+  If you would like to update the Libra2 CLI to the latest version via script, you can run `libra2 update`.
 </Aside>
 
 # Install via Package Manager (Optional)
 
 <Aside type="note">
-  When installing Libra via a package manager, please update it through the same package manager in the future.
+  When installing Libra2 via a package manager, please update it through the same package manager in the future.
 </Aside>
 
-### If you have [Scoop](https://scoop.sh/) installed, you can run the following command to install the Libra CLI:
+### If you have [Scoop](https://scoop.sh/) installed, you can run the following command to install the Libra2 CLI:
 
 ```powershell filename="Terminal"
 scoop install https://docs.libra2.org/scoop/libra2.json
 ```
 
-### If you have [Chocolatey](https://chocolatey.org/) installed, you can run the following command to install the Libra CLI:
+### If you have [Chocolatey](https://chocolatey.org/) installed, you can run the following command to install the Libra2 CLI:
 
 ```powershell filename="Terminal"
 choco install libra2
 ```
 
-### If you have [winget](https://winget.run/) installed, you can run the following command to install the Libra CLI:
+### If you have [winget](https://winget.run/) installed, you can run the following command to install the Libra2 CLI:
 
 ```powershell filename="Terminal"
 winget install libra2
@@ -70,21 +70,21 @@ winget install libra2
      Ex. `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe`.
 
      <Aside type="note" emoji="ℹ️">
-       You may want to add this path to your PATH environment variable to simplify calling the Libra CLI going forward.
+       You may want to add this path to your PATH environment variable to simplify calling the Libra2 CLI going forward.
      </Aside>
 
   6. Open PowerShell via the Start Menu.
 
   7. Verify the installation by running the help command.
 
-     Use the path you copied earlier to call the Libra CLI.
+     Use the path you copied earlier to call the Libra2 CLI.
      Ex. `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe help`.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  When installing with pre-compiled binaries, you can update the Libra CLI by deleting your existing installation, then following the installation steps again.
+  When installing with pre-compiled binaries, you can update the Libra2 CLI by deleting your existing installation, then following the installation steps again.
 </Aside>
 
 <Aside type="caution">
-  If neither of the above methods work, you will have to build the CLI from source by following these steps: [Install Specific Libra CLI Versions (Advanced)](/build/cli/install-cli/install-cli-specific-version)
+  If neither of the above methods work, you will have to build the CLI from source by following these steps: [Install Specific Libra2 CLI Versions (Advanced)](/build/cli/install-cli/install-cli-specific-version)
 </Aside>

@@ -4,7 +4,7 @@ title: "机密资产(CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-你可以使用`Libra`客户端的`confidentialCoin`属性来与`CA`进行交互
+你可以使用`Libra2`客户端的`confidentialCoin`属性来与`CA`进行交互
 
 ### 初始化
 
@@ -89,7 +89,7 @@ CA实现了Pollard's Kangaroo方法来解决Ristretto曲线上的DLP.
 因此我们还需要初始化解密函数:
 
 ```typescript
-// Copyright © Libra Foundation
+// Copyright © Libra2 Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
@@ -152,12 +152,12 @@ const init = async () => {
 
 ***
 
-现在我们准备就绪.让我们定义Libra客户端:
+现在我们准备就绪.让我们定义Libra2客户端:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new LibraConfig({ network: APTOS_NETWORK });
-export const libra2 = new Libra(config);
+const config = new Libra2Config({ network: APTOS_NETWORK });
+export const libra2 = new Libra2(config);
 ```
 
 ### 创建解密密钥(DK)

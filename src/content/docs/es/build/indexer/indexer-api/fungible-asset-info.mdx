@@ -27,12 +27,12 @@ Al proporcionar una lista de tipos de activos fungibles, `GetFungibleAssetInfo` 
   }
 }`}
   variables={`{
-  "in": ["0x1::libra2_coin::LibraCoin", "0x1::example_coin::ExampleCoin"],
+  "in": ["0x1::libra2_coin::Libra2Coin", "0x1::example_coin::ExampleCoin"],
   "offset": 0
 }`}
 />
 
 ## Variables:
 
-- `$in`: **Lista de String** - Esta variable debe contener una lista de tipos de activos fungibles para los cuales quieres consultar información. Ej. `["0x1::libra2_coin::LibraCoin"]`
+- `$in`: **Lista de String** - Esta variable debe contener una lista de tipos de activos fungibles para los cuales quieres consultar información. Ej. `["0x1::libra2_coin::Libra2Coin"]`
 - `$offset`: **Integer** (Opcional) - Esta variable puede ser usada para paginar a través de resultados, especificando cuántos registros saltar antes de comenzar a devolver resultados.

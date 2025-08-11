@@ -4,8 +4,8 @@ title: "Running Move Scripts"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Move scripts are supported in the Libra TypeScript SDK, Libra Wallet Adapter,
-and in the Libra CLI.
+Move scripts are supported in the Libra2 TypeScript SDK, Libra2 Wallet Adapter,
+and in the Libra2 CLI.
 
 ## Running scripts with the TypeScript SDK
 
@@ -14,10 +14,10 @@ transaction in place of an entry function name.
 
 ```typescript
 import { readFileSync } from "fs";
-import { Libra, Account, AccountAddress } from "@libra2-core/ts-sdk";
+import { Libra2, Account, AccountAddress } from "@libra2-core/ts-sdk";
 
 // Setup client, and account to sign
-const libra2 = new Libra();
+const libra2 = new Libra2();
 const account = Account.generate();
 
 // Load script bytecode
@@ -29,7 +29,7 @@ const transaction = await libra2.transaction.build.simple({
   sender: account.accountAddress,
   data: {
     bytecode,
-    typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
+    typeArguments: [parseTypeTag("0x1::libra2_coin::Libra2Coin")],
     functionArguments: [AccountAddress.from("0x1")],
   },
 });
@@ -42,7 +42,7 @@ const pendingTxn = await libra2.signAndSubmitTransaction({
 await libra2.waitForTransaction({ transactionHash: pendingTxn.hash });
 ```
 
-## Running scripts with the Libra Wallet Adapter
+## Running scripts with the Libra2 Wallet Adapter
 
 <Aside type="caution">
   Not all wallets support scripts, but when the wallet supports scripts, it can be
@@ -68,7 +68,7 @@ export default function App() {
     signAndSubmitTransaction({
       data: {
         bytecode: BYTECODE_IN_HEX,
-        typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
+        typeArguments: [parseTypeTag("0x1::libra2_coin::Libra2Coin")],
         functionArguments: [AccountAddress.from("0x1")],
       },
     });

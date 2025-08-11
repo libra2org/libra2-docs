@@ -126,7 +126,7 @@ module 0x42::example {
 Adhere to the principle of least privilege:
 
 - Always start with private functions, change their visibility as it is needed by the business logic.
-- Utilize `entry` for functions intended for use solely from the Libra CLI or SDK.
+- Utilize `entry` for functions intended for use solely from the Libra2 CLI or SDK.
 - Utilize `friend` for functions that can only be accessible by specific modules.
 - Utilize the `#[view]` decorator with functions that read data from storage without altering state. #\[view] functions can be invoked indirectly and in this case they might change the storage.
 
@@ -177,7 +177,7 @@ module 0x42::example {
 
 To summarize:
 
-|                | Module itself | Other Modules                | Libra CLI/SDK |
+|                | Module itself | Other Modules                | Libra2 CLI/SDK |
 | -------------- | ------------- | ---------------------------- | ------------- |
 | private        | ✅             | ⛔                            | ⛔             |
 | public(friend) | ✅             | ✅ if friend<br />⛔ otherwise | ⛔             |
@@ -194,7 +194,7 @@ module 0x42::example {
 }
 ```
 
-In this case `sample_function` can be called by both the Libra CLI/SDK by any module declared as a friend.
+In this case `sample_function` can be called by both the Libra2 CLI/SDK by any module declared as a friend.
 
 #### Impact
 
@@ -241,7 +241,7 @@ module 0x42::example {
 
 #### Example Secure Code
 
-The Libra Framework sample below creates a key-value table consisting of two generic types `K` and `V` . Its related `add` functions accepts as parameters a `Table<K, V>` object, a `key`, and a `value` of types `K` and `V` . The `phantom` syntax ensures that the key and value types cannot be different than those in the table, preventing type mismatches. [Read more](/build/smart-contracts/book/generics#phantom-type-parameters) about `phantom` type parameters.
+The Libra2 Framework sample below creates a key-value table consisting of two generic types `K` and `V` . Its related `add` functions accepts as parameters a `Table<K, V>` object, a `key`, and a `value` of types `K` and `V` . The `phantom` syntax ensures that the key and value types cannot be different than those in the table, preventing type mismatches. [Read more](/build/smart-contracts/book/generics#phantom-type-parameters) about `phantom` type parameters.
 
 ```move
 module 0x42::example {
@@ -429,7 +429,7 @@ In Move, the security around integer operations is designed to prevent overflow 
 
 Bad operations could unexpectedly alter the correct execution of the smart contract, either by causing an unwanted abort or by calculating inaccurate data.
 
-## Libra Objects
+## Libra2 Objects
 
 ***
 
@@ -482,13 +482,13 @@ module 0x42::example {
 
 ### Object Accounts
 
-In the Libra Framework, multiple `key`-able resources can be stored at a single object account.
+In the Libra2 Framework, multiple `key`-able resources can be stored at a single object account.
 
 However, objects should be isolated to different account, otherwise modifications to one object within an account can influence the entire collection.
 
 For example, transferring one resource implies the transfer of all group members, since the transfer function operates on `ObjectCore`, which is essentially a general tag for all resources at the account.
 
-[Read more](/build/smart-contracts/objects) about Libra Objects.
+[Read more](/build/smart-contracts/objects) about Libra2 Objects.
 
 #### Example Insecure Code
 
@@ -723,7 +723,7 @@ For more information on randomness and why it is crucial for preventing the pred
 
 ### Randomness - test-and-abort
 
-> At Libra, We are always security-first. During compilation, we ensure that no randomness API is invoked from a public function. However, we still allow users to make this choice by adding the attribute `#[lint::allow_unsafe_randomness]` to the public function.
+> At Libra2, We are always security-first. During compilation, we ensure that no randomness API is invoked from a public function. However, we still allow users to make this choice by adding the attribute `#[lint::allow_unsafe_randomness]` to the public function.
 
 If a `public` function directly or indirectly invokes the randomness API, a malicious user can abuse the composability of this function and abort the transaction if the result is not as desired. This allows the user to keep trying until they achieve a beneficial outcome, undermining the randomness.
 

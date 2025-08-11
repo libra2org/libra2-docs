@@ -7,14 +7,14 @@ title: "委托池操作"
 
 作为[委托质押](/zh/network/blockchain/delegated-staking)操作的运营者,应该遵守以下操作指南.即使只是委托至少 10 APT,并支付一笔较小的附加质押费,这笔费用在当前纪元(epoch)结束时,大部分可以作为奖励收回.有时您会发现,为了便于计算,一些界面会把最低委托量设定为 11 APT.请注意,只有当委托池的总质押量达到最低要求的 100 万 APT 时,您的验证器才会成为**活跃验证者集合**的一员.
 
-负责委托池的所有者需要按照[执行池所有者操作](#perform-pool-owner-operations)部分的说明,使用 `set_operator` 函数来指定一个运营者.随后,运营者要搭建并启动自己的 Libra 网络节点,这样做是因为拥有独立的所有者账户和操作员账户有利于管理.当委托池积累到达 100 万 APT 时,运营者就有资格加入验证器的集合.
+负责委托池的所有者需要按照[执行池所有者操作](#perform-pool-owner-operations)部分的说明,使用 `set_operator` 函数来指定一个运营者.随后,运营者要搭建并启动自己的 Libra2 网络节点,这样做是因为拥有独立的所有者账户和操作员账户有利于管理.当委托池积累到达 100 万 APT 时,运营者就有资格加入验证器的集合.
 
 运营者的地址将收到在委派池设立时确定的佣金,这部分佣金会在每个纪元(epoch)结束时自动作为质押分配到委派池中.因此,操作员能够像任何标准的委托池账户一样,完成[执行委托池操作](#perform-delegation-pool-operations)部分所述的各项操作.
 
 ## 先决条件
 
-1. [安装并配置](/zh/build/cli) Libra CLI.如果您希望在 Libra 区块链上开发,调试应用程序或执行节点操作,Libra 工具提供了一个命令行界面以实现这些目的.
-2. 在 Libra 区块链上[初始化本地配置并创建账户](/zh/build/cli/cli-configuration).
+1. [安装并配置](/zh/build/cli) Libra2 CLI.如果您希望在 Libra2 区块链上开发,调试应用程序或执行节点操作,Libra2 工具提供了一个命令行界面以实现这些目的.
+2. 在 Libra2 区块链上[初始化本地配置并创建账户](/zh/build/cli/cli-configuration).
 
 ## 初始化委托池
 
@@ -51,11 +51,11 @@ title: "委托池操作"
 
 4. 委托池现在可以接受任何希望委托给它的用户至少 10 APT 的金额.
 
-5. 委托池现在可以[连接到 Libra 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
+5. 委托池现在可以[连接到 Libra2 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
 
 ## 执行委托池操作
 
-本节描述了可以在最近创建的池上执行的可用操作.一旦创建了委托池,就可以使用 Libra CLI 操作池.可以在其上执行的操作包括:
+本节描述了可以在最近创建的池上执行的可用操作.一旦创建了委托池,就可以使用 Libra2 CLI 操作池.可以在其上执行的操作包括:
 
 - 使用公共入口方法 `add_stake(delegator: &signer, pool_address: address, amount u64)` 将 `amount` 数量的 Coin 添加到委托池`pool_address`,并在运行之前将您的值替换到下面的命令中:
 
@@ -91,7 +91,7 @@ title: "委托池操作"
 
 ## 执行池所有者操作
 
-委托池所有者可以访问特定方法,用于修改委托池的 `operator` 和 `voter` 角色.使用以下 Libra CLI 命令,并包含相关地址:
+委托池所有者可以访问特定方法,用于修改委托池的 `operator` 和 `voter` 角色.使用以下 Libra2 CLI 命令,并包含相关地址:
 
 - 为委托池设置运营者地址:
 
@@ -145,7 +145,7 @@ title: "委托池操作"
 
 ## 检查委托池信息
 
-在委派池收到 100 万 APT,并且验证者成为活跃验证者之前,每个周期内都不会产生可供追踪的奖励.想要查看委派池的详细信息,请使用 Libra [View function](/zh/network/nodes/libra2-api-spec#reading-state-with-the-view-function):
+在委派池收到 100 万 APT,并且验证者成为活跃验证者之前,每个周期内都不会产生可供追踪的奖励.想要查看委派池的详细信息,请使用 Libra2 [View function](/zh/network/nodes/libra2-api-spec#reading-state-with-the-view-function):
 
 - `get_owned_pool_address(owner: address): address` - 返回属于所有者的委托池地址,或者如果没有与所有者关联的委托池,则产生错误.
 
@@ -163,16 +163,16 @@ title: "委托池操作"
 
 - `can_withdraw_pending_inactive(pool_address: address): bool` - 返回是否可以从委托池中直接提取 `pending_inactive` 质押,隐含地,如果验证者在其锁定期满之前不活跃,则可以提取其质押池.
 
-在 [Libra TypeScript SDK](/zh/build/sdks/ts-sdk) 中,View function 请求可能类似于:
+在 [Libra2 TypeScript SDK](/zh/build/sdks/ts-sdk) 中,View function 请求可能类似于:
 
 ```typescript filename="view_function.ts"
-import { Libra, LibraConfig } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config } from "@libra2-core/ts-sdk";
 
 const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 
 (async () => {
-  const libra2Config = new LibraConfig({ fullnode: NODE_URL });
-  const libra2 = new Libra(libra2Config);
+  const libra2Config = new Libra2Config({ fullnode: NODE_URL });
+  const libra2 = new Libra2(libra2Config);
   const payload: InputViewRequestData = {
     function: "0x1::delegation_pool::get_stake",
     functionArguments: ["pool_address", "delegator_address"],
@@ -181,7 +181,7 @@ const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 })();
 ```
 
-或者,您可以使用 Libra CLI 调用 View 函数.
+或者,您可以使用 Libra2 CLI 调用 View 函数.
 
 ```shellscript filename="Terminal"
 libra2 move view [OPTIONS] --function-id <FUNCTION_ID>

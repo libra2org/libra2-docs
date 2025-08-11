@@ -2,7 +2,7 @@
 title: "Cuentas de Recurso"
 ---
 
-[Despliegue de Código de Objeto](/build/smart-contracts/deployment) es el método preferido para desplegar y actualizar contratos inteligentes en Libra. Las cuentas de recurso requieren que los desarrolladores generen semillas
+[Despliegue de Código de Objeto](/build/smart-contracts/deployment) es el método preferido para desplegar y actualizar contratos inteligentes en Libra2. Las cuentas de recurso requieren que los desarrolladores generen semillas
 cada vez que se crea una cuenta de recurso, y actualizar contratos requiere pasos específicos que son propensos a errores.
 
 Una [cuenta de recurso](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/resource_account.move)
@@ -20,14 +20,14 @@ Típicamente, una cuenta de recurso se usa para dos propósitos principales:
 
 ## Restricciones
 
-En Libra, una cuenta de recurso se crea basándose en el hash SHA3-256 de la
+En Libra2, una cuenta de recurso se crea basándose en el hash SHA3-256 de la
 dirección de la fuente y datos de semilla adicionales. Una cuenta de recurso puede ser creada
 solo una vez; para una dirección de fuente y semilla dada, solo puede haber una cuenta de
 recurso. Esto es porque el cálculo de la dirección de la cuenta de recurso está
 completamente determinado por lo anterior.
 
 Una entidad puede llamar `create_account` en un intento de reclamar una cuenta antes de
-la creación de una cuenta de recurso. Pero si se encuentra una cuenta de recurso, Libra
+la creación de una cuenta de recurso. Pero si se encuentra una cuenta de recurso, Libra2
 transferirá la propiedad de la cuenta a la cuenta de recurso. Esto se hace
 validando que la cuenta aún no ha ejecutado ninguna transacción y que
 `Account::signer_capbility_offer::for` es none. La probabilidad de una
@@ -38,7 +38,7 @@ dirección de cuenta de recurso es improbablemente baja.
 
 La forma más fácil de configurar una cuenta de recurso es:
 
-1. Usando Libra CLI: `libra2 account create-resource-account` crea una cuenta de
+1. Usando Libra2 CLI: `libra2 account create-resource-account` crea una cuenta de
    recurso, y `libra2 move create-resource-account-and-publish-package` crea una
    cuenta de recurso y publica el paquete especificado bajo la dirección de la cuenta de recurso.
 2. Escribiendo código de contratos inteligentes personalizado: en el módulo `resource_account.move`,

@@ -11,29 +11,29 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
   repository.
 </Aside>
 
-If you have not already installed the Libra .NET SDK, follow one of the guides below to get started.
+If you have not already installed the Libra2 .NET SDK, follow one of the guides below to get started.
 
 <CardGrid>
-  <LinkCard href="/build/sdks/dotnet-sdk/godot-integration" title="Godot Integration" description="Integrate the Libra .NET SDK with a Godot project." />
+  <LinkCard href="/build/sdks/dotnet-sdk/godot-integration" title="Godot Integration" description="Integrate the Libra2 .NET SDK with a Godot project." />
 
-  <LinkCard href="/build/sdks/dotnet-sdk/unity-integration" title="Unity SDK" description="Integrate the Libra .NET SDK with a Unity project." />
+  <LinkCard href="/build/sdks/dotnet-sdk/unity-integration" title="Unity SDK" description="Integrate the Libra2 .NET SDK with a Unity project." />
 </CardGrid>
 
 <Steps>
-  1. Set up your LibraClient
+  1. Set up your Libra2Client
 
-     Set up your Libra client by adding the `Libra` namespace and instantiating an `LibraClient`. You can use a predefined
+     Set up your Libra2 client by adding the `Libra2` namespace and instantiating an `Libra2Client`. You can use a predefined
      configuration from `Networks` or configuring your own.
 
      ```csharp filename="Program.cs"  {1-1, 7-8}
-     using Libra;
+     using Libra2;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new LibraConfig(Libra.Networks.Mainnet);
-             var client = new LibraClient(config);
+             var config = new Libra2Config(Libra2.Networks.Mainnet);
+             var client = new Libra2Client(config);
          }
      }
      ```
@@ -43,14 +43,14 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
      Now that you have the client setup, you can query the blockchain!
 
      ```csharp filename="Program.cs" {10-11}
-     using Libra;
+     using Libra2;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new LibraConfig(Libra.Networks.Mainnet);
-             var client = new LibraClient(config);
+             var config = new Libra2Config(Libra2.Networks.Mainnet);
+             var client = new Libra2Client(config);
 
              var ledgerInfo = client.Block.GetLedgerInfo();
              Console.WriteLine(ledgerInfo.BlockHeight);
@@ -63,14 +63,14 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
      To interact with the blockchain, you will need to create a signer and build a transaction.
 
      ```csharp filename="Program.cs" {10-11,13-21,23-24,26-27}
-     using Libra;
+     using Libra2;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new LibraConfig(Libra.Networks.Mainnet);
-             var client = new LibraClient(config);
+             var config = new Libra2Config(Libra2.Networks.Mainnet);
+             var client = new Libra2Client(config);
 
              // 1. Create a signer
              var signer = Account.Generate();
@@ -80,7 +80,7 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
                      function: "0x1::libra2_account::transfer_coins",
-                     typeArguments: ["0x1::libra2_coin::LibraCoin"],
+                     typeArguments: ["0x1::libra2_coin::Libra2Coin"],
                      functionArguments: [account.Address, "100000"]
                  )
              );
@@ -99,25 +99,25 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
      Call view functions to query smart contracts.
 
      ```csharp filename="Program.cs" {10-17,19-20}
-     using Libra;
+     using Libra2;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new LibraConfig(Libra.Networks.Mainnet);
-             var client = new LibraClient(config);
+             var config = new Libra2Config(Libra2.Networks.Mainnet);
+             var client = new Libra2Client(config);
 
              // Call the view function by specifying the function name, arguments, and type arguments
              var values = await client.Contract.View(
                  new GenerateViewFunctionPayloadData(
                      function: "0x1::coin::name",
                      functionArguments: [],
-                     typeArguments: ["0x1::libra2_coin::LibraCoin"]
+                     typeArguments: ["0x1::libra2_coin::Libra2Coin"]
                  )
              );
 
-             // Returns a list of return values: ["Libra Coin"]
+             // Returns a list of return values: ["Libra2 Coin"]
              Console.WriteLine("APT Name: " + values[0]);
          }
      }
@@ -127,5 +127,5 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
 ## Additional Resources
 
 <CardGrid>
-  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk" title="Full API Reference" description="The full API reference for the Libra .NET SDK." target="_blank" />
+  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk" title="Full API Reference" description="The full API reference for the Libra2 .NET SDK." target="_blank" />
 </CardGrid>

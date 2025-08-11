@@ -101,10 +101,10 @@ Crear y ejecutar una transacción multi-agente sigue un flujo similar al [flujo 
 
 ```typescript filename="multi-agent.ts"
 /**
- * This example shows how to use the Libra SDK to send a transaction.
+ * This example shows how to use the Libra2 SDK to send a transaction.
  */
 
-import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
 async function example() {
   console.log(
@@ -112,8 +112,8 @@ async function example() {
   );
 
   // 0. Setup the client and test accounts
-  const config = new LibraConfig({ network: Network.DEVNET });
-  const libra2 = new Libra(config);
+  const config = new Libra2Config({ network: Network.DEVNET });
+  const libra2 = new Libra2(config);
 
   let alice = Account.generate();
   let bob = Account.generate();

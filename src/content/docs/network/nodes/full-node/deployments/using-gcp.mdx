@@ -9,7 +9,7 @@ usually provides better stability and availability compared to running it on you
 
 <Aside type="caution">
   **Don't want to connect to devnet?**<br />
-  This tutorial defaults to deploying a PFN in the Libra `devnet` network. To connect to other networks
+  This tutorial defaults to deploying a PFN in the Libra2 `devnet` network. To connect to other networks
   (e.g., `mainnet` and `testnet`), replace all instances of `devnet` with the appropriate network name.
 </Aside>
 
@@ -68,10 +68,10 @@ to check out some of their [guides](https://cloud.google.com/docs/get-started/qu
 <Aside type="note">
   **Before you proceed**<br />
   From here on, this guide assumes that you have already set up your GCP account, and have created a new project for
-  deploying an Libra PFN.
+  deploying an Libra2 PFN.
 </Aside>
 
-You can deploy a PFN on GCP by using the Libra Terraform module.
+You can deploy a PFN on GCP by using the Libra2 Terraform module.
 
 1. Create a working directory for your configuration.
 
@@ -109,7 +109,7 @@ touch main.tf
 
 **Note:** If you are using a different version of Terraform, you will need to use the `tfenv` command to change the required version.
 
-You can find the Docker image tag for `devnet` on the [Libra Docker Hub](https://hub.docker.com/r/libra2labs/validator/tags?page=1\&ordering=last_updated\&name=devnet).
+You can find the Docker image tag for `devnet` on the [Libra2 Docker Hub](https://hub.docker.com/r/libra2labs/validator/tags?page=1\&ordering=last_updated\&name=devnet).
 
 <Aside type="caution">
   **Want to connect to a different network?**<br />
@@ -225,7 +225,7 @@ You should see this something like this:
 
 5. To verify the correctness of your PFN, you will need to:
 
-   - Set up a port-forwarding mechanism directly to the Libra pod in one ssh terminal, and
+   - Set up a port-forwarding mechanism directly to the Libra2 pod in one ssh terminal, and
    - Test it in another ssh terminal.
 
    Follow the below steps:

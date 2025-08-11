@@ -22,15 +22,15 @@ TypeScript SDK V2 已迁移至新的 [GitHub 仓库](https://github.com/libra2or
 npm i @libra2-core/ts-sdk
 ```
 
-## SDK 使用与查询 Libra 链
+## SDK 使用与查询 Libra2 链
 
-移除所有 `<*>Client` 模块(如 `LibraClient`,`FaucetClient`,`CoinClient` 等),替换为 `Libra` 入口类
+移除所有 `<*>Client` 模块(如 `Libra2Client`,`FaucetClient`,`CoinClient` 等),替换为 `Libra2` 入口类
 
 **V1**
 
 ```typescript filename="v1.ts"
 const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL);
-const libra2Client = new LibraClient(NODE_URL);
+const libra2Client = new Libra2Client(NODE_URL);
 const indexerClient = new IndexerClient(INDEXER_URL);
 const tokenClient = new TokenClient(libra2Client);
 ```
@@ -42,7 +42,7 @@ const tokenClient = new TokenClient(libra2Client);
 </Aside>
 
 ```typescript filename="v2.ts"
-const libra2 = new Libra();
+const libra2 = new Libra2();
 
 // 执行查询
 const fund = await libra2.fundAccount({ accountAddress: "0x123", amount: 100 });
@@ -52,11 +52,11 @@ const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
 
 ## 配置类
 
-要配置您的 `Libra` 客户端,可以使用 `LibraConfig` 对象.
+要配置您的 `Libra2` 客户端,可以使用 `Libra2Config` 对象.
 
 ```typescript filename="v2.ts"
-const libra2Config = new LibraConfig({ network: Network.DEVNET }); // 默认为 devnet
-const libra2 = new Libra(config);
+const libra2Config = new Libra2Config({ network: Network.DEVNET }); // 默认为 devnet
+const libra2 = new Libra2(config);
 ```
 
 ## 交易构建流程
@@ -66,7 +66,7 @@ const libra2 = new Libra(config);
 **V1**
 
 ```typescript filename="v1.ts"
-const libra2Client = new LibraClient(NODE_URL);
+const libra2Client = new Libra2Client(NODE_URL);
 
 // bcs 序列化参数负载
 const entryFunctionPayload =
@@ -98,7 +98,7 @@ const transaction = await client.generateTransaction(
 );
 
 // 签名交易
-const signedTransaction = LibraClient.generateBCSTransaction(
+const signedTransaction = Libra2Client.generateBCSTransaction(
   sender,
   transaction,
 );
@@ -113,14 +113,14 @@ const txn = await client.submitSignedBCSTransaction(signedTransaction);
 </Aside>
 
 ```typescript filename="v2.ts"
-const libra2 = new Libra();
+const libra2 = new Libra2();
 
 // 非序列化参数的交易
 const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: ["0x1::libra2_coin::LibraCoin"],
+    typeArguments: ["0x1::libra2_coin::Libra2Coin"],
     functionArguments: [bobAddress, 100],
   },
 });
@@ -130,7 +130,7 @@ const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
+    typeArguments: [parseTypeTag("0x1::libra2_coin::Libra2Coin")],
     functionArguments: [bobAddress, new U64(100)],
   },
 });
@@ -148,16 +148,16 @@ const committedTransaction = await libra2.submit.transaction({
 
 ## 账户
 
-将 `LibraAccount` 重命名为 `Account` 并使用静态方法来生成/派生账户
+将 `Libra2Account` 重命名为 `Account` 并使用静态方法来生成/派生账户
 
 **V1**
 
 ```typescript filename="v1.ts"
 // 生成新账户（或密钥对）或从私钥派生或从私钥和地址派生
-const account = new LibraAccount(); // 仅支持 Legacy Ed25519
+const account = new Libra2Account(); // 仅支持 Legacy Ed25519
 
 // 从派生路径派生账户
-const account = LibraAccount.fromDerivePath(..)
+const account = Libra2Account.fromDerivePath(..)
 ```
 
 **V2**

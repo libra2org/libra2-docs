@@ -4,13 +4,13 @@ title: "Fetch Data via SDK"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use the `Libra` client to get on-chain data using a variety of helper functions. Specifically, many of the functions listed in the reference docs [here](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) that start with `get...` will retrieve data from on-chain.
+You can use the `Libra2` client to get on-chain data using a variety of helper functions. Specifically, many of the functions listed in the reference docs [here](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html) that start with `get...` will retrieve data from on-chain.
 
 Here’s an example showing how to fetch common data you may need in your application:
 
 ```typescript filename="fetch-data.ts"
-const libra2Config = new LibraConfig({ network: Network.DEVNET });
-const libra2 = new Libra(libra2Config);
+const libra2Config = new Libra2Config({ network: Network.DEVNET });
+const libra2 = new Libra2(libra2Config);
 
 const fund = await libra2.getAccountInfo({ accountAddress: "0x123" });
 const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
@@ -21,7 +21,7 @@ const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
   Many queries have a parameter named `options` to customize the results, use it to get specifically what you are looking for.
 </Aside>
 
-The `Libra` client can out of the box query both network data from [fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) and the [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql) API which contains aggregated and enriched data. If you want to use a custom query for Indexer API data, you can use `libra2.queryIndexer` like so:
+The `Libra2` client can out of the box query both network data from [fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) and the [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql) API which contains aggregated and enriched data. If you want to use a custom query for Indexer API data, you can use `libra2.queryIndexer` like so:
 
 ```typescript filename="fetch-data.ts"
   const ledgerInfo = await libra2.queryIndexer({
@@ -46,7 +46,7 @@ type Coin = { coin: { value: string } };
 
 const resource = await libra2.getAccountResource<Coin>({
   accountAddress: testAccount.accountAddress,
-  resourceType: "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
+  resourceType: "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>",
 });
 
 // Now you have access to the response type property

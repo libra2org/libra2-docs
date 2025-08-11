@@ -30,7 +30,7 @@ regular PFNs. However, there are cases where you may want to generate and assign
 
 This is useful when:
 
-- You wish to advertise your PFN as a seed (i.e., for other Libra PFNs to connect to).
+- You wish to advertise your PFN as a seed (i.e., for other Libra2 PFNs to connect to).
 - You wish to add your PFN to an allowlist of known identities on an upstream PFN or VFN.
 - You wish to fix the identity of your PFN across restarts and releases so that telemetry and other monitoring tools can track your PFN over time.
 
@@ -53,7 +53,7 @@ If you use the `libra2-core` source code to run your PFN, follow these steps:
 
 1. **Generate the private key**
 
-First, use the [Libra CLI](/build/cli) (`libra2`) to produce a hex encoded static
+First, use the [Libra2 CLI](/build/cli) (`libra2`) to produce a hex encoded static
 x25519 private key. This will be the private key for your network identity. Run the following `libra2` CLI command:
 
 ```shellscript filename="Terminal"

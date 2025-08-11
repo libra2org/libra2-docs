@@ -1,5 +1,5 @@
 ---
-title: "Libra Digital Asset Standard"
+title: "Libra2 Digital Asset Standard"
 ---
 
 import { ThemedImage } from '~/components/ThemedImage';
@@ -8,9 +8,9 @@ import { GraphQLEditor } from '~/components/react/GraphQLEditor';
 
 import { Aside } from '@astrojs/starlight/components';
 
-The Digital Asset (DA) standard is a modern Non-Fungible Token (NFT) standard for Libra. NFTs represent unique assets on-chain, and are stored in collections. These NFTs can be customized to later be transferred, soulbound, burned, mutated, or customized via your own smart contracts.
+The Digital Asset (DA) standard is a modern Non-Fungible Token (NFT) standard for Libra2. NFTs represent unique assets on-chain, and are stored in collections. These NFTs can be customized to later be transferred, soulbound, burned, mutated, or customized via your own smart contracts.
 
-This standard replaces the legacy [Libra Token Standard](/build/smart-contracts/libra2-token). The most important improvements to note are:
+This standard replaces the legacy [Libra2 Token Standard](/build/smart-contracts/libra2-token). The most important improvements to note are:
 
 | **Improvement**         | **Description**                                                                                                |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -218,7 +218,7 @@ public entry fun mint_token(creator: &signer) {
 
 ### Finding Unnamed Token Addresses via Indexer
 
-You can find the addresses of your recently created “unnamed” `Token`s by using the [Libra Indexer](/build/indexer/indexer-api) with queries like the following:
+You can find the addresses of your recently created “unnamed” `Token`s by using the [Libra2 Indexer](/build/indexer/indexer-api) with queries like the following:
 
 1. Looking up the collection id by using your account address and the name of the `Collection`.
 
@@ -383,7 +383,7 @@ module 0x42::example {
 
 `Token`s can be extended either by adding additional resources (since they are an Object) or using `Ref`s to modify the Object.
 
-## Libra Token
+## Libra2 Token
 
 For NFT creators who want to avoid writing their own logic for how your NFT should work, you can use the [`libra2_token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move) module to mint an NFT. This module is already deployed at `0x4` and allows you to:
 
@@ -413,7 +413,7 @@ public entry fun mint(
     property_keys: vector<String>,
     property_types: vector<String>,
     property_values: vector<vector<u8>>,
-) acquires LibraCollection, LibraToken
+) acquires Libra2Collection, Libra2Token
 ```
 
 #### Soulbound Tokens
@@ -431,7 +431,7 @@ public entry fun mint_soul_bound(
     property_types: vector<String>,
     property_values: vector<vector<u8>>,
     soul_bound_to: address,
-) acquires LibraCollection
+) acquires Libra2Collection
 ```
 
 <Aside type="caution">

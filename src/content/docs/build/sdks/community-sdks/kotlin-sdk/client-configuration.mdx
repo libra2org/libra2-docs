@@ -2,17 +2,17 @@
 title: "Client Configuration"
 ---
 
-Whilst **Klibra2** offers a **consistent interface** for interacting with Libra
+Whilst **Klibra2** offers a **consistent interface** for interacting with Libra2
 across all supported platforms, it also features both shared and
 platform-specific configuration options for its various clients.
 
 These configuration options allow you to customize the behavior of the client to
 suit your needs. They can be set by creating a `ClientConfig` object and passing
-it to the `LibraSettings` object when creating an `Libra` client as shown below:
+it to the `Libra2Settings` object when creating an `Libra2` client as shown below:
 
 ```kotlin
 val clientConfig = ClientConfig(followRedirects = false, retryOnServerErrors = 3)
-val client = Libra(LibraConfig(LibraSettings(clientConfig = clientConfig)))
+val client = Libra2(Libra2Config(Libra2Settings(clientConfig = clientConfig)))
 ```
 
 This page will guide you through the available configuration options for

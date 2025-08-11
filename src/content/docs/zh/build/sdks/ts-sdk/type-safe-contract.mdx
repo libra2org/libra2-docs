@@ -6,7 +6,7 @@ import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ## 什么是 Surf
 
-Surf 是一个基于 Libra TypeScript SDK 和钱包适配器构建的 TypeScript 库,通过从合约 ABI(应用二进制接口)推断类型,为您的 Move 合约提供静态类型安全.它允许您在编译时而非运行时捕获类型错误.如果您尝试访问不存在的字段或提供错误的输入类型,大多数现有的 TypeScript IDE 都会自动提供警告.
+Surf 是一个基于 Libra2 TypeScript SDK 和钱包适配器构建的 TypeScript 库,通过从合约 ABI(应用二进制接口)推断类型,为您的 Move 合约提供静态类型安全.它允许您在编译时而非运行时捕获类型错误.如果您尝试访问不存在的字段或提供错误的输入类型,大多数现有的 TypeScript IDE 都会自动提供警告.
 
 ## 使用方法
 
@@ -52,29 +52,29 @@ Surf 是一个基于 Libra TypeScript SDK 和钱包适配器构建的 TypeScript
 
   2. 第二步
 
-     有了 ABI 后,您可以在与 Move 合约交互时,将 Surf 作为 Libra TypeScript SDK 客户端 `Libra` 的附加层使用.对于非合约相关操作,仍需使用 `Libra`.
+     有了 ABI 后,您可以在与 Move 合约交互时,将 Surf 作为 Libra2 TypeScript SDK 客户端 `Libra2` 的附加层使用.对于非合约相关操作,仍需使用 `Libra2`.
 
      ```typescript filename="src/utils/libra2.ts"
      import { createSurfClient } from '@thalalabs/surf';
-     import { Libra, LibraConfig, NETWORK } from "@libra2-core/ts-sdk";
+     import { Libra2, Libra2Config, NETWORK } from "@libra2-core/ts-sdk";
      import { ABI } from "./abi";
 
-     // 首先创建 Libra 客户端，确保网络与合约所在网络一致
-     export const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
-     // 然后使用 Libra 客户端和 ABI 创建 SurfClient
+     // 首先创建 Libra2 客户端，确保网络与合约所在网络一致
+     export const libra2 = new Libra2(new Libra2Config({ network: Network.DEVNET }));
+     // 然后使用 Libra2 客户端和 ABI 创建 SurfClient
      export const surfClient = createSurfClient(libra2).useABI(ABI);
 
      // 使用 Surf 执行入口函数
      const result = await surfClient.entry.transfer({
        functionArguments: ['0x1', 1],
-       typeArguments: ['0x1::libra2_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::Libra2Coin'],
        account: Account.fromPrivateKey(...),
      });
 
      // 使用 Surf 查询视图函数
      const [balance] = await surfClient.view.balance({
        functionArguments: ['0x1'],
-       typeArguments: ['0x1::libra2_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::Libra2Coin'],
      });
      ```
 </Steps>
@@ -83,11 +83,11 @@ Surf 是一个基于 Libra TypeScript SDK 和钱包适配器构建的 TypeScript
 
 - [访问 GitHub 上的 Surf](https://github.com/ThalaLabs/surf)
 - [展示 Surf 的简单 Next.js 示例](https://github.com/ThalaLabs/surf/tree/main/example)
-- [使用 Surf 构建的可替代资产启动平台示例](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad):此示例是 Libra Learn 上 Solana 转 Libra 指南的一部分,您可以在[这里](https://fungible-asset-launchpad.vercel.app/)试用,并阅读完整教程[这里](https://learn.libra2labs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-libra2).
+- [使用 Surf 构建的可替代资产启动平台示例](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad):此示例是 Libra2 Learn 上 Solana 转 Libra2 指南的一部分,您可以在[这里](https://fungible-asset-launchpad.vercel.app/)试用,并阅读完整教程[这里](https://learn.libra2labs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-libra2).
 
 ## 致谢
 
-Surf 由 Libra 生态项目 [Thala Labs](https://thala.fi/) 开发,并与 Libra 社区共同维护.
+Surf 由 Libra2 生态项目 [Thala Labs](https://thala.fi/) 开发,并与 Libra2 社区共同维护.
 
 ## 反馈
 

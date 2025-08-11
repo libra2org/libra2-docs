@@ -1,15 +1,15 @@
 ---
-title: "Libra Standards"
+title: "Libra2 Standards"
 ---
 
 Standards define a common interoperable interface for all developers to build
 upon. They consist of rules to ensure compatibility across applications and
-wallets on the Libra blockchain. See a [list of known coin resource addresses](https://github.com/hippospace/libra2-coin-list)
-on Libra provided by hippospace.
+wallets on the Libra2 blockchain. See a [list of known coin resource addresses](https://github.com/hippospace/libra2-coin-list)
+on Libra2 provided by hippospace.
 
 ## Move Standards
 
-### [Libra Object](/build/smart-contracts/objects)
+### [Libra2 Object](/build/smart-contracts/objects)
 
 The [Object model](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/object.move)
 allows Move to represent a complex type as a set of resources stored within a
@@ -20,7 +20,7 @@ resource control and ownership management.
 
 ### [Digital Asset (DA)](/build/smart-contracts/digital-asset)
 
-The new [Libra Digital Asset Standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
+The new [Libra2 Digital Asset Standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
 allows:
 
 - Rich, flexible assets and collectibles.
@@ -32,14 +32,14 @@ to build NFT or semi-fungible tokens.
 
 ### [Fungible Asset (FA)](/build/smart-contracts/fungible-asset)
 
-The new [Libra Fungible Asset Standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move)
+The new [Libra2 Fungible Asset Standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move)
 is a standard meant for simple, type-safe, and fungible assets based on object
-model intending to replace Libra coin. Fungible Asset (FA) offers more features
-and flexibility to Libra move developers on creating and managing fungible assets.
+model intending to replace Libra2 coin. Fungible Asset (FA) offers more features
+and flexibility to Libra2 move developers on creating and managing fungible assets.
 
 ## Legacy Standards
 
-### [Libra Token](/build/smart-contracts/libra2-token)
+### [Libra2 Token](/build/smart-contracts/libra2-token)
 
 The old
 existing [Token module](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move),
@@ -47,10 +47,10 @@ on the other hand:
 
 - Encapsulates rich, flexible assets and collectibles. These assets are discrete
   (non-decimal) and can be fungible, semi-fungible, or non-fungible.
-- The token standard is in its own `LibraToken` package at the Address `0x3` to
+- The token standard is in its own `Libra2Token` package at the Address `0x3` to
   allow for rapid iteration based on feedback from the community.
 
-### [Libra Coin](/build/smart-contracts/libra2-coin)
+### [Libra2 Coin](/build/smart-contracts/libra2-coin)
 
 The [Coin module](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move)
 is a lightweight standard meant for simple, type-safe, and fungible assets. The
@@ -58,5 +58,5 @@ coin standard is separated out into its own Move module to ensure that:
 
 - Applications and users can create and use simple tokens, with high performance
   and low gas overhead.
-- The Coin standard is part of the Libra core framework, so it can be used for
+- The Coin standard is part of the Libra2 core framework, so it can be used for
   currencies, including the gas currency.

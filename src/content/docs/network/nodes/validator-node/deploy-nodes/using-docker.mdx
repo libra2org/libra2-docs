@@ -10,26 +10,26 @@ import { Aside } from '@astrojs/starlight/components';
   need to deploy using [source code](/network/nodes/full-node/deployments/using-source-code).
 </Aside>
 
-This is a step-by-step guide to deploy an Libra validator and validator fullnode (VFN) using Docker. Using this guide, the validator
+This is a step-by-step guide to deploy an Libra2 validator and validator fullnode (VFN) using Docker. Using this guide, the validator
 and VFN will be deployed on separate machines.
 
 <Aside type="caution">
   **Prerequisites** <br />
   Before you begin, make sure to read and understand the [Node Requirements](/network/nodes/validator-node/node-requirements). Similarly, make sure you have
-  installed the [Libra CLI](/build/cli), and [Docker with Docker Compose](https://docs.docker.com/engine/install/).
+  installed the [Libra2 CLI](/build/cli), and [Docker with Docker Compose](https://docs.docker.com/engine/install/).
 </Aside>
 
 ## Deployment steps
 
 <Aside type="note">
   **Default connection to mainnet**<br />
-  If you follow the default setup in this document, then your validator and VFN will be connected to the Libra mainnet.
-  To connect to a different Libra network, such as testnet, make sure you download the correct genesis and waypoint
+  If you follow the default setup in this document, then your validator and VFN will be connected to the Libra2 mainnet.
+  To connect to a different Libra2 network, such as testnet, make sure you download the correct genesis and waypoint
   files for the network you want to connect to. Similarly, you will need to modify the docker compose files to use the
   correct docker images by network name.
 </Aside>
 
-1. Create a working directory for your Libra nodes, and pick a username for your nodes, e.g.,
+1. Create a working directory for your Libra2 nodes, and pick a username for your nodes, e.g.,
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -39,7 +39,7 @@ and VFN will be deployed on separate machines.
    ```
 
 2. Generate the key pairs for your nodes in your working directory. You can do this by running
-   the following command with the Libra CLI:
+   the following command with the Libra2 CLI:
 
    ```shellscript filename="Terminal"
    libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -67,7 +67,7 @@ and VFN will be deployed on separate machines.
      to host changes.
    </Aside>
 
-   You can set your validator configuration by running the following command with the Libra CLI:
+   You can set your validator configuration by running the following command with the Libra2 CLI:
 
    ```shellscript filename="Terminal"
 
@@ -105,7 +105,7 @@ and VFN will be deployed on separate machines.
    ```
 
    Configuring the validator will create two YAML files in the `~/$WORKSPACE/$USERNAME` directory: `owner.yaml` and
-   `operator.yaml`. These will be useful for connecting your nodes to the Libra network (later).
+   `operator.yaml`. These will be useful for connecting your nodes to the Libra2 network (later).
 
 4. Download the following files by following the instructions on the [Node Files](/network/nodes/configure/node-files-all-networks) pages.
    You will need to select the appropriate network (e.g., `mainnet`, `testnet`, `devnet`) and download the following files:
@@ -186,9 +186,9 @@ and VFN will be deployed on separate machines.
    <Aside type="caution">
      **Next steps**<br />
      You have now completed setting up your validator and VFN using Docker. However, your nodes will not be able to connect
-     to the Libra network just yet.
+     to the Libra2 network just yet.
    </Aside>
 
-## Connecting to the Libra Network
+## Connecting to the Libra2 Network
 
 You have now completed setting up your validator and VFN using Docker. Proceed to [Connect Nodes](/network/nodes/validator-node/connect-nodes) for the next steps.

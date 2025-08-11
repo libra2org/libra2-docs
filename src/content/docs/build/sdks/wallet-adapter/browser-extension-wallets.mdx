@@ -70,10 +70,10 @@ In order for dapp users who are not already using your wallet to get the option 
 
   4. Navigate to .
 
-  5. Add your wallet’s details to  by following the LibraStandardSupportedWallet interface.
+  5. Add your wallet’s details to  by following the Libra2StandardSupportedWallet interface.
 
      ```tsx filename="registry.ts"
-     export interface LibraStandardSupportedWallet<Name extends string = string> {
+     export interface Libra2StandardSupportedWallet<Name extends string = string> {
        // The name of your wallet cast to WalletName (Ex. "Petra" as WalletName<"Petra">)
        name: WalletName<Name>;
        // The link to your chrome extension or main website where new users can create an account with your wallet.

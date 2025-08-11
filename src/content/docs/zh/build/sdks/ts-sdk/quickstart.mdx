@@ -63,34 +63,34 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      npm i @libra2-core/ts-sdk
      ```
 
-  4. 设置 Libra 客户端
+  4. 设置 Libra2 客户端
 
-     你可以使用 `Libra` 对象来处理所有需要连接 Libra 网络的操作.创建该对象时会自动建立连接.
+     你可以使用 `Libra2` 对象来处理所有需要连接 Libra2 网络的操作.创建该对象时会自动建立连接.
 
      ```typescript filename="quickstart.ts"
-     import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+     import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-     // 通过 LibraConfig 指定要连接的网络
+     // 通过 Libra2Config 指定要连接的网络
      async function example() {
        console.log(
          "本示例将创建两个账户（Alice 和 Bob），为其注资并进行转账操作。",
        );
 
        // 配置客户端
-       const config = new LibraConfig({ network: Network.DEVNET });
-       const libra2 = new Libra(config);
+       const config = new Libra2Config({ network: Network.DEVNET });
+       const libra2 = new Libra2(config);
      }
 
      example()
      ```
 
      <Aside type="note">
-       (高级) 如需连接到特定节点,可在 `LibraConfig` 中通过指定 `fullnode` URL 进行设置.例如:`fullnode: http://localhost:8080/v1`.
+       (高级) 如需连接到特定节点,可在 `Libra2Config` 中通过指定 `fullnode` URL 进行设置.例如:`fullnode: http://localhost:8080/v1`.
      </Aside>
 
   5. 从链上获取数据
 
-     你可以使用 `Libra` 客户端从链上获取各种数据,例如网络本身的信息或特定账户信息.
+     你可以使用 `Libra2` 客户端从链上获取各种数据,例如网络本身的信息或特定账户信息.
 
      ```typescript filename="quickstart.ts"
      ...
@@ -137,7 +137,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      你可以通过 `libra2.transaction.build.simple({...})` 构建交易,需要指定:
 
      1. `sender` - 发送交易的账户.该账户将支付 gas 费用.
-     2. `data` - Libra 执行交易所需的信息.
+     2. `data` - Libra2 执行交易所需的信息.
         1. `function` - 要调用的链上智能合约,格式为 `<account_address>::<move_module>::<function>`.
         2. `functionArguments` - 这些参数取决于被调用的函数.你可以通过区块链浏览器(例如[这个](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet))查询账户和模块来查找函数所需的参数.
 
@@ -217,12 +217,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ```typescript filename="quickstart.ts"
 /**
- * 此示例展示如何使用 Libra 客户端创建账户、注资并在账户间进行转账。
+ * 此示例展示如何使用 Libra2 客户端创建账户、注资并在账户间进行转账。
  */
 
-import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
+import { Account, Libra2, Libra2Config, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::libra2_coin::LibraCoin";
+const APTOS_COIN = "0x1::libra2_coin::Libra2Coin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -234,8 +234,8 @@ async function example() {
   );
 
   // 设置客户端
-  const config = new LibraConfig({ network: Network.DEVNET });
-  const libra2 = new Libra(config);
+  const config = new Libra2Config({ network: Network.DEVNET });
+  const libra2 = new Libra2(config);
 
   // 生成两个账户凭证
   // 每个账户都有一个私钥、公钥和地址
@@ -280,7 +280,7 @@ async function example() {
   const txn = await libra2.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
-      // Libra 上的所有交易都是通过智能合约实现的。
+      // Libra2 上的所有交易都是通过智能合约实现的。
       function: "0x1::libra2_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
@@ -292,7 +292,7 @@ async function example() {
     signer: alice,
     transaction: txn,
   });
-  // 等待 Libra 验证并执行交易
+  // 等待 Libra2 验证并执行交易
   const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
@@ -327,16 +327,16 @@ example();
 
 综上所述,您刚刚学习了如何通过交易转账 APT:
 
-1. 使用 `Libra` 客户端连接网络
+1. 使用 `Libra2` 客户端连接网络
 2. 创建账户
-3. 使用客户端辅助函数如 [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules) 查询链上数据
+3. 使用客户端辅助函数如 [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html#getAccountModules) 查询链上数据
 4. 签名并向网络提交交易
-5. 等待 Libra 执行交易
+5. 等待 Libra2 执行交易
 
 要查看完整运行示例,您可以复制并运行上方快速入门中的完整代码片段.
 
 <Aside type="note">
   为了后续开发,请务必收藏 [参考文档](https://libra2-core.github.io/libra2-ts-sdk/) 以便查阅具体函数签名.
 
-  请注意,大多数辅助函数都列在 [`Libra` 客户端对象](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html)上.
+  请注意,大多数辅助函数都列在 [`Libra2` 客户端对象](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra2.html)上.
 </Aside>

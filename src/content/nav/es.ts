@@ -20,13 +20,13 @@ const labels = {
   "build.group.apis": "APIs",
   "build.group.indexer": "Indexador",
   "build.group.cli": "CLI",
-  "build.group.createLibraDapp": "Crear DApp de Libra",
+  "build.group.createLibra2Dapp": "Crear DApp de Libra2",
   "build.group.aips": "AIPs",
 
   // Sub-Grupos de Contratos Inteligentes y Move
   "smartContracts.group.moveBook": "Libro de Move",
   "smartContracts.group.development": "Desarrollo",
-  "smartContracts.group.libra2Features": "Características de Move en Libra",
+  "smartContracts.group.libra2Features": "Características de Move en Libra2",
   "smartContracts.group.tooling": "Herramientas",
   "smartContracts.group.reference": "Referencia de Move",
 

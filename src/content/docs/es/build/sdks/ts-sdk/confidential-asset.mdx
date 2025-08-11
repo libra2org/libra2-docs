@@ -4,7 +4,7 @@ title: "Activo Confidencial (CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Puedes usar la propiedad `confidentialCoin` del cliente `Libra` para interactuar con `CA`
+Puedes usar la propiedad `confidentialCoin` del cliente `Libra2` para interactuar con `CA`
 
 ### Inicialización
 
@@ -89,7 +89,7 @@ CA implementa el método Pollard's Kangaroo para resolver DLPs en la curva Ristr
 Así que también necesitamos inicializar una función de descifrado para eso:
 
 ```typescript
-// Copyright © Libra Foundation
+// Copyright © Libra2 Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
@@ -152,12 +152,12 @@ Para aplicaciones nativas, puedes generar los bindings de `android` e `ios` [aqu
 
 ***
 
-Ahora estamos listos para definir el cliente Libra:
+Ahora estamos listos para definir el cliente Libra2:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new LibraConfig({ network: APTOS_NETWORK });
-export const libra2 = new Libra(config);
+const config = new Libra2Config({ network: APTOS_NETWORK });
+export const libra2 = new Libra2(config);
 ```
 
 ### Crear Clave de Descifrado (DK)

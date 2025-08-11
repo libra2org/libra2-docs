@@ -2,10 +2,10 @@
 title: "Formato BCS"
 ---
 
-Detrás de escena, el SDK de Libra tiene dos formatos para los parámetros de transacción:
+Detrás de escena, el SDK de Libra2 tiene dos formatos para los parámetros de transacción:
 
 1. **Simple** - Representa los parámetros de transacción usando tipos primitivos como cadenas, enteros, etc.
-2. **Serialización Canónica Binaria (BCS)** - Este es el formato que la cadena de Libra reconoce, con tipos específicos (ej. en vez de un entero, usa tipos como `U64` o `U128`)
+2. **Serialización Canónica Binaria (BCS)** - Este es el formato que la cadena de Libra2 reconoce, con tipos específicos (ej. en vez de un entero, usa tipos como `U64` o `U128`)
 
 Normalmente, el SDK de TypeScript convertirá automáticamente los tipos simples en los parámetros de función a BCS para comunicarse con la red. Sin embargo, para algunos contratos, tendrás que usar BCS directamente para especificar tipos más complejos.
 

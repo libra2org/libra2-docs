@@ -70,7 +70,7 @@ simulating, signing, submitting, and waiting.
      1. `MaxGasAmount` - This caps the amount of gas you are willing to pay for to
         execute this transaction.
      2. `GasUnitPrice` - You can specify a higher than minimum price per gas to be
-        executed with higher priority by the Libra network.
+        executed with higher priority by the Libra2 network.
      3. `ExpirationSeconds` - This gives a concrete time the transaction must execute
         by or it will be canceled.
 
@@ -79,7 +79,7 @@ simulating, signing, submitting, and waiting.
 
   2. Simulate (Optional)
 
-     Every transaction on the Libra chain has a gas fee associated with how much
+     Every transaction on the Libra2 chain has a gas fee associated with how much
      work the network machines have to do when executing the transaction. In order
      to estimate the cost associated with that, you can simulate transactions
      before committing them.
@@ -154,7 +154,7 @@ const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
 func example(networkConfig libra2.NetworkConfig) {
-	// Create a client for Libra
+	// Create a client for Libra2
 	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
@@ -326,4 +326,4 @@ Transactions have a couple of additional features which let them adapt to your n
 1. [Multi-Agent Signatures](/build/sdks/go-sdk/building-transactions/multi-agent-transactions) - Allowing multiple accounts to be used for a single contract.
 2. [Sponsoring Transactions](/build/sdks/go-sdk/building-transactions/sponsoring-transactions) - Have another account pay gas fees for this transaction.
 3. [Batch Submit Transactions](/build/sdks/go-sdk/building-transactions/batching-transactions) - How to send multiple transactions quickly from a single account.
-4. [Binary Canonical Serialization (BCS)](/build/sdks/go-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra transactions.
+4. [Binary Canonical Serialization (BCS)](/build/sdks/go-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra2 transactions.

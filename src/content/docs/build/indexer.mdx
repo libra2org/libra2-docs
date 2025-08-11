@@ -6,7 +6,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 import { GraphQLEditor } from '~/components/react/GraphQLEditor';
 
-We have several offerings for getting indexed data from the Libra blockchain.
+We have several offerings for getting indexed data from the Libra2 blockchain.
 
 1. Query the [Indexer API](/build/indexer/indexer-api) to get basic data about transactions, fungible assets, and tokens
 2. Index your custom contract with the [Indexer SDK](/build/indexer/indexer-sdk)
@@ -14,11 +14,11 @@ We have several offerings for getting indexed data from the Libra blockchain.
 
 ## Indexer API
 
-The Libra Indexer is an API you can use to get:
+The Libra2 Indexer is an API you can use to get:
 
 1. Aggregate data (ex. How many NFTs exist?)
 2. Historical data (ex. What transactions has this account submitted?)
-3. Data that is hard to get from the simpler [Libra Node API](/build/apis/fullnode-rest-api) (ex. What account owns a token named "ExampleToken"?).
+3. Data that is hard to get from the simpler [Libra2 Node API](/build/apis/fullnode-rest-api) (ex. What account owns a token named "ExampleToken"?).
 
 For example, you can use the Indexer API to look up the fungible asset balances of any account like so:
 
@@ -68,7 +68,7 @@ To help get you started, here are the most common queries the Indexer is used fo
 
   <LinkCard href="/build/indexer/indexer-api/account-transactions" title="Get Account Transactions" description="Get all transactions impacting an account." />
 
-  <LinkCard href="/build/indexer/indexer-api/ans-lookup" title="Get Libra Name" description="Retrieve the Libra name associated with an account (via the ANS)." />
+  <LinkCard href="/build/indexer/indexer-api/ans-lookup" title="Get Libra2 Name" description="Retrieve the Libra2 name associated with an account (via the ANS)." />
 
   <LinkCard href="/build/indexer/indexer-api/fungible-asset-info" title="Get Fungible Asset Info" description="Get detailed information about a specific fungible asset." />
 
@@ -97,7 +97,7 @@ Transaction Stream Service is a GRPC service that streams raw transactions to yo
 If you're using the Indexer SDK, you'll need an authorization token to connect to Transaction Stream Service.
 
 <CardGrid>
-  <LinkCard href="/build/indexer/txn-stream/libra2-hosted-txn-stream" title="Libra-Hosted Transaction Stream Service" description="Get access to the Libra-hosted Transaction Stream Service" />
+  <LinkCard href="/build/indexer/txn-stream/libra2-hosted-txn-stream" title="Libra2-Hosted Transaction Stream Service" description="Get access to the Libra2-hosted Transaction Stream Service" />
 </CardGrid>
 
 ## Legacy Indexer

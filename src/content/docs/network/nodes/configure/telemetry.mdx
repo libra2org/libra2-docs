@@ -4,20 +4,20 @@ title: "Telemetry"
 
 import { Aside } from '@astrojs/starlight/components';
 
-When you run a node on an Libra network, your node will send telemetry data to Libra Labs. All node types
-(e.g., validators, VFNs and PFNs) send telemetry data. This also occurs for other binaries (e.g., the Libra CLI).
+When you run a node on an Libra2 network, your node will send telemetry data to Libra2 Labs. All node types
+(e.g., validators, VFNs and PFNs) send telemetry data. This also occurs for other binaries (e.g., the Libra2 CLI).
 If you would prefer not to send telemetry, you can disable telemetry using the instructions below.
 
 <Aside type="note">
   **No personal information is collected**<br />
-  The Libra node binary does **not** collect any personal information, such as usernames or email addresses.
+  The Libra2 node binary does **not** collect any personal information, such as usernames or email addresses.
   It only collects relevant node telemetry, such as software version, node metrics, operating system information and the IP
   address of your node. This data is used to enhance the decentralization and performance of the network.
 </Aside>
 
 ## Node telemetry
 
-The list below shows the categories of information collected by Libra node telemetry:
+The list below shows the categories of information collected by Libra2 node telemetry:
 
 - **Core metrics:** Core metrics are those emitted by the core components of the `libra2-node` binary. These include,
   state sync, consensus, mempool and storage. You can see the full list of core metrics,
@@ -43,7 +43,7 @@ The list below shows the categories of information collected by Libra node telem
 
 ## CLI telemetry
 
-The Libra CLI tool also collects telemetry data. The list below shows the categories of information collected by
+The Libra2 CLI tool also collects telemetry data. The list below shows the categories of information collected by
 CLI telemetry:
 
 - **Command metrics**: Command metrics are those emitted by the CLI when a command is executed. These
@@ -57,14 +57,14 @@ CLI telemetry:
 ## Disabling telemetry
 
 On macOS and Linux, you can set the `APTOS_DISABLE_TELEMETRY` environment variable to disable the metrics sent by
-both the Libra node and the Libra CLI tool. To disable all telemetry, set `APTOS_DISABLE_TELEMETRY` environment to `true`:
+both the Libra2 node and the Libra2 CLI tool. To disable all telemetry, set `APTOS_DISABLE_TELEMETRY` environment to `true`:
 
 ```shellscript filename="Terminal"
 export APTOS_DISABLE_TELEMETRY=true
 ```
 
 The above command only disables telemetry for a single session in the current terminal where you run the command.
-To disable it permanently across all terminals and Libra binary invocations, include it in your startup profile.
+To disable it permanently across all terminals and Libra2 binary invocations, include it in your startup profile.
 For example:
 
 ```shellscript filename="Terminal"
@@ -75,12 +75,12 @@ source ~/.profile
 ## Configuring telemetry
 
 You can also configure telemetry to disable specific telemetry metrics and collections. The environment variable
-list below shows the variables you can set to configure telemetry for Libra nodes and the CLI:
+list below shows the variables you can set to configure telemetry for Libra2 nodes and the CLI:
 
 - `APTOS_DISABLE_TELEMETRY`: This disables all telemetry emission, including sending telemetry to the Google Analytics service (GA4).
-- `APTOS_FORCE_ENABLE_TELEMETRY`: This overrides the chain ID check and forces the Libra node to send telemetry regardless of whether the remote service accepts it or not.
+- `APTOS_FORCE_ENABLE_TELEMETRY`: This overrides the chain ID check and forces the Libra2 node to send telemetry regardless of whether the remote service accepts it or not.
 - `APTOS_DISABLE_TELEMETRY_PUSH_METRICS`: This disables sending [Prometheus](https://prometheus.io/) metrics.
 - `APTOS_DISABLE_TELEMETRY_PUSH_LOGS`: This disables sending logs.
 - `APTOS_DISABLE_TELEMETRY_PUSH_EVENTS`: This disables sending custom events.
 - `APTOS_DISABLE_LOG_ENV_POLLING`: This disables the dynamic ability to send verbose logs.
-- `APTOS_DISABLE_PROMETHEUS_NODE_METRICS`: This disables sending the Libra node resource metrics such as system CPU, memory, etc.
+- `APTOS_DISABLE_PROMETHEUS_NODE_METRICS`: This disables sending the Libra2 node resource metrics such as system CPU, memory, etc.

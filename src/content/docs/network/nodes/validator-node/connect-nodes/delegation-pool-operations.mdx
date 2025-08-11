@@ -7,14 +7,14 @@ title: "Delegation Pool Operations"
 
 Validator operators should follow these instructions to carry out delegation pool operations for [delegated staking](/network/blockchain/delegated-staking). You may delegate as little as 10 APT plus a small add stake fee that will be mostly refunded as rewards at the end of the current epoch. You might notice that some UIs might use 11 APT as the minimum for a round number. Note that your validator will become part of the _Active Validator Set_ only when the delegation pool satisfies the minimum cumulative [staking requirement of 1 million APT](/network/nodes/validator-node/connect-nodes/staking-pool-operations).
 
-The delegation pool owner should set an operator for the pool via the `set_operator` function described in the [Perform pool owner operations](#perform-pool-owner-operations) section. The operator should then start their own Libra node, as it is a best practice to have a different account for owner and operator. Once the delegation pool attains 1 million APT, the operator can join the validator set.
+The delegation pool owner should set an operator for the pool via the `set_operator` function described in the [Perform pool owner operations](#perform-pool-owner-operations) section. The operator should then start their own Libra2 node, as it is a best practice to have a different account for owner and operator. Once the delegation pool attains 1 million APT, the operator can join the validator set.
 
 The operator address will receive the pool commission that was set at the initialization of the delegation pool, which is automatically distributed as stake in the delegation pool at the end of each epoch. The operator will act as a normal Delegation Pool account that is able to do all the operations described in [Perform delegation pool operations](#perform-delegation-pool-operations).
 
 ## Prerequisites
 
-1. [Install and configure](/build/cli) the Libra CLI. If you are looking to develop on the Libra blockchain, debug apps, or perform node operations, the Libra tool offers a command line interface for these purposes.
-2. [Initialize local configuration and create an account](/build/cli/setup-cli) on the Libra blockchain.
+1. [Install and configure](/build/cli) the Libra2 CLI. If you are looking to develop on the Libra2 blockchain, debug apps, or perform node operations, the Libra2 tool offers a command line interface for these purposes.
+2. [Initialize local configuration and create an account](/build/cli/setup-cli) on the Libra2 blockchain.
 
 ## Initialize a delegation pool
 
@@ -49,11 +49,11 @@ Before initializing a delegation pool, you need to know the delegation pool addr
 
 4. The delegation pool can now accept a minimum amount of 10 APT from any user who wishes to delegate to it.
 
-5. The delegation pool can now [connect to the Libra Network](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
+5. The delegation pool can now [connect to the Libra2 Network](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
 
 ## Perform delegation pool operations
 
-This section describes the available operations that can be performed on this recently created pool. Once the delegation pool has been established, use the Libra CLI to operate the pool. The available actions that can be performed on it include:
+This section describes the available operations that can be performed on this recently created pool. Once the delegation pool has been established, use the Libra2 CLI to operate the pool. The available actions that can be performed on it include:
 
 - Add `amount` of coins to the delegation pool `pool_address` using the public entry method `add_stake(delegator: &signer, pool_address: address, amount u64)` and substituting your values into the command below before running it:
 
@@ -89,7 +89,7 @@ This section describes the available operations that can be performed on this re
 
 ## Perform pool owner operations
 
-Delegation pool owners have access to specific methods designed for modifying the `operator` and `voter` roles of the delegation pool. Use the following Libra CLI commands and include the relevant addresses:
+Delegation pool owners have access to specific methods designed for modifying the `operator` and `voter` roles of the delegation pool. Use the following Libra2 CLI commands and include the relevant addresses:
 
 - Set the operator address for the delegation pool:
 
@@ -134,7 +134,7 @@ Once the beneficiary address is set, the operator commission earned by the deleg
 
 ## Check delegation pool information
 
-Until the delegation pool has received 1 million APT and the validator has been added to the set of active validators, there will be no rewards to track during each cycle. In order to obtain information about a delegation pool, use the Libra [View function](/build/apis/fullnode-rest-api#reading-state-with-the-view-function)
+Until the delegation pool has received 1 million APT and the validator has been added to the set of active validators, there will be no rewards to track during each cycle. In order to obtain information about a delegation pool, use the Libra2 [View function](/build/apis/fullnode-rest-api#reading-state-with-the-view-function)
 
 - `get_owned_pool_address(owner: address): address` - Returns the address of the delegation pool belonging to the owner, or produces an error if there is no delegation pool associated with the owner.
 
@@ -152,16 +152,16 @@ Until the delegation pool has received 1 million APT and the validator has been 
 
 - `can_withdraw_pending_inactive(pool_address: address): bool` - Returns whether `pending_inactive` stake can be directly withdrawn from the delegation pool, implicitly its stake pool, in the special case the validator had gone inactive before its lockup expired.
 
-In the [Libra TypeScript SDK](/build/sdks/ts-sdk), a View function request would resemble:
+In the [Libra2 TypeScript SDK](/build/sdks/ts-sdk), a View function request would resemble:
 
 ```typescript filename="view_function.ts"
-import { Libra, LibraConfig } from "@libra2-core/ts-sdk";
+import { Libra2, Libra2Config } from "@libra2-core/ts-sdk";
 
 const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 
 (async () => {
-  const libra2Config = new LibraConfig({ fullnode: NODE_URL });
-  const libra2 = new Libra(libra2Config);
+  const libra2Config = new Libra2Config({ fullnode: NODE_URL });
+  const libra2 = new Libra2(libra2Config);
   const payload: InputViewRequestData = {
     function: "0x1::delagation_pool::get_stake",
     functionArguments: ["pool_address", "delegator_address"],
@@ -170,7 +170,7 @@ const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 })();
 ```
 
-Alternatively, you can use Libra CLI to call View functions.
+Alternatively, you can use Libra2 CLI to call View functions.
 
 ```shellscript filename="Terminal"
 libra2 move view [OPTIONS] --function-id <FUNCTION_ID>

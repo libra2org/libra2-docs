@@ -18,7 +18,7 @@ This can be used to help manage fees from a central account when working with co
          sender: sender.accountAddress,
          withFeePayer: true,
          data: {
-             // All transactions on Libra are implemented via smart contracts.
+             // All transactions on Libra2 are implemented via smart contracts.
              function: "0x1::libra2_account::transfer",
              functionArguments: [destination.accountAddress, 100],
          },
@@ -94,13 +94,13 @@ This can be used to help manage fees from a central account when working with co
 
 ```typescript filename="sponsor.ts"
 /**
- * This example shows how to use the Libra SDK to send a transaction with a sponsor.
+ * This example shows how to use the Libra2 SDK to send a transaction with a sponsor.
  */
 
 import {
     Account,
-    Libra,
-    LibraConfig,
+    Libra2,
+    Libra2Config,
     Network,
 } from "@libra2-core/ts-sdk";
 
@@ -108,8 +108,8 @@ async function example() {
     console.log("This example will send a sponsored transaction from Alice to Carol.");
 
     // 0. Setup the client and test accounts
-    const config = new LibraConfig({ network: Network.DEVNET });
-    const libra2 = new Libra(config);
+    const config = new Libra2Config({ network: Network.DEVNET });
+    const libra2 = new Libra2(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -141,7 +141,7 @@ async function example() {
         sender: alice.accountAddress,
         withFeePayer: true,
         data: {
-            // All transactions on Libra are implemented via smart contracts.
+            // All transactions on Libra2 are implemented via smart contracts.
             function: "0x1::libra2_account::transfer",
             functionArguments: [carol.accountAddress, 100],
         },

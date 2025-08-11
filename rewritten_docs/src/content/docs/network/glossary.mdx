@@ -53,10 +53,10 @@ usability with low transaction costs. The word "Libra2" means "The People" in th
 Ohlone language. Learn more about the Libra2 blockchain on
 the [official Libra2 website](https://libra2foundation.org).
 
-### LibraBFT
+### Libra2BFT
 
-- **LibraBFT** is the Libra2 protocol's BFT consensus algorithm.
-- LibraBFT is based on Jolteon.
+- **Libra2BFT** is the Libra2 protocol's BFT consensus algorithm.
+- Libra2BFT is based on Jolteon.
 
 ### Libra2 Blockchain
 
@@ -70,7 +70,7 @@ the [official Libra2 website](https://libra2foundation.org).
   that is used in place of a public key, for example _love.apt_.
 - This service also allows users to register subdomain names in addition to the
   registered domain. Find out more
-  at: [Libranames.com](https://www.libra2names.com/)
+  at: [Libra2names.com](https://www.libra2names.com/)
 
 ### Libra2 Core
 
@@ -117,21 +117,21 @@ nodes, [validators](#validator) and [fullnodes](#fullnodes).
 - **Libra2 protocol** is the specification of how transactions are submitted,
   ordered, executed, and recorded within the Libra2 network.
 
-### LibraAccount
+### Libra2Account
 
-- A **`LibraAccount`** is a Move resource that holds all the administrative data
+- A **`Libra2Account`** is a Move resource that holds all the administrative data
   associated with an account, such as sequence number, balance, and
   authentication key.
-- A **`LibraAccount`** is the only resource that every account is guaranteed to
+- A **`Libra2Account`** is the only resource that every account is guaranteed to
   contain.
 
-### LibraAccount module
+### Libra2Account module
 
-- **The LibraAccount module** is a Move module that contains the code for
-  manipulating the administrative data held in a particular `LibraAccount.T`
+- **The Libra2Account module** is a Move module that contains the code for
+  manipulating the administrative data held in a particular `Libra2Account.T`
   resource.
 - Code for checking or incrementing sequence numbers, withdrawing or depositing
-  currency, and extracting gas deposits is included in the LibraAccount module.
+  currency, and extracting gas deposits is included in the Libra2Account module.
 
 ### Libra2 Devnet
 
@@ -165,7 +165,7 @@ nodes, [validators](#validator) and [fullnodes](#fullnodes).
 - **Byzantine Fault Tolerance** (BFT) is the ability of a distributed system to
   provide safety and liveness guarantees in the presence of faulty,
   or "[Byzantine](https://en.wikipedia.org/wiki/Byzantine_fault)," validators below a certain threshold.
-- The Libra2 blockchain uses LibraBFT, a consensus protocol based
+- The Libra2 blockchain uses Libra2BFT, a consensus protocol based
   on [Jolteon](#jolteon).
 - BFT algorithms typically operate with a number of entities, collectively
   holding $N$ votes (which are called "validators" in the Libra2 network’s
@@ -259,7 +259,7 @@ nodes, [validators](#validator) and [fullnodes](#fullnodes).
 - An **event** is the user-facing representation of the effects of executing a
   transaction.
 - A transaction may be designed to emit any number of events as a list. For
-  example, a `Coin<LibraCoin>` transfer emits a `WithdrawEvent` for the sender
+  example, a `Coin<Libra2Coin>` transfer emits a `WithdrawEvent` for the sender
   account and a `DepositEvent` for the recipient account.
 - In the Libra2 protocol, events provide evidence that the successful execution
   of a transaction resulted in a specific effect. The `DepositEvent` (in the
@@ -377,7 +377,7 @@ See [Gas and Storage Fees](/network/blockchain/gas-txn-fee) for more information
 
 - **Jolteon** is a recent proposal for a [BFT](#byzantine-fault-tolerance-bft)
   consensus protocol.
-- LibraBFT, the Libra2 network's consensus algorithm, is based on Jolteon.
+- Libra2BFT, the Libra2 network's consensus algorithm, is based on Jolteon.
 - It simplifies the reasoning about safety, and it addresses some performance
   limitations of previous consensus protocols. In particular, it reduces latency
   by 33% compared to HotStuff.

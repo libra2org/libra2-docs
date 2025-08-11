@@ -1,10 +1,10 @@
 ---
-title: "Quickstart Guide on Libra Indexer SDK"
+title: "Quickstart Guide on Libra2 Indexer SDK"
 ---
 
 ## What to expect from this guide
 
-This guide will walk you through setting up and running a Rust processor to index events on the Libra blockchain into PostgreSQL.
+This guide will walk you through setting up and running a Rust processor to index events on the Libra2 blockchain into PostgreSQL.
 We provide a template processor that you can customize to index events from your custom contracts.
 By the end of the guide, you should have a basic understanding of how a processor works and be able to customize the processor for your indexing needs.
 
@@ -227,7 +227,7 @@ cd examples/postgres-basic-events-example
 cargo run --release -- -c config.yaml
 ```
 
-You should see the processor start to index Libra blockchain events!
+You should see the processor start to index Libra2 blockchain events!
 
 ```text
 {"timestamp":"2024-08-15T01:06:35.169217Z","level":"INFO","message":"[Transaction Stream] Received transactions from GRPC.","stream_address":"https://grpc.testnet.libra2labs.com/","connection_id":"5575cb8c-61fb-498f-aaae-868d1e8773ac","start_version":0,"end_version":4999,"start_txn_timestamp_iso":"1970-01-01T00:00:00.000000000Z","end_txn_timestamp_iso":"2022-09-09T01:49:02.023089000Z","num_of_transactions":5000,"size_in_bytes":5708539,"duration_in_secs":0.310734,"tps":16078,"bytes_per_sec":18371143.80788713,"filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e1e1bdd/rust/transaction-stream/src/transaction_stream.rs","line_number":400,"threadName":"tokio-runtime-worker","threadId":"ThreadId(6)"}
