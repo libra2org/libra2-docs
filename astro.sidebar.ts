@@ -103,16 +103,16 @@ export const sidebar = [
   // --- SDKS & TOOLS Tab (Focus: Tools & APIs for Integration) ---
   group("sdksAndTools", {
     items: [
-      // Aptos APIs
+      // Libra2 APIs
       {
-        label: "Aptos APIs",
+        label: "Libra2 APIs",
         collapsed: true,
         items: [
           "build/apis",
           "build/apis/fullnode-rest-api",
           "build/apis/faucet-api",
           "build/apis/data-providers",
-          "build/apis/aptos-labs-developer-portal",
+          "build/apis/libra2-core-developer-portal",
         ],
       },
 
