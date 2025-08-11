@@ -133,7 +133,7 @@ export default defineConfig({
                   {
                     base: "rest-api",
                     label: "REST API Reference",
-                    schema: "./public/aptos-spec.json",
+                    schema: "./public/libra2-spec.json",
                     sidebarMethodBadges: true,
                   },
                 ],
