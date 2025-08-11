@@ -15,17 +15,17 @@ import { Aside } from '@astrojs/starlight/components';
    - 运行此命令下载创世区块(genesis blob)文件(对于主网):
 
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/genesis.blob
+     curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/genesis.blob
      ```
 
    - 运行此命令下载路标(waypoint)文件(对于主网):
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/waypoint.txt
+     curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/waypoint.txt
      ```
 
    <Aside type="caution">
      **不想连接到主网?**<br />
-     要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在这里找到创世区块和路标文件 ➜ https://github.com/libra2org/aptos-networks
+     要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在这里找到创世区块和路标文件 ➜ https://github.com/libra2org/libra2-networks
      请确保下载这些网络的 `genesis.blob` 和 `waypoint.txt`,而不是使用上面`curl`命令直接下载的创世区块和路标文件.
    </Aside>
 
@@ -61,12 +61,12 @@ import { Aside } from '@astrojs/starlight/components';
 6. 通过运行下面的命令启动您的本地公共全节点:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node --release -- -f ./fullnode.yaml
+cargo run -p libra2-node --release -- -f ./fullnode.yaml
 ```
 
 <Aside type="note">
   **调试?**<br />
-  上面的命令将在:`libra2-core/target/release/aptos-node` 构建 `aptos-node` 的二进制发行文件.二进制发行文件通常比二进制调试文件快得多,但缺乏对开发有用的调试信息.
+  上面的命令将在:`libra2-core/target/release/libra2-node` 构建 `libra2-node` 的二进制发行文件.二进制发行文件通常比二进制调试文件快得多,但缺乏对开发有用的调试信息.
   要构建二进制调试文件,请省略上面的命令中的 `--release` 标志.
 </Aside>
 

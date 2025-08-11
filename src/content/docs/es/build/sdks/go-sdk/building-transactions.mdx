@@ -10,7 +10,7 @@ simular, firmar, enviar y esperar.
 
 <Aside type="note">
   Para estos ejemplos, `client` es una instancia del
-  objeto [`Client`](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk#Client).
+  objeto [`Client`](https://pkg.go.dev/github.com/libra2org/libra2-go-sdk#Client).
 </Aside>
 
 <Steps>
@@ -40,14 +40,14 @@ simular, firmar, enviar y esperar.
      if err != nil {
          panic("Failed to serialize transfer amount:" + err.Error())
      }
-     rawTxn, err := client.BuildTransaction(alice.AccountAddress(), aptos.TransactionPayload{
-         Payload: &aptos.EntryFunction{
-             Module: aptos.ModuleId{
-                 Address: aptos.AccountOne,
-                 Name:    "aptos_account",
+     rawTxn, err := client.BuildTransaction(alice.AccountAddress(), libra2.TransactionPayload{
+         Payload: &libra2.EntryFunction{
+             Module: libra2.ModuleId{
+                 Address: libra2.AccountOne,
+                 Name:    "libra2_account",
              },
              Function: "transfer",
-             ArgTypes: []aptos.TypeTag{},
+             ArgTypes: []libra2.TypeTag{},
              Args: [][]byte{
                  accountBytes,
                  amountBytes,
@@ -89,7 +89,7 @@ simular, firmar, enviar y esperar.
      </Aside>
 
      Puedes ejecutar la simulación usando
-     `aptos.SimulateTransaction` así:
+     `libra2.SimulateTransaction` así:
 
      ```go filename="build_a_transaction.go"
      // 2. Simular transacción (opcional)
@@ -143,27 +143,27 @@ package main
 import (
 	"fmt"
 
-	"github.com/libra2org/aptos-go-sdk"
-	"github.com/libra2org/aptos-go-sdk/bcs"
+	"github.com/libra2org/libra2-go-sdk"
+	"github.com/libra2org/libra2-go-sdk/bcs"
 )
 
 const FundAmount = 100_000_000
 const TransferAmount = 1_000
 
 // example Este ejemplo muestra cómo hacer una transacción de transferencia de APT en la forma más simple posible
-func example(networkConfig aptos.NetworkConfig) {
+func example(networkConfig libra2.NetworkConfig) {
 	// Crear un cliente para Libra
-	client, err := aptos.NewClient(networkConfig)
+	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
 	}
 
 	// Crear cuentas localmente para alice y bob
-	alice, err := aptos.NewEd25519Account()
+	alice, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create alice:" + err.Error())
 	}
-	bob, err := aptos.NewEd25519Account()
+	bob, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create bob:" + err.Error())
 	}
@@ -200,14 +200,14 @@ func example(networkConfig aptos.NetworkConfig) {
 	if err != nil {
 		panic("Failed to serialize transfer amount:" + err.Error())
 	}
-	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), aptos.TransactionPayload{
-		Payload: &aptos.EntryFunction{
-			Module: aptos.ModuleId{
-				Address: aptos.AccountOne,
-				Name:    "aptos_account",
+	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), libra2.TransactionPayload{
+		Payload: &libra2.EntryFunction{
+			Module: libra2.ModuleId{
+				Address: libra2.AccountOne,
+				Name:    "libra2_account",
 			},
 			Function: "transfer",
-			ArgTypes: []aptos.TypeTag{},
+			ArgTypes: []libra2.TypeTag{},
 			Args: [][]byte{
 				accountBytes,
 				amountBytes,
@@ -266,14 +266,14 @@ func example(networkConfig aptos.NetworkConfig) {
 	fmt.Printf("Bob:%d\n", bobBalance)
 
 	// Ahora hazlo de nuevo, pero con un método diferente
-	resp, err := client.BuildSignAndSubmitTransaction(alice, aptos.TransactionPayload{
-		Payload: &aptos.EntryFunction{
-			Module: aptos.ModuleId{
-				Address: aptos.AccountOne,
-				Name:    "aptos_account",
+	resp, err := client.BuildSignAndSubmitTransaction(alice, libra2.TransactionPayload{
+		Payload: &libra2.EntryFunction{
+			Module: libra2.ModuleId{
+				Address: libra2.AccountOne,
+				Name:    "libra2_account",
 			},
 			Function: "transfer",
-			ArgTypes: []aptos.TypeTag{},
+			ArgTypes: []libra2.TypeTag{},
 			Args: [][]byte{
 				accountBytes,
 				amountBytes,
@@ -303,7 +303,7 @@ func example(networkConfig aptos.NetworkConfig) {
 }
 
 func main() {
-	example(aptos.DevnetConfig)
+	example(libra2.DevnetConfig)
 }
 ```
 

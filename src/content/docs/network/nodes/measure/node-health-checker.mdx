@@ -12,7 +12,7 @@ This document describes how to run NHC locally when you are operating a node.
 
 <Aside type="note">
   If you don't want to run the NHC service yourself, you can use the
-  [publicly available NHC service](https://nodetools.aptosfoundation.org/#/node_checker) run by the Libra Foundation.
+  [publicly available NHC service](https://nodetools.libra2foundation.org/#/node_checker) run by the Libra Foundation.
 </Aside>
 
 ## Quickstart
@@ -37,7 +37,7 @@ Before you get into the details of how NHC works, you can run the below steps to
      Start the NHC service by providing the above-downloaded `devnet_fullnode.yaml` baseline configuration YAML file:
 
      ```shellscript filename="Terminal"
-     docker run -v /tmp/nhc:/nhc -p 20121:20121 -t aptoslabs/node-checker:nightly /usr/local/bin/aptos-node-checker server run --baseline-config-paths /nhc/devnet_fullnode.yaml
+     docker run -v /tmp/nhc:/nhc -p 20121:20121 -t libra2labs/node-checker:nightly /usr/local/bin/libra2-node-checker server run --baseline-config-paths /nhc/devnet_fullnode.yaml
      ```
 
   3. Send a request to NHC service
@@ -100,7 +100,7 @@ You will download the baseline configuration YAML before running the NHC service
 When you send requests to the NHC service, you must include a baseline configuration. For example, a request to NHC to use `devnet_fullnode` as the baseline configuration will look like this:
 
 ```shellscript filename="Terminal"
-curl 'http://nhc.aptoslabs.com/check?node_url=http://myfullnode.mysite.com&baseline_configuration_id=devnet_fullnode'
+curl 'http://nhc.libra2labs.com/check?node_url=http://myfullnode.mysite.com&baseline_configuration_id=devnet_fullnode'
 ```
 
 ### Getting baseline configurations ready
@@ -134,7 +134,7 @@ For some NHC configurations, you will need accompanying files, e.g., `mint.key` 
 When you are ready with baseline configuration YAML and the required files, you can run the NHC server with a command like this, for example, with Docker:
 
 ```shellscript filename="Terminal"
-docker run -v /etc/nhc:/etc/nhc -p 20121:20121 -t aptoslabs/node-checker:nightly /usr/local/bin/aptos-node-checker server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml /tmp/nhc/testnet_fullnode.yaml /tmp/nhc/mainnet/fullnode.yaml
+docker run -v /etc/nhc:/etc/nhc -p 20121:20121 -t libra2labs/node-checker:nightly /usr/local/bin/libra2-node-checker server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml /tmp/nhc/testnet_fullnode.yaml /tmp/nhc/mainnet/fullnode.yaml
 ```
 
 <Aside type="note">
@@ -155,7 +155,7 @@ Depending on your setup, you may want to check out a particular branch, to ensur
 Run NHC:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node-checker --release -- server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml
+cargo run -p libra2-node-checker --release -- server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml
 ```
 
 ## Generating the OpenAPI specs

@@ -6,7 +6,7 @@ import { GraphQLEditor } from '~/components/react/GraphQLEditor';
 
 import { Aside } from '@astrojs/starlight/components';
 
-`getNameFromAddress` busca un nombre de dominio registrado para una cuenta dada. Por ejemplo, un usuario podría registrar su cuenta con el Servicio de Nombres de Libra para estar asociado a `love.apt`. Puedes aprender más yendo a https://www.aptosnames.com/.
+`getNameFromAddress` busca un nombre de dominio registrado para una cuenta dada. Por ejemplo, un usuario podría registrar su cuenta con el Servicio de Nombres de Libra para estar asociado a `love.apt`. Puedes aprender más yendo a https://www.libra2names.com/.
 
 <Aside type="caution">
   Esto solo devuelve nombres _activos_. Los registros de nombres pueden expirar si no se renuevan, lo que puede explicar algunos resultados vacíos.
@@ -18,7 +18,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 <GraphQLEditor
   query={`query getNameFromAddress($registered_address: String) {
-  current_aptos_names(
+  current_libra2_names(
     where: {
       registered_address: { _eq: $registered_address }
       is_active: { _eq: true }

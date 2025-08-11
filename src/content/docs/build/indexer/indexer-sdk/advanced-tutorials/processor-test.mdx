@@ -38,7 +38,7 @@ Type of Scenarios it Supports:
    - Start Docker Desktop if it's not running
 2. Identify the transactions to test.
    - Use imported transactions or write your own custom Move scripts to generate test transactions. Refer to [Importing Transaction Guide](/build/indexer/indexer-sdk/advanced-tutorials/txn-importer) and [Generating Transaction using Move Script Guide](/build/indexer/indexer-sdk/advanced-tutorials/txn-script) for detailed instructions.
-3. Import aptos-indexer-testing-framework to your Cargo.toml
+3. Import libra2-indexer-testing-framework to your Cargo.toml
 
 <Aside type="note"> - This tutorial assumes you are using Postgres as the database. </Aside>
 
@@ -46,7 +46,7 @@ Type of Scenarios it Supports:
   - Replace PostgreSQL-specific code with relevant database code you intend to use (e.g., MySQL).
   - Update schema initialization and query methods.
 - **References to Processor Tests**:
-  - Example: [Event Processor Tests](https://github.com/libra2org/aptos-indexer-processors/blob/main/rust/integration-tests/src/sdk_tests/events_processor_tests.rs#L139).
+  - Example: [Event Processor Tests](https://github.com/libra2org/libra2-indexer-processors/blob/main/rust/integration-tests/src/sdk_tests/events_processor_tests.rs#L139).
 
 ## Steps to Write a Test
 
@@ -148,7 +148,7 @@ Note: Replace `DefaultProcessor` with the processor you are testing.
 
 ### 4. Setup a Query
 
-Set up a query to load data from the local database and compare it with expected results, see [example loading function](https://github.com/libra2org/aptos-indexer-processors/blob/a8f9c5915f4e3f1f596ed3412b8eb01feca1aa7b/rust/integration-tests/src/diff_test_helper/default_processor.rs#L45)
+Set up a query to load data from the local database and compare it with expected results, see [example loading function](https://github.com/libra2org/libra2-indexer-processors/blob/a8f9c5915f4e3f1f596ed3412b8eb01feca1aa7b/rust/integration-tests/src/diff_test_helper/default_processor.rs#L45)
 
 ### 5. Setup a Test Context run function
 

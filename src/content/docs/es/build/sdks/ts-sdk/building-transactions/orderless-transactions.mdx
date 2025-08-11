@@ -26,11 +26,11 @@ Por ejemplo, para crear una transacción de firma única que use transacciones s
 especifica el `nonce` en el método `build.simple` así:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.simple({
+const transaction = await libra2.transaction.build.simple({
   sender: sender.accountAddress,
   data: {
 	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -43,12 +43,12 @@ De manera similar, si estás construyendo una transacción multi-agente, puedes 
 `replayProtectionNonce` en el método `build.multiAgent`:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.multiAgent({
+const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   secondarySignerAddresses: [bob.accountAddress], // Lista de firmantes secundarios
   data: {
 	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -61,12 +61,12 @@ Y lo mismo si estás construyendo una transacción patrocinada, puedes especific
 `replayProtectionNonce` en el método `build.multiAgent`:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.multiAgent({
+const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   withFeePayer: true, // Esto indica que la transacción será patrocinada.
   data: {
 	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -92,4 +92,4 @@ Después de eso, simplemente sigue los mismos pasos que harías para una transac
 
 ### Ejemplos
 
-- [Ejemplo del SDK de TS](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)
+- [Ejemplo del SDK de TS](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)

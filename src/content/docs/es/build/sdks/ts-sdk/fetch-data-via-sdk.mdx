@@ -4,27 +4,27 @@ title: "Obtener Datos via SDK"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Puedes usar el cliente `Libra` para obtener datos de la cadena usando una variedad de funciones de ayuda. Específicamente, muchas de las funciones listadas en la documentación de referencia [aquí](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) que comienzan con `get...` recuperarán datos de la cadena.
+Puedes usar el cliente `Libra` para obtener datos de la cadena usando una variedad de funciones de ayuda. Específicamente, muchas de las funciones listadas en la documentación de referencia [aquí](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) que comienzan con `get...` recuperarán datos de la cadena.
 
 Aquí hay un ejemplo mostrando cómo obtener datos comunes que puedes necesitar en tu aplicación:
 
 ```typescript filename="fetch-data.ts"
-const aptosConfig = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(aptosConfig);
+const libra2Config = new LibraConfig({ network: Network.DEVNET });
+const libra2 = new Libra(libra2Config);
 
-const fund = await aptos.getAccountInfo({ accountAddress: "0x123" });
-const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+const fund = await libra2.getAccountInfo({ accountAddress: "0x123" });
+const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
 ```
 
 <Aside type="note">
   Muchas consultas tienen un parámetro llamado `options` para personalizar los resultados, úsalo para obtener específicamente lo que estás buscando.
 </Aside>
 
-El cliente `Libra` puede por defecto consultar tanto datos de red desde [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) como la API del [Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada para datos de la API del Indexador, puedes usar `aptos.queryIndexer` así:
+El cliente `Libra` puede por defecto consultar tanto datos de red desde [fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) como la API del [Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql) que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada para datos de la API del Indexador, puedes usar `libra2.queryIndexer` así:
 
 ```typescript filename="fetch-data.ts"
-  const ledgerInfo = await aptos.queryIndexer({
+  const ledgerInfo = await libra2.queryIndexer({
     query: {
       query: `
         query MyQuery {
@@ -44,9 +44,9 @@ Algunas consultas son intencionalmente amplias, pero esto puede hacer difícil i
 ```typescript filename="fetch-data.ts"
 type Coin = { coin: { value: string } };
 
-const resource = await aptos.getAccountResource<Coin>({
+const resource = await libra2.getAccountResource<Coin>({
   accountAddress: testAccount.accountAddress,
-  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+  resourceType: "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
 });
 
 // Ahora tienes acceso a la propiedad del tipo de respuesta
@@ -55,7 +55,7 @@ const value = resource.coin.value;
 
 ## Usando Funciones de Vista Move
 
-Puedes llamar funciones de vista que retornan datos personalizados de la cadena usando `aptos.view`.
+Puedes llamar funciones de vista que retornan datos personalizados de la cadena usando `libra2.view`.
 
 Por ejemplo, puedes buscar la red que estás usando con la función de vista `chain_id`:
 
@@ -64,7 +64,7 @@ const payload: InputViewFunctionData = {
   function: "0x1::chain_id::get",
 };
 
-const chainId = (await aptos.view({ payload }))[0];
+const chainId = (await libra2.view({ payload }))[0];
 ```
 
 ## Asegurar Datos Frescos del Indexador
@@ -75,9 +75,9 @@ Si quieres asegurar que los datos estén frescos, puedes especificar el `minimum
 
 ```typescript filename="fetch-data.ts"
 // Obtener el número de versión del ledger más reciente
-const ledgerVersion = await aptos.getLedgerInfo().ledger_version;
+const ledgerVersion = await libra2.getLedgerInfo().ledger_version;
 
-const tokens = await aptos.getAccountOwnedTokens({
+const tokens = await libra2.getAccountOwnedTokens({
   accountAddress: alice.accountAddress,
   minimumLedgerVersion: BigInt(response.version),
 });
@@ -87,12 +87,12 @@ También puedes asegurar que tu solicitud tenga los datos de una transacción qu
 
 ```typescript filename="fetch-data.ts"
 // Esperar una transacción que acabas de enviar
-const response = await aptos.waitForTransaction({
+const response = await libra2.waitForTransaction({
   transactionHash: pendingTransaction.hash,
 });
 
 // Luego buscar cómo esa transacción afectó la cuenta de alice
-const tokens = await aptos.getAccountOwnedTokens({
+const tokens = await libra2.getAccountOwnedTokens({
   accountAddress: alice.accountAddress,
   minimumLedgerVersion: BigInt(response.version),
 });

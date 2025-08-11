@@ -26,7 +26,7 @@ const labels = {
   // Sub-Grupos de Contratos Inteligentes y Move
   "smartContracts.group.moveBook": "Libro de Move",
   "smartContracts.group.development": "Desarrollo",
-  "smartContracts.group.aptosFeatures": "Características de Move en Libra",
+  "smartContracts.group.libra2Features": "Características de Move en Libra",
   "smartContracts.group.tooling": "Herramientas",
   "smartContracts.group.reference": "Referencia de Move",
 

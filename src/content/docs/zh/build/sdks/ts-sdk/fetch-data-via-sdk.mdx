@@ -4,27 +4,27 @@ title: "通过 SDK 获取数据"
 
 import { Aside } from '@astrojs/starlight/components';
 
-你可以使用 `Libra` 客户端通过多种辅助函数获取链上数据.具体来说,参考文档[此处](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html)列出的许多以 `get...` 开头的函数都可以从链上检索数据.
+你可以使用 `Libra` 客户端通过多种辅助函数获取链上数据.具体来说,参考文档[此处](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html)列出的许多以 `get...` 开头的函数都可以从链上检索数据.
 
 以下示例展示了如何获取应用程序中可能需要的常见数据:
 
 ```typescript filename="fetch-data.ts"
-const aptosConfig = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(aptosConfig);
+const libra2Config = new LibraConfig({ network: Network.DEVNET });
+const libra2 = new Libra(libra2Config);
 
-const fund = await aptos.getAccountInfo({ accountAddress: "0x123" });
-const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+const fund = await libra2.getAccountInfo({ accountAddress: "0x123" });
+const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
 ```
 
 <Aside type="note">
   许多查询都有一个名为 `options` 的参数用于自定义结果,使用它来精确获取你需要的内容.
 </Aside>
 
-`Libra` 客户端开箱即用地支持查询来自[全节点](https://api.mainnet.aptoslabs.com/v1/spec#/)的网络数据和包含聚合丰富数据的[索引器](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) API.如果你想对索引器 API 数据使用自定义查询,可以像这样使用 `aptos.queryIndexer`:
+`Libra` 客户端开箱即用地支持查询来自[全节点](https://api.mainnet.libra2labs.com/v1/spec#/)的网络数据和包含聚合丰富数据的[索引器](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql) API.如果你想对索引器 API 数据使用自定义查询,可以像这样使用 `libra2.queryIndexer`:
 
 ```typescript filename="fetch-data.ts"
-  const ledgerInfo = await aptos.queryIndexer({
+  const ledgerInfo = await libra2.queryIndexer({
     query: {
       query: `
         query MyQuery {
@@ -44,9 +44,9 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
 ```typescript filename="fetch-data.ts"
 type Coin = { coin: { value: string } };
 
-const resource = await aptos.getAccountResource<Coin>({
+const resource = await libra2.getAccountResource<Coin>({
   accountAddress: testAccount.accountAddress,
-  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+  resourceType: "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
 });
 
 // 现在你可以访问响应类型属性
@@ -55,7 +55,7 @@ const value = resource.coin.value;
 
 ## 使用 Move 视图函数
 
-你可以通过 `aptos.view` 调用返回链上自定义数据的视图函数.
+你可以通过 `libra2.view` 调用返回链上自定义数据的视图函数.
 
 例如,你可以使用 `chain_id` 视图函数查询当前使用的网络:
 
@@ -64,7 +64,7 @@ const payload: InputViewFunctionData = {
   function: "0x1::chain_id::get",
 };
 
-const chainId = (await aptos.view({ payload }))[0];
+const chainId = (await libra2.view({ payload }))[0];
 ```
 
 ## 确保索引器数据新鲜度
@@ -75,9 +75,9 @@ const chainId = (await aptos.view({ payload }))[0];
 
 ```typescript filename="fetch-data.ts"
 // 获取最新的账本版本号
-const ledgerVersion = await aptos.getLedgerInfo().ledger_version;
+const ledgerVersion = await libra2.getLedgerInfo().ledger_version;
 
-const tokens = await aptos.getAccountOwnedTokens({
+const tokens = await libra2.getAccountOwnedTokens({
   accountAddress: alice.accountAddress,
   minimumLedgerVersion: BigInt(response.version),
 });
@@ -87,12 +87,12 @@ const tokens = await aptos.getAccountOwnedTokens({
 
 ```typescript filename="fetch-data.ts"
 // 等待你刚提交的交易
-const response = await aptos.waitForTransaction({
+const response = await libra2.waitForTransaction({
   transactionHash: pendingTransaction.hash,
 });
 
 // 然后查询该交易如何影响 alice 的账户
-const tokens = await aptos.getAccountOwnedTokens({
+const tokens = await libra2.getAccountOwnedTokens({
   accountAddress: alice.accountAddress,
   minimumLedgerVersion: BigInt(response.version),
 });

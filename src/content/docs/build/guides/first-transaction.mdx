@@ -90,7 +90,7 @@ This tutorial will guide you through creating and submitting your first transact
          Install the Python SDK using pip:
 
          ```shellscript filename="Terminal"
-         pip install aptos-sdk
+         pip install libra2-sdk
          ```
 
       2. Create a project directory
@@ -145,7 +145,7 @@ This tutorial will guide you through creating and submitting your first transact
          async function main() {
            // Initialize the Libra client
            const config = new LibraConfig({ network: Network.DEVNET });
-           const aptos = new Libra(config);
+           const libra2 = new Libra(config);
 
            console.log("Connected to Libra devnet");
 
@@ -156,7 +156,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full TypeScript SDK source code in the [aptos-ts-sdk repository](https://github.com/libra2org/aptos-ts-sdk).
+           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full TypeScript SDK source code in the [libra2-ts-sdk repository](https://github.com/libra2org/libra2-ts-sdk).
          </Aside>
 
       2. Generate accounts
@@ -184,17 +184,17 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // Fund the accounts with test APT from the devnet faucet
          console.log("\n=== Funding accounts ===");
-         await aptos.fundAccount({
+         await libra2.fundAccount({
            accountAddress: alice.accountAddress,
            amount: 100_000_000, // 1 APT = 100,000,000 octas
          });
          console.log("Accounts funded successfully");
 
          // Check initial balances
-         const aliceBalance = await aptos.getAccountAPTAmount({
+         const aliceBalance = await libra2.getAccountAPTAmount({
            accountAddress: alice.accountAddress,
          });
-         const bobBalance = await aptos.getAccountAPTAmount({
+         const bobBalance = await libra2.getAccountAPTAmount({
            accountAddress: bob.accountAddress,
          });
 
@@ -243,15 +243,15 @@ This tutorial will guide you through creating and submitting your first transact
 
          ```python filename="transaction.py"
          import asyncio
-         from aptos_sdk.account import Account
-         from aptos_sdk.async_client import FaucetClient, RestClient
-         from aptos_sdk.transactions import EntryFunction, TransactionPayload, TransactionArgument, RawTransaction
-         from aptos_sdk.bcs import Serializer
+         from libra2_sdk.account import Account
+         from libra2_sdk.async_client import FaucetClient, RestClient
+         from libra2_sdk.transactions import EntryFunction, TransactionPayload, TransactionArgument, RawTransaction
+         from libra2_sdk.bcs import Serializer
          import time
 
          # Network configuration
-         NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1"
-         FAUCET_URL = "https://faucet.devnet.aptoslabs.com"
+         NODE_URL = "https://fullnode.devnet.libra2labs.com/v1"
+         FAUCET_URL = "https://faucet.devnet.libra2labs.com"
 
          async def main():
              # Initialize the clients
@@ -267,7 +267,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full Python SDK source code in the [aptos-python-sdk repository](https://github.com/libra2org/aptos-python-sdk).
+           We're connecting to the Libra devnet, which is a test network where you can experiment without using real coins. The devnet is reset periodically, so don't store anything important there. You can explore the full Python SDK source code in the [libra2-python-sdk repository](https://github.com/libra2org/libra2-python-sdk).
          </Aside>
 
       2. Generate accounts
@@ -374,10 +374,10 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // 1. Build the transaction
          console.log("\n=== 1. Building the transaction ===");
-         const transaction = await aptos.transaction.build.simple({
+         const transaction = await libra2.transaction.build.simple({
            sender: alice.accountAddress,
            data: {
-             function: "0x1::aptos_account::transfer",
+             function: "0x1::libra2_account::transfer",
              functionArguments: [bob.accountAddress, 1000], // Transfer 1000 octas
            },
          });
@@ -393,7 +393,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The function `0x1::aptos_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move) to perform the actual transfer.
+           The function `0x1::libra2_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
          </Aside>
     </Steps>
   </TabItem>
@@ -430,7 +430,7 @@ This tutorial will guide you through creating and submitting your first transact
          # Create the entry function payload
          # This specifies which function to call and with what arguments
          entry_function = EntryFunction.natural(
-             "0x1::aptos_account",  # Module address and name
+             "0x1::libra2_account",  # Module address and name
              "transfer",            # Function name
              [],                    # Type arguments (empty for this function)
              [
@@ -467,7 +467,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The function `0x1::aptos_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move) to perform the actual transfer.
+           The function `0x1::libra2_account::transfer` is a built-in function in the Libra framework that transfers coins between accounts. The `0x1` prefix indicates it's part of the core framework. Behind the scenes, this function calls the [Coin Move module source code](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move) to perform the actual transfer.
 
            The Python SDK uses several key components to construct transactions:
 
@@ -496,7 +496,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // 2. Simulate the transaction
          console.log("\n=== 2. Simulating the transaction ===");
-         const [simulationResult] = await aptos.transaction.simulate.simple({
+         const [simulationResult] = await libra2.transaction.simulate.simple({
            signerPublicKey: alice.publicKey,
            transaction,
          });
@@ -566,7 +566,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // 3. Sign the transaction
          console.log("\n=== 3. Signing the transaction ===");
-         const senderAuthenticator = aptos.transaction.sign({
+         const senderAuthenticator = libra2.transaction.sign({
            signer: alice,
            transaction,
          });
@@ -584,7 +584,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // 4. Submit the transaction
          console.log("\n=== 4. Submitting the transaction ===");
-         const pendingTransaction = await aptos.transaction.submit.simple({
+         const pendingTransaction = await libra2.transaction.submit.simple({
            transaction,
            senderAuthenticator,
          });
@@ -592,7 +592,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.aptoslabs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
+           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
          </Aside>
     </Steps>
   </TabItem>
@@ -644,7 +644,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.aptoslabs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
+           The transaction hash is a unique identifier for your transaction, similar to a tracking number for a package. When submitting a transaction, the Libra blockchain performs several validation checks, including verifying the transaction signature and ensuring the sequence number hasn't been used before (preventing replay attacks). You can use the hash to check the status of your transaction on the [Libra Explorer](https://explorer.libra2labs.com/) or via the [REST API](/build/apis/fullnode-rest-api).
          </Aside>
     </Steps>
   </TabItem>
@@ -664,7 +664,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```typescript filename="transaction.ts"
          // 5. Wait for the transaction to complete
          console.log("\n=== 5. Waiting for transaction completion ===");
-         const txnResult = await aptos.waitForTransaction({
+         const txnResult = await libra2.waitForTransaction({
            transactionHash: pendingTransaction.hash,
          });
          console.log(`Transaction completed with status: ${txnResult.success ? "SUCCESS" : "FAILURE"}`);
@@ -680,10 +680,10 @@ This tutorial will guide you through creating and submitting your first transact
 
          ```typescript filename="transaction.ts"
          // Check final balances
-         const aliceFinalBalance = await aptos.getAccountAPTAmount({
+         const aliceFinalBalance = await libra2.getAccountAPTAmount({
            accountAddress: alice.accountAddress,
          });
-         const bobFinalBalance = await aptos.getAccountAPTAmount({
+         const bobFinalBalance = await libra2.getAccountAPTAmount({
            accountAddress: bob.accountAddress,
          });
 
@@ -743,7 +743,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>`) and reads the current stored value. This demonstrates how the SDK abstracts away complex blockchain interactions into simple function calls.
+           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>`) and reads the current stored value. This demonstrates how the SDK abstracts away complex blockchain interactions into simple function calls.
          </Aside>
     </Steps>
   </TabItem>
@@ -844,7 +844,7 @@ This tutorial will guide you through creating and submitting your first transact
          ```
 
          <Aside type="note">
-           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>`) and reads the current stored value.
+           Notice that Alice's balance decreased by more than 1000 octas. The extra amount is the gas fee paid to process the transaction. Behind the scenes, when checking balances, the SDK queries the CoinStore resource for the LibraCoin (`0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>`) and reads the current stored value.
          </Aside>
     </Steps>
   </TabItem>
@@ -865,7 +865,7 @@ Now that you've successfully executed a transaction, you can explore it on the L
 
   2. Open the Libra Explorer
 
-     Go to the [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet).
+     Go to the [Libra Explorer](https://explorer.libra2labs.com/?network=devnet).
 
   3. Ensure you are on Devnet network
 
@@ -925,7 +925,7 @@ Congratulations! You've successfully created and executed your first transaction
 - [Your First Move Module](/build/guides/first-move-module) - Create your own smart contract
 - [Account Basics](/network/blockchain/accounts)
 
-[Join the Libra Discord](https://discord.gg/aptoslabs) and share what you're building!
+[Join the Libra Discord](https://discord.gg/libra2labs) and share what you're building!
 
 ## Full Code Sample
 
@@ -939,7 +939,7 @@ The complete code samples below combine all the snippets we've covered in this t
     async function main() {
       // Initialize the Libra client
       const config = new LibraConfig({ network: Network.DEVNET });
-      const aptos = new Libra(config);
+      const libra2 = new Libra(config);
 
       console.log("Connected to Libra devnet");
 
@@ -954,21 +954,21 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // Fund the accounts with test APT from the devnet faucet
       console.log("\n=== Funding accounts ===");
-      await aptos.fundAccount({
+      await libra2.fundAccount({
         accountAddress: alice.accountAddress,
         amount: 100_000_000, // 1 APT = 100,000,000 octas
       });
-      await aptos.fundAccount({
+      await libra2.fundAccount({
         accountAddress: bob.accountAddress,
         amount: 0, // Bob starts with 0 APT
       });
       console.log("Accounts funded successfully");
 
       // Check initial balances
-      const aliceBalance = await aptos.getAccountAPTAmount({
+      const aliceBalance = await libra2.getAccountAPTAmount({
         accountAddress: alice.accountAddress,
       });
-      const bobBalance = await aptos.getAccountAPTAmount({
+      const bobBalance = await libra2.getAccountAPTAmount({
         accountAddress: bob.accountAddress,
       });
 
@@ -978,10 +978,10 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // 1. Build the transaction
       console.log("\n=== 1. Building the transaction ===");
-      const transaction = await aptos.transaction.build.simple({
+      const transaction = await libra2.transaction.build.simple({
         sender: alice.accountAddress,
         data: {
-          function: "0x1::aptos_account::transfer",
+          function: "0x1::libra2_account::transfer",
           functionArguments: [bob.accountAddress, 1000], // Transfer 1000 octas
         },
       });
@@ -1000,7 +1000,7 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // 2. Simulate the transaction
       console.log("\n=== 2. Simulating the transaction ===");
-      const [simulationResult] = await aptos.transaction.simulate.simple({
+      const [simulationResult] = await libra2.transaction.simulate.simple({
         signerPublicKey: alice.publicKey,
         transaction,
       });
@@ -1017,7 +1017,7 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // 3. Sign the transaction
       console.log("\n=== 3. Signing the transaction ===");
-      const senderAuthenticator = aptos.transaction.sign({
+      const senderAuthenticator = libra2.transaction.sign({
         signer: alice,
         transaction,
       });
@@ -1031,7 +1031,7 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // 4. Submit the transaction
       console.log("\n=== 4. Submitting the transaction ===");
-      const pendingTransaction = await aptos.transaction.submit.simple({
+      const pendingTransaction = await libra2.transaction.submit.simple({
         transaction,
         senderAuthenticator,
       });
@@ -1039,7 +1039,7 @@ The complete code samples below combine all the snippets we've covered in this t
 
       // 5. Wait for the transaction to complete
       console.log("\n=== 5. Waiting for transaction completion ===");
-      const txnResult = await aptos.waitForTransaction({
+      const txnResult = await libra2.waitForTransaction({
         transactionHash: pendingTransaction.hash,
       });
       console.log(
@@ -1053,10 +1053,10 @@ The complete code samples below combine all the snippets we've covered in this t
       console.log(`Gas used: ${txnResult.gas_used}`);
 
       // Check final balances
-      const aliceFinalBalance = await aptos.getAccountAPTAmount({
+      const aliceFinalBalance = await libra2.getAccountAPTAmount({
         accountAddress: alice.accountAddress,
       });
-      const bobFinalBalance = await aptos.getAccountAPTAmount({
+      const bobFinalBalance = await libra2.getAccountAPTAmount({
         accountAddress: bob.accountAddress,
       });
 
@@ -1076,15 +1076,15 @@ The complete code samples below combine all the snippets we've covered in this t
   <TabItem label="Python">
     ```python filename="transaction.py"
     import asyncio
-    from aptos_sdk.account import Account
-    from aptos_sdk.async_client import FaucetClient, RestClient
-    from aptos_sdk.transactions import EntryFunction, TransactionPayload, TransactionArgument, RawTransaction
-    from aptos_sdk.bcs import Serializer
+    from libra2_sdk.account import Account
+    from libra2_sdk.async_client import FaucetClient, RestClient
+    from libra2_sdk.transactions import EntryFunction, TransactionPayload, TransactionArgument, RawTransaction
+    from libra2_sdk.bcs import Serializer
     import time
 
     # Network configuration
-    NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1"
-    FAUCET_URL = "https://faucet.devnet.aptoslabs.com"
+    NODE_URL = "https://fullnode.devnet.libra2labs.com/v1"
+    FAUCET_URL = "https://faucet.devnet.libra2labs.com"
 
     async def main():
         # Initialize the clients
@@ -1124,7 +1124,7 @@ The complete code samples below combine all the snippets we've covered in this t
         # Create the entry function payload
         # This specifies which function to call and with what arguments
         entry_function = EntryFunction.natural(
-            "0x1::aptos_account",  # Module address and name
+            "0x1::libra2_account",  # Module address and name
             "transfer",            # Function name
             [],                    # Type arguments (empty for this function)
             [

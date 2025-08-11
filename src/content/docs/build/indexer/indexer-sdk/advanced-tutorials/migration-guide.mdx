@@ -2,21 +2,21 @@
 title: "Migrate to Indexer SDK"
 ---
 
-This guide contains instructions on how to migrate your legacy custom processor (that's written in the [old way](https://github.com/libra2org/aptos-indexer-processors/blob/aptos-indexer-processors-v1.20.0/rust/processor/src/processors/events_processor.rs)) to Indexer SDK.
+This guide contains instructions on how to migrate your legacy custom processor (that's written in the [old way](https://github.com/libra2org/libra2-indexer-processors/blob/libra2-indexer-processors-v1.20.0/rust/processor/src/processors/events_processor.rs)) to Indexer SDK.
 
 ## 1. Clone the example repo
 
-We use example events processor in `aptos-indexer-processor-example` as a starting point for the migration.
+We use example events processor in `libra2-indexer-processor-example` as a starting point for the migration.
 
 ```shellscript
-git clone https://github.com/libra2org/aptos-indexer-processor-example.git
+git clone https://github.com/libra2org/libra2-indexer-processor-example.git
 ```
 
 ## 2. Migrate your processor config
 
-Previously, you would create a branch of `aptos-indexer-processors` and update the processor config to include your custom processor.
+Previously, you would create a branch of `libra2-indexer-processors` and update the processor config to include your custom processor.
 This legacy approach made it very difficult to upgrade your processor.
-To address this, the SDK no longer depends on `aptos-indexer-processors`.
+To address this, the SDK no longer depends on `libra2-indexer-processors`.
 As a result, you'll need to define your own `IndexerProcessorConfig` and `ProcessorConfig` structs.
 
 The `IndexerProcessorConfig` defines the base configuration for all processors that you'll be running.
@@ -24,8 +24,8 @@ The `ProcessorConfig` is an enum that contains all the individual processor conf
 
 Update the following files in your project:
 
-- [`ProcessorConfig`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/processor_config.rs): Replace `EventsProcessor` with your processor.
-- [`IndexerProcessorConfig`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/indexer_processor_config.rs): Update the `.run()` method to include your processor.
+- [`ProcessorConfig`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/src/config/processor_config.rs): Replace `EventsProcessor` with your processor.
+- [`IndexerProcessorConfig`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/src/config/indexer_processor_config.rs): Update the `.run()` method to include your processor.
 
 If you'd like to read more about configuration in the SDK, take a look at the [Create a Processor](/build/indexer/indexer-sdk/documentation/create-processor) guide.
 
@@ -90,7 +90,7 @@ In the `EventsProcessor` example, the extraction of events and storing them in t
 To migrate your processor to the SDK, you'll need to define these steps in your processor.
 You can use the `EventsExtractor` and `EventsStorer` steps in the example as a starting point for defining your own steps.
 
-Make the following changes to [`events_extractor.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_extractor.rs).
+Make the following changes to [`events_extractor.rs`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/src/processors/events/events_extractor.rs).
 
 ```rust
 // TODO: Update the step name
@@ -129,7 +129,7 @@ impl Processable for EventsExtractor {
 }
 ```
 
-Make the following changes to [`events_storer.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs).
+Make the following changes to [`events_storer.rs`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/src/processors/events/events_processor.rs).
 
 ```rust
 pub struct EventsStorer
@@ -201,7 +201,7 @@ impl NamedStep for EventsStorer {
 ## 4. Migrate your processor
 
 Now that we've migrated the processing logic to steps, we need to also migrate the processor to instantiate the steps and connect them together.
-In [`events_processor.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs), make the following changes:
+In [`events_processor.rs`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/src/processors/events/events_processor.rs), make the following changes:
 
 ```rust
 // TODO: Update processor name
@@ -252,7 +252,7 @@ pub async fn run_processor(self) -> Result<()> {
 ## 5. Update your `config.yaml`
 
 `IndexerProcessorConfig` reworks the format of the `config.yaml` file.
-Use the example [`config.yaml`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/config.yaml).
+Use the example [`config.yaml`](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/libra2-indexer-processor-example/config.yaml).
 
 ```yaml
 health_check_port: 8085
@@ -261,7 +261,7 @@ server_config:
     # TODO: Update with processor type
     type: "events_processor" 
   transaction_stream_config:
-    indexer_grpc_data_service_address: "https://grpc.testnet.aptoslabs.com:443"
+    indexer_grpc_data_service_address: "https://grpc.testnet.libra2labs.com:443"
     # TODO: Update auth token
     auth_token: "AUTH_TOKEN"
     # TODO: Update with processor name
@@ -276,20 +276,20 @@ server_config:
 ## 6. Run your migrated processor
 
 ```shellscript
-cd ~/{DIRECTORY_OF_PROJECT}/aptos-indexer-processor-example
+cd ~/{DIRECTORY_OF_PROJECT}/libra2-indexer-processor-example
 cargo run --release -- -c config.yaml
 ```
 
 In your terminal, you should start to see logs like this:
 
 ```shellscript
-{"timestamp":"2025-01-13T21:23:21.785452Z","level":"INFO","message":"[Transaction Stream] Successfully connected to GRPC stream","stream_address":"https://grpc.mainnet.aptoslabs.com/","connection_id":"ec67ecc4-e041-4f17-a2e2-441e7ff21487","start_version":2186504987,"filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/transaction-stream/src/transaction_stream.rs","line_number":349,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
-{"timestamp":"2025-01-13T21:23:21.785664Z","level":"INFO","message":"Spawning polling task","step_name":"TransactionStreamStep","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":112,"threadName":"tokio-runtime-worker","threadId":"ThreadId(23)"}
-{"timestamp":"2025-01-13T21:23:21.785693Z","level":"INFO","message":"Spawning processing task","step_name":"TransactionStreamStep","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":204,"threadName":"tokio-runtime-worker","threadId":"ThreadId(23)"}
-{"timestamp":"2025-01-13T21:23:21.785710Z","level":"INFO","message":"Spawning processing task","step_name":"FungibleAssetExtractor","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/async_step.rs","line_number":87,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
-{"timestamp":"2025-01-13T21:23:21.785912Z","level":"INFO","message":"Spawning processing task","step_name":"FungibleAssetStorer","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/async_step.rs","line_number":87,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
-{"timestamp":"2025-01-13T21:23:21.785978Z","level":"INFO","message":"Spawning polling task","step_name":"VersionTrackerStep: ()","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":112,"threadName":"tokio-runtime-worker","threadId":"ThreadId(14)"}
-{"timestamp":"2025-01-13T21:23:21.786018Z","level":"INFO","message":"Spawning processing task","step_name":"VersionTrackerStep: ()","filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e6867c5/aptos-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":204,"threadName":"tokio-runtime-worker","threadId":"ThreadId(14)"}
+{"timestamp":"2025-01-13T21:23:21.785452Z","level":"INFO","message":"[Transaction Stream] Successfully connected to GRPC stream","stream_address":"https://grpc.mainnet.libra2labs.com/","connection_id":"ec67ecc4-e041-4f17-a2e2-441e7ff21487","start_version":2186504987,"filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/transaction-stream/src/transaction_stream.rs","line_number":349,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
+{"timestamp":"2025-01-13T21:23:21.785664Z","level":"INFO","message":"Spawning polling task","step_name":"TransactionStreamStep","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":112,"threadName":"tokio-runtime-worker","threadId":"ThreadId(23)"}
+{"timestamp":"2025-01-13T21:23:21.785693Z","level":"INFO","message":"Spawning processing task","step_name":"TransactionStreamStep","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":204,"threadName":"tokio-runtime-worker","threadId":"ThreadId(23)"}
+{"timestamp":"2025-01-13T21:23:21.785710Z","level":"INFO","message":"Spawning processing task","step_name":"FungibleAssetExtractor","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/async_step.rs","line_number":87,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
+{"timestamp":"2025-01-13T21:23:21.785912Z","level":"INFO","message":"Spawning processing task","step_name":"FungibleAssetStorer","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/async_step.rs","line_number":87,"threadName":"tokio-runtime-worker","threadId":"ThreadId(4)"}
+{"timestamp":"2025-01-13T21:23:21.785978Z","level":"INFO","message":"Spawning polling task","step_name":"VersionTrackerStep: ()","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":112,"threadName":"tokio-runtime-worker","threadId":"ThreadId(14)"}
+{"timestamp":"2025-01-13T21:23:21.786018Z","level":"INFO","message":"Spawning processing task","step_name":"VersionTrackerStep: ()","filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e6867c5/libra2-indexer-processors-sdk/sdk/src/traits/pollable_async_step.rs","line_number":204,"threadName":"tokio-runtime-worker","threadId":"ThreadId(14)"}
 ```
 
 ## 7. Backfilling with the SDK
@@ -308,7 +308,7 @@ server_config:
     # TODO: Update with processor type
     type: "events_processor" 
   transaction_stream_config:
-    indexer_grpc_data_service_address: "https://grpc.testnet.aptoslabs.com:443"
+    indexer_grpc_data_service_address: "https://grpc.testnet.libra2labs.com:443"
     # TODO: Update with backfill version
     starting_version: {backfill version}
     # TODO: Update auth token

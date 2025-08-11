@@ -18,7 +18,7 @@ import { Aside } from '@astrojs/starlight/components';
 当您离开验证者集合时,您的节点将在下一个纪元被标记为“不活跃(inactive)”.要离开验证者集合,请使用 Libra CLI 运行以下命令.您需要设置 `profile` 和 `owner-address` 参数.
 
 ```shellscript filename="Terminal"
-aptos node leave-validator-set --profile <operator-profile> --pool-address <owner-address>
+libra2 node leave-validator-set --profile <operator-profile> --pool-address <owner-address>
 ```
 
 <Aside type="caution">
@@ -32,7 +32,7 @@ aptos node leave-validator-set --profile <operator-profile> --pool-address <owne
 
 ## 使用源代码
 
-1. 通过杀死 `aptos-node` 进程来停止您的节点.这足以关闭您的节点.
+1. 通过杀死 `libra2-node` 进程来停止您的节点.这足以关闭您的节点.
 2. (可选)如果您想释放空间,请删除数据目录,例如,`rm -r <your-data-directory>`.
 3. (可选)如果您想重用您的节点身份,请保留配置文件:
    - `public-keys.yaml`

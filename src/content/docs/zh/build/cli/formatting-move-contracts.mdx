@@ -10,14 +10,14 @@ title: "格式化 Move 合约"
 
 ```shellscript filename="Terminal"
 # 首次使用时安装 movefmt
-aptos update movefmt
+libra2 update movefmt
 ```
 
 要安装特定版本的 `movefmt`:
 
 ```shellscript filename="Terminal"
 # 安装目标 <VERSION> 版本的 movefmt
-aptos update movefmt --target-version <VERSION>
+libra2 update movefmt --target-version <VERSION>
 ```
 
 可以在[这里](https://github.com/movebit/movefmt/releases)找到 `movefmt` 的最新版本.
@@ -28,7 +28,7 @@ aptos update movefmt --target-version <VERSION>
 
 ```shellscript filename="Terminal"
 # 格式化 Move 包
-aptos move fmt
+libra2 move fmt
 ```
 
 支持不同的格式化结果输出方式:
@@ -36,16 +36,16 @@ aptos move fmt
 ```shellscript filename="Terminal"
 # 格式化并覆盖包中所有目标 move 文件。
 # 如果未明确指定 `--emit-mode`，这是默认行为
-aptos move fmt --emit-mode=overwrite
+libra2 move fmt --emit-mode=overwrite
 
 # 将格式化结果打印到终端
-aptos move fmt --emit-mode=std-out
+libra2 move fmt --emit-mode=std-out
 
 # 将格式化结果打印到同一目录下带有 `.fmt.out` 后缀的新文件中
-aptos move fmt --emit-mode=new-file
+libra2 move fmt --emit-mode=new-file
 
 # 打印格式化前后的差异
-aptos move fmt --emit-mode=diff
+libra2 move fmt --emit-mode=diff
 ```
 
 `movefmt` 还提供了不同的选项来配置代码的格式化方式.
@@ -63,7 +63,7 @@ hard_tabs = false # 插入制表符时，会自动替换为 4 个空格
 
 ```shellscript filename="Terminal"
 # 格式化代码时，将 `max_width` 设置为 80，将 `indent_size` 设置为 2
-aptos move fmt --config max_width=80,indent_size=2
+libra2 move fmt --config max_width=80,indent_size=2
 ```
 
 ## 反馈

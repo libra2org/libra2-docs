@@ -34,7 +34,7 @@ The rest of this document describes:
    To start your localnet, run the following command:
 
    ```shellscript filename="Terminal"
-   CARGO_NET_GIT_FETCH_WITH_CLI=true cargo run -p aptos-node -- --test
+   CARGO_NET_GIT_FETCH_WITH_CLI=true cargo run -p libra2-node -- --test
    ```
 
    See below for an example of the partial output. Make a note of the `Test dir` from the output.
@@ -55,10 +55,10 @@ The rest of this document describes:
    Libra is running, press ctrl-c to exit
    ```
 
-**NOTE**: The above command starts a localnet with a single validator node. The command runs `aptos-node` from a genesis-only ledger state. If you want to reuse the ledger state produced by a previous run of `aptos-node`, then use:
+**NOTE**: The above command starts a localnet with a single validator node. The command runs `libra2-node` from a genesis-only ledger state. If you want to reuse the ledger state produced by a previous run of `libra2-node`, then use:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node -- --test --config <config-path>
+cargo run -p libra2-node -- --test --config <config-path>
 ```
 
 ### Attaching a Faucet to your localnet
@@ -71,7 +71,7 @@ Faucets are stateless services that can be run in parallel with the localnet. A 
 4. Run the following command to start a Faucet:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos-faucet-service -- run-simple --key-file-path "/tmp/694173aa3bbe019499bbd5cf3fe0e2fc/mint.key" --node-url http://127.0.0.1:8080 --chain-id TESTING
+cargo run --package libra2-faucet-service -- run-simple --key-file-path "/tmp/694173aa3bbe019499bbd5cf3fe0e2fc/mint.key" --node-url http://127.0.0.1:8080 --chain-id TESTING
 ```
 
 This will start a Faucet running locally without any restrictions to tokens that can be claimed and minted. This Faucet service will be as accessible as the localnet you started above.
@@ -96,11 +96,11 @@ Libra is running, press ctrl-c to exit
 
 Use the [Libra CLI tool](/build/cli) to interact with your localnet. The above output contains information you will use for starting the [Libra CLI tool](/build/cli):
 
-- `Libra root key path`: The root key (also known as the mint or faucet key) controls the account that can mint tokens. Available in the docker compose folder under `aptos_root_key`.
+- `Libra root key path`: The root key (also known as the mint or faucet key) controls the account that can mint tokens. Available in the docker compose folder under `libra2_root_key`.
 - `Waypoint`: A verifiable checkpoint of the blockchain (available in the docker compose folder under waypoint.txt)
 - `REST endpoint`: The endpoint for the REST service, e.g., `http://127.0.0.1:8080`.
 - `ChainId`: The chain ID uniquely distinguishes this network from other blockchain networks.
 
 ## Next steps
 
-At this point, you will have a special root account at `0x1` that can perform the mint operation. Follow up with some tutorials such as on [Libra Learn workshops](https://learn.aptoslabs.com/en/workshops)
+At this point, you will have a special root account at `0x1` that can perform the mint operation. Follow up with some tutorials such as on [Libra Learn workshops](https://learn.libra2labs.com/en/workshops)

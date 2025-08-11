@@ -32,7 +32,7 @@ public fun authenticate(account: signer, auth_data: AbstractionAuthData): signer
 
 ```move
 module deployer::authenticator {
-    use aptos_framework::auth_data::{AbstractionAuthData};
+    use libra2_framework::auth_data::{AbstractionAuthData};
 
     public fun authenticate(account: signer, auth_data: AbstractionAuthData): signer {
         // ... authentication logic ...
@@ -77,7 +77,7 @@ This example demonstrates a simple authentication logic that checks if the authe
 
 ```move
 module deployer::hello_world_authenticator {
-    use aptos_framework::auth_data::{Self, AbstractionAuthData};
+    use libra2_framework::auth_data::{Self, AbstractionAuthData};
 
     public fun authenticate(
         account: signer,
@@ -115,7 +115,7 @@ const abstractedAccount = new AbstractedAccount({
 
      ```move
      module deployer::hello_world_authenticator {
-         use aptos_framework::auth_data::{Self, AbstractionAuthData};
+         use libra2_framework::auth_data::{Self, AbstractionAuthData};
          use std::bcs;
 
          public fun authenticate(
@@ -129,11 +129,11 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
+     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `libra2 init` and
      declared the named addresses in your `Move.toml` file.
 
      ```shellscript
-     aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
+     libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
      ```
 
   2. 2. Setup your Environment
@@ -143,7 +143,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<hello_world_authenticator_deployer>"
 
-     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
 
@@ -156,7 +156,7 @@ const abstractedAccount = new AbstractedAccount({
      This will return a boolean value indicating if the account has account abstraction enabled.
 
      ```typescript
-     const accountAbstractionStatus = await aptos.abstraction.isAccountAbstractionEnabled({
+     const accountAbstractionStatus = await libra2.abstraction.isAccountAbstractionEnabled({
          accountAddress: alice.accountAddress,
          authenticationFunction,
      });
@@ -171,17 +171,17 @@ const abstractedAccount = new AbstractedAccount({
      will be the account that will be enabled.
 
      ```typescript
-     const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
+     const transaction = libra2.abstraction.enableAccountAbstractionTransaction({
        accountAddress: alice.accountAddress,
        authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
      });
 
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        transaction,
        signer: alice.signer,
      });
 
-     await aptos.waitForTransaction({ hash: pendingTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingTransaction.hash });
 
      console.log("Account Abstraction enabled for account: ", alice.accountAddress);
      ```
@@ -204,19 +204,19 @@ const abstractedAccount = new AbstractedAccount({
              if (!account) return;
 
              // Note: The Libra client must be defined somewhere in the application.
-             const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
+             const transaction = libra2.abstraction.enableAccountAbstractionTransaction({
                accountAddress: account.address,
                authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
              });
 
              const senderAuthenticator = await signTransaction(txn);
 
-             const pendingTxn = await aptos.transaction.submit.simple({
+             const pendingTxn = await libra2.transaction.submit.simple({
                transaction: txn,
                senderAuthenticator,
              });
 
-             return await aptos.waitForTransaction({ hash: pendingTxn.hash });
+             return await libra2.waitForTransaction({ hash: pendingTxn.hash });
            }
          }
        }
@@ -242,21 +242,21 @@ const abstractedAccount = new AbstractedAccount({
      is the same as the abstracted account's address.
 
      ```typescript
-     const coinTransferTransaction = await aptos.transaction.build.simple({
+     const coinTransferTransaction = await libra2.transaction.build.simple({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
 
-     const pendingCoinTransferTransaction = await aptos.transaction.signAndSubmitTransaction({
+     const pendingCoinTransferTransaction = await libra2.transaction.signAndSubmitTransaction({
        transaction: coinTransferTransaction,
        signer: abstractedAccount,
      });
 
-     await aptos.waitForTransaction({ transactionHash: pendingCoinTransferTransaction.hash });
+     await libra2.waitForTransaction({ transactionHash: pendingCoinTransferTransaction.hash });
 
      console.log("Coin transfer transaction submitted! ", pendingCoinTransferTransaction.hash);
      ```
@@ -264,7 +264,7 @@ const abstractedAccount = new AbstractedAccount({
   7. 7. Conclusion
 
      To verify that you have successfully sign and submitted the transaction using the abstracted account, you can use the explorer to check the transaction. If the
-     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts).
+     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts).
 
      ![Transaction Signature](https://i.imgur.com/HZylFnc.png)
 </Steps>
@@ -286,15 +286,15 @@ In this example, we will create an authenticator that allows users to permit cer
      ```move
      module deployer::public_key_authenticator {
          use std::signer;
-         use aptos_std::smart_table::{Self, SmartTable};
-         use aptos_std::ed25519::{
+         use libra2_std::smart_table::{Self, SmartTable};
+         use libra2_std::ed25519::{
              Self,
              new_signature_from_bytes,
              new_unvalidated_public_key_from_bytes,
              unvalidated_public_key_to_bytes
          };
-         use aptos_framework::bcs_stream::{Self, deserialize_u8};
-         use aptos_framework::auth_data::{Self, AbstractionAuthData};
+         use libra2_framework::bcs_stream::{Self, deserialize_u8};
+         use libra2_framework::auth_data::{Self, AbstractionAuthData};
 
          // ====== Error Codes ====== //
 
@@ -485,11 +485,11 @@ In this example, we will create an authenticator that allows users to permit cer
      }
      ```
 
-     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
+     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `libra2 init` and
      declared the named addresses in your `Move.toml` file.
 
      ```shellscript
-     aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
+     libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
      ```
 
   2. 2. Setup your Environment
@@ -500,7 +500,7 @@ In this example, we will create an authenticator that allows users to permit cer
      ```typescript
      const DEPLOYER = "0x<public_key_authenticator_deployer>"
 
-     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
      const bob = Account.generate();
@@ -514,7 +514,7 @@ In this example, we will create an authenticator that allows users to permit cer
      This will return a boolean value indicating if the account has account abstraction enabled.
 
      ```typescript
-     const accountAbstractionStatus = await aptos.abstraction.isAccountAbstractionEnabled({
+     const accountAbstractionStatus = await libra2.abstraction.isAccountAbstractionEnabled({
          accountAddress: alice.accountAddress,
          authenticationFunction,
      });
@@ -529,17 +529,17 @@ In this example, we will create an authenticator that allows users to permit cer
      will be the account that will be enabled.
 
      ```typescript
-     const transaction = await aptos.abstraction.enableAccountAbstractionTransaction({
+     const transaction = await libra2.abstraction.enableAccountAbstractionTransaction({
        accountAddress: alice.accountAddress,
        authenticationFunction,
      });
 
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        transaction,
        signer: alice.signer,
      });
 
-     await aptos.waitForTransaction({ hash: pendingTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingTransaction.hash });
 
      console.log("Account Abstraction enabled for account: ", alice.accountAddress);
      ```
@@ -549,7 +549,7 @@ In this example, we will create an authenticator that allows users to permit cer
      Now that we have enabled the authentication function, we can permit `bob`'s public key to sign transactions on behalf of `alice`.
 
      ```typescript
-     const enableBobPublicKeyTransaction = await aptos.transaction.build.simple({
+     const enableBobPublicKeyTransaction = await libra2.transaction.build.simple({
          sender: alice.accountAddress,
          data: {
            function: `${alice.accountAddress}::public_key_authenticator::permit_public_key`,
@@ -558,12 +558,12 @@ In this example, we will create an authenticator that allows users to permit cer
          },
        });
 
-     const pendingEnableBobPublicKeyTransaction = await aptos.signAndSubmitTransaction({
+     const pendingEnableBobPublicKeyTransaction = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction: enableBobPublicKeyTransaction,
      });
 
-     await aptos.waitForTransaction({ hash: pendingEnableBobPublicKeyTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingEnableBobPublicKeyTransaction.hash });
 
      console.log(`Enable Bob's public key transaction hash: ${pendingEnableBobPublicKeyTransaction.hash}`);
      ```
@@ -592,21 +592,21 @@ In this example, we will create an authenticator that allows users to permit cer
      is the same as the abstracted account's address.
 
      ```typescript
-     const coinTransferTransaction = new aptos.transaction.build.simple({
+     const coinTransferTransaction = new libra2.transaction.build.simple({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
 
-     const pendingCoinTransferTransaction = await aptos.transaction.signAndSubmitTransaction({
+     const pendingCoinTransferTransaction = await libra2.transaction.signAndSubmitTransaction({
        transaction: coinTransferTransaction,
        signer: abstractedAccount,
      });
 
-     await aptos.waitForTransaction({ hash: pendingCoinTransferTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingCoinTransferTransaction.hash });
 
      console.log("Coin transfer transaction submitted! ", pendingCoinTransferTransaction.hash);
      ```
@@ -614,7 +614,7 @@ In this example, we will create an authenticator that allows users to permit cer
   8. 8. Conclusion
 
      To verify that you have successfully sign and submitted the transaction using the abstracted account, you can use the explorer to check the transaction. If the
-     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
+     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
 
      ![Transaction Signature](https://i.imgur.com/3U40YSb.png)
 </Steps>
@@ -625,7 +625,7 @@ If you want to disable account abstraction for an account, you can use the `disa
 the transaction will disable all authentication functions for the account.
 
 ```typescript
-const transaction = aptos.abstraction.disableAccountAbstractionTransaction({
+const transaction = libra2.abstraction.disableAccountAbstractionTransaction({
   accountAddress: alice.accountAddress,
   /**
    * The authentication function to be disabled. If left `undefined`, all authentication functions will be disabled.

@@ -5,18 +5,18 @@ title: "Go SDK - Fetch Data"
 import { Aside } from '@astrojs/starlight/components';
 
 You can use the `Libra` client to get on-chain data using a variety of helper
-functions. Specifically, many of the functions listed in the [reference docs](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk)
+functions. Specifically, many of the functions listed in the [reference docs](https://pkg.go.dev/github.com/libra2org/libra2-go-sdk)
 will retrieve data from on-chain e.g. `Account`, `AccountResources`, `Transactions`.
 
 Here’s an example showing how to fetch common data you may need in your application:
 
 ```go filename="fetch_data.go"
-client, err := aptos.NewClient(aptos.DevnetConfig)
+client, err := libra2.NewClient(libra2.DevnetConfig)
 if err != nil {
   panic("Failed to create client:" + err.Error())
 }
 
-address := aptos.AccountAddress{}
+address := libra2.AccountAddress{}
 err := address.ParseStringRelaxed("0x123")
 if err != nil {
   panic("Failed to parse address:" + err.Error())
@@ -33,8 +33,8 @@ transactions, err := client.Transactions()
 </Aside>
 
 The `Libra` client can out of the box query both network data from
-[fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) and the
-[Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql)
+[fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) and the
+[Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql)
 API which contains aggregated and enriched data. If you want to use a custom
 query for Indexer API data, you can use `client.QueryIndexer()` like so:
 
@@ -77,10 +77,10 @@ You can call view functions which return custom data from on-chain by using `cli
 For example, you can look up the network you are using with the `chain_id` view function:
 
 ```go filename="fetch_data.go"
-viewResponse, err := client.View(&aptos.ViewPayload {
-  Module: aptos.ModuleId{Address: aptos.AccountAddress{}, Name: "chain_id"},
+viewResponse, err := client.View(&libra2.ViewPayload {
+  Module: libra2.ModuleId{Address: libra2.AccountAddress{}, Name: "chain_id"},
   Function: "get",
-  ArgTypes: []aptos.TypeTag{},
+  ArgTypes: []libra2.TypeTag{},
   Args: [][]byte{},
 )
 

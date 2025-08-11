@@ -14,7 +14,7 @@ Para usar un parámetro de Objeto, los usuarios pueden pasar la dirección del O
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Object, ObjectCore};
+  use libra2_framework::object::{Object, ObjectCore};
 
   struct MyAwesomeStruct has key {}
 
@@ -35,7 +35,7 @@ Para permitir que el usuario de la función de entrada especifique el tipo de re
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::Object;
+  use libra2_framework::object::Object;
 
   /// Esto fallará si el objeto no tiene el genérico `T` almacenado
   entry fun do_something<T>(object: Object<T>) {
@@ -50,7 +50,7 @@ Puedes referirte a un Objeto por cualquier tipo de recurso que sea propiedad del
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object, ObjectCore};
+  use libra2_framework::object::{Self, Object, ObjectCore};
 
   struct MyAwesomeStruct has key {}
 
@@ -74,9 +74,9 @@ Los Objetos pueden ayudar a representar tipos complicados usándolos en estructu
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object};
-  use aptos_framework::fungible_asset::Metadata;
-  use aptos_framework::primary_fungible_store;
+  use libra2_framework::object::{Self, Object};
+  use libra2_framework::fungible_asset::Metadata;
+  use libra2_framework::primary_fungible_store;
   use std::signer;
   use std::option;
   use std::string::utf8;
@@ -112,7 +112,7 @@ Al escribir contratos para Objetos, a menudo es importante verificar la propieda
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   // No autorizado!
   const E_NOT_AUTHORIZED: u64 = 1;
@@ -159,7 +159,7 @@ Puedes transferir un Objeto así:
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Transferir a otra dirección, esto puede ser un objeto o cuenta
   fun transfer<T: key>(owner: &signer, object: Object<T>, destination: address) {
@@ -203,11 +203,11 @@ Los manejadores de eventos generados pueden ser transferidos al Objeto siempre q
 
 ```move filename="example.move"
 module 0x42::example {
-  use aptos_framework::event;
-  use aptos_framework::fungible_asset::Metadata;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::event;
+  use libra2_framework::fungible_asset::Metadata;
+  use libra2_framework::object::{Self, Object};
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]  
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]  
   struct LiquidityPoolResourceGroup has key {
     pool: LiquidityPool,
     event_store: LiquidityPoolEventStore,
@@ -279,6 +279,6 @@ En general, los Objetos solo pueden ser modificados con `Refs` generados durante
 
 Aquí están tres fragmentos de código reales que usan Objetos:
 
-- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/marketplace)
-- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/token_objects)
-- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset)
+- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/marketplace)
+- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/token_objects)
+- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset)

@@ -19,14 +19,14 @@ You can directly use the BCS format to build transactions by specifying argument
 	if err != nil {
 		panic("Failed to serialize transfer amount:" + err.Error())
 	}
-	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), aptos.TransactionPayload{
-		Payload: &aptos.EntryFunction{
-			Module: aptos.ModuleId{
-				Address: aptos.AccountOne,
-				Name:    "aptos_account",
+	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), libra2.TransactionPayload{
+		Payload: &libra2.EntryFunction{
+			Module: libra2.ModuleId{
+				Address: libra2.AccountOne,
+				Name:    "libra2_account",
 			},
 			Function: "transfer",
-			ArgTypes: []aptos.TypeTag{},
+			ArgTypes: []libra2.TypeTag{},
 			Args: [][]byte{
 				accountBytes,
 				amountBytes,

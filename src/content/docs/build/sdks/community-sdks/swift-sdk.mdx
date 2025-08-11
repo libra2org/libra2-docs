@@ -2,24 +2,24 @@
 title: "Swift SDK"
 ---
 
-There is a Swift SDK for Libra, built by Alcove [here](https://github.com/ALCOVE-LAB/aptos-swift-sdk)
+There is a Swift SDK for Libra, built by Alcove [here](https://github.com/ALCOVE-LAB/libra2-swift-sdk)
 
 ## Installing the Swift SDk
 
 ```swift
-.package(url: "https://github.com/ALCOVE-LAB/aptos-swift-sdk.git", branch: "main")
+.package(url: "https://github.com/ALCOVE-LAB/libra2-swift-sdk.git", branch: "main")
 ```
 
 ## Using the Swift SDk
 
 ### Creating a client
 
-You can create a client by importing the aptos-swift-sdk, and createing a `Client`
+You can create a client by importing the libra2-swift-sdk, and createing a `Client`
 
 ```swift
 import Libra
 
-let client = Libra(aptosConfig: .devnet)
+let client = Libra(libra2Config: .devnet)
 
 ```
 
@@ -71,30 +71,30 @@ You can send a LibraCoin via a transaction
 ```swift
 let txn: TransactionResponse
 let senderAccount = Account.generate()
-_ = try await aptos.faucet.fundAccount(accountAddress: senderAccount.accountAddress, amount: 100_000_000)
+_ = try await libra2.faucet.fundAccount(accountAddress: senderAccount.accountAddress, amount: 100_000_000)
 let bob = Account.generate()
 // Build transaction
-let rawTxn = try await aptos.transaction.build.simple(
+let rawTxn = try await libra2.transaction.build.simple(
     sender: senderAccount.accountAddress,
     data: InputEntryFunctionData(
-        function: "0x1::aptos_account::transfer",
+        function: "0x1::libra2_account::transfer",
         functionArguments: [bob.accountAddress, 100]
     )
 )
 // Sign
-let authenticator = try await aptos.transaction.sign.transaction(
+let authenticator = try await libra2.transaction.sign.transaction(
     signer: senderAccount,
     transaction: rawTxn
 )
 // Submit
-let response = try await aptos.transaction.submit.simple(
+let response = try await libra2.transaction.submit.simple(
     transaction: rawTxn,
     senderAuthenticator: authenticator
 )
 // Wait
-txn = try await aptos.transaction.waitForTransaction(transactionHash: response.hash)
+txn = try await libra2.transaction.waitForTransaction(transactionHash: response.hash)
 // Read
-let transaction = try await aptos.transaction.getTransactionByHash(txn.hash)
+let transaction = try await libra2.transaction.getTransactionByHash(txn.hash)
 
 ```
 
@@ -102,7 +102,7 @@ let transaction = try await aptos.transaction.getTransactionByHash(txn.hash)
 
 To run the SDK tests, simply run from the root of this repository:
 
-> Note: for a better experience, make sure there is no aptos local node process up and running (can check if there is a ?process running on port 8080).
+> Note: for a better experience, make sure there is no libra2 local node process up and running (can check if there is a ?process running on port 8080).
 
 ```swift
 swift test

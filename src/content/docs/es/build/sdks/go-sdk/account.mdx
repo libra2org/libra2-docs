@@ -5,10 +5,10 @@ title: "SDK de Go - Crear y Gestionar Cuentas"
 Hay varias formas de generar credenciales de cuenta usando el SDK de Go. Puedes
 usar:
 
-- `aptos.NewEd25519Account()`
-- `aptos.NewSecp256k1Account()`
-- `aptos.NewEd25519SingleSenderAccount()`
-- `aptos.NewAccountFromSigner()`
+- `libra2.NewEd25519Account()`
+- `libra2.NewSecp256k1Account()`
+- `libra2.NewEd25519SingleSenderAccount()`
+- `libra2.NewAccountFromSigner()`
 
 `Account.NewEd25519Account()` es el método más comúnmente usado para crear claves
 para una nueva cuenta. Por defecto usa tipos de clave `ED25519`, pero también puedes especificar
@@ -16,10 +16,10 @@ qué esquema de firma prefieres así:
 
 ```go
 // Para derivar una cuenta ed25519
-account1 := aptos.NewEd25519Account()
+account1 := libra2.NewEd25519Account()
 
 // Para derivar una cuenta secp256k1
-account2 := aptos.NewSecp256k1Account()
+account2 := libra2.NewSecp256k1Account()
 ```
 
 Una vez que hayas generado credenciales, **debes** financiarla para que la red sepa que existe.
@@ -27,7 +27,7 @@ Una vez que hayas generado credenciales, **debes** financiarla para que la red s
 En entornos de devnet esto se puede hacer con un faucet ejecutando el siguiente comando:
 
 ```go filename="fund.go"
-client, err = aptos.NewClient(aptos.DevnetConfig)
+client, err = libra2.NewClient(libra2.DevnetConfig)
 if err != nil {
   panic("Failed to create client:" + err.Error())
 }
@@ -53,43 +53,43 @@ Este método usa un cálculo local y por lo tanto se usa para derivar una `Accou
 
 ```go
 // para derivar una cuenta con un esquema de clave Ed25519
-privateKey := &aptos.Ed25519PrivateKey{}
+privateKey := &libra2.Ed25519PrivateKey{}
 err := privateKey.FromHex(privateKeyHex)
 if err != nil {
   panic("Failed to parse private key:" + err.Error())
 }
-account := aptos.NewAccountFromSigner(privateKey)
+account := libra2.NewAccountFromSigner(privateKey)
 
 // para derivar una cuenta con un esquema de clave Single Sender Ed25519
-privateKey := &aptos.Ed25519PrivateKey{}
+privateKey := &libra2.Ed25519PrivateKey{}
 err := privateKey.FromHex(privateKeyHex)
 if err != nil {
   panic("Failed to parse private key:" + err.Error())
 }
 singleSigner := &crypto.SingleSigner{Signer: privateKey}
-account := aptos.NewAccountFromSigner(singleSigner)
+account := libra2.NewAccountFromSigner(singleSigner)
 
 // para derivar una cuenta con un esquema de clave Single Sender Secp256k1
-privateKey := &aptos.Secp256k1PrivateKey{}
+privateKey := &libra2.Secp256k1PrivateKey{}
 err := privateKey.FromHex(privateKeyHex)
 if err != nil {
   panic("Failed to parse private key:" + err.Error())
 }
 singleSigner := &crypto.SingleSigner{Signer: privateKey}
-account := aptos.NewAccountFromSigner(singleSigner)
+account := libra2.NewAccountFromSigner(singleSigner)
 
 // para derivar una cuenta con una clave privada y dirección de cuenta
-address := &aptos.AccountAddress{}
+address := &libra2.AccountAddress{}
 err := address.ParseStringRelaxed(addressHex)
 if err != nil {
   panic("Failed to parse address:" + err.Error())
 }
-privateKey := &aptos.Ed25519PrivateKey{}
+privateKey := &libra2.Ed25519PrivateKey{}
 err := privateKey.FromHex(privateKeyHex)
 if err != nil {
   panic("Failed to parse private key:" + err.Error())
 }
-account := aptos.NewAccountFromSigner(privateKey, address.AuthKey())
+account := libra2.NewAccountFromSigner(privateKey, address.AuthKey())
 ```
 
 {/* TODO: Una vez que el path de derivación sea soportado ### Derivar una cuenta desde path de derivación */}

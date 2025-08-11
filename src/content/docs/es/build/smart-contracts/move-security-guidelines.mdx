@@ -39,7 +39,7 @@ module 0x42::example {
     ) acquires Subscription {
         let object_address = object::object_address(&obj);
         let subscription = borrow_global<Subscription>(object_address);
-        assert!(subscription.end_subscription >= aptos_framework::timestamp::now_seconds(),1);
+        assert!(subscription.end_subscription >= libra2_framework::timestamp::now_seconds(),1);
         // Usar la suscripción
         [...]
     }
@@ -76,7 +76,7 @@ module 0x42::example {
         assert!(object::owner(&obj)==address_of(user),ENOT_OWNWER);
         let object_address = object::object_address(&obj);
         let subscription = borrow_global<Subscription>(object_address);
-        assert!(subscription.end_subscription >= aptos_framework::timestamp::now_seconds(),1);
+        assert!(subscription.end_subscription >= libra2_framework::timestamp::now_seconds(),1);
         // Usar la suscripción
         [...]
     }
@@ -717,7 +717,7 @@ Usar la misma cuenta para testnet y mainnet representa un riesgo de seguridad, y
 
 ## Aleatoriedad
 
-Para más información sobre la aleatoriedad y por qué es crucial prevenir la predicción de números aleatorios, consulta esta página: [Guía de Aleatoriedad](https://aptos.dev/guides/randomness/).
+Para más información sobre la aleatoriedad y por qué es crucial prevenir la predicción de números aleatorios, consulta esta página: [Guía de Aleatoriedad](https://docs.libra2.org/guides/randomness/).
 
 ***
 
@@ -737,7 +737,7 @@ module user::lottery {
 
     #[lint::allow_unsafe_randomness]
     public entry fun play(user: &signer) {
-        let random_value = aptos_framework::randomness::u64_range(0, 100);
+        let random_value = libra2_framework::randomness::u64_range(0, 100);
         if (random_value == 42) {
             mint_to_user(user);
         }
@@ -768,7 +768,7 @@ module user::lottery {
 
     #[lint::allow_unsafe_randomness]
     entry fun play(user: &signer) {
-        let random_value = aptos_framework::randomness::u64_range(0, 100);
+        let random_value = libra2_framework::randomness::u64_range(0, 100);
         if (random_value == 42) {
             mint_to_user(user);
         }
@@ -785,28 +785,28 @@ Cuando diferentes caminos en una función consumen diferentes cantidades de gas,
 ```move filename="randomness_example.move"
 module user::lottery {
 
-    //transfer 10 aptos from admin to user
+    //transfer 10 libra2 from admin to user
     fun win(user: &signer) {
         let admin_signer = &get_admin_signer();
-        let aptos_metadata = get_aptos_metadata();
-        primary_fungible_store::transfer(admin_signer, aptos_metadata, address_of(user),10);
+        let libra2_metadata = get_libra2_metadata();
+        primary_fungible_store::transfer(admin_signer, libra2_metadata, address_of(user),10);
     }
 
-    //transfer 10 aptos from user to admin, then 1 aptos from admin to fee_admin
+    //transfer 10 libra2 from user to admin, then 1 libra2 from admin to fee_admin
     fun lose(user: &signer) {
 
         //user to admin
-        let aptos_metadata = get_aptos_metadata();
-        primary_fungible_store::transfer(user, aptos_metadata, @admin, 10);
+        let libra2_metadata = get_libra2_metadata();
+        primary_fungible_store::transfer(user, libra2_metadata, @admin, 10);
 
         //admin to fee_admin
         let admin_signer = &get_admin_signer();
-        primary_fungible_store::transfer(admin_signer, aptos_metadata, @fee_admin, 1);
+        primary_fungible_store::transfer(admin_signer, libra2_metadata, @fee_admin, 1);
     }
 
     #[randomness]
     entry fun play(user: &signer) {
-        let random_value = aptos_framework::randomness::u64_range(0, 100);
+        let random_value = libra2_framework::randomness::u64_range(0, 100);
         if (random_value == 42) {
             win(user);
         } else {

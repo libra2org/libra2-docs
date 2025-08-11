@@ -4,9 +4,9 @@ title: "Building and Sending Transactions"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Kaptos boasts an expressive and type-safe DSL-style API for building and sending
+Klibra2 boasts an expressive and type-safe DSL-style API for building and sending
 transactions on-chain. This guide will walk you through the process of building
-and sending transactions using Kaptos.
+and sending transactions using Klibra2.
 
 The typical flow for sending a transaction is as follows:
 
@@ -41,18 +41,18 @@ The typical flow for sending a transaction is as follows:
 
   2) Build the Transaction
 
-     Kaptos provides a `buildTransaction.simple` method to build a transaction. You can specify
+     Klibra2 provides a `buildTransaction.simple` method to build a transaction. You can specify
      the sender, entry function data like the function name, type arguments, and function arguments.
      You can also configure the transaction with the gas price and maximum gas amount. However, reasonable
      defaults are provided for these values in case you don't specify them.
 
      ```kotlin
-     val txn = aptos.buildTransaction.simple(
+     val txn = libra2.buildTransaction.simple(
          sender = aliceAccount.accountAddress,
          data = entryFunctionData {
              function = "0x1::coin::transfer"
              typeArguments = typeArguments {
-                 +TypeTagStruct("0x1::aptos_coin::LibraCoin")
+                 +TypeTagStruct("0x1::libra2_coin::LibraCoin")
              }
              functionArguments = functionArguments {
                  +bobAccount.accountAddress
@@ -67,7 +67,7 @@ The typical flow for sending a transaction is as follows:
      Once you have built a transaction, you can sign it using the `sign` method.
 
      ```kotlin
-       val aliceAuthenticator = aptos.sign(
+       val aliceAuthenticator = libra2.sign(
            sender = aliceAccount,
            transaction = txn,
        )
@@ -78,7 +78,7 @@ The typical flow for sending a transaction is as follows:
      Finally, you can submit the transaction to the network using the `submit` method.
 
      ```kotlin
-     val commitedTransaction = aptos.submitTransaction.simple(
+     val commitedTransaction = libra2.submitTransaction.simple(
            transaction = signedTransaction,
            senderAuthenticator = aliceAuthenticator,
      )
@@ -88,7 +88,7 @@ The typical flow for sending a transaction is as follows:
        You can collapse the signing and submitting steps into one by using the `signAndSubmitTransaction` method.
 
        ```kotlin
-       val executedTransaction = aptos.signAndSubmitTransaction(
+       val executedTransaction = libra2.signAndSubmitTransaction(
              signer = aliceAccount,
              transaction = commitedTransaction,
        )
@@ -100,7 +100,7 @@ The typical flow for sending a transaction is as follows:
      Then you can wait for the transaction to be executed by using the `waitForTransaction` method.
 
      ```kotlin
-     val executedTransaction = aptos.waitForTransaction(HexInput.fromString(commitedTransaction.expect("Transaction failed").hash))
+     val executedTransaction = libra2.waitForTransaction(HexInput.fromString(commitedTransaction.expect("Transaction failed").hash))
      ```
 </Steps>
 
@@ -128,31 +128,31 @@ const val SEND_AMOUNT = 1_000_000UL
  * fails, an error is thrown.
  */
 fun main() = runBlocking {
-  val aptos = Libra(LibraConfig(LibraSettings(network = Network.DEVNET)))
+  val libra2 = Libra(LibraConfig(LibraSettings(network = Network.DEVNET)))
 
   println("Generating Alice and Bob's accounts")
 
   val alice = Account.generate()
   val bob = Account.generate()
 
-  aptos.fundAccount(alice.accountAddress, FUNDING_AMOUNT).expect("Failed to fund Alice's account")
-  aptos.fundAccount(bob.accountAddress, FUNDING_AMOUNT).expect("Failed to fund Bob's account")
+  libra2.fundAccount(alice.accountAddress, FUNDING_AMOUNT).expect("Failed to fund Alice's account")
+  libra2.fundAccount(bob.accountAddress, FUNDING_AMOUNT).expect("Failed to fund Bob's account")
 
   println("Created accounts on chain")
-  println("Alice's balance: ${aptos.getAccountAPTAmount(alice.accountAddress)}")
-  println("Bob's balance: ${aptos.getAccountAPTAmount(bob.accountAddress)}")
+  println("Alice's balance: ${libra2.getAccountAPTAmount(alice.accountAddress)}")
+  println("Bob's balance: ${libra2.getAccountAPTAmount(bob.accountAddress)}")
   println("=============================================")
   println(
     "Building transaction to send ${SEND_AMOUNT / 100_000_000u} APT to Bob: ${bob.accountAddress}"
   )
 
   val txn =
-    aptos.buildTransaction.simple(
+    libra2.buildTransaction.simple(
       sender = alice.accountAddress,
       data =
         entryFunctionData {
           function = "0x1::coin::transfer"
-          typeArguments = typeArguments { +TypeTagStruct("0x1::aptos_coin::LibraCoin") }
+          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::LibraCoin") }
           functionArguments = functionArguments {
             +bob.accountAddress
             +U64(SEND_AMOUNT_UNITS.toULong())
@@ -161,10 +161,10 @@ fun main() = runBlocking {
     )
 
   // Sign and submit the transaction
-  val commitedTransaction = aptos.signAndSubmitTransaction(alice, txn)
+  val commitedTransaction = libra2.signAndSubmitTransaction(alice, txn)
 
   val executedTransaction =
-    aptos.waitForTransaction(
+    libra2.waitForTransaction(
       HexInput.fromString(commitedTransaction.expect("Transaction failed").hash)
     )
 
@@ -173,9 +173,9 @@ fun main() = runBlocking {
   )
 
   val aliceNewBalance =
-    aptos.getAccountAPTAmount(alice.accountAddress).expect("Alice's account does not exist")
+    libra2.getAccountAPTAmount(alice.accountAddress).expect("Alice's account does not exist")
   val bobNewBalance =
-    aptos.getAccountAPTAmount(bob.accountAddress).expect("Bob's account does not exist")
+    libra2.getAccountAPTAmount(bob.accountAddress).expect("Bob's account does not exist")
 
   println("Alice's new balance: $aliceNewBalance")
   println("Bob's new balance: $bobNewBalance")

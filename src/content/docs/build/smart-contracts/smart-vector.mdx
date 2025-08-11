@@ -60,7 +60,7 @@ The following constants define various error codes used within the module:
 
 ```move filename="smart_vector.move"
 module 0x42::smart_vector_usage {
-    use aptos_std::smart_vector;
+    use libra2_std::smart_vector;
 
     public entry fun main() {
         let v = smart_vector::new<u64>();
@@ -83,7 +83,7 @@ module 0x42::smart_vector_usage {
 
 ```move filename="smart_vector.move"
 module 0x42::smart_vector_usage {
-    use aptos_std::smart_vector;
+    use libra2_std::smart_vector;
 
     public fun append_vectors() {
         let v1 = smart_vector::new<u64>();
@@ -119,7 +119,7 @@ module 0x42::smart_vector_usage {
 
 ```move filename="smart_vector.move"
 module 0x42::smart_vector_usage {
-    use aptos_std::smart_vector;
+    use libra2_std::smart_vector;
 
     public fun remove_elements() {
         let v = smart_vector::new<u64>();
@@ -147,7 +147,7 @@ module 0x42::smart_vector_usage {
 
 ```move filename="smart_vector.move"
 module 0x42::smart_vector_usage {
-    use aptos_std::smart_vector;
+    use libra2_std::smart_vector;
 
     public fun clear_vector() {
         let v = smart_vector::new<u64>();
@@ -167,7 +167,7 @@ module 0x42::smart_vector_usage {
 
 ```move filename="smart_vector.move"
 module 0x42::smart_vector_usage {
-    use aptos_std::smart_vector;
+    use libra2_std::smart_vector;
 
     public fun swap_elements() {
         let v = smart_vector::new<u64>();
@@ -189,7 +189,7 @@ module 0x42::smart_vector_usage {
 
 ## Source Code
 
-- [smart\_vector.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/data_structures/smart_vector.move)
+- [smart\_vector.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/data_structures/smart_vector.move)
 
 ## Other Examples
 

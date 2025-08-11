@@ -21,25 +21,25 @@ async function example() {
 
     // 0. 初始化客户端和测试账户
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
     });
 
     // 1. 构建交易以预览其影响
-    const transaction = await aptos.transaction.build.simple({
+    const transaction = await libra2.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
         // Libra 上的所有交易都通过智能合约实现
-        function: "0x1::aptos_account::transfer",
+        function: "0x1::libra2_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },
     });
 
     // 2. 模拟执行该交易可能产生的结果
-    const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+    const [userTransactionResponse] = await libra2.transaction.simulate.simple({
         signerPublicKey: sender.publicKey,
         transaction,
     });
@@ -54,11 +54,11 @@ example();
 
 这将产生与实际提交交易相同的输出结果.
 
-在 `aptos.transaction.simulate.simple` 方法中,`signerPublicKey` 参数用于在交易模拟期间验证签名者的认证密钥.该参数是可选的,如果省略,模拟将跳过认证密钥检查.例如:
+在 `libra2.transaction.simulate.simple` 方法中,`signerPublicKey` 参数用于在交易模拟期间验证签名者的认证密钥.该参数是可选的,如果省略,模拟将跳过认证密钥检查.例如:
 
 ```typescript
 // 2. 模拟执行该交易可能产生的结果（跳过认证密钥检查）
-const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+const [userTransactionResponse] = await libra2.transaction.simulate.simple({
     transaction,
 });
 ```
@@ -111,7 +111,7 @@ const [userTransactionResponse] = await aptos.transaction.simulate.simple({
     gas_unit_price: '100',
     expiration_timestamp_secs: '1718983701',
     payload: {
-      function: '0x1::aptos_account::transfer',
+      function: '0x1::libra2_account::transfer',
       type_arguments: [],
       arguments: [
         '0xf40c314051890d16ba0a2ba427e003a83e730956fdeccf6c8eebc893a229ddc1',
@@ -183,17 +183,17 @@ const [userTransactionResponse] = await aptos.transaction.simulate.simple({
 ```typescript
 // 生成一个原始交易，使用多重签名地址作为发送方，
 // 提供的入口函数有效负载，以及0x0作为费用支付方地址
-const transactionToSimulate = await aptos.transaction.build.simple({
+const transactionToSimulate = await libra2.transaction.build.simple({
   sender: multisigAddress,
   data: {
-    function: "0x1::aptos_account::transfer",
+    function: "0x1::libra2_account::transfer",
     functionArguments: [recipient.accountAddress, 1_000_000],
   },
   withFeePayer: true,
 });
 
 // 模拟交易，跳过对发送方和费用支付方的公钥/授权密钥检查
-const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
+const [simulateMultisigTx] = await libra2.transaction.simulate.simple({
   transaction: transactionToSimulate,
 });
 ```
@@ -205,18 +205,18 @@ const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
 ```typescript
 const transactionPayload: TransactionPayloadMultiSig = await generateTransactionPayload({
   multisigAddress,
-  function: "0x1::aptos_account::transfer",
+  function: "0x1::libra2_account::transfer",
   functionArguments: [recipient.accountAddress, 1_000_000],
-  aptosConfig: config,
+  libra2Config: config,
 });
 
 const rawTransaction = await generateRawTransaction({
-  aptosConfig: config,
+  libra2Config: config,
   sender: owner.accountAddress,
   payload: transactionPayload,
 });
 
-const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
+const [simulateMultisigTx] = await libra2.transaction.simulate.simple({
   signerPublicKey: owner.publicKey,
   transaction: new SimpleTransaction(rawTransaction),
 });
@@ -224,4 +224,4 @@ const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
 
 请注意`signerPublicKey`是可选的,如果您希望在模拟期间跳过发送方的认证密钥检查,可以省略该参数.
 
-完整源代码...要查看完整代码,请参考 [Multisig V2 示例](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).
+完整源代码...要查看完整代码,请参考 [Multisig V2 示例](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).

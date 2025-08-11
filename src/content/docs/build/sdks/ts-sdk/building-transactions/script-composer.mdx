@@ -38,7 +38,7 @@ const tx = await BuildScriptComposerTransaction({
         const coin = await composer.addBatchedCalls({
             function: "0x1::coin::withdraw",
             functionArguments: [CallArgument.newSigner(0), 1],
-            typeArguments: ["0x1::aptos_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::LibraCoin"],
         });
 
         // Pass the coin value to 0x1::coin::coin_to_fungible_asset to convert the token
@@ -47,7 +47,7 @@ const tx = await BuildScriptComposerTransaction({
             function: "0x1::coin::coin_to_fungible_asset",
             // coin[0] represents the first return value from the first call you added
             functionArguments: [coin[0]],
-            typeArguments: ["0x1::aptos_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::LibraCoin"],
         });
 
         // Deposit the fungibleAsset converted from the second call
@@ -60,7 +60,7 @@ const tx = await BuildScriptComposerTransaction({
         return composer
     },
     // You need to pass Libra Config here because the combined transaction needs to read on-chain state
-    aptosConfig: new LibraConfig({
+    libra2Config: new LibraConfig({
         network: Network.TESTNET,
     }),
 });
@@ -76,11 +76,11 @@ We'll use the simulate transaction interface to show how to use it:
 
 ...
 
-    const aptos = new Libra(new LibraConfig({
+    const libra2 = new Libra(new LibraConfig({
         network: Network.TESTNET,
     }));
 
-    const simulate_result = await aptos.transaction.simulate.simple({
+    const simulate_result = await libra2.transaction.simulate.simple({
         transaction: tx,
     })
 
@@ -109,4 +109,4 @@ Under the hood, the SDK will invoke a WASM binary to compile the series of Move 
    b. If the returned value does not have the Copy ability, the returned value can only be passed to subsequent calls once.
 2. The caller will need to make sure they pass the right values as arguments to subsequent calls. In the previous example, the `0x1::coin::coin_to_fungible_asset` function will expect an argument of `Coin<LibraCoin>`.
 
-This implements [AIP-102](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-102.md)
+This implements [AIP-102](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-102.md)

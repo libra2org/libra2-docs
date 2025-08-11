@@ -28,7 +28,7 @@ dark: '~/images/fa-diagram-dark.png',
 }}
 />
 
-[本实现](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) 相较于 `coin` 标准有改进,因为 Move Object 更易于通过智能合约自定义和扩展.更多关于编写 [Move Objects](/zh/build/smart-contracts/objects) 的高级指南请参考相关文档.
+[本实现](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) 相较于 `coin` 标准有改进,因为 Move Object 更易于通过智能合约自定义和扩展.更多关于编写 [Move Objects](/zh/build/smart-contracts/objects) 的高级指南请参考相关文档.
 FA 标准还自动处理账户所拥有的同质化资产数量,无需像 `coin` 标准那样要求接收方单独注册 `CoinStore` 资源.
 
 ## 创建新的同质化资产(FA)
@@ -86,9 +86,9 @@ public fun create_primary_store_enabled_fungible_asset(
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
-    use aptos_framework::object::{Self, Object};
-    use aptos_framework::primary_fungible_store;
+    use libra2_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
+    use libra2_framework::object::{Self, Object};
+    use libra2_framework::primary_fungible_store;
     use std::error;
     use std::signer;
     use std::string::utf8;
@@ -133,8 +133,8 @@ module my_addr::my_fungible_asset_example {
 ```
 
 <Aside type="note">
-  完整的自定义同质化资产模块示例请参见 [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
-  你也可以在 [FA 示例代码集合](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset) 中查看更多示例.
+  完整的自定义同质化资产模块示例请参见 [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
+  你也可以在 [FA 示例代码集合](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset) 中查看更多示例.
 </Aside>
 
 现在你可以通过 `MintRef` 进行铸造:
@@ -153,7 +153,7 @@ public fun burn(ref: &BurnRef, fa: FungibleAsset)
 
 ## 参考文档
 
-你可以在[这里](/zh/move-reference/mainnet/aptos-framework/fungible_asset)找到 FA 标准提供的完整函数集. {/* TODO: Move Reference 链接迁移后需更新 */}
+你可以在[这里](/zh/move-reference/mainnet/libra2-framework/fungible_asset)找到 FA 标准提供的完整函数集. {/* TODO: Move Reference 链接迁移后需更新 */}
 
 同质化资产拥有者可用的基础功能包括:
 
@@ -236,7 +236,7 @@ struct Frozen has drop, store {
 
 ## 可调度同质化资产(高级)
 
-除了 Libra Framework 提供的默认同质化资产管理功能外,发行方还可以通过可调度同质化资产标准实现自定义的存取逻辑.只需在资产元数据中注册自定义钩子函数,Libra Framework 会在存取时自动调用这些钩子,从而实现复杂的访问控制等逻辑.详情请参考对应的 [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md).
+除了 Libra Framework 提供的默认同质化资产管理功能外,发行方还可以通过可调度同质化资产标准实现自定义的存取逻辑.只需在资产元数据中注册自定义钩子函数,Libra Framework 会在存取时自动调用这些钩子,从而实现复杂的访问控制等逻辑.详情请参考对应的 [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### 实现钩子函数
 
@@ -272,7 +272,7 @@ module my_addr::my_fungible_asset_example {
 - 避免在自定义钩子中调用 `dispatchable_fungible_asset` 和 `primary_fungible_store` 中定义的函数(内联函数除外),以防转账时出错.
 - 注意:对于注册了钩子的资产,调用 `fungible_asset::withdraw` 和 `fungible_asset::deposit` 将**无法生效**.详情见"与可调度同质化资产交互"部分.
 
-更多限制说明请参考 [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md).
+更多限制说明请参考 [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### 注册钩子函数
 
@@ -309,11 +309,11 @@ module 0x1::function_info {
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::string;
-    use aptos_framework::object;
-    use aptos_framework::primary_fungible_store;
-    use aptos_framework::dispatchable_fungible_asset;
-    use aptos_framework::function_info;
+    use libra2_framework::string;
+    use libra2_framework::object;
+    use libra2_framework::primary_fungible_store;
+    use libra2_framework::dispatchable_fungible_asset;
+    use libra2_framework::function_info;
 
     fun create_fungible_asset(module_signer: &signer, /* ... */) {
         // Make the deposit override function info
@@ -422,14 +422,14 @@ public fun paired_coin(metadata: Object<Metadata>): Option<TypeInfo>
 
 由于用户可能**同时**拥有 `coin` 余额和配对 FA 余额,链下应用应更新为显示两者之和.
 
-- 对于 Libra Indexer 用户,可通过 `current_fungible_asset_balances` 表获取 coin 余额与配对 FA 余额的最新总和.如果 FA 有配对 coin 类型,asset type 字段为 coin 类型(如 `0x1::aptos_coin::LibraCoin`);否则为元数据地址.用户可按此字段筛选感兴趣的 FA 余额.
+- 对于 Libra Indexer 用户,可通过 `current_fungible_asset_balances` 表获取 coin 余额与配对 FA 余额的最新总和.如果 FA 有配对 coin 类型,asset type 字段为 coin 类型(如 `0x1::libra2_coin::LibraCoin`);否则为元数据地址.用户可按此字段筛选感兴趣的 FA 余额.
 - 对于使用 Node API 或自定义索引的用户,应将用户 `FungibleStore` 和 `ConcurrentFungibleBalance`(如存在)中的配对 FA 余额与 coin 余额相加.
 
 要获取配对 FA 的主 `FungibleStore` 余额(针对已有 `coin` 的 `CoinType`):
 
 1. 调用 `paired_metadata<CoinType>()` 获取配对 FA 的元数据对象地址(该地址不可变).
 2. 获取配对 FA 余额:
-   - 调用 [getCurrentFungibleAssetBalances](https://github.com/libra2org/aptos-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
+   - 调用 [getCurrentFungibleAssetBalances](https://github.com/libra2org/libra2-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
    - 或者,按如下公式确定主 `FungibleStore` 地址:
      - `sha3_256(32-byte account address | 32-byte metadata object address | 0xFC)`
    - 然后用该地址获取 `FungibleStore` 资源以查询余额.

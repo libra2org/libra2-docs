@@ -15,7 +15,7 @@ Move 设计得简单且安全,但与所有编程语言一样,仍然可能出现�
 通常,如果交易在链上无法执行,模拟时也会失败.例如:
 
 ```shellscript name="Terminal"
-aptos move run --function-id 0x1::aptos_account::transfer --args address:0x1 u64:1000000000000000000
+libra2 move run --function-id 0x1::libra2_account::transfer --args address:0x1 u64:1000000000000000000
 {
   "Error": "Simulation failed with status: Move abort in 0x1::coin: EINSUFFICIENT_BALANCE(0x10006): Not enough coins to complete transaction"
 }
@@ -24,7 +24,7 @@ aptos move run --function-id 0x1::aptos_account::transfer --args address:0x1 u64
 同样适用于 Move 脚本.例如:
 
 ```shellscript name="Terminal"
- aptos move run-script --script-path <script_path> ...
+ libra2 move run-script --script-path <script_path> ...
 ```
 
 ### 本地模拟
@@ -32,7 +32,7 @@ aptos move run --function-id 0x1::aptos_account::transfer --args address:0x1 u64
 此外,在某些情况下,本地模拟可能会提供额外的信息,并[打印出您代码中的任何调试语句](/zh/build/cli/working-with-move-contracts#printing-debugging-information).
 
 ```shellscript name="Terminal"
-aptos move run --function-id 0x1::aptos_account::transferred --args address:0x1 u64:1000000000000000000 --local
+libra2 move run --function-id 0x1::libra2_account::transferred --args address:0x1 u64:1000000000000000000 --local
 
 Simulating transaction locally...
 {
@@ -43,7 +43,7 @@ Simulating transaction locally...
     "sender": "78077fe8db589e1a3407170cf8af3bd60a8c95737918c15dd6f49dcbecc7900a",
     "success": false,
     "version": 56634003,
-    "vm_status": "status FUNCTION_RESOLUTION_FAILURE of type Verification with message Function 0x1::aptos_account::transferred does not exist"
+    "vm_status": "status FUNCTION_RESOLUTION_FAILURE of type Verification with message Function 0x1::libra2_account::transferred does not exist"
   }
 }
 ```
@@ -53,10 +53,10 @@ Simulating transaction locally...
 添加 gas 分析将额外提供计算中使用的 gas 量的追踪能力:
 
 ```shellscript name="Terminal"
-aptos move run --function-id 0x1::aptos_account::transferred --args address:0x1 u64:1000000000000000000 --profile-gas
+libra2 move run --function-id 0x1::libra2_account::transferred --args address:0x1 u64:1000000000000000000 --profile-gas
 
 Simulating transaction locally using the gas profiler...
-Gas report saved to gas-profiling/txn-a90ca655-0x1-aptos_account-transferred.
+Gas report saved to gas-profiling/txn-a90ca655-0x1-libra2_account-transferred.
 {
   "Result": {
     "transaction_hash": "0xa90ca6550dcdd7f514f4cdcdee7dc1fbee17082fcf68f3db3e5755a93b89bcfc",
@@ -65,7 +65,7 @@ Gas report saved to gas-profiling/txn-a90ca655-0x1-aptos_account-transferred.
     "sender": "78077fe8db589e1a3407170cf8af3bd60a8c95737918c15dd6f49dcbecc7900a",
     "success": false,
     "version": 56651618,
-    "vm_status": "status FUNCTION_RESOLUTION_FAILURE of type Verification with message Function 0x1::aptos_account::transferred does not exist"
+    "vm_status": "status FUNCTION_RESOLUTION_FAILURE of type Verification with message Function 0x1::libra2_account::transferred does not exist"
   }
 }
 ```
@@ -73,13 +73,13 @@ Gas report saved to gas-profiling/txn-a90ca655-0x1-aptos_account-transferred.
 这将生成一个可在 HTML 格式中查看的 gas 报告:
 
 ```shellscript name="Terminal"
-open  gas-profiling/txn-a90ca655-0x1-aptos_account-transferred/index.html
+open  gas-profiling/txn-a90ca655-0x1-libra2_account-transferred/index.html
 ```
 
 ## 评估性能
 
 ```shellscript name="Terminal"
-aptos move run --function-id 0x1::aptos_account::transfer --args address:0x1 u64:1 --benchmark
+libra2 move run --function-id 0x1::libra2_account::transfer --args address:0x1 u64:1 --benchmark
 
 Benchmarking transaction locally...
 Running time (cold code cache): 22.144458ms

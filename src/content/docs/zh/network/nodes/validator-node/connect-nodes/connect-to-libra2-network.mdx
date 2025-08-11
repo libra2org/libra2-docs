@@ -55,7 +55,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 将下面命令中的 `<operator_account_private_key>` 替换为文件中的值,并运行:
 
 ```shellscript filename="Terminal"
-aptos init --profile mainnet-operator \
+libra2 init --profile mainnet-operator \
    --network mainnet \
    --private-key <operator_account_private_key> \
    --skip-faucet
@@ -66,7 +66,7 @@ aptos init --profile mainnet-operator \
 接下来,确保您有足够的资金支付网络上的交易手续费.您可以通过 CLI 运行下面的命令来检查:
 
 ```shellscript filename="Terminal"
-aptos account list --profile mainnet-operator
+libra2 account list --profile mainnet-operator
 ```
 
 这将显示您的验证账户中的代币余额.您将看到类似以下的输出:
@@ -83,13 +83,13 @@ aptos account list --profile mainnet-operator
 注意:所有者地址(owner\_address)是拥有质押池账户的地址,并用于初始化质押池.
 
 ```shellscript filename="Terminal"
-aptos node get-stake-pool --owner-address <owner_address>
+libra2 node get-stake-pool --owner-address <owner_address>
 ```
 
 根据上面的命令得到的池地址,您需要为您的节点更新网络地址.这可以通过执行以下命令完成.需要注意的是,执行这个操作需要使用到 `operator.yaml` 文件,这个文件是在您第一次部署节点时生成的.
 
 ```shellscript filename="Terminal"
-aptos node update-validator-network-addresses  \
+libra2 node update-validator-network-addresses  \
    --pool-address <pool-address> \
    --operator-config-file ~/$WORKSPACE/$USERNAME/operator.yaml \
    --profile mainnet-operator
@@ -105,7 +105,7 @@ aptos node update-validator-network-addresses  \
 接下来,您需要更新节点的共识密钥.这是为了确保您的节点能够参与共识.您可以通过运行下面的命令来完成.注意,它需要池地址和 `operator.yaml` 文件(与上述类似).
 
 ```shellscript filename="Terminal"
-aptos node update-consensus-key  \
+libra2 node update-consensus-key  \
    --pool-address <pool-address> \
    --operator-config-file ~/$WORKSPACE/$USERNAME/operator.yaml \
    --profile mainnet-operator
@@ -121,7 +121,7 @@ aptos node update-consensus-key  \
 最后,您需要加入验证者集合.您可以通过运行下面的命令来完成:
 
 ```shellscript filename="Terminal"
-aptos node join-validator-set \
+libra2 node join-validator-set \
    --pool-address <pool-address> \
    --profile mainnet-operator
 ```
@@ -130,7 +130,7 @@ aptos node join-validator-set \
 
 <Aside type="note">
   **识别下一个纪元**<br />
-  您可以通过检查 [Libra Explorer](https://explorer.aptoslabs.com/validators/all?network=mainnet)或运行命令 `aptos node get-stake-pool` 来识别下一个时代.
+  您可以通过检查 [Libra Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet)或运行命令 `libra2 node get-stake-pool` 来识别下一个时代.
 </Aside>
 
 ### 6. 检查验证者集合
@@ -138,13 +138,13 @@ aptos node join-validator-set \
 当您执行加入验证者集合的命令时,您的验证者节点将处于“待激活”状态,直到下一个纪元发生.您可以运行下面的命令,在 `pending_active` 列表中查找您的验证者节点.
 
 ```shellscript filename="Terminal"
-aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.pending_active' | grep <pool_address>
+libra2 node show-validator-set --profile mainnet-operator | jq -r '.Result.pending_active' | grep <pool_address>
 ```
 
 当下一个纪元到来时,节点将被移入 `active_validators` 列表.运行下面的命令,在 “active\_validators” 列表中查看您的验证节点:
 
 ```shellscript filename="Terminal"
-aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.active_validators' | grep <pool_address>
+libra2 node show-validator-set --profile mainnet-operator | jq -r '.Result.active_validators' | grep <pool_address>
 ```
 
 ## 更新身份
@@ -183,7 +183,7 @@ aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.active
 2. 在您的 terraform 模块中设置 `enable_monitoring` 变量.例如:
 
    ```terraform filename="config.tf"
-   module "aptos-node" {
+   module "libra2-node" {
      ...
      enable_monitoring           = true
      utility_instance_num        = 3  # 这将添加一个额外的实用程序实例来运行监控组件
@@ -195,7 +195,7 @@ aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.active
 4. 使用以下命令找到监控负载均衡器的 IP/DNS:
 
    ```shellscript filename="Terminal"
-   kubectl get svc ${WORKSPACE}-mon-aptos-monitoring --output jsonpath='{.status.loadBalancer.ingress[0]}'
+   kubectl get svc ${WORKSPACE}-mon-libra2-monitoring --output jsonpath='{.status.loadBalancer.ingress[0]}'
    ```
 
    您将能够通过 `http://<ip/DNS>` 访问 Terraform 仪表板.
@@ -209,13 +209,13 @@ aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.active
 8. 重新创建密钥.确保密钥名称与您的 `era` 编号匹配,例如,如果您有 `era = 3`,则应将密钥名称替换为:
 
 ```shellscript filename="Terminal"
-${WORKSPACE}-aptos-node-0-genesis-e3
+${WORKSPACE}-libra2-node-0-genesis-e3
 ```
 
 ```shellscript filename="Terminal"
 export WORKSPACE=<您的工作空间名称>
 
-kubectl create secret generic ${WORKSPACE}-aptos-node-0-genesis-e2 \
+kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e2 \
     --from-file=genesis.blob=genesis.blob \
     --from-file=waypoint.txt=waypoint.txt \
     --from-file=validator-identity.yaml=keys/validator-identity.yaml \

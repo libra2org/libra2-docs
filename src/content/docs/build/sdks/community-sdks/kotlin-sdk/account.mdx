@@ -2,13 +2,13 @@
 title: "Creating and Managing Accounts"
 ---
 
-**Kaptos** provides a few ways to generate account credentials, both _legacy_ and
+**Klibra2** provides a few ways to generate account credentials, both _legacy_ and
 `SingleKeyAccount`s. You can either generate a new account or derive
 an account from a private key.
 
 ## Legacy Account
 
-**Kaptos** offers a straightforward method to generate a legacy account using the
+**Klibra2** offers a straightforward method to generate a legacy account using the
 `Account` class. By invoking the static method `generate()`, you can create a new
 legacy account either by passing no arguments or by explicitly setting
 the `scheme` to `SigningSchemeInput.Ed25519` and the `legacy` property to `true` as
@@ -74,7 +74,7 @@ On test networks, you can fund an account programmatically by asking a
 "faucet" for test tokens. You can do this as shown below:
 
 ```kotlin
-val fundedAccount = aptos.fundAccount(aliceAccount.accountAddress, FUNDING_AMOUNT)
+val fundedAccount = libra2.fundAccount(aliceAccount.accountAddress, FUNDING_AMOUNT)
 ```
 
 This only works on devnet. On testnet you can mint at the [mint page](/network/faucet).

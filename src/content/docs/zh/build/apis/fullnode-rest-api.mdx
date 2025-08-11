@@ -10,16 +10,16 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 ## 全节点 REST API 浏览器
 
 <CardGrid>
-  <LinkCard href="https://api.mainnet.aptoslabs.com/v1/spec#/" title="主网全节点 REST API" description="主网 REST API 浏览器" target="_blank" />
+  <LinkCard href="https://api.mainnet.libra2labs.com/v1/spec#/" title="主网全节点 REST API" description="主网 REST API 浏览器" target="_blank" />
 
-  <LinkCard href="https://api.testnet.aptoslabs.com/v1/spec#/" title="测试网全节点 REST API" description="测试网 REST API 浏览器" target="_blank" />
+  <LinkCard href="https://api.testnet.libra2labs.com/v1/spec#/" title="测试网全节点 REST API" description="测试网 REST API 浏览器" target="_blank" />
 
-  <LinkCard href="https://api.devnet.aptoslabs.com/v1/spec#/" title="开发网全节点 REST API" description="开发网 REST API 浏览器" target="_blank" />
+  <LinkCard href="https://api.devnet.libra2labs.com/v1/spec#/" title="开发网全节点 REST API" description="开发网 REST API 浏览器" target="_blank" />
 </CardGrid>
 
 ## 理解速率限制
 
-与 [Libra 索引器](/zh/build/indexer/indexer-api) 类似,Libra REST API 也基于计算单元设有速率限制.您可以通过阅读 [Libra Build 文档](https://build.aptoslabs.com/docs/start/billing) 了解更多关于速率限制的工作原理.
+与 [Libra 索引器](/zh/build/indexer/indexer-api) 类似,Libra REST API 也基于计算单元设有速率限制.您可以通过阅读 [Libra Build 文档](https://build.libra2labs.com/docs/start/billing) 了解更多关于速率限制的工作原理.
 
 ## 查看当前和历史状态
 
@@ -42,16 +42,16 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 REST API 提供以下方式查询交易和事件:
 
-- [按账户查询交易](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_account_transactions)
-- [按版本查询交易](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_transaction_by_version)
-- [按事件句柄查询事件](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_events_by_event_handle)
+- [按账户查询交易](https://api.devnet.libra2labs.com/v1/spec#/operations/get_account_transactions)
+- [按版本查询交易](https://api.devnet.libra2labs.com/v1/spec#/operations/get_transaction_by_version)
+- [按事件句柄查询事件](https://api.devnet.libra2labs.com/v1/spec#/operations/get_events_by_event_handle)
 
 ## 使用 View 函数读取状态
 
 通过 API 调用时,View 函数不会修改区块链状态.[View 函数](https://github.com/libra2org/libra2-core/blob/main/api/src/view_function.rs) 及其 [输入参数](https://github.com/libra2org/libra2-core/blob/main/api/types/src/view.rs) 可用于通过 Move 读取潜在的复杂链上状态.例如,您可以评估拍卖合约中的最高出价者.以下是相关文件:
 
 - [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) 示例
-- 相关 [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) 代码
+- 相关 [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/libra2-move/framework/libra2-framework/sources/coin.move#L226) 代码
 - [规范说明](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513)
 
 View 函数的运行方式类似于 Libra 模拟 API,但没有副作用且具有可访问的输出路径.可以通过 `/view` 端点调用 View 函数.调用 View 函数需要提供模块名,函数名以及输入类型参数和值.
@@ -63,7 +63,7 @@ View 函数的运行方式类似于 Libra 模拟 API,但没有副作用且具有
 在 Libra CLI 中,View 函数请求示例如下:
 
 ```shellscript filename="终端"
-aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
+libra2 move view --function-id devnet::message::get_message --profile devnet --args address:devnet
 {
   "Result": [
     "View functions rock!"
@@ -76,10 +76,10 @@ aptos move view --function-id devnet::message::get_message --profile devnet --ar
 ```typescript filename="index.ts"
 import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Libra();
-const [balance] = aptos.view<[string]>({
+const libra2 = new Libra();
+const [balance] = libra2.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::LibraCoin"],
+  typeArguments: ["0x1::libra2_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

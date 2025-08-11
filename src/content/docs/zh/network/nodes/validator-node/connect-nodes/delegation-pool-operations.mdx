@@ -22,18 +22,18 @@ title: "委托池操作"
 
 - 在您创建委托池之前:
   ```shellscript filename="Terminal"
-  aptos account derive-resource-account-address --address <owner_address> --seed "aptos_framework::delegation_pool<SEED>" --seed-encoding utf8
+  libra2 account derive-resource-account-address --address <owner_address> --seed "libra2_framework::delegation_pool<SEED>" --seed-encoding utf8
   ```
   - `<SEED>` 是由您选择的数字,用于创建资源账户地址以托管委托池资源.一旦选择了一个种子值,您应该在所有后续的使用过程中使用相同的值.
 - 在您创建委托池之后:
   ```shellscript filename="Terminal"
-  aptos account derive-resource-account-address
+  libra2 account derive-resource-account-address
   ```
 
 1. 运行下面的命令,替换 `<your-profile>` 为您在初始化期间预先配置的配置文件:
 
    ```shellscript filename="Terminal"
-   aptos move run --profile <your-profile> \
+   libra2 move run --profile <your-profile> \
       --function-id 0x1::delegation_pool::initialize_delegation_pool \
       --args u64:1000 string:00
    ```
@@ -51,7 +51,7 @@ title: "委托池操作"
 
 4. 委托池现在可以接受任何希望委托给它的用户至少 10 APT 的金额.
 
-5. 委托池现在可以[连接到 Libra 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-aptos-network).
+5. 委托池现在可以[连接到 Libra 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
 
 ## 执行委托池操作
 
@@ -60,7 +60,7 @@ title: "委托池操作"
 - 使用公共入口方法 `add_stake(delegator: &signer, pool_address: address, amount u64)` 将 `amount` 数量的 Coin 添加到委托池`pool_address`,并在运行之前将您的值替换到下面的命令中:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegator \
+  libra2 move run --profile delegator \
     --function-id 0x1::delegation_pool::add_stake \
     --args address:<pool_address> u64:<amount>
   ```
@@ -68,7 +68,7 @@ title: "委托池操作"
 - 通过公共入口方法 `unlock(delegator: &signer, pool_address: address, amount: u64)` 解除一定数量的资金,这些资金可来自委派人在委派池的活跃质押和即将激活的质押.数量上限为委派池中活跃质押的限制.在执行以下命令之前,请将示例中的值替换为你自己的信息:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegator \
+  libra2 move run --profile delegator \
     --function-id 0x1::delegation_pool::unlock \
     --args address:<pool_address> u64:<amount>
   ```
@@ -76,7 +76,7 @@ title: "委托池操作"
 - 使用公共入口方法 `reactivate_stake(delegator: &signer, pool_address: address, amount: u64)` 从 `pending_inactive` 状态重新激活 `amount` 数量的 Coin 到 `active state`,在执行以下命令之前,请将示例中的值替换为你自己的信息:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegator \
+  libra2 move run --profile delegator \
     --function-id 0x1::delegation_pool::reactivate_stake \
     --args address:<pool_address> u64:<amount>
   ```
@@ -84,7 +84,7 @@ title: "委托池操作"
 - 使用公共入口方法 `withdraw(delegator: &signer, pool_address: address, amount: u64)` 从位于 `pool_address` 的委托池中提取 `amount` 数量的非活跃质押,使用下面的命令:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegator \
+  libra2 move run --profile delegator \
     --function-id 0x1::delegation_pool::withdraw \
     --args address:<pool_address> u64:<amount>
   ```
@@ -96,7 +96,7 @@ title: "委托池操作"
 - 为委托池设置运营者地址:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegation_pool_owner \
+  libra2 move run --profile delegation_pool_owner \
     --function-id 0x1::delegation_pool::set_operator \
     --args address:<new_operator_address>
   ```
@@ -104,7 +104,7 @@ title: "委托池操作"
 - 为委托池设置委托投票者地址:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegation_pool_owner \
+  libra2 move run --profile delegation_pool_owner \
     --function-id 0x1::delegation_pool::set_delegated_voter \
     --args address:<new_operator_address>
   ```
@@ -114,7 +114,7 @@ title: "委托池操作"
 - 更新委托池的佣金百分比;`<new_commission_percentage>` 具有两位小数点精度(例如,13.25% 表示为 1325):
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegation_pool_owner \
+  libra2 move run --profile delegation_pool_owner \
     --function-id 0x1::delegation_pool::update_commission_percentage \
     --args u64:<new_commission_percentage>
   ```
@@ -126,7 +126,7 @@ title: "委托池操作"
 - 运营者可以使用以下命令设置受益人地址:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile delegation_pool_operator \
+  libra2 move run --profile delegation_pool_operator \
     --function-id 0x1::delegation_pool::set_beneficiary_for_operator \
     --args address:<new_beneficiary_address>
   ```
@@ -134,7 +134,7 @@ title: "委托池操作"
 - 使用以下命令查看为运营者设置的受益人地址:
 
   ```shellscript filename="Terminal"
-  aptos move view --url <网络的 REST API> \
+  libra2 move view --url <网络的 REST API> \
     --function-id 0x1::delegation_pool::beneficiary_for_operator \
     --args address:<operator_address>
   ```
@@ -145,7 +145,7 @@ title: "委托池操作"
 
 ## 检查委托池信息
 
-在委派池收到 100 万 APT,并且验证者成为活跃验证者之前,每个周期内都不会产生可供追踪的奖励.想要查看委派池的详细信息,请使用 Libra [View function](/zh/network/nodes/aptos-api-spec#reading-state-with-the-view-function):
+在委派池收到 100 万 APT,并且验证者成为活跃验证者之前,每个周期内都不会产生可供追踪的奖励.想要查看委派池的详细信息,请使用 Libra [View function](/zh/network/nodes/libra2-api-spec#reading-state-with-the-view-function):
 
 - `get_owned_pool_address(owner: address): address` - 返回属于所有者的委托池地址,或者如果没有与所有者关联的委托池,则产生错误.
 
@@ -168,26 +168,26 @@ title: "委托池操作"
 ```typescript filename="view_function.ts"
 import { Libra, LibraConfig } from "@libra2-core/ts-sdk";
 
-const NODE_URL = "https://aptos-testnet.public.blastapi.io";
+const NODE_URL = "https://libra2-testnet.public.blastapi.io";
 
 (async () => {
-  const aptosConfig = new LibraConfig({ fullnode: NODE_URL });
-  const aptos = new Libra(aptosConfig);
+  const libra2Config = new LibraConfig({ fullnode: NODE_URL });
+  const libra2 = new Libra(libra2Config);
   const payload: InputViewRequestData = {
     function: "0x1::delegation_pool::get_stake",
     functionArguments: ["pool_address", "delegator_address"],
   };
-  console.log(await aptos.view({ payload }));
+  console.log(await libra2.view({ payload }));
 })();
 ```
 
 或者,您可以使用 Libra CLI 调用 View 函数.
 
 ```shellscript filename="Terminal"
-aptos move view [OPTIONS] --function-id <FUNCTION_ID>
+libra2 move view [OPTIONS] --function-id <FUNCTION_ID>
 ```
 
-要查看 `aptos move view` 命令的可用选项及其使用过程,可以使用 `aptos move view --help` 命令获取帮助信息.这将显示调用 view 函数需要的参数.
+要查看 `libra2 move view` 命令的可用选项及其使用过程,可以使用 `libra2 move view --help` 命令获取帮助信息.这将显示调用 view 函数需要的参数.
 
 ## 计算委托池赚取的奖励
 
@@ -195,7 +195,7 @@ aptos move view [OPTIONS] --function-id <FUNCTION_ID>
 
 要计算处于 `active`(活跃)和 `pending_inactive`(待撤销)状态的质押所**获得的奖励**,请使用以下公式.请注意,此公式是在假定,无论是 `unlock`(解锁) 还是 `reactivate`(重新激活)等不同质押操作,都是先扣除**本金**后再**奖励**.因此,实际**获取的奖励**可能会因所用公式的结构不同而有所差异:
 
-1. 从 [`get_stake`](https://github.com/libra2org/libra2-core/blob/ed63ab756cda61439287304ed89bbb156fcbeaed/aptos-move/framework/aptos-framework/sources/delegation_pool.move#L321) view 函数获取 `active` 和 `pending_inactive` 质押的数量.
+1. 从 [`get_stake`](https://github.com/libra2org/libra2-core/blob/ed63ab756cda61439287304ed89bbb156fcbeaed/libra2-move/framework/libra2-framework/sources/delegation_pool.move#L321) view 函数获取 `active` 和 `pending_inactive` 质押的数量.
 
 2. 计算本金:
 

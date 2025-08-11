@@ -34,7 +34,7 @@ import { Aside } from '@astrojs/starlight/components';
 4. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
    ```shellscript filename="Terminal"
-   aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+   libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
    ```
 
    这将在 `~/$WORKSPACE/keys` 目录下创建 4 个密钥文件:
@@ -64,7 +64,7 @@ import { Aside } from '@astrojs/starlight/components';
    # 您的节点适当的 IP 或 DNS 地址。
 
    cd ~/$WORKSPACE
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -74,7 +74,7 @@ import { Aside } from '@astrojs/starlight/components';
 
    # 例如，如果您使用 IP 地址：
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -84,12 +84,12 @@ import { Aside } from '@astrojs/starlight/components';
 
    # 否则，如果您使用 DNS 地址：
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
-       --validator-host bot.aptosdev.com:6180 \
-       --full-node-host fn.bot.aptosdev.com:6182 \
+       --validator-host bot.libra2dev.com:6180 \
+       --full-node-host fn.bot.libra2dev.com:6182 \
        --stake-amount 100000000000000
    ```
 
@@ -165,9 +165,9 @@ import { Aside } from '@astrojs/starlight/components';
 
     ```shellscript filename="Terminal"
     cargo clean
-    cargo build -p aptos-node --release
-    sudo mv target/release/aptos-node /usr/local/bin
-    aptos-node -f ~/$WORKSPACE/config/validator.yaml
+    cargo build -p libra2-node --release
+    sudo mv target/release/libra2-node /usr/local/bin
+    libra2-node -f ~/$WORKSPACE/config/validator.yaml
     ```
 
     要在单独的专用 VFN 机器上启动您的 VFN,请在该机器上下载 `libra2-core` 源代码并构建二进制文件.同样,您需要从验证器机器复制密钥和配置文件.
@@ -181,9 +181,9 @@ import { Aside } from '@astrojs/starlight/components';
 
     ```shellscript filename="Terminal"
     cargo clean
-    cargo build -p aptos-node --release
-    sudo mv target/release/aptos-node /usr/local/bin
-    aptos-node -f ~/$WORKSPACE/config/fullnode.yaml
+    cargo build -p libra2-node --release
+    sudo mv target/release/libra2-node /usr/local/bin
+    libra2-node -f ~/$WORKSPACE/config/fullnode.yaml
     ```
 
     <Aside type="caution">
@@ -193,9 +193,9 @@ import { Aside } from '@astrojs/starlight/components';
 
 ### (可选)作为服务运行
 
-如果您想将 `aptos-node` 作为服务运行,您可以设置它作为由 `systemctl` 控制的服务运行.这是可选的,可以使用下面的服务模板完成.您需要修改模板以匹配您的环境和配置.
+如果您想将 `libra2-node` 作为服务运行,您可以设置它作为由 `systemctl` 控制的服务运行.这是可选的,可以使用下面的服务模板完成.您需要修改模板以匹配您的环境和配置.
 
-```shellscript filename="/etc/systemd/system/aptos-node.service"
+```shellscript filename="/etc/systemd/system/libra2-node.service"
 [Unit]
 Description=Libra Node 服务
 
@@ -207,14 +207,14 @@ LimitNOFILE=500000
 
 #Environment="RUST_LOG=error"
 WorkingDirectory=/home/nodeuser/libra2-core
-ExecStart=/usr/local/bin/aptos-node -f /home/nodeuser/aptos-mainnet/config/validator.yaml
+ExecStart=/usr/local/bin/libra2-node -f /home/nodeuser/libra2-mainnet/config/validator.yaml
 
 Restart=on-failure
 RestartSec=3s
 
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=aptos-node
+SyslogIdentifier=libra2-node
 
 [Install]
 WantedBy=multi-user.target

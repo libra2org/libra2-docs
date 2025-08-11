@@ -4,7 +4,7 @@ title: "可派生账户抽象"
 
 import { Steps } from '@astrojs/starlight/components';
 
-[可派生账户抽象 (DAA)](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-113.md)
+[可派生账户抽象 (DAA)](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md)
 是一种账户抽象标准,通过注册 `derivable_authentication_function` 实现自定义认证方案.
 
 DAA 与原生[账户抽象 (AA)](/zh/build/sdks/ts-sdk/account/account-abstraction) 的区别在于,对于给定的 `derivable_authentication_function`,
@@ -99,15 +99,15 @@ struct FunctionInfo has copy, drop, store {
 该示例演示了使用 ed25519 hex 进行签名的域账户抽象.
 
 ```move
-module aptos_experimental::test_derivable_account_abstraction_ed25519_hex {
+module libra2_experimental::test_derivable_account_abstraction_ed25519_hex {
     use std::error;
-    use aptos_std::string_utils;
-    use aptos_std::ed25519::{
+    use libra2_std::string_utils;
+    use libra2_std::ed25519::{
         Self,
         new_signature_from_bytes,
         new_unvalidated_public_key_from_bytes,
     };
-    use aptos_framework::auth_data::AbstractionAuthData;
+    use libra2_framework::auth_data::AbstractionAuthData;
 
     const EINVALID_SIGNATURE: u64 = 1;
 
@@ -178,7 +178,7 @@ const derivableAbstractedAccount = new DerivableAbstractedAccount({
   3. 3. 向 DAA 账户注资以创建链上记录
 
      ```typescript
-     await aptos.fundAccount({ accountAddress: daa.accountAddress, amount: 1000000 });
+     await libra2.fundAccount({ accountAddress: daa.accountAddress, amount: 1000000 });
      ```
 
   4. 4. 创建接收方账户并转入 APT 代币
@@ -186,15 +186,15 @@ const derivableAbstractedAccount = new DerivableAbstractedAccount({
      ```typescript
      const recipient = Account.generate();
 
-     const pendingTxn = await aptos.transaction.signAndSubmitTransaction({
+     const pendingTxn = await libra2.transaction.signAndSubmitTransaction({
        signer: daa,
-       transaction: await aptos.transferCoinTransaction({
+       transaction: await libra2.transferCoinTransaction({
          sender: daa.accountAddress,
          recipient: recipient.accountAddress,
          amount: 100,
        }),
      });
 
-     const response = await aptos.waitForTransaction({ transactionHash: pendingTxn.hash });
+     const response = await libra2.waitForTransaction({ transactionHash: pendingTxn.hash });
      ```
 </Steps>

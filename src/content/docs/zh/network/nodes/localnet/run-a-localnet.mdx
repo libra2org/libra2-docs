@@ -34,7 +34,7 @@ import { Aside } from '@astrojs/starlight/components';
    请运行以下命令启动你的本地网络:
 
    ```shellscript filename="Terminal"
-   CARGO_NET_GIT_FETCH_WITH_CLI=true cargo run -p aptos-node -- --test
+   CARGO_NET_GIT_FETCH_WITH_CLI=true cargo run -p libra2-node -- --test
    ```
 
    查看下面的部分输出示例.记下输出中的`Test dir`.
@@ -55,10 +55,10 @@ import { Aside } from '@astrojs/starlight/components';
    Libra is running, press ctrl-c to exit
    ```
 
-**注意**:上述命令将开启一个只含单个验证节点的本地网络(localnet).该命令是在仅有初始区块状态(genesis-only ledger state)的情况下运行的.如果你希望使用之前运行 `aptos-node` 所生成的区块链状态,请执行以下操作:
+**注意**:上述命令将开启一个只含单个验证节点的本地网络(localnet).该命令是在仅有初始区块状态(genesis-only ledger state)的情况下运行的.如果你希望使用之前运行 `libra2-node` 所生成的区块链状态,请执行以下操作:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node -- --test --config <config-path>
+cargo run -p libra2-node -- --test --config <config-path>
 ```
 
 ### 将水龙头(Faucet)连接到你的本地网络
@@ -71,7 +71,7 @@ cargo run -p aptos-node -- --test --config <config-path>
 4. 运行以下命令启动水龙头:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos-faucet-service -- run-simple --key-file-path "/tmp/694173aa3bbe019499bbd5cf3fe0e2fc/mint.key" --node-url http://127.0.0.1:8080  --chain-id TESTING
+cargo run --package libra2-faucet-service -- run-simple --key-file-path "/tmp/694173aa3bbe019499bbd5cf3fe0e2fc/mint.key" --node-url http://127.0.0.1:8080  --chain-id TESTING
 ```
 
 这将在本地启动一个没有任何申领和铸造 Token 限制的水龙头(Faucet)服务.这个水龙头服务将与你之前启动的本地网络(localnet)一样容易访问.
@@ -96,11 +96,11 @@ Libra is running, press ctrl-c to exit
 
 使用 [Libra CLI 工具](/zh/build/cli)与你的本地网络交互.上面的输出包含你将用于启动 [Libra CLI 工具](/zh/build/cli)的信息:
 
-- `Libra 根密钥路径`:根密钥(也被称作铸币密钥或水龙头密钥)是用来管理那些有权限铸造 Token 的账户.你可以在 docker compose 目录中名为 `aptos_root_key` 的位置找到它.
+- `Libra 根密钥路径`:根密钥(也被称作铸币密钥或水龙头密钥)是用来管理那些有权限铸造 Token 的账户.你可以在 docker compose 目录中名为 `libra2_root_key` 的位置找到它.
 - `Waypoint`:这是一个区块链的可验证检查点(checkpoint),你可以在 docker compose 目录下的 waypoint.txt 文件中找到它.
 - `REST 端口`:REST 服务的端口,例如 `http://127.0.0.1:8080`.
 - `ChainId`:链 ID 将此网络与其它区块链网络区分开.
 
 ## 下一步
 
-此时,你将拥有一个位于 `0x1` 的特殊地址的账户,该账户具备执行代币铸造的能力.为了更深入了解,你可以跟随例如 https://learn.aptoslabs.com/en/workshops 上的一些教程继续学习.
+此时,你将拥有一个位于 `0x1` 的特殊地址的账户,该账户具备执行代币铸造的能力.为了更深入了解,你可以跟随例如 https://learn.libra2labs.com/en/workshops 上的一些教程继续学习.

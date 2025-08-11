@@ -6,7 +6,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Package info
 
-This section references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args), which contains the following manifest:
+This section references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args), which contains the following manifest:
 
 ```toml filename="move.toml"
 [package]
@@ -18,16 +18,16 @@ upgrade_policy = "compatible"
 test_account = "_"
 
 [dependencies]
-LibraFramework = { git = "https://github.com/libra2org/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
+LibraFramework = { git = "https://github.com/libra2org/libra2-framework.git", rev = "mainnet", subdir = "libra2-framework" }
 ```
 
 Here, the package is deployed under the named address `test_account`.
 
 <Aside type="note" emoji="ℹ️">
-  Set your working directory to [`aptos-move/move-examples/cli_args`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args) to follow along:
+  Set your working directory to [`libra2-move/move-examples/cli_args`](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args) to follow along:
 
   ```shellscript filename="Terminal"
-  cd <libra2-core-parent-directory>/libra2-core/aptos-move/move-examples/cli_args
+  cd <libra2-core-parent-directory>/libra2-core/libra2-move/move-examples/cli_args
   ```
 </Aside>
 
@@ -36,7 +36,7 @@ Here, the package is deployed under the named address `test_account`.
 Start by mining a vanity address for Ace, who will deploy the package:
 
 ```shellscript filename="Terminal"
-aptos key generate \
+libra2 key generate \
     --vanity-prefix 0xace \
     --output-file ace.key
 ```
@@ -69,7 +69,7 @@ ace_addr=0xacef1b9b7d4ab208b99fed60746d18dcd74865edb7eb3c3f1428233988e4ba46
 Fund Ace's account with the faucet (only works on devnet):
 
 ```shellscript filename="Terminal"
-aptos account fund-with-faucet --account $ace_addr
+libra2 account fund-with-faucet --account $ace_addr
 ```
 
 <details>
@@ -85,7 +85,7 @@ aptos account fund-with-faucet --account $ace_addr
 Now publish the package under Ace's account:
 
 ```shellscript filename="Terminal"
-aptos move publish \
+libra2 move publish \
     --named-addresses test_account=$ace_addr \
     --private-key-file ace.key \
     --assume-yes
@@ -118,7 +118,7 @@ The only module in the package, `cli_args.move`, defines a simple `Holder` resou
 ```move filename="Holder in cli_args.move"
 module test_account::cli_args {
   use std::signer;
-  use aptos_std::type_info::{Self, TypeInfo};
+  use libra2_std::type_info::{Self, TypeInfo};
   use std::string::String;
 
   struct Holder has key, drop {
@@ -160,14 +160,14 @@ public entry fun set_vals<T1, T2>(
 }
 ```
 
-After the package has been published, `aptos move run` can be used to call `set_vals()`:
+After the package has been published, `libra2 move run` can be used to call `set_vals()`:
 
 <Aside type="note" emoji="ℹ️">
   To pass vectors (including nested vectors) as arguments from the command line, use JSON syntax escaped with quotes!
 </Aside>
 
 ```shellscript filename="Running function with nested vector arguments from CLI"
-aptos move run \
+libra2 move run \
     --function-id $ace_addr::cli_args::set_vals \
     --type-args \
         0x1::account::Account \
@@ -250,10 +250,10 @@ The function ID, type arguments, and arguments can alternatively be specified in
 }
 ```
 
-Here, the call to `aptos move run` looks like:
+Here, the call to `libra2 move run` looks like:
 
 ```shellscript filename="Running function with JSON input file"
-aptos move run \
+libra2 move run \
     --json-file entry_function_arguments.json \
     --private-key-file ace.key \
     --assume-yes
@@ -322,7 +322,7 @@ public fun reveal<T1, T2>(host: address): RevealResult acquires Holder {
 This view function can be called with arguments specified either from the CLI or from a JSON file:
 
 ```shellscript filename="Arguments via CLI"
-aptos move view \
+libra2 move view \
     --function-id $ace_addr::cli_args::reveal \
     --type-args \
         0x1::account::Account \
@@ -331,7 +331,7 @@ aptos move view \
 ```
 
 ```shellscript filename="Arguments via JSON file"
-aptos move view --json-file view_function_arguments.json
+libra2 move view --json-file view_function_arguments.json
 ```
 
 <Aside type="note" emoji="ℹ️">
@@ -416,7 +416,7 @@ script {
 First compile the package (this will compile the script):
 
 ```shellscript filename="Compilation"
-aptos move compile --named-addresses test_account=$ace_addr
+libra2 move compile --named-addresses test_account=$ace_addr
 ```
 
 <details>
@@ -431,10 +431,10 @@ aptos move compile --named-addresses test_account=$ace_addr
   ```
 </details>
 
-Next, run `aptos move run-script`:
+Next, run `libra2 move run-script`:
 
 ```shellscript filename="Arguments via CLI"
-aptos move run-script \
+libra2 move run-script \
     --compiled-script-path build/CliArgs/bytecode_scripts/set_vals.mv \
     --type-args \
         0x1::account::Account \
@@ -470,7 +470,7 @@ aptos move run-script \
 </details>
 
 ```shellscript filename="Arguments via JSON file"
-aptos move run-script \
+libra2 move run-script \
     --compiled-script-path build/CliArgs/bytecode_scripts/set_vals.mv \
     --json-file script_function_arguments.json \
     --private-key-file ace.key \
@@ -536,7 +536,7 @@ aptos move run-script \
 Both such script function invocations result in the following `reveal()` view function output:
 
 ```shellscript filename="View function call"
-aptos move view \
+libra2 move view \
     --function-id $ace_addr::cli_args::reveal \
     --type-args \
         0x1::account::Account \
@@ -561,5 +561,5 @@ aptos move view \
 ```
 
 <Aside type="note" emoji="ℹ️">
-  As of the time of this writing, the `aptos` CLI only supports script function arguments for vectors of type `u8`, and only up to a vector depth of 1. Hence `vector<address>` and `vector<vector<u8>>` are invalid script function argument types.
+  As of the time of this writing, the `libra2` CLI only supports script function arguments for vectors of type `u8`, and only up to a vector depth of 1. Hence `vector<address>` and `vector<vector<u8>>` are invalid script function argument types.
 </Aside>

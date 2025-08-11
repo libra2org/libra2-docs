@@ -78,7 +78,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
        // Setup the client
        const config = new LibraConfig({ network: Network.DEVNET });
-       const aptos = new Libra(config);
+       const libra2 = new Libra(config);
      }
 
      example()
@@ -94,9 +94,9 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      ```typescript filename="quickstart.ts"
      ...
-     const ledgerInfo = await aptos.getLedgerInfo();
-     const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-     const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+     const ledgerInfo = await libra2.getLedgerInfo();
+     const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+     const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
      ...
      ```
 
@@ -116,7 +116,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      const alice: Account = Account.generate();
 
      // Fund the account on chain. Funding an account creates it on-chain.
-     await aptos.fundAccount({
+     await libra2.fundAccount({
        accountAddress: alice.accountAddress,
        amount: 100000000,
      });
@@ -125,7 +125,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      const bob: Account = Account.generate();
 
      // Fund the account on chain
-     await aptos.fundAccount({
+     await libra2.fundAccount({
        accountAddress: bob.accountAddress,
        amount: 100000000,
      });
@@ -134,22 +134,22 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      #### 2. Build the Transaction
 
-     You can build transactions with `aptos.transaction.build.simple({...})` by specifying:
+     You can build transactions with `libra2.transaction.build.simple({...})` by specifying:
 
      1. `sender` - The account that’s sending the transaction. This account will pay the gas fees.
      2. `data` - The information needed for Libra to identify what transaction to execute.
         1. `function` - Which smart contract on chain to call. This has the format `<account_address>::<move_module>::<function>`.
-        2. `functionArguments` - These are specific to the function being called. You can look up what parameters a function needs by searching for the account and module on chain with an explorer [like this](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
+        2. `functionArguments` - These are specific to the function being called. You can look up what parameters a function needs by searching for the account and module on chain with an explorer [like this](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet).
 
      For example:
 
      ```typescript filename="quickstart.ts"
      ...
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
        sender: alice.accountAddress,
        data: {
      	  // The Move entry-function
-         function: "0x1::aptos_account::transfer",
+         function: "0x1::libra2_account::transfer",
          functionArguments: [bob.accountAddress, 100],
        },
      });
@@ -157,7 +157,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      ```
 
      <Aside type="note">
-       For some situations, you can also use simplified functions in the SDK such as [`transferCoinTransaction`](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
+       For some situations, you can also use simplified functions in the SDK such as [`transferCoinTransaction`](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet).
      </Aside>
 
      #### 3. Sign and Submit
@@ -166,12 +166,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      Once signed, you can submit to the network for on chain verification and execution.
 
-     You can use `aptos.signAndSubmitTransaction` which combines those two steps into one:
+     You can use `libra2.signAndSubmitTransaction` which combines those two steps into one:
 
      ```typescript filename="quickstart.ts"
      ...
      // Both signs and submits (although these can be done separately too)
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction,
      });
@@ -180,13 +180,13 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      #### 4. Wait for completion
 
-     You can run `aptos.waitForTransaction` to guarantee your code executes after the transaction has been processed and applied.
+     You can run `libra2.waitForTransaction` to guarantee your code executes after the transaction has been processed and applied.
 
      This also helps you get any errors that may occur after submitting, such as the transaction being rejected.
 
      ```typescript filename="quickstart.ts"
      ...
-     const executedTransaction = await aptos.waitForTransaction({ transactionHash: pendingTransaction.hash });
+     const executedTransaction = await libra2.waitForTransaction({ transactionHash: pendingTransaction.hash });
      ...
      ```
 </Steps>
@@ -222,7 +222,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::aptos_coin::LibraCoin";
+const APTOS_COIN = "0x1::libra2_coin::LibraCoin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -235,7 +235,7 @@ async function example() {
 
   // Setup the client
   const config = new LibraConfig({ network: Network.DEVNET });
-  const aptos = new Libra(config);
+  const libra2 = new Libra(config);
 
   // Generate two account credentials
   // Each account has a private key, a public key, and an address
@@ -249,12 +249,12 @@ async function example() {
   // Fund the accounts using a faucet
   console.log("\n=== Funding accounts ===\n");
 
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: alice.accountAddress,
     amount: ALICE_INITIAL_BALANCE,
   });
 
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: bob.accountAddress,
     amount: BOB_INITIAL_BALANCE,
   });
@@ -262,14 +262,14 @@ async function example() {
 
   // Look up the newly funded account's balances
   console.log("\n=== Balances ===\n");
-  const aliceAccountBalance = await aptos.getAccountResource({
+  const aliceAccountBalance = await libra2.getAccountResource({
     accountAddress: alice.accountAddress,
     resourceType: COIN_STORE,
   });
   const aliceBalance = Number(aliceAccountBalance.coin.value);
   console.log(`Alice's balance is: ${aliceBalance}`);
 
-  const bobAccountBalance = await aptos.getAccountResource({
+  const bobAccountBalance = await libra2.getAccountResource({
     accountAddress: bob.accountAddress,
     resourceType: COIN_STORE,
   });
@@ -277,36 +277,36 @@ async function example() {
   console.log(`Bob's balance is: ${bobBalance}`);
 
   // Send a transaction from Alice's account to Bob's account
-  const txn = await aptos.transaction.build.simple({
+  const txn = await libra2.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
       // All transactions on Libra are implemented via smart contracts.
-      function: "0x1::aptos_account::transfer",
+      function: "0x1::libra2_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
   });
 
   console.log("\n=== Transfer transaction ===\n");
   // Both signs and submits
-  const committedTxn = await aptos.signAndSubmitTransaction({
+  const committedTxn = await libra2.signAndSubmitTransaction({
     signer: alice,
     transaction: txn,
   });
   // Waits for Libra to verify and execute the transaction
-  const executedTransaction = await aptos.waitForTransaction({
+  const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
   console.log("Transaction hash:", executedTransaction.hash);
 
   console.log("\n=== Balances after transfer ===\n");
-  const newAliceAccountBalance = await aptos.getAccountResource({
+  const newAliceAccountBalance = await libra2.getAccountResource({
     accountAddress: alice.accountAddress,
     resourceType: COIN_STORE,
   });
   const newAliceBalance = Number(newAliceAccountBalance.coin.value);
   console.log(`Alice's balance is: ${newAliceBalance}`);
 
-  const newBobAccountBalance = await aptos.getAccountResource({
+  const newBobAccountBalance = await libra2.getAccountResource({
     accountAddress: bob.accountAddress,
     resourceType: COIN_STORE,
   });
@@ -331,14 +331,14 @@ All told, you just learned how to transfer APT via a transaction by:
 
 1. Connecting to the network using the `Libra` client.
 2. Creating an account.
-3. Looking up data from on-chain using client helper functions like [`aptos.getAccountModules`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
+3. Looking up data from on-chain using client helper functions like [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
 4. Signing and submitting a transaction to the network.
 5. Waiting for Libra to execute the transaction.
 
 To see all this in action, you can copy and run the full working code snippet for this quickstart above.
 
 <Aside type="note">
-  For future development, make sure to bookmark the [reference docs](https://libra2-core.github.io/aptos-ts-sdk/) to look up specific function signatures.
+  For future development, make sure to bookmark the [reference docs](https://libra2-core.github.io/libra2-ts-sdk/) to look up specific function signatures.
 
-  Note that most helper functions are listed on the [`Libra` client object](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
+  Note that most helper functions are listed on the [`Libra` client object](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
 </Aside>

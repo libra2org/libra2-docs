@@ -81,7 +81,7 @@
       "versionNonce": 885213361,
       "index": "a0",
       "isDeleted": false,
-      "id": "aptos-blockchain-fullnode",
+      "id": "libra2-blockchain-fullnode",
       "fillStyle": "solid",
       "strokeWidth": 4,
       "strokeStyle": "solid",
@@ -103,7 +103,7 @@
       "boundElements": [
         {
           "type": "text",
-          "id": "aptos-blockchain-fullnode-text"
+          "id": "libra2-blockchain-fullnode-text"
         }
       ],
       "updated": 1722631672413,
@@ -116,7 +116,7 @@
       "versionNonce": 2045882207,
       "index": "a1",
       "isDeleted": false,
-      "id": "aptos-blockchain-fullnode-text",
+      "id": "libra2-blockchain-fullnode-text",
       "fillStyle": "hachure",
       "strokeWidth": 1,
       "strokeStyle": "solid",
@@ -142,7 +142,7 @@
       "text": "Libra Blockchain \nFullnode",
       "textAlign": "center",
       "verticalAlign": "middle",
-      "containerId": "aptos-blockchain-fullnode",
+      "containerId": "libra2-blockchain-fullnode",
       "originalText": "Libra Blockchain Fullnode",
       "autoResize": true,
       "lineHeight": 1.35

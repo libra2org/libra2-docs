@@ -50,8 +50,8 @@ import { Aside } from '@astrojs/starlight/components';
    terraform {
      required_version = "~> 1.3.6"
      backend "s3" {
-       bucket = "terraform.aptos-node"
-       key    = "state/aptos-node"
+       bucket = "terraform.libra2-node"
+       key    = "state/libra2-node"
        region = <aws region>
      }
    }
@@ -60,9 +60,9 @@ import { Aside } from '@astrojs/starlight/components';
      region = <aws region>
    }
 
-   module "aptos-node" {
+   module "libra2-node" {
      # 从libra2-core仓库下载Terraform模块。
-     source        = "github.com/libra2org/libra2-core.git//terraform/aptos-node/aws"
+     source        = "github.com/libra2org/libra2-core.git//terraform/libra2-node/aws"
      region        = <aws region>  # 指定AWS区域
      # zone_id     = "<Route53 zone id>"  # 如果您想使用DNS，请使用Route53
      era           = 1  # 提高时代编号以清除链数据
@@ -74,8 +74,8 @@ import { Aside } from '@astrojs/starlight/components';
 
    有关所有自定义选项,请参见:
 
-   - Terraform 变量:[https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/aws/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/aws/variables.tf)
-   - Helm 值:[https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml).
+   - Terraform 变量:[https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/aws/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/aws/variables.tf)
+   - Helm 值:[https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml).
 
 5. 在您创建了 `main.tf` 文件的 `$WORKSPACE` 目录中初始化 Terraform.
 
@@ -104,22 +104,22 @@ import { Aside } from '@astrojs/starlight/components';
 
 8. `terraform apply` 完成后,您可以通过运行以下命令来检查资源是否已正确创建:
 
-   - `aws eks update-kubeconfig --name aptos-$WORKSPACE`:此命令将为您的 k8s 集群配置访问权限.
+   - `aws eks update-kubeconfig --name libra2-$WORKSPACE`:此命令将为您的 k8s 集群配置访问权限.
    - `kubectl get pods`:执行此命令会展示出 Kubernetes 集群中所有的 Pod.你将会看到 haproxy,验证节点及验证器全节点(VFN)(由于需要进行后续步骤的操作,验证节点和验证器全节点的 Pod 目前处于 `pending` 状态).
    - `kubectl get svc`:此命令将输出集群中的所有服务.您应该看到 `validator-lb` 和 `fullnode-lb`,以及用于网络连接的外部 IP.
 
 9. 接下来,我们需要将节点的 IP 信息注入到您的环境.您可以通过运行以下命令来执行此操作:
 
    ```shellscript filename="Terminal"
-   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
-   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
    ```
 
 10. 现在,在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
     ```shellscript filename="Terminal"
-    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+    libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
     ```
 
     这将在 `~/$WORKSPACE/keys` 目录下创建 4 个密钥文件:
@@ -137,7 +137,7 @@ import { Aside } from '@astrojs/starlight/components';
 11. 接下来,您需要设置验证器的配置.这包括设置验证器和 VFN 的主机名,这些可能是 IP 地址或 DNS 地址.您可以通过运行以下命令来完成此操作:
 
     ```shellscript filename="Terminal"
-    aptos genesis set-validator-configuration \
+    libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -156,7 +156,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 13. 总之,在您的工作目录(`~/$WORKSPACE`)中,您应该有以下文件列表:
 
-    - `main.tf`:安装 `aptos-node` 模块的 Terraform 文件.
+    - `main.tf`:安装 `libra2-node` 模块的 Terraform 文件.
     - 包含以下内容的 `keys` 文件夹:
       - `public-keys.yaml`:两个节点的公钥.
       - `private-keys.yaml`:两个节点的私钥.
@@ -171,7 +171,7 @@ import { Aside } from '@astrojs/starlight/components';
 14. 最后,通过运行以下命令,将 `genesis.blob`,`waypoint.txt` 和身份文件作为密钥插入到 k8s 集群中:
 
     ```shellscript filename="Terminal"
-    kubectl create secret generic ${WORKSPACE}-aptos-node-0-genesis-e1 \
+    kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e1 \
         --from-file=genesis.blob=genesis.blob \
         --from-file=waypoint.txt=waypoint.txt \
         --from-file=validator-identity.yaml=keys/validator-identity.yaml \
@@ -192,9 +192,9 @@ import { Aside } from '@astrojs/starlight/components';
 
     # 示例输出
     NAME                                        READY   STATUS    RESTARTS   AGE
-    node1-aptos-node-0-fullnode-e9-0              1/1     Running   0          4h31m
-    node1-aptos-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
-    node1-aptos-node-0-validator-0                1/1     Running   0          4h30m
+    node1-libra2-node-0-fullnode-e9-0              1/1     Running   0          4h31m
+    node1-libra2-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
+    node1-libra2-node-0-validator-0                1/1     Running   0          4h30m
     ```
 
 <Aside type="caution">

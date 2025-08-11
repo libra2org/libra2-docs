@@ -23,7 +23,7 @@ const account = Account.generate({
 ```
 
 <Aside type="note">
-  Following [AIP-55](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-55.md) the SDK supports `Legacy` and `Unified` authentications. `Legacy` includes `ED25519` and `MultiED25519` and `Unified` includes `SingleSender` and `MultiSender` authenticators.
+  Following [AIP-55](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-55.md) the SDK supports `Legacy` and `Unified` authentications. `Legacy` includes `ED25519` and `MultiED25519` and `Unified` includes `SingleSender` and `MultiSender` authenticators.
 </Aside>
 
 Once you have generated credentials, you **must** fund it for the network to know it exists.
@@ -31,7 +31,7 @@ Once you have generated credentials, you **must** fund it for the network to kno
 In localnet / devnet this can be done with a faucet by running the following command:
 
 ```typescript filename="fund.ts"
-const transaction = await aptos.fundAccount({
+const transaction = await libra2.fundAccount({
   accountAddress: account.accountAddress,
   amount: 100,
 });

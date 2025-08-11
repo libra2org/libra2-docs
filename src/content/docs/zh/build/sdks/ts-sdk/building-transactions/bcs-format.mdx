@@ -14,10 +14,10 @@ title: "BCS 格式"
 您可以通过显式指定参数类型来直接使用 BCS 格式构建交易,如下所示:
 
 ```typescript filename="example.ts"
-const transaction = await aptos.transaction.build.simple({
+const transaction = await libra2.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
-      function: "0x1::aptos_account::transfer",
+      function: "0x1::libra2_account::transfer",
       functionArguments: [AccountAddress.fromString("0x123"), new U64(1_000_000)],
     },
   });

@@ -49,24 +49,24 @@ y Nombres de Libra, consulta nuestra página sobre [Cuentas](/network/blockchain
 ## Estándares de cuenta
 
 Las cuentas deben existir antes de enviar una transacción a la blockchain. Esto se hace creando un recurso de cuenta, que puede
-ser creado simplemente llamando `0x1::aptos_account::transfer` con una cantidad de cero a la cuenta que quieres crear. Opcionalmente,
-`0x1::aptos_account::create_account` puede ser usado para crear una cuenta con un saldo de cero.
+ser creado simplemente llamando `0x1::libra2_account::transfer` con una cantidad de cero a la cuenta que quieres crear. Opcionalmente,
+`0x1::libra2_account::create_account` puede ser usado para crear una cuenta con un saldo de cero.
 
 ```typescript filename="example.ts"
 import { Libra, Ed25519Account, Ed25519PrivateKey } from "@libra2-core/ts-sdk";
 
-const aptos = new Libra();
+const libra2 = new Libra();
 const account = new Ed25519Account({privateKey: new Ed25519PrivateKey("private key")})
-const transaction = await aptos.transferCoinTransaction({sender: account.accountAddress, recipient: "receiver address", amount: 100000000})
-const pendingTransaction = await aptos.transaction.signAndSubmitTransaction({signer: account, transaction})
-const committedTransaction = await aptos.waitForTransaction({transactionHash: pendingTransaction.hash});
+const transaction = await libra2.transferCoinTransaction({sender: account.accountAddress, recipient: "receiver address", amount: 100000000})
+const pendingTransaction = await libra2.transaction.signAndSubmitTransaction({signer: account, transaction})
+const committedTransaction = await libra2.waitForTransaction({transactionHash: pendingTransaction.hash});
 ```
 
 ## Estándares de activos
 
 Libra proporciona dos estándares para tokens fungibles, similares a los tokens ERC-20 en Ethereum:
 
-- Un estándar anterior [Coin](/build/smart-contracts/aptos-coin) usado por activos en Libra.
+- Un estándar anterior [Coin](/build/smart-contracts/libra2-coin) usado por activos en Libra.
 - Un estándar más reciente [Fungible Asset Standard](/build/smart-contracts/fungible-asset) que es más completo.
 
 Además, hay un período de migración para activos de Coin a estándares de Activo Funciable. Llamaremos a esto **monedas migradas**. Las monedas migradas pueden tener dos formas, pero cualquiera
@@ -81,16 +81,16 @@ usar funciones de moneda y no funciones de activo fungible. El estándar FA solo
 ### Estándar de Coin (tl;dr)
 
 Un **coin** tiene un contrato asociado que contiene la estructura on-chain que representa el coin. El coin es
-representado como un nombre de struct e.g. `0x1::aptos_coin::LibraCoin` para `APT`.
+representado como un nombre de struct e.g. `0x1::libra2_coin::LibraCoin` para `APT`.
 
 Todos los coins se almacenan en un recurso de cuenta llamado `0x1::coin::CoinStore<CoinType>`. Los coins deben ser registrados
-antes de usar el `CoinStore`, pero si se usan las funciones apropiadas e.g. `0x1::aptos_account::transfer`
-o `0x1::aptos_account::transfer_coins<CoinType>`, esto se hará automáticamente.
+antes de usar el `CoinStore`, pero si se usan las funciones apropiadas e.g. `0x1::libra2_account::transfer`
+o `0x1::libra2_account::transfer_coins<CoinType>`, esto se hará automáticamente.
 
 Los coins pueden ser _migrados_ a un activo fungible. Para apoyar un activo migrado,
 continúe llamando a las funciones de moneda tal como se mencionará más adelante.
 
-Más información en: [Estándar de Coin](/build/smart-contracts/aptos-coin)
+Más información en: [Estándar de Coin](/build/smart-contracts/libra2-coin)
 
 ### Estándar de Activo Funciable (tl;dr)
 
@@ -127,11 +127,11 @@ la función de vista `0x1::coin::balance<CoinType>(dirección de cuenta)`. Esto 
 import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const config = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
-const coinType = "0x1::aptos_coin::LibraCoin";
+const coinType = "0x1::libra2_coin::LibraCoin";
 const account = "0x00000000000000000000000000000001";
-const [balanceStr] = await aptos.view<[string]>({
+const [balanceStr] = await libra2.view<[string]>({
   payload: {
     function: "0x1::coin::balance",
     typeArguments: [coinType],
@@ -147,11 +147,11 @@ Una versión de ledger específica (altura de transacción) puede ser proporcion
 import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const config = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
-const coinType = "0x1::aptos_coin::LibraCoin";
+const coinType = "0x1::libra2_coin::LibraCoin";
 const account = "0x00000000000000000000000000000001";
-const [balanceStr] = await aptos.view<[string]>({
+const [balanceStr] = await libra2.view<[string]>({
   payload: {
     function: "0x1::coin::balance",
     typeArguments: [coinType],
@@ -174,11 +174,11 @@ Nota, que esto no incluirá el balance de monedas si es una moneda migrada.
 import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const config = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
 const faMetadataAddress = "0xA";
 const account = "0x00000000000000000000000000000001";
-const [balanceStr] = await aptos.view<[string]>({
+const [balanceStr] = await libra2.view<[string]>({
   payload: {
     function: "0x1::primary_fungible_store::balance",
     typeArguments: ["0x1::object::ObjectCore"],
@@ -194,11 +194,11 @@ Una versión de ledger específica (altura de transacción) puede ser proporcion
 import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const config = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
 const faMetadataAddress = "0xA";
 const account = "0x00000000000000000000000000000001";
-const [balanceStr] = await aptos.view<[string]>({
+const [balanceStr] = await libra2.view<[string]>({
   payload: {
     function: "0x1::primary_fungible_store::balance",
     typeArguments: ["0x1::object::ObjectCore"],
@@ -211,7 +211,7 @@ const [balanceStr] = await aptos.view<[string]>({
 const balance = parseInt(balanceStr, 10);
 ```
 
-Además de los SDKs, también puedes usar directamente el endpoint de balance de la API del nodo de aptos para obtener el balance de una moneda migrada o activo fungible.
+Además de los SDKs, también puedes usar directamente el endpoint de balance de la API del nodo de libra2 para obtener el balance de una moneda migrada o activo fungible.
 
 ## Rastrear cambios de balance
 
@@ -230,9 +230,9 @@ Los balances de coin se rastrean como dos elementos, cambios en el conjunto de e
 de escritura son el estado final del balance de coin, y los eventos son los eventos que se
 emiten cuando un coin se retira o deposita.
 
-Aquí hay un [ejemplo de una transferencia de coin](https://explorer.aptoslabs.com/txn/1747361321?network=mainnet).
+Aquí hay un [ejemplo de una transferencia de coin](https://explorer.libra2labs.com/txn/1747361321?network=mainnet).
 La transferencia de coin puede ser rastreada como una transacción individual
-[aquí](https://fullnode.mainnet.aptoslabs.com/v1/transactions/by_version/1747361321)
+[aquí](https://fullnode.mainnet.libra2labs.com/v1/transactions/by_version/1747361321)
 desde la API REST.
 
 Lo desglosaremos en varios pasos:
@@ -272,7 +272,7 @@ En este caso, solo nos importan los cambios en el store de coin.
       "address": "0x559d4f690c683fca7c539237aa8dc4c6ec09886b7016bf66f2cdeffef55468f0",
       "state_key_hash": "0xb2bfa7198457291a0e582b912be2bf8577feff08e352c9f16935a55ebd202dcc",
       "data": {
-        "type": "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+        "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
         "data": {
           "coin": {
             "value": "903837250"
@@ -304,7 +304,7 @@ En este caso, solo nos importan los cambios en el store de coin.
       "address": "0x5d6233bb8d7f8bd714af196339e9fb3104c9d66f38867b2a0585c4f7b9d04d28",
       "state_key_hash": "0xa45b7cfe18cc0ef1d6588f0f548a6a6a260d5e6bbab174507ed40cd21b7bd082",
       "data": {
-        "type": "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+        "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
         "data": {
           "coin": {
             "value": "10"
@@ -381,7 +381,7 @@ debe estar presente en su lugar. Luego, puede coincidir el `guid` con
         "sequence_number": "0",
         "type": "0x1::coin::CoinStoreDeletion",
         "data": {
-          "coin_type": "0x1::aptos_coin::LibraCoin",
+          "coin_type": "0x1::libra2_coin::LibraCoin",
           "deleted_deposit_event_handle_creation_number": "2",
           "deleted_withdraw_event_handle_creation_number": "3",
           "event_handle_creation_address": "0xf8e25f6c8ce40a15107fb4b4d288ca03dd434d057392f2ccb5fde505a300a0bf"
@@ -465,7 +465,7 @@ debe estar presente en su lugar. Luego, puede coincidir el `guid` con
     "address": "0x559d4f690c683fca7c539237aa8dc4c6ec09886b7016bf66f2cdeffef55468f0",
     "state_key_hash": "0xb2bfa7198457291a0e582b912be2bf8577feff08e352c9f16935a55ebd202dcc",
     "data": {
-    "type": "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+    "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
     "data": {
     "coin": {
     "value": "903837250"
@@ -538,7 +538,7 @@ debe estar presente en su lugar. Luego, puede coincidir el `guid` con
     "address": "0x5d6233bb8d7f8bd714af196339e9fb3104c9d66f38867b2a0585c4f7b9d04d28",
     "state_key_hash": "0xa45b7cfe18cc0ef1d6588f0f548a6a6a260d5e6bbab174507ed40cd21b7bd082",
     "data": {
-    "type": "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+    "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
     "data": {
     "coin": {
     "value": "10"
@@ -622,7 +622,7 @@ debe estar presente en su lugar. Luego, puede coincidir el `guid` con
     "gas_unit_price": "100",
     "expiration_timestamp_secs": "1727826277",
     "payload": {
-    "function": "0x1::aptos_account::transfer",
+    "function": "0x1::libra2_account::transfer",
     "type_arguments": [],
     "arguments": [
     "0x5d6233bb8d7f8bd714af196339e9fb3104c9d66f38867b2a0585c4f7b9d04d28",
@@ -701,7 +701,7 @@ Para activos fungibles, los cambios de balance se rastrean en el `primary_fungib
 La dirección del store principal de activos fungibles es determinista, y siempre será rastreada por
 el propietario del store.
 
-Un ejemplo: https://api.mainnet.aptoslabs.com/v1/transactions/by\_version/1750174030
+Un ejemplo: https://api.mainnet.libra2labs.com/v1/transactions/by\_version/1750174030
 
 Hay varios pasos cuando se rastrean activos fungibles:
 
@@ -834,7 +834,7 @@ La dirección de metadatos de activo fungible es el hash del tipo de moneda y 0x
 address = sha3_256(0xA | coin_type | 0xFE)
 ```
 
-Aquí hay un ejemplo de una moneda migrada con APT: https://api.mainnet.aptoslabs.com/v1/transactions/by\_version/1642580695
+Aquí hay un ejemplo de una moneda migrada con APT: https://api.mainnet.libra2labs.com/v1/transactions/by\_version/1642580695
 
 <details>
   <summary>Respuesta completa</summary>
@@ -1183,17 +1183,17 @@ Aquí hay un ejemplo de una moneda migrada con APT: https://api.mainnet.aptoslab
 
 <Aside type="note">
   APT, el token nativo de Libra, es una moneda migrada. Por favor, usa las funciones
-  `aptos_account::transfer` para transferir tokens APT.
+  `libra2_account::transfer` para transferir tokens APT.
 </Aside>
 
-Te sugerimos que uses `0x1::aptos_account::transfer_coins<CoinType>(dirección de receptor, cantidad)` para transferir monedas. Esto
+Te sugerimos que uses `0x1::libra2_account::transfer_coins<CoinType>(dirección de receptor, cantidad)` para transferir monedas. Esto
 registrará el coin si no ha sido registrado aún, y creará la cuenta asociada si no ha sido creada aún. Esto continuará funcionando con cualquier moneda que haya sido migrada a un activo fungible, incluyendo APT.
 
 Las monedas pueden ser transferidas de las siguientes maneras:
 
-- [`0x1::aptos_account::transfer_coins<CoinType>(dirección de receptor, cantidad)`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/aptos_account.move#L108-L112) - Transferir una moneda a otra cuenta.
-- [`0x1::aptos_account::batch_transfer_coins<CoinType>(direcciones de receptores, cantidades)`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/aptos_account.move#L93-L106) - Transferir una moneda a múltiples cuentas.
-- [`0x1::aptos_account::transfer(dirección de receptor, cantidad)`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/aptos_account.move#L74-L91) - Transferir específicamente APT a otra cuenta.
+- [`0x1::libra2_account::transfer_coins<CoinType>(dirección de receptor, cantidad)`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/libra2_account.move#L108-L112) - Transferir una moneda a otra cuenta.
+- [`0x1::libra2_account::batch_transfer_coins<CoinType>(direcciones de receptores, cantidades)`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/libra2_account.move#L93-L106) - Transferir una moneda a múltiples cuentas.
+- [`0x1::libra2_account::transfer(dirección de receptor, cantidad)`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/libra2_account.move#L74-L91) - Transferir específicamente APT a otra cuenta.
 
 {/* TODO ejemplos */}
 
@@ -1207,7 +1207,7 @@ Enviará el activo asociado y creará un store principal para el activo si no ha
 <Aside type="caution">
   Nota: Esto no creará una cuenta para el usuario si no ha sido creada
   aún. Necesitarás llamar
-  `0x1::aptos_account::create_account(dirección de cuenta)` para crear la cuenta
+  `0x1::libra2_account::create_account(dirección de cuenta)` para crear la cuenta
   antes de que el usuario pueda
   enviar transacciones.
 </Aside>
@@ -1220,7 +1220,7 @@ Para verificar que todo está funcionando correctamente, hemos proporcionado est
 
 ### Verificaciones de balance
 
-Para probar las verificaciones de balance, puedes verificar el balance para la cuenta `0x5` para el activo `0x1::aptos_coin::LibraCoin`.
+Para probar las verificaciones de balance, puedes verificar el balance para la cuenta `0x5` para el activo `0x1::libra2_coin::LibraCoin`.
 El balance debería mostrar `0.002 APT`, donde 0.001 APT es una moneda, y 0.001 APT es una moneda migrada (activo fungible).
 
 Si tu balance no es correcto, consulta [Balances de Coin y Moneda Migrada](#balances-de-coin-y-moneda-migrada) para más información.
@@ -1243,9 +1243,9 @@ según el cambio, y deberías poder rastrear el mint en el sitio web.
 
 | Nombre del Token           | Símbolo | Dirección del Token                                                                                                                                                                                                        | Fuente de la Dirección                                                                             |
 | -------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Tether USD           | USDt         | [0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b](https://explorer.aptoslabs.com/fungible_asset/0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b?network=mainnet)               | [Libra Foundation](https://aptosfoundation.org/currents/global-finance-moves-faster-on-aptos) |
-| USDC                 | USDC         | [0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b](https://explorer.aptoslabs.com/fungible_asset/0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b?network=mainnet)               | [Circle](https://developers.circle.com/stablecoins/usdc-on-main-networks)                     |
-| Ondo US Dollar Yield | USDY         | [0xcfea864b32833f157f042618bd845145256b1bf4c0da34a7013b76e42daa53cc::usdy::USDY](https://explorer.aptoslabs.com/coin/0xcfea864b32833f157f042618bd845145256b1bf4c0da34a7013b76e42daa53cc::usdy::USDY?network=mainnet) | [Ondo Finance](https://ondo.finance/usdy)                                                     |
+| Tether USD           | USDt         | [0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b](https://explorer.libra2labs.com/fungible_asset/0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b?network=mainnet)               | [Libra Foundation](https://libra2foundation.org/currents/global-finance-moves-faster-on-libra2) |
+| USDC                 | USDC         | [0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b](https://explorer.libra2labs.com/fungible_asset/0xbae207659db88bea0cbead6da0ed00aac12edcdda169e591cd41c94180b46f3b?network=mainnet)               | [Circle](https://developers.circle.com/stablecoins/usdc-on-main-networks)                     |
+| Ondo US Dollar Yield | USDY         | [0xcfea864b32833f157f042618bd845145256b1bf4c0da34a7013b76e42daa53cc::usdy::USDY](https://explorer.libra2labs.com/coin/0xcfea864b32833f157f042618bd845145256b1bf4c0da34a7013b76e42daa53cc::usdy::USDY?network=mainnet) | [Ondo Finance](https://ondo.finance/usdy)                                                     |
 
 ## Preguntas Frecuentes
 

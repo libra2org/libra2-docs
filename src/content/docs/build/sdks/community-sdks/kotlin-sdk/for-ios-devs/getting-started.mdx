@@ -15,7 +15,7 @@ fetching data on the Libra blockchain.
 
      ```swift filename="Package.swift"
      dependencies: [
-       .package(url: "https://github.com/mcxross/swift-aptos.git", .upToNextMajor(from: <version>))
+       .package(url: "https://github.com/mcxross/swift-libra2.git", .upToNextMajor(from: <version>))
      ]
      ```
 
@@ -51,7 +51,7 @@ fetching data on the Libra blockchain.
      `fullnode`, and `faucet` properties.
 
      ```swift filename="Main.swift"
-     let aptosSettings = LibraSettings(
+     let libra2Settings = LibraSettings(
          network: .devnet,
          fullNode: nil,
          faucet: nil,
@@ -67,7 +67,7 @@ fetching data on the Libra blockchain.
   5. Create the LibraConfig object
 
      ```swift filename="Main.swift"
-     let aptosConfig = LibraConfig(settings: aptosSettings)
+     let libra2Config = LibraConfig(settings: libra2Settings)
      ```
 
   6. Create the Libra object
@@ -76,13 +76,13 @@ fetching data on the Libra blockchain.
      entry point for all interactions with the blockchain.
 
      ```swift filename="Main.swift"
-     let aptos = Libra(config: aptosConfig, graceFull: false)
+     let libra2 = Libra(config: libra2Config, graceFull: false)
      ```
 
   7. Fetch the chain ID
 
      ```swift filename="Main.swift"
-     let chainId = try await aptos.getChainId()
+     let chainId = try await libra2.getChainId()
      ```
 
      Congratulations! You have successfully set up the **LibraKit** SDK and fetched the chain ID from the Libra blockchain.
@@ -128,7 +128,7 @@ private func fetchChainId() {
             proxy: nil
         )
 
-        let aptosSettings = LibraSettings(
+        let libra2Settings = LibraSettings(
             network: .devnet,
             fullNode: nil,
             faucet: nil,
@@ -140,10 +140,10 @@ private func fetchChainId() {
             faucetConfig: nil
         )
 
-        let aptosConfig = LibraConfig(settings: aptosSettings)
-        let aptos = Libra(config: aptosConfig, graceFull: false)
+        let libra2Config = LibraConfig(settings: libra2Settings)
+        let libra2 = Libra(config: libra2Config, graceFull: false)
 
-        let chainId = try await aptos.getChainId()
+        let chainId = try await libra2.getChainId()
         self.chainId = chainId.expect(message: "Failed...")?.stringValue ?? "null"
       } catch {
         print("Failed to get chain ID: \(error)")

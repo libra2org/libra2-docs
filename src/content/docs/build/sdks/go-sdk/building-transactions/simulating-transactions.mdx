@@ -16,27 +16,27 @@ package main
 import (
 	"fmt"
 
-	"github.com/libra2org/aptos-go-sdk"
-	"github.com/libra2org/aptos-go-sdk/bcs"
+	"github.com/libra2org/libra2-go-sdk"
+	"github.com/libra2org/libra2-go-sdk/bcs"
 )
 
 const FundAmount = 100_000_000
 const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
-func example(networkConfig aptos.NetworkConfig) {
+func example(networkConfig libra2.NetworkConfig) {
 	// Create a client for Libra
-	client, err := aptos.NewClient(networkConfig)
+	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
 	}
 
 	// Create accounts locally for alice and bob
-	alice, err := aptos.NewEd25519Account()
+	alice, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create alice:" + err.Error())
 	}
-	bob, err := aptos.NewEd25519Account()
+	bob, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create bob:" + err.Error())
 	}
@@ -73,14 +73,14 @@ func example(networkConfig aptos.NetworkConfig) {
 	if err != nil {
 		panic("Failed to serialize transfer amount:" + err.Error())
 	}
-	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), aptos.TransactionPayload{
-		Payload: &aptos.EntryFunction{
-			Module: aptos.ModuleId{
-				Address: aptos.AccountOne,
-				Name:    "aptos_account",
+	rawTxn, err := client.BuildTransaction(alice.AccountAddress(), libra2.TransactionPayload{
+		Payload: &libra2.EntryFunction{
+			Module: libra2.ModuleId{
+				Address: libra2.AccountOne,
+				Name:    "libra2_account",
 			},
 			Function: "transfer",
-			ArgTypes: []aptos.TypeTag{},
+			ArgTypes: []libra2.TypeTag{},
 			Args: [][]byte{
 				accountBytes,
 				amountBytes,
@@ -108,7 +108,7 @@ func example(networkConfig aptos.NetworkConfig) {
 }
 
 func main() {
-	example(aptos.DevnetConfig)
+	example(libra2.DevnetConfig)
 }
 ```
 

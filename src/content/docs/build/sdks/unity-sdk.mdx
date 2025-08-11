@@ -38,7 +38,7 @@ for developers to build Web3 games using the Unity game engine.
 3. Enter the URL of the Libra Unity SDK path in this repository:
 
 ```shellscript
-https://github.com/libra2org/unity-sdk.git?path=/Packages/com.aptoslabs.aptos-unity-sdk
+https://github.com/libra2org/unity-sdk.git?path=/Packages/com.libra2labs.libra2-unity-sdk
 ```
 
 ### Install via `unitypackage`
@@ -90,8 +90,8 @@ class Example : MonoBehaviour
         var transaction = await client.Transaction.Build(
             sender: account,
             data: new GenerateEntryFunctionPayloadData(
-                function: "0x1::aptos_account::transfer_coins",
-                typeArguments: ["0x1::aptos_coin::LibraCoin"],
+                function: "0x1::libra2_account::transfer_coins",
+                typeArguments: ["0x1::libra2_coin::LibraCoin"],
                 functionArguments: [account.Address, "100000"]
             )
         );
@@ -108,5 +108,5 @@ class Example : MonoBehaviour
 ## Resources
 
 <CardGrid>
-  <LinkCard href="https://github.com/libra2org/aptos-unity-starter" title="Libra Wallet Starter" description="Example Unity project with an integration of the Libra Unity SDK." target="_blank" />
+  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra Wallet Starter" description="Example Unity project with an integration of the Libra Unity SDK." target="_blank" />
 </CardGrid>

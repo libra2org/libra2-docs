@@ -17,14 +17,14 @@ import { Aside } from '@astrojs/starlight/components';
 ```shellscript filename="Terminal"
 mkdir mainnet && cd mainnet
 mkdir data && \
-curl -O https://raw.githubusercontent.com/libra2-core/libra2-core/mainnet/docker/compose/aptos-node/fullnode.yaml  && \
-curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/waypoint.txt  && \
-curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/genesis.blob
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-core/mainnet/docker/compose/libra2-node/fullnode.yaml  && \
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/waypoint.txt  && \
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/genesis.blob
 ```
 
 <Aside type="caution">
   **不想连接到主网?**<br />
-  要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在此处找到创世区块和路标文件 ➜ https://github.com/libra2org/aptos-networks
+  要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在此处找到创世区块和路标文件 ➜ https://github.com/libra2org/libra2-networks
   请确保下载这些网络的 `genesis.blob` 和 `waypoint.txt` ,而不是使用上面 `curl` 命令下载创世区块和路标文件.
 </Aside>
 
@@ -34,12 +34,12 @@ curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainne
 ```yaml filename="fullnode.yaml"
 base:
   role: "full_node"
-  data_dir: "/opt/aptos/data"
+  data_dir: "/opt/libra2/data"
   waypoint:
-    from_file: "/opt/aptos/etc/waypoint.txt"
+    from_file: "/opt/libra2/etc/waypoint.txt"
 
 execution:
-  genesis_file_location: "/opt/aptos/etc/genesis.blob"
+  genesis_file_location: "/opt/libra2/etc/genesis.blob"
 
 full_node_networks:
   - network_id: "public"
@@ -62,10 +62,10 @@ api:
 docker run --pull=always \
   --rm -p 8080:8080 \
   -p 9101:9101 -p 6180:6180 \
-  -v $(pwd):/opt/aptos/etc -v $(pwd)/data:/opt/aptos/data \
-  --workdir /opt/aptos/etc \
-  --name=aptos-fullnode aptoslabs/validator:mainnet aptos-node \
-  -f /opt/aptos/etc/fullnode.yaml
+  -v $(pwd):/opt/libra2/etc -v $(pwd)/data:/opt/libra2/data \
+  --workdir /opt/libra2/etc \
+  --name=libra2-fullnode libra2labs/validator:mainnet libra2-node \
+  -f /opt/libra2/etc/fullnode.yaml
 ```
 
 <Aside type="caution">
@@ -76,7 +76,7 @@ docker run --pull=always \
 <Aside type="note">
   **Docker 标签**<br />
   `mainnet` 标签始终指向最新的官方 Docker 镜像标签.您可以在以下位置找到最新的哈希值进行比较:
-  https://github.com/libra2org/aptos-networks/tree/main/mainnet
+  https://github.com/libra2org/libra2-networks/tree/main/mainnet
 </Aside>
 
 您现在已经成功配置并在 Libra 主网上开始运行 PFN.

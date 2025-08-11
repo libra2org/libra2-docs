@@ -36,7 +36,7 @@ A continuación se muestran las instrucciones sobre cómo compilar, desplegar y 
      - Reemplaza `<your_address>` con la dirección de tu cuenta.
 
      ```shellscript filename="Terminal"
-     aptos move compile --named-addresses <named_address>=<your_address>
+     libra2 move compile --named-addresses <named_address>=<your_address>
      ```
 
   2. Desplegar código en un objeto
@@ -46,13 +46,13 @@ A continuación se muestran las instrucciones sobre cómo compilar, desplegar y 
      - Reemplaza `<named_address>` con la dirección nombrada.
 
      ```shellscript filename="Terminal"
-     aptos move deploy-object --address-name <named_address>
+     libra2 move deploy-object --address-name <named_address>
      ```
 
      **Un ejemplo se muestra a continuación:**
 
      ```shellscript filename="Terminal"
-     aptos move deploy-object --address-name my_address
+     libra2 move deploy-object --address-name my_address
      ```
 
      Esto preguntará si deseas publicar el código bajo la dirección de objeto especificada.
@@ -74,13 +74,13 @@ A continuación se muestran las instrucciones sobre cómo compilar, desplegar y 
      Así es como puedes hacerlo vía CLI, aquí tu `deployer_account` debe ser el propietario actual del objeto.
 
      ```shellscript
-     aptos move run --function-id 0x1::object::transfer --type-args 0x1::object::ObjectCore --args address:<object_address> address:<new_owner_address> --profile <deployer_account_profile>
+     libra2 move run --function-id 0x1::object::transfer --type-args 0x1::object::ObjectCore --args address:<object_address> address:<new_owner_address> --profile <deployer_account_profile>
      ```
 
      Así es como puedes hacerlo vía el SDK de typescript:
 
      ```typescript
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
        sender: deployerAccount.accountAddress,
        data: {
       	  function: "0x1::object::transfer",
@@ -100,13 +100,13 @@ A continuación se muestran las instrucciones sobre cómo compilar, desplegar y 
      Nota: el valor para el nombre de la cuenta ahora debe ser la dirección del objeto, ya que el paquete que contiene el/los módulo(s) ahora está desplegado en esa dirección.
 
      ```shellscript filename="Terminal"
-     aptos move upgrade-object --address-name <named_address> --object-address <code_object_addr>
+     libra2 move upgrade-object --address-name <named_address> --object-address <code_object_addr>
      ```
 
      Ejemplo del comando anterior:
 
      ```shellscript filename="Terminal"
-     aptos move upgrade-object --address-name my_address --object-address 0x8d6eb306bcf6c61dbaa0dbf8daa8252e121b63e95991afcab3b12d3be7f001ab
+     libra2 move upgrade-object --address-name my_address --object-address 0x8d6eb306bcf6c61dbaa0dbf8daa8252e121b63e95991afcab3b12d3be7f001ab
      ```
 
      Esto preguntará si deseas actualizar el código existente desplegado en la dirección del objeto.

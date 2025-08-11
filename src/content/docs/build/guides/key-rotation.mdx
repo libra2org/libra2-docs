@@ -97,7 +97,7 @@ in the sense the private key from _after_ the operation has approved the
 key rotation. Hence the [`account::OriginatingAddress`] table is _not_ updated
 for unproven key rotations, and there is thus no restriction on the number of
 accounts that can be authenticated with a given private key. Note that the
-`aptos` CLI does not currently support unproven key rotations.
+`libra2` CLI does not currently support unproven key rotations.
 
 <Aside type="note" emoji="🧠">
   The [`account::rotate_authentication_key_call`] was introduced to support
@@ -122,7 +122,7 @@ authentication key to account address for ease of originating address lookup
      Start a localnet:
 
      ```shellscript filename="Terminal"
-     aptos node run-localnet
+     libra2 node run-localnet
      ```
 
      The localnet is ready when it prints out:
@@ -139,7 +139,7 @@ authentication key to account address for ease of originating address lookup
 
        ```shellscript filename="Terminal"
        mkdir -p localnet-data
-       aptos node run-localnet \
+       libra2 node run-localnet \
            --assume-yes \
            --test-dir localnet-data \
            --force-restart &
@@ -159,7 +159,7 @@ authentication key to account address for ease of originating address lookup
      account address, that starts with the vanity prefix `0xaaa`:
 
      ```shellscript filename="Terminal"
-     aptos key generate \
+     libra2 key generate \
          --assume-yes \
          --output-file private-key-a \
          --vanity-prefix 0xaaa
@@ -188,7 +188,7 @@ authentication key to account address for ease of originating address lookup
      following command should fail with a corresponding message:
 
      ```shellscript filename="Terminal"
-     aptos account lookup-address \
+     libra2 account lookup-address \
          --public-key-file private-key-a.pub \
          --url http://localhost:8080
      ```
@@ -208,7 +208,7 @@ authentication key to account address for ease of originating address lookup
      Use the private key to initialize `test-profile-1` on the localnet:
 
      ```shellscript filename="Terminal"
-     aptos init \
+     libra2 init \
          --assume-yes \
          --network local \
          --private-key-file private-key-a \
@@ -226,7 +226,7 @@ authentication key to account address for ease of originating address lookup
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
+       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -236,7 +236,7 @@ authentication key to account address for ease of originating address lookup
      Note that you can always view the profile with:
 
      ```shellscript filename="Terminal"
-     aptos config show-profiles --profile test-profile-1
+     libra2 config show-profiles --profile test-profile-1
      ```
 
      <details>
@@ -261,7 +261,7 @@ authentication key to account address for ease of originating address lookup
      would like to show the private key:
 
      ```shellscript filename="Terminal"
-     aptos config show-private-key --profile test-profile-1
+     libra2 config show-private-key --profile test-profile-1
      ```
 
      <details>
@@ -277,10 +277,10 @@ authentication key to account address for ease of originating address lookup
   4. Look up address
 
      Now that there is an onchain account associated with the authentication key,
-     you can look up the account address using `aptos account lookup-address`:
+     you can look up the account address using `libra2 account lookup-address`:
 
      ```shellscript filename="Terminal"
-     aptos account lookup-address \
+     libra2 account lookup-address \
          --public-key-file private-key-a.pub \
          --url http://localhost:8080
      ```
@@ -306,7 +306,7 @@ authentication key to account address for ease of originating address lookup
 
        ```shellscript filename="Terminal"
        export ADDRESS_A=$(
-           aptos account lookup-address \
+           libra2 account lookup-address \
                --public-key-file private-key-a.pub \
                --url http://localhost:8080 \
                    | jq -r '.Result'
@@ -322,7 +322,7 @@ authentication key to account address for ease of originating address lookup
      identical to the account's authentication key:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$ADDRESS_A \
          --function-id 0x1::account::get_authentication_key \
          --url http://localhost:8080
@@ -350,7 +350,7 @@ authentication key to account address for ease of originating address lookup
      there is no corresponding entry in the [`account::OriginatingAddress`] table:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -376,7 +376,7 @@ authentication key to account address for ease of originating address lookup
      you can run [`account::set_originating_address`]:
 
      ```shellscript filename="Terminal"
-     aptos move run \
+     libra2 move run \
          --assume-yes \
          --function-id 0x1::account::set_originating_address \
          --profile test-profile-1
@@ -405,7 +405,7 @@ authentication key to account address for ease of originating address lookup
      Then you should see an entry in the [`account::OriginatingAddress`] table:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -432,7 +432,7 @@ authentication key to account address for ease of originating address lookup
      Generate a new private key:
 
      ```shellscript filename="Terminal"
-     aptos key generate \
+     libra2 key generate \
          --assume-yes \
          --output-file private-key-b \
          --vanity-prefix 0xbbb
@@ -456,7 +456,7 @@ authentication key to account address for ease of originating address lookup
      private key:
 
      ```shellscript filename="Terminal"
-     aptos account rotate-key \
+     libra2 account rotate-key \
          --assume-yes \
          --new-private-key-file private-key-b \
          --profile test-profile-1 \
@@ -492,8 +492,8 @@ authentication key to account address for ease of originating address lookup
      current) noting that the public key has changed, but not the account address:
 
      ```shellscript filename="Terminal"
-     aptos config show-profiles --profile test-profile-1
-     aptos config show-profiles --profile test-profile-2
+     libra2 config show-profiles --profile test-profile-1
+     libra2 config show-profiles --profile test-profile-2
      ```
 
      <details>
@@ -528,7 +528,7 @@ authentication key to account address for ease of originating address lookup
      Lookup the new authentication key:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$ADDRESS_A \
          --function-id 0x1::account::get_authentication_key \
          --url http://localhost:8080
@@ -557,7 +557,7 @@ authentication key to account address for ease of originating address lookup
 
        ```shellscript filename="Terminal"
        export AUTH_KEY_B=$(
-           aptos move view \
+           libra2 move view \
                --args address:$ADDRESS_A \
                --function-id 0x1::account::get_authentication_key \
                --url http://localhost:8080 \
@@ -572,7 +572,7 @@ authentication key to account address for ease of originating address lookup
      Check the originating address for the new authentication key:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_B \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -597,7 +597,7 @@ authentication key to account address for ease of originating address lookup
      Check the originating address for the old authentication key:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -623,7 +623,7 @@ authentication key to account address for ease of originating address lookup
       to the new authentication key:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --new-private-key-file private-key-b \
           --profile test-profile-2 \
@@ -645,7 +645,7 @@ authentication key to account address for ease of originating address lookup
       Create another private key:
 
       ```shellscript filename="Terminal"
-      aptos key generate \
+      libra2 key generate \
           --assume-yes \
           --output-file private-key-c \
           --vanity-prefix 0xccc
@@ -668,7 +668,7 @@ authentication key to account address for ease of originating address lookup
       Initialize a new profile:
 
       ```shellscript filename="Terminal"
-      aptos init \
+      libra2 init \
           --assume-yes \
           --network local \
           --private-key-file private-key-c \
@@ -686,7 +686,7 @@ authentication key to account address for ease of originating address lookup
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
+        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
         {
           "Result": "Success"
         }
@@ -696,7 +696,7 @@ authentication key to account address for ease of originating address lookup
       Attempt an invalid rotation where the new authentication key is already mapped:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --max-gas 100000 \
           --new-private-key-file private-key-b \
@@ -723,7 +723,7 @@ authentication key to account address for ease of originating address lookup
       key for account `0xccc...`:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --new-private-key-file private-key-c \
           --profile test-profile-2 \
@@ -759,7 +759,7 @@ authentication key to account address for ease of originating address lookup
       operation:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --max-gas 100000 \
           --new-private-key-file private-key-b \
@@ -785,10 +785,10 @@ authentication key to account address for ease of originating address lookup
       Delete the test profiles:
 
       ```shell filename="Terminal"
-      aptos config delete-profile --profile test-profile-1
-      aptos config delete-profile --profile test-profile-2
-      aptos config delete-profile --profile test-profile-3
-      aptos config delete-profile --profile test-profile-4
+      libra2 config delete-profile --profile test-profile-1
+      libra2 config delete-profile --profile test-profile-2
+      libra2 config delete-profile --profile test-profile-3
+      libra2 config delete-profile --profile test-profile-4
       ```
 
       Then you can stop the localnet and delete the private and public key files.
@@ -797,10 +797,10 @@ authentication key to account address for ease of originating address lookup
         If you are using a UNIX-like machine:
 
         ```shell filename="Terminal"
-        aptos config delete-profile --profile test-profile-1
-        aptos config delete-profile --profile test-profile-2
-        aptos config delete-profile --profile test-profile-3
-        aptos config delete-profile --profile test-profile-4
+        libra2 config delete-profile --profile test-profile-1
+        libra2 config delete-profile --profile test-profile-2
+        libra2 config delete-profile --profile test-profile-3
+        libra2 config delete-profile --profile test-profile-4
         rm private-key-*
         kill $LOCALNET_PID
         rm -fr localnet-data
@@ -820,7 +820,7 @@ This program creates two accounts on devnet, Alice and Bob, funds them, then
 rotates the Alice's authentication key to that of Bob's.
 
 View the full example for this code
-[here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
+[here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
 
 The function to rotate is very simple:
 
@@ -857,7 +857,7 @@ This program creates two accounts on devnet, Alice and Bob, funds them, then
 rotates the Alice's authentication key to that of Bob's.
 
 View the full example for this code
-[here](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/rotate_key.py).
+[here](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/rotate_key.py).
 
 Here's the relevant code that rotates Alice's keys to Bob's:
 
@@ -888,12 +888,12 @@ Alice 0x213d...031013 '0x1c06...ac3bb3' '0xf2be...9486aa' '0xbbc1...abb808'
 Bob 0x1c06...ac3bb3 0x1c06...ac3bb3 0xf2be...9486aa 0xbbc1...abb808
 ```
 
-[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
+[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L326
 
-[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
+[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L294
 
-[`account::RotationProofChallenge`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L79
+[`account::RotationProofChallenge`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L79
 
-[`account::OriginatingAddress`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L70
+[`account::OriginatingAddress`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L70
 
-[`account::set_originating_address`]: https://github.com/alnoki/libra2-core/blob/5ba4a8d1344b0bb6e22665525a96e787b9a44e55/aptos-move/framework/aptos-framework/sources/account.move#L528
+[`account::set_originating_address`]: https://github.com/alnoki/libra2-core/blob/5ba4a8d1344b0bb6e22665525a96e787b9a44e55/libra2-move/framework/libra2-framework/sources/account.move#L528

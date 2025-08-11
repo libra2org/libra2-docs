@@ -4,7 +4,7 @@ title: "Batching Transactions"
 
 The TypeScript SDK has a built-in way to send several independent transactions together in a batch. This can be a convenient tool when trying to execute multiple transactions quickly from the same account.
 
-This can be done with `aptos.transaction.batch.forSingleAccount` as can be seen in the below example.
+This can be done with `libra2.transaction.batch.forSingleAccount` as can be seen in the below example.
 
 ## Full TypeScript Example
 
@@ -26,7 +26,7 @@ async function example() {
 
     // Setup the client and test accounts
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
     let sender = Account.generate();
 
@@ -34,7 +34,7 @@ async function example() {
     console.log(`Sender's address is: ${sender.accountAddress}`);
 
     console.log("\n=== Funding sender ===\n");
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
     });
@@ -48,14 +48,14 @@ async function example() {
 
     for (let i = 0; i < recipients.length; i += 1) {
         const transaction: InputGenerateTransactionPayloadData = {
-            function: "0x1::aptos_account::transfer",
+            function: "0x1::libra2_account::transfer",
             functionArguments: [recipients[i].accountAddress, 10],
         };
         transactions.push(transaction);
     }
 
     // Sign and submit all transactions as fast as possible (throws if any error)
-    await aptos.transaction.batch.forSingleAccount({ sender: sender, data: transactions });
+    await libra2.transaction.batch.forSingleAccount({ sender: sender, data: transactions });
 };
 
 example();
@@ -80,4 +80,4 @@ export enum TransactionWorkerEventsEnum {
 }
 ```
 
-You can find an example of how to listen to these events [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).
+You can find an example of how to listen to these events [here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).

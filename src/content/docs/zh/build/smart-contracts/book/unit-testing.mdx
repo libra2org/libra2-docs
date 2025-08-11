@@ -115,7 +115,7 @@ module 0x42::other {
 
 ## 运行单元测试
 
-可以使用 `aptos move test` 命令运行 Move 包的单元测试.更多信息请参阅 [package](/zh/build/smart-contracts/book/packages) .
+可以使用 `libra2 move test` 命令运行 Move 包的单元测试.更多信息请参阅 [package](/zh/build/smart-contracts/book/packages) .
 
 运行测试时,每个测试结果会是 `PASS`(通过),`FAIL`(失败)或 `TIMEOUT`(超时).如果测试失败,在可能的情况下会报告失败位置及导致失败的函数名称.您可以在下面看到示例.
 
@@ -125,7 +125,7 @@ module 0x42::other {
 还有许多选项可以传递给单元测试二进制文件,以微调测试并帮助调试失败的测试.这些选项可以通过帮助标志查看:
 
 ```shellscript filename="Terminal"
-$ aptos move test -h
+$ libra2 move test -h
 ```
 
 ## 示例
@@ -135,14 +135,14 @@ $ aptos move test -h
 首先在空目录中创建空包:
 
 ```shellscript filename="Terminal"
-$ aptos move init --name TestExample
+$ libra2 move init --name TestExample
 ```
 
 然后在 `Move.toml` 中添加以下内容:
 
 ```toml
 [dependencies]
-MoveStdlib = { git = "https://github.com/libra2org/aptos-framework.git", subdir="aptos-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
+MoveStdlib = { git = "https://github.com/libra2org/libra2-framework.git", subdir="libra2-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
 ```
 
 接下来在 `sources` 目录下添加以下模块:
@@ -194,10 +194,10 @@ module 0x1::my_module {
 
 ### 运行测试
 
-然后可以使用 `aptos move test` 命令运行这些测试:
+然后可以使用 `libra2 move test` 命令运行这些测试:
 
 ```shellscript filename="Terminal"
-$ aptos move test
+$ libra2 move test
 BUILDING MoveStdlib
 BUILDING TestExample
 Running Move unit tests
@@ -214,7 +214,7 @@ Test result: OK. Total tests: 3; passed: 3; failed: 0
 这将只运行完全限定名称包含 `<str>` 的测试.例如如果我们只想运行名称中包含 `"zero_coin"` 的测试:
 
 ```shellscript filename="Terminal"
-$ aptos move test -f zero_coin
+$ libra2 move test -f zero_coin
 CACHED MoveStdlib
 BUILDING TestExample
 Running Move unit tests
@@ -228,7 +228,7 @@ Test result: OK. Total tests: 2; passed: 2; failed: 0
 这将计算测试用例覆盖的代码并生成覆盖率摘要.
 
 ```shellscript filename="Terminal"
-$ aptos move test --coverage
+$ libra2 move test --coverage
 INCLUDING DEPENDENCY LibraFramework
 INCLUDING DEPENDENCY LibraStdlib
 INCLUDING DEPENDENCY MoveStdlib
@@ -246,11 +246,11 @@ Module 0000000000000000000000000000000000000000000000000000000000000001::my_modu
 +-------------------------+
 | % Move Coverage: 100.00  |
 +-------------------------+
-Please use `aptos move coverage -h` for more detailed source or bytecode test coverage of this package
+Please use `libra2 move coverage -h` for more detailed source or bytecode test coverage of this package
 ```
 
-然后通过运行 `aptos move coverage` ,我们可以获取更详细的覆盖率信息.这些信息可以通过帮助标志查看:
+然后通过运行 `libra2 move coverage` ,我们可以获取更详细的覆盖率信息.这些信息可以通过帮助标志查看:
 
 ```shellscript filename="终端"
-$ aptos move coverage -h
+$ libra2 move coverage -h
 ```

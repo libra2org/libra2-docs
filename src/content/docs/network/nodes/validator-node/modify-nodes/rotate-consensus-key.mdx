@@ -16,7 +16,7 @@ Using the following [Libra CLI](/build/cli) command to generate a new consensus 
 In this example, identity files are saved to directory `/new/key/root`.
 
 ```shellscript filename="Terminal"
-aptos genesis generate-keys --output-dir /new/key/root
+libra2 genesis generate-keys --output-dir /new/key/root
 ```
 
 ## Add new private key to node
@@ -57,10 +57,10 @@ In `/new/key/root/public-keys.yaml`,
 - find the public key of your new consensus identity  (denoted by `$NEW_PUBLIC_KEY`);
 - find the proof of possession of your new consensus identity (denoted by `$PROOF_OF_POSSESSION`).
 
-Run a transaction with aptos CLI to update the on-chain consensus public key for the next epoch.
+Run a transaction with libra2 CLI to update the on-chain consensus public key for the next epoch.
 
 ```shellscript
-aptos move run \
+libra2 move run \
     --profile profile1 \
     --function-id 0x1::stake::rotate_consensus_key \
     --args \
@@ -72,7 +72,7 @@ aptos move run \
 Here is a complete example.
 
 ```shellscript
-aptos move run \
+libra2 move run \
     --profile profile1 \
     --function-id 0x1::stake::rotate_consensus_key \
     --args \

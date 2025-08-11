@@ -28,14 +28,14 @@ export const baseSchema = z.object({
   // 	.optional(),
 });
 
-const MOVE_REFERENCE_FRAMEWORK_BASE_PATH = "aptos-move/framework";
+const MOVE_REFERENCE_FRAMEWORK_BASE_PATH = "libra2-move/framework";
 
 export const MOVE_REFERENCE_MODULES = [
   { framework: "move-stdlib" },
-  { framework: "aptos-stdlib" },
-  { framework: "aptos-framework" },
-  { framework: "aptos-token" },
-  { framework: "aptos-token-objects" },
+  { framework: "libra2-stdlib" },
+  { framework: "libra2-framework" },
+  { framework: "libra2-token" },
+  { framework: "libra2-token-objects" },
 ] as const satisfies Omit<ModuleConfig, "folder">[];
 
 export const MOVE_REFERENCE_BRANCHES = [

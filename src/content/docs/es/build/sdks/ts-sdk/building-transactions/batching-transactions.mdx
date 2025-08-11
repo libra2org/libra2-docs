@@ -4,7 +4,7 @@ title: "Transacciones en Lote"
 
 El SDK de TypeScript tiene una forma integrada de enviar varias transacciones independientes juntas en un lote. Esto puede ser una herramienta conveniente cuando intentas ejecutar múltiples transacciones rápidamente desde la misma cuenta.
 
-Esto se puede hacer con `aptos.transaction.batch.forSingleAccount` como se puede ver en el ejemplo de abajo.
+Esto se puede hacer con `libra2.transaction.batch.forSingleAccount` como se puede ver en el ejemplo de abajo.
 
 ## Ejemplo Completo de TypeScript
 
@@ -26,7 +26,7 @@ async function example() {
 
     // Configurar el cliente y cuentas de prueba
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
     let sender = Account.generate();
 
@@ -34,7 +34,7 @@ async function example() {
     console.log(`La dirección del remitente es: ${sender.accountAddress}`);
 
     console.log("\n=== Financiando al remitente ===\n");
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
     });
@@ -48,14 +48,14 @@ async function example() {
 
     for (let i = 0; i < recipients.length; i += 1) {
         const transaction: InputGenerateTransactionPayloadData = {
-            function: "0x1::aptos_account::transfer",
+            function: "0x1::libra2_account::transfer",
             functionArguments: [recipients[i].accountAddress, 10],
         };
         transactions.push(transaction);
     }
 
     // Firmar y enviar todas las transacciones lo más rápido posible (lanza error si hay algún problema)
-    await aptos.transaction.batch.forSingleAccount({ sender: sender, data: transactions });
+    await libra2.transaction.batch.forSingleAccount({ sender: sender, data: transactions });
 };
 
 example();
@@ -80,4 +80,4 @@ export enum TransactionWorkerEventsEnum {
 }
 ```
 
-Puedes encontrar un ejemplo de cómo escuchar estos eventos [aquí](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).
+Puedes encontrar un ejemplo de cómo escuchar estos eventos [aquí](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).

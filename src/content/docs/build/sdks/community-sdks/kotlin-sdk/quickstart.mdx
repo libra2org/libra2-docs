@@ -4,13 +4,13 @@ title: "Kotlin SDK Quickstart"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-This guide will walk you through the process of setting up Kaptos,
+This guide will walk you through the process of setting up Klibra2,
 fetching data, and sending a transaction on the Libra blockchain.
 
 <Steps>
   1. Install the SDK
 
-     Kaptos is available for both multiplatform and single-platform development.
+     Klibra2 is available for both multiplatform and single-platform development.
      Artifacts are published at Sonatype Maven Central and can be added to your
      project using Gradle as shown below:
 
@@ -22,7 +22,7 @@ fetching data, and sending a transaction on the Libra blockchain.
      kotlin {
          sourceSets {
              commonMain.dependencies {
-                 implementation("xyz.mcxross.kaptos:kaptos:<version>")
+                 implementation("xyz.mcxross.klibra2:klibra2:<version>")
              }
          }
      }
@@ -30,13 +30,13 @@ fetching data, and sending a transaction on the Libra blockchain.
 
      #### Single-platform Development
 
-     Depending on your target platform, Kaptos provides different artifacts in the
-     form of `kaptos-jvm`, `kaptos-android`, `kaptos-iosArm64`, and `kaptos-js`.
+     Depending on your target platform, Klibra2 provides different artifacts in the
+     form of `klibra2-jvm`, `klibra2-android`, `klibra2-iosArm64`, and `klibra2-js`.
      For example, to add the JVM artifact to your project, add the following dependency:
 
      ```kotlin
      dependencies {
-         implementation("xyz.mcxross.kaptos:kaptos-jvm:<version>")
+         implementation("xyz.mcxross.klibra2:klibra2-jvm:<version>")
      }
      ```
 
@@ -44,7 +44,7 @@ fetching data, and sending a transaction on the Libra blockchain.
 
      ```kotlin
      dependencies {
-         implementation("xyz.mcxross.kaptos:kaptos-android:<version>")
+         implementation("xyz.mcxross.klibra2:klibra2-android:<version>")
      }
      ```
 
@@ -54,7 +54,7 @@ fetching data, and sending a transaction on the Libra blockchain.
      to the Libra network.
 
      ```kotlin
-     val aptos = Libra()
+     val libra2 = Libra()
      ```
 
      If you want to pass in a custom configuration, you can do so by passing in a
@@ -64,12 +64,12 @@ fetching data, and sending a transaction on the Libra blockchain.
 
      ```kotlin
      val settings = LibraSettings(network = Network.MAINNET, clientConfig = ClientConfig(maxRetries = 10))
-     val aptosConfig = LibraConfig(settings = settings)
-     val aptos = Libra(aptosConfig)
+     val libra2Config = LibraConfig(settings = settings)
+     val libra2 = Libra(libra2Config)
      ```
 
      <Aside type="note" emoji="ℹ️">
-       Kaptos offers common configurations for all platforms while also providing
+       Klibra2 offers common configurations for all platforms while also providing
        platform-specific settings. For instance, you can configure both connection
        and request timeouts on Linux, whereas on iOS, you can only set request timeouts.
      </Aside>
@@ -80,7 +80,7 @@ fetching data, and sending a transaction on the Libra blockchain.
      For example, you can fetch the ledger information like so:
 
      ```kotlin
-     val ledgerInfo = aptos.getLedgerInfo()
+     val ledgerInfo = libra2.getLedgerInfo()
      ```
 
   4. Send Transactions
@@ -110,12 +110,12 @@ fetching data, and sending a transaction on the Libra blockchain.
        2. Build the Transaction
 
           ```kotlin
-          val txn = aptos.buildTransaction.simple(
+          val txn = libra2.buildTransaction.simple(
               sender = aliceAccount.accountAddress,
               data = entryFunctionData {
                   function = "0x1::coin::transfer"
                   typeArguments = typeArguments {
-                      +TypeTagStruct("0x1::aptos_coin::LibraCoin")
+                      +TypeTagStruct("0x1::libra2_coin::LibraCoin")
                   }
                   functionArguments = functionArguments {
                       +bobAccount.accountAddress
@@ -129,7 +129,7 @@ fetching data, and sending a transaction on the Libra blockchain.
           Once you have built a transaction, you can sign it using the `sign` method.
 
           ```kotlin
-            val aliceAuthenticator = aptos.sign(
+            val aliceAuthenticator = libra2.sign(
                 sender = aliceAccount,
                 transaction = txn,
             )
@@ -140,7 +140,7 @@ fetching data, and sending a transaction on the Libra blockchain.
           Finally, you can submit the transaction to the network using the `submitTransaction.simple` method.
 
           ```kotlin
-          val commitedTransaction = aptos.submitTransaction.simple(
+          val commitedTransaction = libra2.submitTransaction.simple(
                 transaction = signedTransaction,
                 senderAuthenticator = aliceAuthenticator,
           )
@@ -151,7 +151,7 @@ fetching data, and sending a transaction on the Libra blockchain.
           Then you can wait for the transaction to be executed by using the `waitForTransaction` method.
 
           ```kotlin
-          val executedTransaction = aptos.waitForTransaction(HexInput.fromString(commitedTransaction.expect("Transaction failed").hash))
+          val executedTransaction = libra2.waitForTransaction(HexInput.fromString(commitedTransaction.expect("Transaction failed").hash))
           ```
      </Steps>
 </Steps>

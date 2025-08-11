@@ -4,7 +4,7 @@ title: "Derivable Account Abstraction"
 
 import { Steps } from '@astrojs/starlight/components';
 
-[Derivable Account Abstraction (DAA)](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-113.md)
+[Derivable Account Abstraction (DAA)](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md)
 is a standard for account abstraction that enables custom authentication schemes by registering a `derivable_authentication_function`.
 
 DAA differs from vanilla [Account Abstraction (AA)](/build/sdks/ts-sdk/account/account-abstraction) in that, for a given `derivable_authentication_function`,
@@ -101,15 +101,15 @@ authentication functions.
 This example demonstrates domain account abstraction using ed25519 hex for signing.
 
 ```move
-module aptos_experimental::test_derivable_account_abstraction_ed25519_hex {
+module libra2_experimental::test_derivable_account_abstraction_ed25519_hex {
     use std::error;
-    use aptos_std::string_utils;
-    use aptos_std::ed25519::{
+    use libra2_std::string_utils;
+    use libra2_std::ed25519::{
         Self,
         new_signature_from_bytes,
         new_unvalidated_public_key_from_bytes,
     };
-    use aptos_framework::auth_data::AbstractionAuthData;
+    use libra2_framework::auth_data::AbstractionAuthData;
 
     const EINVALID_SIGNATURE: u64 = 1;
 
@@ -180,7 +180,7 @@ const derivableAbstractedAccount = new DerivableAbstractedAccount({
   3. 3. Fund the DAA to create it on chain
 
      ```typescript
-     await aptos.fundAccount({ accountAddress: daa.accountAddress, amount: 1000000 });
+     await libra2.fundAccount({ accountAddress: daa.accountAddress, amount: 1000000 });
      ```
 
   4. 4. Create a recipient account and transfer APT to it
@@ -188,15 +188,15 @@ const derivableAbstractedAccount = new DerivableAbstractedAccount({
      ```typescript
      const recipient = Account.generate();
 
-     const pendingTxn = await aptos.transaction.signAndSubmitTransaction({
+     const pendingTxn = await libra2.transaction.signAndSubmitTransaction({
        signer: daa,
-       transaction: await aptos.transferCoinTransaction({
+       transaction: await libra2.transferCoinTransaction({
          sender: daa.accountAddress,
          recipient: recipient.accountAddress,
          amount: 100,
        }),
      });
 
-     const response = await aptos.waitForTransaction({ transactionHash: pendingTxn.hash });
+     const response = await libra2.waitForTransaction({ transactionHash: pendingTxn.hash });
      ```
 </Steps>

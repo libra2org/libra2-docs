@@ -35,7 +35,7 @@ Before initializing a staking pool, ensure that there is an existing owner accou
 1. Initialize the [Libra CLI](/build/cli) with a private key from an existing account, such as a wallet, or create a new account.
 
 ```shellscript filename="Terminal"
-aptos init --profile mainnet-owner \
+libra2 init --profile mainnet-owner \
   --network mainnet
 ```
 
@@ -44,7 +44,7 @@ You can either enter the private key from an existing wallet, or create new wall
 2. Run the following command to initialize the staking pool:
 
 ```shellscript filename="Terminal"
-aptos stake create-staking-contract \
+libra2 stake create-staking-contract \
   --operator <operator-address> \
   --voter <voter-address> \
   --amount 100000000000000 \
@@ -52,14 +52,14 @@ aptos stake create-staking-contract \
   --profile mainnet-owner
 ```
 
-3. Once the staking pool has been initialized, you can proceed to [connect to the Libra Network](/network/nodes/validator-node/connect-nodes/connect-to-aptos-network).
+3. Once the staking pool has been initialized, you can proceed to [connect to the Libra Network](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network).
 
 ## Perform pool owner operations
 
 ### Transfer coin between accounts
 
 ```shellscript filename="Terminal"
-aptos account transfer \
+libra2 account transfer \
   --account <operator-address> \
   --amount <amount> \
   --profile mainnet-owner
@@ -68,7 +68,7 @@ aptos account transfer \
 ### Switch operator
 
 ```shellscript filename="Terminal"
-aptos stake set-operator \
+libra2 stake set-operator \
   --operator-address <new-operator-address> \
   --profile mainnet-owner
 ```
@@ -76,7 +76,7 @@ aptos stake set-operator \
 ### Switch voter
 
 ```shellscript filename="Terminal"
-aptos stake set-delegated-voter \
+libra2 stake set-delegated-voter \
   --voter-address <new-voter-address> \
   --profile mainnet-owner
 ```
@@ -84,7 +84,7 @@ aptos stake set-delegated-voter \
 ### Add stake
 
 ```shellscript filename="Terminal"
-aptos stake add-stake \
+libra2 stake add-stake \
   --amount <amount> \
   --profile mainnet-owner
 ```
@@ -92,13 +92,13 @@ aptos stake add-stake \
 ### Increase stake lockup
 
 ```shellscript filename="Terminal"
-aptos stake increase-lockup --profile mainnet-owner
+libra2 stake increase-lockup --profile mainnet-owner
 ```
 
 ### Unlock stake
 
 ```shellscript filename="Terminal"
-aptos stake unlock-stake \
+libra2 stake unlock-stake \
   --amount <amount> \
   --profile mainnet-owner
 ```
@@ -106,7 +106,7 @@ aptos stake unlock-stake \
 ### Withdraw stake
 
 ```shellscript filename="Terminal"
-aptos stake withdraw-stake \
+libra2 stake withdraw-stake \
   --amount <amount> \
   --profile mainnet-owner
 ```
@@ -114,7 +114,7 @@ aptos stake withdraw-stake \
 ### Update commission
 
 ```shellscript filename="Terminal"
-aptos move run --function-id 0x1::staking_contract::update_commission \
+libra2 move run --function-id 0x1::staking_contract::update_commission \
   --args address:<operator_address> u64:<commission_percentage> \
   --profile mainnet-owner
 ```
@@ -126,14 +126,14 @@ Staking pool operators can set beneficiary addresses to receive the operator com
 - The beneficiary addresses can be set by the operator using the following command:
 
   ```shellscript filename="Terminal"
-  aptos move run --profile mainnet_operator \
+  libra2 move run --profile mainnet_operator \
     --function-id 0x1::staking_contract::set_beneficiary_for_operator \
     --args address:<new_beneficiary_address>
   ```
 
 - To view the beneficiary address set for the operator, use the following command:
   ```shellscript filename="Terminal"
-  aptos move view --url <REST API for the network> \
+  libra2 move view --url <REST API for the network> \
     --function-id 0x1::staking_contract::beneficiary_for_operator \
     --args address:<operator_address>
   ```
@@ -145,7 +145,7 @@ Once the beneficiary address is set, either the operator or the beneficiary can 
 ## Checking your stake pool information
 
 <Aside type="note">
-  Before you proceed, see [Validation on the Libra blockchain](/network/blockchain/staking#validation-on-the-aptos-blockchain) for a brief overview.
+  Before you proceed, see [Validation on the Libra blockchain](/network/blockchain/staking#validation-on-the-libra2-blockchain) for a brief overview.
 </Aside>
 
 To check the details of your stake pool, run the below CLI command with the `get-stake-pool` option by providing the `--owner-address` and `--url` fields.
@@ -157,7 +157,7 @@ The below command is for an example owner address `e7be097a90c18f6bdd53efe0e74bf
 </Aside>
 
 ```shellscript filename="Terminal"
-aptos node get-stake-pool \
+libra2 node get-stake-pool \
   --owner-address e7be097a90c18f6bdd53efe0e74bf34393cac2f0ae941523ea196a47b6859edb \
   --profile mainnet-operator
 ```
@@ -212,9 +212,9 @@ Example output:
 
 **commission\_percentage**
 
-- This can be set only by the stake pool owner. Operator receives the "commission\_percentage" of the generated staking rewards. If you request the commission (you can do so by running the command `aptos stake request-commission`), then at the end of the `lockup_expiration_utc_time` the commission part of the rewards will go to the operator address while the rest will stay in the stake pool and belong to the owner. Here "the commission part of the rewards" means the value of **commission\_not\_yet\_unlocked**.
+- This can be set only by the stake pool owner. Operator receives the "commission\_percentage" of the generated staking rewards. If you request the commission (you can do so by running the command `libra2 stake request-commission`), then at the end of the `lockup_expiration_utc_time` the commission part of the rewards will go to the operator address while the rest will stay in the stake pool and belong to the owner. Here "the commission part of the rewards" means the value of **commission\_not\_yet\_unlocked**.
 
-  For example, in a scenario with a lock-up of one month, you call `aptos stake request-commission` every month. This will pay out the commission that was accrued during the previous month but only when unlocked at the end of the previous month. Regardless of how often you run `aptos stake request-commission` during the month, the commission is only paid out upon the completion of `lockup_expiration_utc_time`.
+  For example, in a scenario with a lock-up of one month, you call `libra2 stake request-commission` every month. This will pay out the commission that was accrued during the previous month but only when unlocked at the end of the previous month. Regardless of how often you run `libra2 stake request-commission` during the month, the commission is only paid out upon the completion of `lockup_expiration_utc_time`.
 
   <Aside type="note">
     **COMPOUNDING**<br />
@@ -227,7 +227,7 @@ Example output:
 
 **lockup\_expiration\_utc\_time**
 
-- The date when the commission will unlock. However, this unlocked commission will not be auto-disbursed. It will only disburse when the command `aptos stake request-commission` is called again.
+- The date when the commission will unlock. However, this unlocked commission will not be auto-disbursed. It will only disburse when the command `libra2 stake request-commission` is called again.
 
 **epoch\_info**
 
@@ -235,16 +235,16 @@ Example output:
 
 ## Requesting commission
 
-Either an owner, an operator or the beneficiary of the operator can request commission. You must request commission **twice**, once before the end of the lockup period and a second time after the lockup period ends, i.e., at the end of **lockup\_expiration\_utc\_time**, by running the `aptos stake request-commission` command. Make sure to provide the operator and the owner addresses. See an example command below:
+Either an owner, an operator or the beneficiary of the operator can request commission. You must request commission **twice**, once before the end of the lockup period and a second time after the lockup period ends, i.e., at the end of **lockup\_expiration\_utc\_time**, by running the `libra2 stake request-commission` command. Make sure to provide the operator and the owner addresses. See an example command below:
 
 ```shellscript filename="Terminal"
-aptos stake request-commission \
+libra2 stake request-commission \
   --operator-address 0x3bec5a529b023449dfc86e9a6b5b51bf75cec4a62bf21c15bbbef08a75f7038f \
   --owner-address 0xe7be097a90c18f6bdd53efe0e74bf34393cac2f0ae941523ea196a47b6859edb \
   --profile mainnet-operator
 ```
 
-When you run the `aptos stake request-commission` command before the end of the lockup expiration, the command will initiate unlock for any locked commission earned up until that moment in time. The commission will remain in `pending_inactive` until the end of the lockup period, will continue to earn rewards until the lockup period expires. The commission will not be withdrawable until after the end of the lockup period, when `aptos stake request-commission` is called a second time.
+When you run the `libra2 stake request-commission` command before the end of the lockup expiration, the command will initiate unlock for any locked commission earned up until that moment in time. The commission will remain in `pending_inactive` until the end of the lockup period, will continue to earn rewards until the lockup period expires. The commission will not be withdrawable until after the end of the lockup period, when `libra2 stake request-commission` is called a second time.
 
 See example below:
 
@@ -260,10 +260,10 @@ Commission is unlocked when `request-commission` is called, the staker unlocks s
 
 ## Checking your validator performance
 
-To see your validator performance in the current and past epochs and the rewards earned, run the below command. The output will show the validator's performance in block proposals, and in governance voting and governance proposals. Default values are used in the below command. Type `aptos node get-performance --help` to see default values used.
+To see your validator performance in the current and past epochs and the rewards earned, run the below command. The output will show the validator's performance in block proposals, and in governance voting and governance proposals. Default values are used in the below command. Type `libra2 node get-performance --help` to see default values used.
 
 ```shellscript filename="Terminal"
-aptos node get-performance \
+libra2 node get-performance \
   --pool-address <pool address> \
   --profile mainnet-operator
 ```
@@ -309,7 +309,7 @@ Example output:
 
 **current\_epoch\_successful\_proposals**
 
-- Successful leader-validator proposals during the current epoch. Also see [Validation on the Libra blockchain](/network/blockchain/staking#validation-on-the-aptos-blockchain) for the distinction between leader-validator and the voter-validator.
+- Successful leader-validator proposals during the current epoch. Also see [Validation on the Libra blockchain](/network/blockchain/staking#validation-on-the-libra2-blockchain) for the distinction between leader-validator and the voter-validator.
 
 **previous\_epoch\_rewards**
 
@@ -322,7 +322,7 @@ Example output:
 To check the performance of all the epochs since the genesis, run the below command. You can filter the results for your pool address with `grep`, as shown below:
 
 ```shellscript filename="Terminal"
-aptos node analyze-validator-performance \
+libra2 node analyze-validator-performance \
   --analyze-mode detailed-epoch-table \
   --profile mainnet-operator \
   --start-epoch 0 | grep <pool address>

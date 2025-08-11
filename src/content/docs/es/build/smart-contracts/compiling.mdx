@@ -8,12 +8,12 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
   Asegúrate de que tu [CLI](/build/cli) esté actualizada antes de compilar.
 </Aside>
 
-## `aptos move compile`
+## `libra2 move compile`
 
 Una vez que tengas un paquete configurado, puedes compilar tu código Move haciendo:
 
 ```shellscript filename="Terminal"
-aptos move compile
+libra2 move compile
 ```
 
 Si se ejecuta exitosamente, deberías recibir una salida de Terminal como esta:
@@ -30,7 +30,7 @@ Si se ejecuta exitosamente, deberías recibir una salida de Terminal como esta:
   Puede que necesites agregar direcciones nombradas, especialmente para ejemplos. Por ejemplo, con el ejemplo Hello Blockchain Move, necesitarás agregar la dirección nombrada `hello_blockchain`:
 
   ```shellscript filename="Terminal"
-  aptos move compile --named-addresses hello_blockchain=default
+  libra2 move compile --named-addresses hello_blockchain=default
   ```
 </Aside>
 

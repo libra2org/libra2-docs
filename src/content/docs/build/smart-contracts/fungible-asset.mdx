@@ -28,7 +28,7 @@ dark: '~/images/fa-diagram-dark.png',
 }}
 />
 
-[This implementation](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) is an improvement on the `coin` Standard because Move Objects are more customizable and extensible via smart contract. See the advanced guides on writing [Move Objects](/build/smart-contracts/objects) for more details.
+[This implementation](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) is an improvement on the `coin` Standard because Move Objects are more customizable and extensible via smart contract. See the advanced guides on writing [Move Objects](/build/smart-contracts/objects) for more details.
 The FA standard also automatically handles tracking how much of a fungible asset an account owns, as opposed to requiring the recipient to register a `CoinStore` resource separate from the transfer.
 
 ## Creating a new Fungible Asset (FA)
@@ -86,9 +86,9 @@ To generate an Object with all FA permissions, you could deploy a contract like 
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
-    use aptos_framework::object::{Self, Object};
-    use aptos_framework::primary_fungible_store;
+    use libra2_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
+    use libra2_framework::object::{Self, Object};
+    use libra2_framework::primary_fungible_store;
     use std::error;
     use std::signer;
     use std::string::utf8;
@@ -133,8 +133,8 @@ module my_addr::my_fungible_asset_example {
 ```
 
 <Aside type="note">
-  For a full example of how to create your own Fungible Asset module, please see [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
-  Alternatively, you can explore the collection of [FA example code here](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset).
+  For a full example of how to create your own Fungible Asset module, please see [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
+  Alternatively, you can explore the collection of [FA example code here](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset).
 </Aside>
 
 Now you can use the `MintRef` to mint via:
@@ -153,7 +153,7 @@ At this point, you can mint, transfer, and burn Fungible Assets using the `Ref`s
 
 ## Reference Docs
 
-You can find the complete set of functions that the Fungible Asset Standard provides [here](/move-reference/mainnet/aptos-framework/fungible_asset). {/* TODO: Update the Move Reference link once we migrate that page */}
+You can find the complete set of functions that the Fungible Asset Standard provides [here](/move-reference/mainnet/libra2-framework/fungible_asset). {/* TODO: Update the Move Reference link once we migrate that page */}
 
 The basic features owners of Fungible Assets can use include the following.
 
@@ -236,7 +236,7 @@ struct Frozen has drop, store {
 
 ## Dispatchable Fungible Asset (Advanced)
 
-Aside from the default managed fungible asset functionality provided by the Libra Framework, fungible asset issuers can implement their own deposit/withdraw logic using the dispatchable fungible asset standard. This is done by registering custom hook functions to be invoked at withdrawal/deposit time. These hook functions are stored in the metadata of a fungible asset class, and the Libra Framework will automatically invoke them instead of the default logic. This allows issuers to implement complex logic, such as customized access control. For more details, refer to the corresponding [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md).
+Aside from the default managed fungible asset functionality provided by the Libra Framework, fungible asset issuers can implement their own deposit/withdraw logic using the dispatchable fungible asset standard. This is done by registering custom hook functions to be invoked at withdrawal/deposit time. These hook functions are stored in the metadata of a fungible asset class, and the Libra Framework will automatically invoke them instead of the default logic. This allows issuers to implement complex logic, such as customized access control. For more details, refer to the corresponding [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### Implementing the Hook Function
 
@@ -272,7 +272,7 @@ module my_addr::my_fungible_asset_example {
 - Avoid calling functions defined in `dispatchable_fungible_asset` and `primary_fungible_store`, _except_ for inline functions, to prevent errors during transfers.
 - Note that calling `fungible_asset::withdraw` and `fungible_asset::deposit` will NOT work for assets with registered hooks. See more information in Interacting with dispatchable fungible asset.
 
-For more details on these limitations, refer to the [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md).
+For more details on these limitations, refer to the [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### Registering the Hook Function
 
@@ -309,11 +309,11 @@ The registration can look like this:
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::string;
-    use aptos_framework::object;
-    use aptos_framework::primary_fungible_store;
-    use aptos_framework::dispatchable_fungible_asset;
-    use aptos_framework::function_info;
+    use libra2_framework::string;
+    use libra2_framework::object;
+    use libra2_framework::primary_fungible_store;
+    use libra2_framework::dispatchable_fungible_asset;
+    use libra2_framework::function_info;
 
     fun create_fungible_asset(module_signer: &signer, /* ... */) {
         // Make the deposit override function info
@@ -422,14 +422,14 @@ There are two changes needed for off-chain services:
 
 Since a user may possess **both** a `coin` balance and a paired FA balance, off-chain applications should be updated to reflect the **sum** of both the `coin` balance and its paired FA balance.
 
-- For Libra Indexer users, you may utilize the table called `current_fungible_asset_balances` to obtain the latest sum of coin balance and FA balance representing the same asset type. If the FA has a paired coin type, the asset type would be set to the coin type, such as `0x1::aptos_coin::LibraCoin`. Otherwise, for FA not paired from a coin, the asset type would be the metadata address. Users could filter by this field to get the FA balance of their interest.
+- For Libra Indexer users, you may utilize the table called `current_fungible_asset_balances` to obtain the latest sum of coin balance and FA balance representing the same asset type. If the FA has a paired coin type, the asset type would be set to the coin type, such as `0x1::libra2_coin::LibraCoin`. Otherwise, for FA not paired from a coin, the asset type would be the metadata address. Users could filter by this field to get the FA balance of their interest.
 - For users employing Node API or other customized indexing, they should add the balance of the paired FA in users' `FungibleStore` and `ConcurrentFungibleBalance` if any of them exist to the coin balance.
 
 To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an existing `coin` of type `CoinType`:
 
 1. Call `paired_metadata<CoinType>()` to obtain the paired FA metadata object address (the address is immutable).
 2. Retrieve the balance of the paired FA:
-   - Call [getCurrentFungibleAssetBalances](https://github.com/libra2org/aptos-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
+   - Call [getCurrentFungibleAssetBalances](https://github.com/libra2org/libra2-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
    - Alternatively, determine the address of the primary `FungibleStore`, which can be deterministically calculated with the following formula:
      - `sha3_256(32-byte account address | 32-byte metadata object address | 0xFC)`
    - Then use that address to obtain the `FungibleStore` resource to fetch the balance.
@@ -529,9 +529,9 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
   <summary><span className="font-bold">We know there is always a paired FA of a coin type. How can we query the supply and balance of this asset after the migration?</span></summary>
 
   <div className="p-8">
-    After the migration, querying resource `0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>` at account address will be unavailable. Instead, you can query the account balance by the following three ways:
+    After the migration, querying resource `0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>` at account address will be unavailable. Instead, you can query the account balance by the following three ways:
 
-    1. [Balance Node API](/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), the asset\_type can be either coin\_type, such as 0x1::aptos\_coin::LibraCoin or FA metadata address such as 0xa, either way should return the same value.
+    1. [Balance Node API](/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), the asset\_type can be either coin\_type, such as 0x1::libra2\_coin::LibraCoin or FA metadata address such as 0xa, either way should return the same value.
 
     2. `#[view] function primary_fungible_store::balance<T: key>(account: address, metadata: Object<T>): u64`
 
@@ -553,6 +553,6 @@ To retrieve the balance of the `PrimaryFungibleStore` for a paired FA to an exis
   <summary><span className="font-bold">What if I have more questions?</span></summary>
 
   <div className="p-8">
-    Join the [Libra Discord](https://discord.com/invite/aptosnetwork)! Libra Labs engineers will be available throughout migration week to answer questions and offer support.
+    Join the [Libra Discord](https://discord.com/invite/libra2network)! Libra Labs engineers will be available throughout migration week to answer questions and offer support.
   </div>
 </details>

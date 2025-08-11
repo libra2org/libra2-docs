@@ -5,10 +5,10 @@ title: "迁移指南"
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside emoji="🚨" type="danger">
-  旧版 TypeScript SDK 包 `aptos` 已弃用,将被新版 TypeScript SDK 取代.请参考 [新版 TypeScript SDK](/zh/build/sdks/ts-sdk) 获取最新功能和更新.
+  旧版 TypeScript SDK 包 `libra2` 已弃用,将被新版 TypeScript SDK 取代.请参考 [新版 TypeScript SDK](/zh/build/sdks/ts-sdk) 获取最新功能和更新.
 </Aside>
 
-如果您正在使用 `aptos` 的早期版本 `1.x.x`,您需要进行以下更新.
+如果您正在使用 `libra2` 的早期版本 `1.x.x`,您需要进行以下更新.
 
 <Aside type="note">
   本指南仅包含 API 差异和弃用功能所需的更新,不包含 v2 SDK 的新功能.
@@ -16,7 +16,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 安装 SDK
 
-TypeScript SDK V2 已迁移至新的 [GitHub 仓库](https://github.com/libra2org/aptos-ts-sdk),并使用新的包名 - `@libra2-core/ts-sdk`
+TypeScript SDK V2 已迁移至新的 [GitHub 仓库](https://github.com/libra2org/libra2-ts-sdk),并使用新的包名 - `@libra2-core/ts-sdk`
 
 ```shellscript npm2yarn
 npm i @libra2-core/ts-sdk
@@ -30,9 +30,9 @@ npm i @libra2-core/ts-sdk
 
 ```typescript filename="v1.ts"
 const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL);
-const aptosClient = new LibraClient(NODE_URL);
+const libra2Client = new LibraClient(NODE_URL);
 const indexerClient = new IndexerClient(INDEXER_URL);
-const tokenClient = new TokenClient(aptosClient);
+const tokenClient = new TokenClient(libra2Client);
 ```
 
 **V2**
@@ -42,12 +42,12 @@ const tokenClient = new TokenClient(aptosClient);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Libra();
+const libra2 = new Libra();
 
 // 执行查询
-const fund = await aptos.fundAccount({ accountAddress: "0x123", amount: 100 });
-const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+const fund = await libra2.fundAccount({ accountAddress: "0x123", amount: 100 });
+const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
 ```
 
 ## 配置类
@@ -55,8 +55,8 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
 要配置您的 `Libra` 客户端,可以使用 `LibraConfig` 对象.
 
 ```typescript filename="v2.ts"
-const aptosConfig = new LibraConfig({ network: Network.DEVNET }); // 默认为 devnet
-const aptos = new Libra(config);
+const libra2Config = new LibraConfig({ network: Network.DEVNET }); // 默认为 devnet
+const libra2 = new Libra(config);
 ```
 
 ## 交易构建流程
@@ -66,13 +66,13 @@ const aptos = new Libra(config);
 **V1**
 
 ```typescript filename="v1.ts"
-const aptosClient = new LibraClient(NODE_URL);
+const libra2Client = new LibraClient(NODE_URL);
 
 // bcs 序列化参数负载
 const entryFunctionPayload =
   new TxnBuilderTypes.TransactionPayloadEntryFunction(
     TxnBuilderTypes.EntryFunction.natural(
-      "0x1::aptos_account",
+      "0x1::libra2_account",
       "transfer",
       [],
       [bcsToBytes(TxnBuilderTypes.AccountAddress.fromHex(receiver.address()))],
@@ -87,7 +87,7 @@ const transaction = await client.generateRawTransaction(
 // 非序列化参数负载
 const payload: Gen.TransactionPayload = {
   type: "entry_function_payload",
-  function: "0x1::aptos_account::transfer",
+  function: "0x1::libra2_account::transfer",
   type_arguments: [],
   arguments: [account2.address().hex(), 100000],
 };
@@ -113,34 +113,34 @@ const txn = await client.submitSignedBCSTransaction(signedTransaction);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Libra();
+const libra2 = new Libra();
 
 // 非序列化参数的交易
-const transaction = await aptos.build.transaction({
+const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: ["0x1::aptos_coin::LibraCoin"],
+    typeArguments: ["0x1::libra2_coin::LibraCoin"],
     functionArguments: [bobAddress, 100],
   },
 });
 
 // bcs序列化参数的交易
-const transaction = await aptos.build.transaction({
+const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
+    typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
     functionArguments: [bobAddress, new U64(100)],
   },
 });
 // 签名交易
-const senderAuthenticator = aptos.sign.transaction({
+const senderAuthenticator = libra2.sign.transaction({
   signer: alice,
   transaction,
 });
 // 提交交易
-const committedTransaction = await aptos.submit.transaction({
+const committedTransaction = await libra2.submit.transaction({
   transaction,
   senderAuthenticator,
 });

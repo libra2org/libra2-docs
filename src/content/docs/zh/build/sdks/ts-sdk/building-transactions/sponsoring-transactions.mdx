@@ -14,12 +14,12 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   1. 构建交易时添加参数 withFeePayer: true
 
      ```typescript filename="sponsor.ts"
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
          sender: sender.accountAddress,
          withFeePayer: true,
          data: {
              // Libra 上的所有交易都是通过智能合约实现的
-             function: "0x1::aptos_account::transfer",
+             function: "0x1::libra2_account::transfer",
              functionArguments: [destination.accountAddress, 100],
          },
      });
@@ -35,11 +35,11 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      </Aside>
 
      ```typescript filename="sponsor.ts"
-     const senderAuthenticator = aptos.transaction.sign({
+     const senderAuthenticator = libra2.transaction.sign({
          signer: sender,
          transaction,
      });
-     const feePayerAuthenticator = aptos.transaction.signAsFeePayer({
+     const feePayerAuthenticator = libra2.transaction.signAsFeePayer({
          signer: feePayer,
          transaction
      })
@@ -50,7 +50,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      在正式提交前,您可以模拟赞助交易来预览结果:
 
      ```typescript filename="sponsor.ts"
-     const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+     const [userTransactionResponse] = await libra2.transaction.simulate.simple({
          signerPublicKey: sender.publicKey,
          transaction,
      });
@@ -62,7 +62,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      ```typescript filename="sponsor.ts"
      transaction.feePayerAddress = feePayer.accountAddress;
-     const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+     const [userTransactionResponse] = await libra2.transaction.simulate.simple({
          signerPublicKey: sender.publicKey,
          feePayerPublicKey: feePayer.publicKey,
          transaction,
@@ -75,7 +75,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      ```typescript filename="sponsor.ts"
      // 4. 提交
-     const committedTransaction = await aptos.transaction.submit.simple({
+     const committedTransaction = await libra2.transaction.submit.simple({
          transaction,
          senderAuthenticator: senderAuthenticator,
          feePayerAuthenticator: feePayerAuthenticator,
@@ -86,7 +86,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      ```typescript filename="sponsor.ts"
      // 5. 等待交易结果
-     const executedTransaction = await aptos.waitForTransaction({ transactionHash: committedTransaction.hash });
+     const executedTransaction = await libra2.waitForTransaction({ transactionHash: committedTransaction.hash });
      ```
 </Steps>
 
@@ -109,7 +109,7 @@ async function example() {
 
     // 0. 初始化客户端和测试账户
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -121,15 +121,15 @@ async function example() {
     console.log(`Carol 的地址: ${carol.accountAddress}`);
 
     console.log("\n=== 账户充值 ===\n");
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: alice.accountAddress,
         amount: 500_000_000,
     });
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: bob.accountAddress,
         amount: 500_000_000,
     });
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: carol.accountAddress,
         amount: 100,
     });
@@ -137,12 +137,12 @@ async function example() {
 
     // 1. 构建交易
     console.log("\n=== 1. 构建交易 ===\n");
-    const transaction = await aptos.transaction.build.simple({
+    const transaction = await libra2.transaction.build.simple({
         sender: alice.accountAddress,
         withFeePayer: true,
         data: {
             // Libra 上的所有交易都是通过智能合约实现的
-            function: "0x1::aptos_account::transfer",
+            function: "0x1::libra2_account::transfer",
             functionArguments: [carol.accountAddress, 100],
         },
     });
@@ -150,11 +150,11 @@ async function example() {
 
     // 2. 签名
     console.log("\n=== 2. 交易签名 ===\n");
-    const aliceSenderAuthenticator = aptos.transaction.sign({
+    const aliceSenderAuthenticator = libra2.transaction.sign({
         signer: alice,
         transaction,
     });
-    const bobSenderAuthenticator = aptos.transaction.signAsFeePayer({
+    const bobSenderAuthenticator = libra2.transaction.signAsFeePayer({
         signer: bob,
         transaction
     })
@@ -162,7 +162,7 @@ async function example() {
 
     // 3. 模拟执行（可选）
     console.log("\n === 3. 模拟交易响应（可选）=== \n")
-    const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+    const [userTransactionResponse] = await libra2.transaction.simulate.simple({
         signerPublicKey: alice.publicKey,
         feePayerPublicKey: bob.publicKey,
         transaction,
@@ -171,7 +171,7 @@ async function example() {
 
     // 4. 提交
     console.log("\n=== 4. 提交交易 ===\n");
-    const committedTransaction = await aptos.transaction.submit.simple({
+    const committedTransaction = await libra2.transaction.submit.simple({
         transaction,
         senderAuthenticator: aliceSenderAuthenticator,
         feePayerAuthenticator: bobSenderAuthenticator,
@@ -180,7 +180,7 @@ async function example() {
 
     // 5. 等待结果
     console.log("\n=== 5. 等待交易结果 ===\n");
-    const executedTransaction = await aptos.waitForTransaction({ transactionHash: committedTransaction.hash });
+    const executedTransaction = await libra2.waitForTransaction({ transactionHash: committedTransaction.hash });
     console.log(executedTransaction)
 };
 

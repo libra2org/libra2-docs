@@ -62,7 +62,7 @@ For an Libra indexer fullnode, install these packages:
 1. Follow the instructions to set up a [public fullnode](/network/nodes/full-node/verify-pfn) and prepare the setup, but **do not** yet start the indexer (with `cargo run` or `docker run`).
 2. Pull the latest indexer Docker image with:
    ```shellscript filename="Terminal"
-   docker pull aptoslabs/validator:nightly_indexer
+   docker pull libra2labs/validator:nightly_indexer
    ```
 3. Edit the `./fullnode.yaml` and add the following configuration:
 
@@ -85,7 +85,7 @@ For an Libra indexer fullnode, install these packages:
 <Aside type="note">
   Bootstrapping the fullnode
 
-  Instead of syncing your indexer fullnode from genesis, which may take a long period of time, you can choose to bootstrap your fullnode using backup data before starting it. To do so, follow the instructions to [restore from a backup](/network/nodes/bootstrap-fullnode/aptos-db-restore).
+  Instead of syncing your indexer fullnode from genesis, which may take a long period of time, you can choose to bootstrap your fullnode using backup data before starting it. To do so, follow the instructions to [restore from a backup](/network/nodes/bootstrap-fullnode/libra2-db-restore).
 
   Note: indexers cannot be bootstrapped using [a snapshot](/network/nodes/bootstrap-fullnode) or [fast sync](/network/nodes/configure/state-sync#fast-syncing).
 </Aside>
@@ -94,14 +94,14 @@ For an Libra indexer fullnode, install these packages:
    ```shellscript filename="Terminal"
    docker run -p 8080:8080 \
      -p 9101:9101 -p 6180:6180 \
-     -v $(pwd):/opt/aptos/etc -v $(pwd)/data:/opt/aptos/data \
-     --workdir /opt/aptos/etc \
-     --name=aptos-fullnode aptoslabs/validator:nightly_indexer aptos-node \
-     -f /opt/aptos/etc/fullnode.yaml
+     -v $(pwd):/opt/libra2/etc -v $(pwd)/data:/opt/libra2/data \
+     --workdir /opt/libra2/etc \
+     --name=libra2-fullnode libra2labs/validator:nightly_indexer libra2-node \
+     -f /opt/libra2/etc/fullnode.yaml
    ```
    or:
    ```shellscript filename="Terminal"
-   cargo run -p aptos-node --features "indexer" --release -- -f ./fullnode.yaml
+   cargo run -p libra2-node --features "indexer" --release -- -f ./fullnode.yaml
    ```
 
 ## Restart the indexer

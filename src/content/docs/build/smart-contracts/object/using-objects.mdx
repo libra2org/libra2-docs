@@ -14,7 +14,7 @@ To use an Object parameter, users can pass in the Object address or a reference 
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Object, ObjectCore};
+  use libra2_framework::object::{Object, ObjectCore};
 
   struct MyAwesomeStruct has key {}
 
@@ -35,7 +35,7 @@ To let the user of the entry function specify the type of resource, you can keep
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::Object;
+  use libra2_framework::object::Object;
 
   /// This will fail if the object doesn't have the generic `T` stored
   entry fun do_something<T>(object: Object<T>) {
@@ -50,7 +50,7 @@ You can refer to an Object by any type of resource that is owned by the Object. 
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object, ObjectCore};
+  use libra2_framework::object::{Self, Object, ObjectCore};
 
   struct MyAwesomeStruct has key {}
 
@@ -74,9 +74,9 @@ Objects can help represent complicated types by using them in structs. For examp
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object};
-  use aptos_framework::fungible_asset::Metadata;
-  use aptos_framework::primary_fungible_store;
+  use libra2_framework::object::{Self, Object};
+  use libra2_framework::fungible_asset::Metadata;
+  use libra2_framework::primary_fungible_store;
   use std::signer;
   use std::option;
   use std::string::utf8;
@@ -112,7 +112,7 @@ When writing contracts for Objects, it is often important to verify ownership be
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   // Not authorized!
   const E_NOT_AUTHORIZED: u64 = 1;
@@ -159,7 +159,7 @@ You can transfer an Object like so:
 
 ```move filename="Example.move"
 module my_addr::object_playground {
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Transfer to another address, this can be an object or account
   fun transfer<T: key>(owner: &signer, object: Object<T>, destination: address) {
@@ -203,11 +203,11 @@ Generated event handles can be transferred to the Object as long as you have the
 
 ```move filename="example.move"
 module 0x42::example {
-  use aptos_framework::event;
-  use aptos_framework::fungible_asset::Metadata;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::event;
+  use libra2_framework::fungible_asset::Metadata;
+  use libra2_framework::object::{Self, Object};
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]  
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]  
   struct LiquidityPoolResourceGroup has key {
     pool: LiquidityPool,
     event_store: LiquidityPoolEventStore,
@@ -279,6 +279,6 @@ In general, Objects can only be modified with `Refs` generated during constructi
 
 Here are three real-world code snippets which use Objects:
 
-- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/marketplace)
-- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/token_objects)
-- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset)
+- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/marketplace)
+- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/token_objects)
+- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset)

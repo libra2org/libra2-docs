@@ -16,9 +16,9 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 这些额外的选项可以与以下 CLI 命令结合使用:
 
-- `aptos move run`
-- `aptos move run-script`
-- `aptos move publish`
+- `libra2 move run`
+- `libra2 move run-script`
+- `libra2 move publish`
 
 另外,如果您想要重放(replaying)之前的交易,不妨参考[这个教程](/zh/build/cli/replay-past-transactions).
 
@@ -28,20 +28,20 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 ## 部署合约示例
 
-为了演示目的,我们将继续使用[`hello_blockchain`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_blockchain) 包作为示例.
+为了演示目的,我们将继续使用[`hello_blockchain`](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_blockchain) 包作为示例.
 
 首先,将该包部署到开发网(devnet)或者测试网(testnet),如果您之前未进行过这一步.
 
 进入包目录
 
 ```shellscript filename="Terminal"
-cd aptos-move/move-examples/hello_blockchain
+cd libra2-move/move-examples/hello_blockchain
 ```
 
 然后使用以下命令发布包
 
 ```shellscript filename="Terminal"
-aptos move publish --named-addresses hello_blockchain=default --assume-yes
+libra2 move publish --named-addresses hello_blockchain=default --assume-yes
 ```
 
 <details>
@@ -75,7 +75,7 @@ aptos move publish --named-addresses hello_blockchain=default --assume-yes
 接下来,使用附加命令行选项 `--local` 启用本地模拟,执行入口函数 `message::set_message`.这将在不进行任何进一步测量或分析的情况下在本地执行交易.
 
 ```shellscript filename="Terminal"
-aptos move run --function-id 'default::message::set_message' --args 'string:abc' --local
+libra2 move run --function-id 'default::message::set_message' --args 'string:abc' --local
 ```
 
 <details>
@@ -106,7 +106,7 @@ aptos move run --function-id 'default::message::set_message' --args 'string:abc'
 若要测试您交易的执行时间,请使用 `--benchmark` 选项.
 
 ```shellscript filename="Terminal"
-aptos move run --function-id 'default::message::set_message' --args 'string:abc' --benchmark
+libra2 move run --function-id 'default::message::set_message' --args 'string:abc' --benchmark
 ```
 
 <details>
@@ -149,7 +149,7 @@ Libra Gas 剖析器是一款强力工具,能助您深入理解 Libra 交易中�
 添加 `--profile-gas` 选项即可启用 Gas 剖析器.
 
 ```shellscript filename="Terminal"
-aptos move run --function-id 'default::message::set_message' --args 'string:abc' --profile-gas
+libra2 move run --function-id 'default::message::set_message' --args 'string:abc' --profile-gas
 ```
 
 <details>

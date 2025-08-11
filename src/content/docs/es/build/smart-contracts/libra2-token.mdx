@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Resumen de NFT
 
-Un [NFT](https://en.wikipedia.org/wiki/Non-fungible_token) es un [token](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move) no fungible o datos almacenados en una blockchain que
+Un [NFT](https://en.wikipedia.org/wiki/Non-fungible_token) es un [token](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) no fungible o datos almacenados en una blockchain que
 define únicamente la propiedad de un activo. Los NFTs fueron definidos por primera vez en [EIP-721](https://eips.ethereum.org/EIPS/eip-721)
 y luego expandidos en [EIP-1155](https://eips.ethereum.org/EIPS/eip-1155).
 Los NFTs típicamente se definen usando las siguientes propiedades:
@@ -35,7 +35,7 @@ tiene un conjunto similar de atributos:
 
 ## Principios de diseño
 
-El [estándar de token de Libra](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move) se desarrolla con los siguientes principios:
+El [estándar de token de Libra](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) se desarrolla con los siguientes principios:
 
 - **Interoperabilidad**: Proporcionar una implementación estándar para mejorar
   la interoperabilidad entre los proyectos del ecosistema. Además, Move siendo un lenguaje
@@ -60,17 +60,17 @@ El [estándar de token de Libra](https://github.com/libra2org/libra2-core/blob/m
 
 ### Almacenar propiedades de token personalizadas en cadena
 
-El estándar de token de Libra usa el módulo [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/property_map.move) para almacenar propiedades
+El estándar de token de Libra usa el módulo [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move) para almacenar propiedades
 de tokens en cadena. `PropertyMap` mapea una clave de cadena a un valor de propiedad
 en cadena, que almacena el valor en formato de Serialización Canónica Binaria (BCS)
 y su tipo. Actualmente, solo los tipos primitivos (bool, u8, u64, u128, address y
-String) son soportados en `PropertyMap`. Aplicaciones, como [Libra Names](https://www.aptosnames.com/),
+String) son soportados en `PropertyMap`. Aplicaciones, como [Libra Names](https://www.libra2names.com/),
 definen propiedades específicas de la aplicación que son leídas y escritas por el
 contrato inteligente de las aplicaciones.
 
 #### Propiedades por defecto
 
-Puedes agregar tus propiedades a [`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/aptos-move/framework/aptos-token/sources/token.move#L98) en TokenData. Las
+Puedes agregar tus propiedades a [`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/libra2-move/framework/libra2-token/sources/token.move#L98) en TokenData. Las
 propiedades definidas aquí son compartidas por todos los tokens por defecto.
 
 El campo `default_properties` es un almacén de clave-valor con información de tipo. Aprovecha
@@ -98,7 +98,7 @@ campo `property_version`. Aquí está cómo funciona:
   `property_version` establecido en `0` y estos tokens pueden apilarse juntos como
   token fungible.
 - Cuando los creadores mutan las propiedades por defecto de un token, el token mutado
-  será asignado un `property_version` único para crear un nuevo [`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L288)
+  será asignado un `property_version` único para crear un nuevo [`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L288)
   para diferenciarlo de otros tokens fungibles. Este `token_id` único permite
   que el token tenga sus propios valores de propiedad, y toda mutación posterior de este
   token **no** cambia el `property_version` nuevamente. Este token esencialmente
@@ -107,7 +107,7 @@ campo `property_version`. Aquí está cómo funciona:
 #### Configurar mutabilidad
 
 Para hacer la mutabilidad explícita tanto para el creador como para el propietario, el estándar de token de Libra
-proporciona [`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L100)
+proporciona [`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)
 tanto a nivel de colección como a nivel de token para controlar qué campos son
 mutables. Configurable aquí significa que el creador puede configurar este campo para ser
 mutable o inmutable durante la creación.

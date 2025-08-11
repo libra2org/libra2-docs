@@ -7,7 +7,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 Transactions allow you to change on-chain data or trigger events. Generally, transactions follow 5 steps from building to executing on chain: building, simulating, signing, submitting, and waiting.
 
 <Aside type="note">
-  For these examples, `aptos` is an instance of the [`Libra`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) client object.
+  For these examples, `libra2` is an instance of the [`Libra`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) client object.
 </Aside>
 
 <Steps>
@@ -19,14 +19,14 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
      2. **The `function` being called on-chain.** <br />This is the identifier for the smart contract entry function on-chain that will trigger when you execute this transaction.
      3. **The `functionArguments`.** <br />This is any data the function needs to run.
 
-     This can be packaged into a `SimpleTransaction` using `aptos.transaction.build.simple(...)` like so:
+     This can be packaged into a `SimpleTransaction` using `libra2.transaction.build.simple(...)` like so:
 
      ```typescript filename="build-a-transaction.ts"
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
        sender: sender.accountAddress,
        data: {
      	  // All transactions on Libra are implemented via smart contracts.
-     	  function: "0x1::aptos_account::transfer",
+     	  function: "0x1::libra2_account::transfer",
      	  functionArguments: [destination.accountAddress, 100],
        },
      });
@@ -54,10 +54,10 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
        This simulation only requires the `publicKey` of an account since it will not impact the actual state of the ledger.
      </Aside>
 
-     You can execute the simulation by using `aptos.transaction.simulate.simple(...)` like so:
+     You can execute the simulation by using `libra2.transaction.simulate.simple(...)` like so:
 
      ```typescript filename="build-a-transaction.ts"
-     const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+     const [userTransactionResponse] = await libra2.transaction.simulate.simple({
        signerPublicKey: signer.publicKey,
        transaction,
      });
@@ -66,11 +66,11 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
 
   3. Sign
 
-     Once the transaction is built and the fees seem reasonable, you can sign the transaction with `aptos.transaction.sign`. The signature must come from the `sender` account.
+     Once the transaction is built and the fees seem reasonable, you can sign the transaction with `libra2.transaction.sign`. The signature must come from the `sender` account.
 
      ```typescript filename="build-a-transaction.ts"
      // 3. Sign
-     const senderAuthenticator = aptos.transaction.sign({
+     const senderAuthenticator = libra2.transaction.sign({
        signer: sender,
        transaction,
      });
@@ -78,11 +78,11 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
 
   4. Submit
 
-     Now that the transaction is signed, you can submit it to the network using `aptos.transaction.submit.simple` like so:
+     Now that the transaction is signed, you can submit it to the network using `libra2.transaction.submit.simple` like so:
 
      ```typescript filename="build-a-transaction.ts"
      // 4. Submit
-     const committedTransaction = await aptos.transaction.submit.simple({
+     const committedTransaction = await libra2.transaction.submit.simple({
        transaction,
        senderAuthenticator,
      });
@@ -90,11 +90,11 @@ Transactions allow you to change on-chain data or trigger events. Generally, tra
 
   5. Wait
 
-     Finally, you can wait for the result of the transaction by using [`aptos.waitForTransaction`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#waitForTransaction) and specifying the hash of the transaction you just submitted like so:
+     Finally, you can wait for the result of the transaction by using [`libra2.waitForTransaction`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#waitForTransaction) and specifying the hash of the transaction you just submitted like so:
 
      ```typescript filename="build-a-transaction.ts"
      // 5. Wait
-     const executedTransaction = await aptos.waitForTransaction({ transactionHash: committedTransaction.hash });
+     const executedTransaction = await libra2.waitForTransaction({ transactionHash: committedTransaction.hash });
      ```
 </Steps>
 
@@ -118,7 +118,7 @@ async function example() {
 
     // 0. Setup the client and test accounts
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -128,11 +128,11 @@ async function example() {
     console.log(`Bob's address is: ${bob.accountAddress}`);
 
     console.log("\n=== Funding accounts ===\n");
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: alice.accountAddress,
         amount: 100_000_000,
     });
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: bob.accountAddress,
         amount: 100,
     });
@@ -140,11 +140,11 @@ async function example() {
 
     // 1. Build
     console.log("\n=== 1. Building the transaction ===\n");
-    const transaction = await aptos.transaction.build.simple({
+    const transaction = await libra2.transaction.build.simple({
         sender: alice.accountAddress,
         data: {
         // All transactions on Libra are implemented via smart contracts.
-        function: "0x1::aptos_account::transfer",
+        function: "0x1::libra2_account::transfer",
         functionArguments: [bob.accountAddress, 100],
         },
     });
@@ -152,7 +152,7 @@ async function example() {
 
     // 2. Simulate (Optional)
     console.log("\n === 2. Simulating Response (Optional) === \n")
-    const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+    const [userTransactionResponse] = await libra2.transaction.simulate.simple({
         signerPublicKey: alice.publicKey,
         transaction,
     });
@@ -160,7 +160,7 @@ async function example() {
 
     // 3. Sign
     console.log("\n=== 3. Signing transaction ===\n");
-    const senderAuthenticator = aptos.transaction.sign({
+    const senderAuthenticator = libra2.transaction.sign({
         signer: alice,
         transaction,
     });
@@ -168,7 +168,7 @@ async function example() {
 
     // 4. Submit
     console.log("\n=== 4. Submitting transaction ===\n");
-    const submittedTransaction = await aptos.transaction.submit.simple({
+    const submittedTransaction = await libra2.transaction.submit.simple({
         transaction,
         senderAuthenticator,
     });
@@ -177,7 +177,7 @@ async function example() {
 
     // 5. Wait for results
     console.log("\n=== 5. Waiting for result of transaction ===\n");
-    const executedTransaction = await aptos.waitForTransaction({ transactionHash: submittedTransaction.hash });
+    const executedTransaction = await libra2.waitForTransaction({ transactionHash: submittedTransaction.hash });
     console.log(executedTransaction)
 };
 

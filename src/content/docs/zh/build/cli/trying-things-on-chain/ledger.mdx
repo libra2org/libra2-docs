@@ -36,7 +36,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   6. 在 Libra CLI 中创建一个新的 Ledger 配置文件
 
      ```shellscript filename="Terminal"
-     aptos init --profile <your-profile> --ledger
+     libra2 init --profile <your-profile> --ledger
      ```
 
      然后按照 Terminal 提示操作,如下所示:
@@ -57,13 +57,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      Account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb has been already found on-chain
 
      ---
-     Libra CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `aptos --help` for more information about commands
+     Libra CLI is now set up for account 59836ba1dd0c845713bdab34346688d6f1dba290dbf677929f2fc20593ba0cfb as profile <your-profile>!  Run `libra2 --help` for more information about commands
      {
        "Result": "Success"
      }
      ```
 
-     在这个示例中,使用者选择通过在 `aptos init` 命令后输入 `0` 来选择 Ledger 设备上的第一个账户.你可以根据需要选取任意账户.
+     在这个示例中,使用者选择通过在 `libra2 init` 命令后输入 `0` 来选择 Ledger 设备上的第一个账户.你可以根据需要选取任意账户.
 
      **常见错误:**
 
@@ -89,10 +89,10 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   这个过程适用于任何需要签名的命令,无论是转移 coin,发布 Move 合约,与合约交互等.
 </Aside>
 
-例如,如果您想发布一个像 `[hello_blockchain](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_blockchain)` 这样的 Move 包,您可以按照上述步骤,然后运行:
+例如,如果您想发布一个像 `[hello_blockchain](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_blockchain)` 这样的 Move 包,您可以按照上述步骤,然后运行:
 
 ```shellscript filename="Terminal"
-aptos move publish --profile <your-ledger-profile-name> --named-addresses hello_blockchain=<your-ledger-profile-name>
+libra2 move publish --profile <your-ledger-profile-name> --named-addresses hello_blockchain=<your-ledger-profile-name>
 ```
 
 您应该会看到像这样的响应:

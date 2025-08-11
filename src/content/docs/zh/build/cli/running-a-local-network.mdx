@@ -27,7 +27,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   4. 在新终端中运行以下命令来启动私有网络:
 
      ```shellscript filename="Terminal"
-     aptos node run-local-testnet --with-indexer-api
+     libra2 node run-local-testnet --with-indexer-api
      ```
 
      <Aside type="caution">
@@ -46,9 +46,9 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      水龙头正在启动，请稍候...
 
      已完成生成配置：
-             日志文件："/Users/dport/.aptos/testnet/validator.log"
-             测试目录："/Users/dport/.aptos/testnet"
-             Libra 根密钥路径："/Users/dport/.aptos/testnet/mint.key"
+             日志文件："/Users/dport/.libra2/testnet/validator.log"
+             测试目录："/Users/dport/.libra2/testnet"
+             Libra 根密钥路径："/Users/dport/.libra2/testnet/mint.key"
              检查点：0:397412c0f96b10fa3daa24bfda962671c3c3ae484e2d67ed60534750e2311f3d
              链 ID：4
              REST API 端点：http://0.0.0.0:8080
@@ -96,7 +96,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
        ### 打开的文件太多错误
 
        ```shellscript filename="Terminal"
-       在 crates/aptos/src/node/local_testnet/logging.rs:64:10 处出现错误：
+       在 crates/libra2/src/node/local_testnet/logging.rs:64:10 处出现错误：
        调用 `Result::unwrap()` 时出现 `Err` 值：Os { code: 24, kind: Uncategorized, message: "打开的文件太多" }
        ```
 
@@ -123,8 +123,8 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      从步骤 4 的示例输出中可以看到,一旦本地网络运行,你就可以访问以下服务:
 
-     - [节点 API](/zh/network/nodes/aptos-api-spec):这是直接在节点上运行的 REST API.它支持核心写功能(如交易提交)和有限的读功能,如读取账户资源或 Move 模块信息.
-     - [索引器 API](/zh/build/indexer/aptos-hosted):这是一个 [GraphQL](https://graphql.org/) API,提供对索引区块链数据的丰富读取访问.如果你点击上面的索引器 API URL(默认为 [http://127.0.0.1:8090](http://127.0.0.1:8090/)),它将打开 Hasura Console,这是一个帮助你查询索引器 GraphQL API 的 Web UI.
+     - [节点 API](/zh/network/nodes/libra2-api-spec):这是直接在节点上运行的 REST API.它支持核心写功能(如交易提交)和有限的读功能,如读取账户资源或 Move 模块信息.
+     - [索引器 API](/zh/build/indexer/libra2-hosted):这是一个 [GraphQL](https://graphql.org/) API,提供对索引区块链数据的丰富读取访问.如果你点击上面的索引器 API URL(默认为 [http://127.0.0.1:8090](http://127.0.0.1:8090/)),它将打开 Hasura Console,这是一个帮助你查询索引器 GraphQL API 的 Web UI.
      - [交易流服务](/zh/build/indexer/txn-stream):这是索引器 API 和 SDK 使用的交易 gRPC 流.这仅与你开发 [索引器 SDK](/zh/build/indexer/indexer-sdk) 自定义处理器有关.
      - [Postgres](https://www.postgresql.org/):这是索引器处理器写入的数据库.索引器 API 从这个数据库读取.
      - [水龙头](/zh/build/apis/faucet-api):你可以使用它在本地网络上为账户提供资金.
@@ -136,7 +136,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      要了解启动本地网络时可以传递的不同标志,或配置设置(如更改某些服务运行的端口),请运行帮助命令:
 
      ```shellscript filename="Terminal"
-     aptos node run-local-testnet --help
+     libra2 node run-local-testnet --help
      ```
 </Steps>
 
@@ -147,13 +147,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 所以,你可以像这样创建一个本地配置文件:
 
 ```shellscript filename="Terminal"
-aptos init --profile <你的配置文件名称> --network local
+libra2 init --profile <你的配置文件名称> --network local
 ```
 
-然后你可以在以后使用该配置文件执行任何命令.例如,如果你想将 [`hello_blockchain`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_blockchain) 包发布到你的本地网络,你可以运行:
+然后你可以在以后使用该配置文件执行任何命令.例如,如果你想将 [`hello_blockchain`](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_blockchain) 包发布到你的本地网络,你可以运行:
 
 ```shellscript filename="Terminal"
-aptos move publish --profile <你的配置文件名称> --package-dir /opt/git/libra2-core/aptos-move/move-examples/hello_blockchain --named-addresses HelloBlockchain=local
+libra2 move publish --profile <你的配置文件名称> --package-dir /opt/git/libra2-core/libra2-move/move-examples/hello_blockchain --named-addresses HelloBlockchain=local
 ```
 
 ### 配置 TypeScript SDK
@@ -179,7 +179,7 @@ const client = new Libra(config);
 要从全新的本地网络开始,使用 `--force-restart` 标志:
 
 ```shellscript filename="Terminal"
-aptos node run-local-testnet --force-restart
+libra2 node run-local-testnet --force-restart
 ```
 
 然后它会提示你是否真的要重启链,以确保你不会意外删除你的工作.
@@ -192,5 +192,5 @@ aptos node run-local-testnet --force-restart
 如果你不想被提示,也可以包含 `--assume-yes`:
 
 ```shellscript filename="Terminal"
-aptos node run-local-testnet --force-restart --assume-yes
+libra2 node run-local-testnet --force-restart --assume-yes
 ```

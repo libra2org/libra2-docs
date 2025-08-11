@@ -18,10 +18,10 @@ complicated smart contracts.
      ```go filename="sponsor.go"
        rawTxn, err := client.BuildTransactionMultiAgent(
        alice.Address,
-       aptos.TransactionPayload{
+       libra2.TransactionPayload{
        Payload: transferPayload,
        },
-       aptos.FeePayer(&sponsor.Address),
+       libra2.FeePayer(&sponsor.Address),
        )
      ```
 
@@ -55,7 +55,7 @@ complicated smart contracts.
        </Callout>
 
        ```ts filename="sponsor.ts"
-       const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+       const [userTransactionResponse] = await libra2.transaction.simulate.simple({
          signerPublicKey: sender.publicKey,
          feePayerPublicKey: feePayer.publicKey,
          transaction,
@@ -99,31 +99,31 @@ package main
 import (
 	"fmt"
 
-	"github.com/libra2org/aptos-go-sdk"
-	"github.com/libra2org/aptos-go-sdk/crypto"
+	"github.com/libra2org/libra2-go-sdk"
+	"github.com/libra2org/libra2-go-sdk/crypto"
 )
 
 const FundAmount = 100_000_000
 const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
-func example(networkConfig aptos.NetworkConfig) {
+func example(networkConfig libra2.NetworkConfig) {
 	// Create a client for Libra
-	client, err := aptos.NewClient(networkConfig)
+	client, err := libra2.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
 	}
 
 	// Create accounts locally for alice and bob
-	alice, err := aptos.NewEd25519Account()
+	alice, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create alice:" + err.Error())
 	}
-	bob, err := aptos.NewEd25519Account()
+	bob, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create bob:" + err.Error())
 	}
-	sponsor, err := aptos.NewEd25519Account()
+	sponsor, err := libra2.NewEd25519Account()
 	if err != nil {
 		panic("Failed to create sponsor:" + err.Error())
 	}
@@ -163,16 +163,16 @@ func example(networkConfig aptos.NetworkConfig) {
 	fmt.Printf("Sponsor: %d\n", sponsorBalance)
 
 	// Build transaction
-	transferPayload, err := aptos.CoinTransferPayload(&aptos.LibraCoinTypeTag, bob.Address, TransferAmount)
+	transferPayload, err := libra2.CoinTransferPayload(&libra2.LibraCoinTypeTag, bob.Address, TransferAmount)
 	if err != nil {
 		panic("Failed to build transfer payload:" + err.Error())
 	}
 	rawTxn, err := client.BuildTransactionMultiAgent(
 		alice.Address,
-		aptos.TransactionPayload{
+		libra2.TransactionPayload{
 			Payload: transferPayload,
 		},
-		aptos.FeePayer(&sponsor.Address),
+		libra2.FeePayer(&sponsor.Address),
 
 	)
 	if err != nil {
@@ -232,10 +232,10 @@ func example(networkConfig aptos.NetworkConfig) {
 
 	rawTxn, err = client.BuildTransactionMultiAgent(
 		alice.Address,
-		aptos.TransactionPayload{
+		libra2.TransactionPayload{
 			Payload: transferPayload,
 		},
-		aptos.FeePayer(&aptos.AccountZero), // Note that the Address is 0x0, because we don't know the signer
+		libra2.FeePayer(&libra2.AccountZero), // Note that the Address is 0x0, because we don't know the signer
 	)
 	if err != nil {
 		panic("Failed to build transaction:" + err.Error())
@@ -300,6 +300,6 @@ func example(networkConfig aptos.NetworkConfig) {
 }
 
 func main() {
-	example(aptos.DevnetConfig)
+	example(libra2.DevnetConfig)
 }
 ```

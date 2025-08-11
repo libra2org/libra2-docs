@@ -24,7 +24,7 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
 
            <TabItem label="Vite (TS)">
              ```shellscript filename="终端"
-             pnpx create vite my-aptos-app --template react-ts
+             pnpx create vite my-libra2-app --template react-ts
              ```
            </TabItem>
          </Tabs>
@@ -49,9 +49,9 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
          <CardGrid>
            <LinkCard href="/zh/build/indexer" title="索引器" description="高效查询链上状态，如余额、交易活动、代币数据等" />
 
-           <LinkCard href="https://github.com/libra2org/aptos-ts-sdk/tree/main/examples/typescript" title="TS SDK 示例" description="20+ 个 TS SDK 使用示例" target="_blank" />
+           <LinkCard href="https://github.com/libra2org/libra2-ts-sdk/tree/main/examples/typescript" title="TS SDK 示例" description="20+ 个 TS SDK 使用示例" target="_blank" />
 
-           <LinkCard href="https://build.aptoslabs.com/" title="Libra Build" description="遇到 Fullnode API/索引器速率限制？可在此获取API密钥" target="_blank" />
+           <LinkCard href="https://build.libra2labs.com/" title="Libra Build" description="遇到 Fullnode API/索引器速率限制？可在此获取API密钥" target="_blank" />
          </CardGrid>
     </Steps>
   </TabItem>
@@ -86,7 +86,7 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
 
            <TabItem label="VSCode">
              <CardGrid>
-               <LinkCard href="https://marketplace.visualstudio.com/items?itemName=MoveBit.aptos-move-analyzer" title="Libra Move 分析器" description="适用于 VSCode 的语言服务器和语法高亮工具" target="_blank" />
+               <LinkCard href="https://marketplace.visualstudio.com/items?itemName=MoveBit.libra2-move-analyzer" title="Libra Move 分析器" description="适用于 VSCode 的语言服务器和语法高亮工具" target="_blank" />
              </CardGrid>
            </TabItem>
          </Tabs>
@@ -96,7 +96,7 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
          导航到您的应用目录并通过以下命令初始化一个新的智能合约:
 
          ```shellscript filename="Terminal"
-         aptos move init --name my_todo_list
+         libra2 move init --name my_todo_list
          ```
 
       4. 构建,编译和部署智能合约!
@@ -110,11 +110,11 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
     </Steps>
   </TabItem>
 
-  {/* create-aptos-dapp */}
+  {/* create-libra2-dapp */}
 
   <TabItem label="创建 Libra Dapp">
     <Steps>
-      1. 安装 create-aptos-dapp
+      1. 安装 create-libra2-dapp
 
          运行以下命令,几秒内即可从模板安装一个 dApp:
 
@@ -123,7 +123,7 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
 
            <TabItem label="npx">
              ```shellscript filename="Terminal"
-             npx create-aptos-dapp@latest
+             npx create-libra2-dapp@latest
              ```
            </TabItem>
 
@@ -131,14 +131,14 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
 
            <TabItem label="pnpx">
              ```shellscript filename="Terminal"
-             pnpx create-aptos-dapp@latest
+             pnpx create-libra2-dapp@latest
              ```
            </TabItem>
          </Tabs>
 
       2. 跟随提示操作
 
-         根据 CLI 提示选择您新 dApp 的名称,[模板](/zh/build/create-aptos-dapp#templates) 和网络.
+         根据 CLI 提示选择您新 dApp 的名称,[模板](/zh/build/create-libra2-dapp#templates) 和网络.
 
          ![cad](~/images/cad-video.gif)
 
@@ -151,11 +151,11 @@ import { CardGrid, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/com
       4. 继续阅读
 
          <CardGrid>
-           <LinkCard href="/zh/build/create-aptos-dapp" title="创建 Libra Dapp" description="获取关于该工具的更多信息" />
+           <LinkCard href="/zh/build/create-libra2-dapp" title="创建 Libra Dapp" description="获取关于该工具的更多信息" />
 
-           <LinkCard href="/zh/build/create-aptos-dapp#templates" title="模板" description="浏览预制模板" />
+           <LinkCard href="/zh/build/create-libra2-dapp#templates" title="模板" description="浏览预制模板" />
 
-           <LinkCard href="/zh/build/create-aptos-dapp/faq" title="常见问题" description="获取常见问题和解决方案" />
+           <LinkCard href="/zh/build/create-libra2-dapp/faq" title="常见问题" description="获取常见问题和解决方案" />
          </CardGrid>
     </Steps>
   </TabItem>

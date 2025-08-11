@@ -5,10 +5,10 @@ title: "Migration Guide"
 import { Aside } from '@astrojs/starlight/components';
 
 <Aside emoji="🚨" type="danger">
-  The Legacy TypeScript SDK package `aptos` is deprecated and will be replaced by the new TypeScript SDK. Please refer to the [new TypeScript SDK](/build/sdks/ts-sdk) for the latest features and updates.
+  The Legacy TypeScript SDK package `libra2` is deprecated and will be replaced by the new TypeScript SDK. Please refer to the [new TypeScript SDK](/build/sdks/ts-sdk) for the latest features and updates.
 </Aside>
 
-If you are coming from an earlier version `1.x.x` of `aptos`, you will need to make the following updates.
+If you are coming from an earlier version `1.x.x` of `libra2`, you will need to make the following updates.
 
 <Aside type="note">
   This guide only contains API differences and updates required for deprecated features. New features of the v2 SDK are not included.
@@ -16,7 +16,7 @@ If you are coming from an earlier version `1.x.x` of `aptos`, you will need to m
 
 ## Install the SDK
 
-The TypeScript SDK V2 is under a new [GitHub repo](https://github.com/libra2org/aptos-ts-sdk) and with a new package name - `@libra2-core/ts-sdk`
+The TypeScript SDK V2 is under a new [GitHub repo](https://github.com/libra2org/libra2-ts-sdk) and with a new package name - `@libra2-core/ts-sdk`
 
 ```shellscript npm2yarn
 npm i @libra2-core/ts-sdk
@@ -30,9 +30,9 @@ Remove all `<*>Client` modules (i.e `LibraClient`, `FaucetClient`, `CoinClient`,
 
 ```typescript filename="v1.ts"
 const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL);
-const aptosClient = new LibraClient(NODE_URL);
+const libra2Client = new LibraClient(NODE_URL);
 const indexerClient = new IndexerClient(INDEXER_URL);
-const tokenClient = new TokenClient(aptosClient);
+const tokenClient = new TokenClient(libra2Client);
 ```
 
 **V2**
@@ -42,12 +42,12 @@ const tokenClient = new TokenClient(aptosClient);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Libra();
+const libra2 = new Libra();
 
 // make queries
-const fund = await aptos.fundAccount({ accountAddress: "0x123", amount: 100 });
-const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+const fund = await libra2.fundAccount({ accountAddress: "0x123", amount: 100 });
+const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
 ```
 
 ## Configuration class
@@ -55,8 +55,8 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
 To configure your `Libra` client, you can use an `LibraConfig` object.
 
 ```typescript filename="v2.ts"
-const aptosConfig = new LibraConfig({ network: Network.DEVNET }); // default to devnet
-const aptos = new Libra(config);
+const libra2Config = new LibraConfig({ network: Network.DEVNET }); // default to devnet
+const libra2 = new Libra(config);
 ```
 
 ## Transaction Builder Flow
@@ -66,13 +66,13 @@ Removed all separate transaction functions in favor of a more simplified and fri
 **V1**
 
 ```typescript filename="v1.ts"
-const aptosClient = new LibraClient(NODE_URL);
+const libra2Client = new LibraClient(NODE_URL);
 
 // bcs serialized arguments payload
 const entryFunctionPayload =
   new TxnBuilderTypes.TransactionPayloadEntryFunction(
     TxnBuilderTypes.EntryFunction.natural(
-      "0x1::aptos_account",
+      "0x1::libra2_account",
       "transfer",
       [],
       [bcsToBytes(TxnBuilderTypes.AccountAddress.fromHex(receiver.address()))],
@@ -87,7 +87,7 @@ const transaction = await client.generateRawTransaction(
 // non-serialized arguments payload
 const payload: Gen.TransactionPayload = {
   type: "entry_function_payload",
-  function: "0x1::aptos_account::transfer",
+  function: "0x1::libra2_account::transfer",
   type_arguments: [],
   arguments: [account2.address().hex(), 100000],
 };
@@ -113,34 +113,34 @@ const txn = await client.submitSignedBCSTransaction(signedTransaction);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Libra();
+const libra2 = new Libra();
 
 // non-serialized arguments transaction
-const transaction = await aptos.build.transaction({
+const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: ["0x1::aptos_coin::LibraCoin"],
+    typeArguments: ["0x1::libra2_coin::LibraCoin"],
     functionArguments: [bobAddress, 100],
   },
 });
 
 // bcs serialized arguments transaction
-const transaction = await aptos.build.transaction({
+const transaction = await libra2.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
+    typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
     functionArguments: [bobAddress, new U64(100)],
   },
 });
 // sign transaction
-const senderAuthenticator = aptos.sign.transaction({
+const senderAuthenticator = libra2.sign.transaction({
   signer: alice,
   transaction,
 });
 // submit transaction
-const committedTransaction = await aptos.submit.transaction({
+const committedTransaction = await libra2.submit.transaction({
   transaction,
   senderAuthenticator,
 });

@@ -15,13 +15,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      ```shellscript filename="终端"
      brew update
-     brew install aptos
+     brew install libra2
      ```
 
-  3. 打开另一个终端并运行 aptos help 验证 CLI 是否安装成功
+  3. 打开另一个终端并运行 libra2 help 验证 CLI 是否安装成功
 
      ```shellscript filename="终端"
-     aptos help
+     libra2 help
      ```
 </Steps>
 
@@ -35,7 +35,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 ```shellscript filename="终端"
 brew update
-brew upgrade aptos
+brew upgrade libra2
 ```
 
 # 通过脚本安装
@@ -44,13 +44,13 @@ brew upgrade aptos
   1. 在终端使用以下任一命令:
 
      ```shellscript filename="终端"
-     curl -fsSL "https://aptos.dev/scripts/install_cli.sh" | sh
+     curl -fsSL "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
      或使用等效的 `wget` 命令:
 
      ```shellscript filename="终端"
-     wget -qO- "https://aptos.dev/scripts/install_cli.sh" | sh
+     wget -qO- "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
   2. (可选)建议将 Libra CLI 添加到 PATH 路径中的文件夹
@@ -58,14 +58,14 @@ brew upgrade aptos
      - 添加文件夹到 PATH 的具体步骤取决于使用的 shell
      - 可运行 `echo $SHELL` 查看当前 shell 类型,然后搜索对应 shell 添加 PATH 的方法
 
-  3. 验证安装:打开新终端运行 aptos help
+  3. 验证安装:打开新终端运行 libra2 help
 
      - 应显示 CLI 可用命令列表
      - 这是未来学习各命令用法的实用参考资料
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  如需更新 Libra CLI 至最新版本,可运行 `aptos update`
+  如需更新 Libra CLI 至最新版本,可运行 `libra2 update`
 </Aside>
 
 # 通过预编译二进制文件安装(备用方法)
@@ -77,7 +77,7 @@ brew upgrade aptos
 
   3. 下载 macOS 版 zip 文件
 
-     1. 文件名类似:`aptos-cli-<version>-macOS-x86_64.zip` 或 `aptos-cli-<version>-macOS-arm64.zip`
+     1. 文件名类似:`libra2-cli-<version>-macOS-x86_64.zip` 或 `libra2-cli-<version>-macOS-arm64.zip`
      2. 确保选择与电脑架构匹配的文件(Intel/AMD 选 x86\_64,ARM 选 arm64)
      3. 下载时可能需要忽略"可疑文件"警告
 
@@ -87,9 +87,9 @@ brew upgrade aptos
 
   6. 打开终端并导航至目标文件夹
 
-  7. 运行 chmod +x ~/aptos 赋予可执行权限
+  7. 运行 chmod +x ~/libra2 赋予可执行权限
 
-  8. 验证安装:运行 ~/aptos help
+  8. 验证安装:运行 ~/libra2 help
 
      应显示所有 CLI 命令的使用说明,这些说明对后续使用很有帮助.
 

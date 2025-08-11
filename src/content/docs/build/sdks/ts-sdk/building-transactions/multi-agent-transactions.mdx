@@ -24,7 +24,7 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
      </Aside>
 
      ```typescript filename="multi-agent.ts"
-     const transaction = await aptos.transaction.build.multiAgent({
+     const transaction = await libra2.transaction.build.multiAgent({
        sender: alice.accountAddress,
        secondarySignerAddresses: [bob.accountAddress],
        data: {
@@ -42,7 +42,7 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
      You can simulate the multi-agent transaction to preview the result before submitting it as follows:
 
      ```typescript filename="multi-agent.ts"
-     const [userTransactionResponse] = await aptos.transaction.simulate.multiAgent(
+     const [userTransactionResponse] = await libra2.transaction.simulate.multiAgent(
        {
          signerPublicKey: alice.publicKey,
          secondarySignersPublicKeys: [bob.publicKey],
@@ -60,12 +60,12 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
      You will combine these signatures in the next step.
 
      ```typescript filename="multi-agent.ts"
-     const aliceSenderAuthenticator = aptos.transaction.sign({
+     const aliceSenderAuthenticator = libra2.transaction.sign({
        signer: alice,
        transaction,
      });
      // Bob is a secondary signer for this transaction
-     const bobSenderAuthenticator = aptos.transaction.sign({
+     const bobSenderAuthenticator = libra2.transaction.sign({
        signer: bob,
        transaction,
      });
@@ -74,7 +74,7 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
   4. Submit the transaction by combining all agent signatures via the additionalSignerAuthenticators parameter.
 
      ```typescript filename="multi-agent.ts"
-     const committedTransaction = await aptos.transaction.submit.multiAgent({
+     const committedTransaction = await libra2.transaction.submit.multiAgent({
        transaction,
        senderAuthenticator: aliceSenderAuthenticator,
        additionalSignersAuthenticators: [bobSenderAuthenticator],
@@ -84,7 +84,7 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
   5. Lastly, wait for the transaction to resolve.
 
      ```typescript filename="multi-agent.ts"
-     const executedTransaction = await aptos.waitForTransaction({
+     const executedTransaction = await libra2.waitForTransaction({
        transactionHash: committedTransaction.hash,
      });
      ```
@@ -99,7 +99,7 @@ Creating and executing a multi-agent transaction follows a similar flow to the [
 1. Install `@libra2-core/ts-sdk` by running `pnpm i @libra2-core/ts-sdk` or using whichever package manager is most comfortable for you.
 2. Update the below snippet to build a transaction that requires multi-agent signing.
    1. Replace the function and parameters below this comment: `// REPLACE WITH YOUR MULTI-AGENT FUNCTION HERE`
-   2. This customization is needed as there are no pre-made Libra contracts which need multi-agent signatures. If you want to deploy your own example multi-agent contract, you can deploy the ["transfer two by two" example Move contract](https://github.com/libra2org/aptos-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5).
+   2. This customization is needed as there are no pre-made Libra contracts which need multi-agent signatures. If you want to deploy your own example multi-agent contract, you can deploy the ["transfer two by two" example Move contract](https://github.com/libra2org/libra2-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5).
 
 ```typescript filename="multi-agent.ts"
 /**
@@ -115,7 +115,7 @@ async function example() {
 
   // 0. Setup the client and test accounts
   const config = new LibraConfig({ network: Network.DEVNET });
-  const aptos = new Libra(config);
+  const libra2 = new Libra(config);
 
   let alice = Account.generate();
   let bob = Account.generate();
@@ -127,15 +127,15 @@ async function example() {
   console.log(`Carol's address is: ${carol.accountAddress}`);
 
   console.log("\n=== Funding accounts ===\n");
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: alice.accountAddress,
     amount: 100_000_000,
   });
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: bob.accountAddress,
     amount: 100_000_000,
   });
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: carol.accountAddress,
     amount: 100_000_000,
   });
@@ -143,7 +143,7 @@ async function example() {
 
   // 1. Build
   console.log("\n=== 1. Building the transaction ===\n");
-  const transaction = await aptos.transaction.build.multiAgent({
+  const transaction = await libra2.transaction.build.multiAgent({
     sender: alice.accountAddress,
     secondarySignerAddresses: [bob.accountAddress],
     data: {
@@ -157,7 +157,7 @@ async function example() {
 
   // 2. Simulate (Optional)
   console.log("\n === 2. Simulating Response (Optional) === \n");
-  const [userTransactionResponse] = await aptos.transaction.simulate.multiAgent(
+  const [userTransactionResponse] = await libra2.transaction.simulate.multiAgent(
     {
       signerPublicKey: alice.publicKey,
       secondarySignersPublicKeys: [bob.publicKey],
@@ -168,11 +168,11 @@ async function example() {
 
   // 3. Sign
   console.log("\n=== 3. Signing transaction ===\n");
-  const aliceSenderAuthenticator = aptos.transaction.sign({
+  const aliceSenderAuthenticator = libra2.transaction.sign({
     signer: alice,
     transaction,
   });
-  const bobSenderAuthenticator = aptos.transaction.sign({
+  const bobSenderAuthenticator = libra2.transaction.sign({
     signer: bob,
     transaction,
   });
@@ -181,7 +181,7 @@ async function example() {
 
   // 4. Submit
   console.log("\n=== 4. Submitting transaction ===\n");
-  const committedTransaction = await aptos.transaction.submit.multiAgent({
+  const committedTransaction = await libra2.transaction.submit.multiAgent({
     transaction,
     senderAuthenticator: aliceSenderAuthenticator,
     additionalSignersAuthenticators: [bobSenderAuthenticator],
@@ -190,7 +190,7 @@ async function example() {
 
   // 5. Wait for results
   console.log("\n=== 5. Waiting for result of transaction ===\n");
-  const executedTransaction = await aptos.waitForTransaction({
+  const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTransaction.hash,
   });
   console.log(executedTransaction);
@@ -201,4 +201,4 @@ example();
 
 ## Common Errors
 
-`NUMBER_OF_SIGNER_ARGUMENTS_MISMATCH` - This happens when you are attempting to do multi-agent signing for a function which does not require that number of accounts. For example, if you try using multiple signatures for a `0x1::aptos_account::transfer` function - it only expects one address, and so produces an error when more than one is provided.
+`NUMBER_OF_SIGNER_ARGUMENTS_MISMATCH` - This happens when you are attempting to do multi-agent signing for a function which does not require that number of accounts. For example, if you try using multiple signatures for a `0x1::libra2_account::transfer` function - it only expects one address, and so produces an error when more than one is provided.

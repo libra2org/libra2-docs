@@ -5,18 +5,18 @@ title: "SDK de Go - Obtener Datos"
 import { Aside } from '@astrojs/starlight/components';
 
 Puedes usar el cliente `Libra` para obtener datos de la cadena usando una variedad de funciones
-de ayuda. Específicamente, muchas de las funciones listadas en la [documentación de referencia](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk)
+de ayuda. Específicamente, muchas de las funciones listadas en la [documentación de referencia](https://pkg.go.dev/github.com/libra2org/libra2-go-sdk)
 recuperarán datos de la cadena, por ejemplo `Account`, `AccountResources`, `Transactions`.
 
 Aquí hay un ejemplo mostrando cómo obtener datos comunes que puedes necesitar en tu aplicación:
 
 ```go filename="fetch_data.go"
-client, err := aptos.NewClient(aptos.DevnetConfig)
+client, err := libra2.NewClient(libra2.DevnetConfig)
 if err != nil {
   panic("Failed to create client:" + err.Error())
 }
 
-address := aptos.AccountAddress{}
+address := libra2.AccountAddress{}
 err := address.ParseStringRelaxed("0x123")
 if err != nil {
   panic("Failed to parse address:" + err.Error())
@@ -33,8 +33,8 @@ transactions, err := client.Transactions()
 </Aside>
 
 El cliente `Libra` puede por defecto consultar tanto datos de red desde
-[fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) como la
-[API del Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql)
+[fullnodes](https://api.mainnet.libra2labs.com/v1/spec#/) como la
+[API del Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/v1/graphql)
 que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada
 para datos de la API del Indexador, puedes usar `client.QueryIndexer()` así:
 
@@ -77,10 +77,10 @@ Puedes llamar funciones de vista que retornan datos personalizados de la cadena 
 Por ejemplo, puedes buscar la red que estás usando con la función de vista `chain_id`:
 
 ```go filename="fetch_data.go"
-viewResponse, err := client.View(&aptos.ViewPayload {
-  Module: aptos.ModuleId{Address: aptos.AccountAddress{}, Name: "chain_id"},
+viewResponse, err := client.View(&libra2.ViewPayload {
+  Module: libra2.ModuleId{Address: libra2.AccountAddress{}, Name: "chain_id"},
   Function: "get",
-  ArgTypes: []aptos.TypeTag{},
+  ArgTypes: []libra2.TypeTag{},
   Args: [][]byte{},
 )
 

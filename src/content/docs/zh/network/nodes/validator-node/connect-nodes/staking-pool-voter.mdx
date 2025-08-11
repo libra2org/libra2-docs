@@ -10,7 +10,7 @@ title: "质押池投票者"
 
 要作为投票者参与 Libra 治理,请按照以下步骤操作:
 
-1. 转到 Libra 治理页面的[提案部分](https://governance.aptosfoundation.org/).
+1. 转到 Libra 治理页面的[提案部分](https://governance.libra2foundation.org/).
 2. 点击页面右上角的**CONNECT WALLET**连接您的钱包.
 3. 确保钱包设置为连接到主网.
 4. 查看提案,当您准备好对提案进行投票时,点击提案并投票.
@@ -18,10 +18,10 @@ title: "质押池投票者"
 
 ### 使用 Libra CLI
 
-1. 使用命令 `aptos node get-stake-pool --owner-address <owner-address> --url <REST API for the network>` 获取您的质押池信息.
-2. 执行命令 `aptos governance list-proposals --url https://api.mainnet.aptoslabs.com` 查看提案列表.
-3. 运行 `aptos init` 设置您的投票者资料.
-4. 执行命令 `aptos governance vote --proposal-id <PROPOSAL_ID> --pool-address <POOL_ADDRESS> --url <URL> --profile <profile>` 对提案进行投票.
+1. 使用命令 `libra2 node get-stake-pool --owner-address <owner-address> --url <REST API for the network>` 获取您的质押池信息.
+2. 执行命令 `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com` 查看提案列表.
+3. 运行 `libra2 init` 设置您的投票者资料.
+4. 执行命令 `libra2 governance vote --proposal-id <PROPOSAL_ID> --pool-address <POOL_ADDRESS> --url <URL> --profile <profile>` 对提案进行投票.
 
 # 委托池投票者
 
@@ -31,7 +31,7 @@ title: "质押池投票者"
 
 要作为投票者参与治理,请按照以下步骤操作:
 
-1. 转到 Govscan 上的[提案部分](https://govscan.live/aptos-proposals).
+1. 转到 Govscan 上的[提案部分](https://govscan.live/libra2-proposals).
 2. 点击**CONNECT WALLET**连接您的钱包.
 3. 确保钱包设置为连接到主网.
 4. 查看提案.当您准备好对提案进行投票时,点击提案并投票.
@@ -39,14 +39,14 @@ title: "质押池投票者"
 
 ### 使用 Libra CLI
 
-1. 从[Libra Explorer 页面](https://explorer.aptoslabs.com/validators/delegation?network=mainnet)获取您的委托池地址.
-2. 执行命令 `aptos governance list-proposals --url https://api.mainnet.aptoslabs.com` 查看提案列表.
-3. 运行 `aptos init` 设置您的投票者资料.
-4. 执行命令 `aptos move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>` 对提案进行投票.
+1. 从[Libra Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
+2. 执行命令 `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com` 查看提案列表.
+3. 运行 `libra2 init` 设置您的投票者资料.
+4. 执行命令 `libra2 move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>` 对提案进行投票.
 
 要委托您的投票权,请按照以下步骤操作:
 
-1. 从[Libra Explorer 页面](https://explorer.aptoslabs.com/validators/delegation?network=mainnet)获取您的委托池地址.
-2. 运行 `aptos init` 设置您的投票者资料.
-3. 执行命令 `aptos move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>` 委托投票权.
-4. 新的被委托投票者将在当前锁定周期结束后的下一个锁定周期生效.要查看被委托的投票者,运行 `aptos move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.
+1. 从[Libra Explorer 页面](https://explorer.libra2labs.com/validators/delegation?network=mainnet)获取您的委托池地址.
+2. 运行 `libra2 init` 设置您的投票者资料.
+3. 执行命令 `libra2 move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>` 委托投票权.
+4. 新的被委托投票者将在当前锁定周期结束后的下一个锁定周期生效.要查看被委托的投票者,运行 `libra2 move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.

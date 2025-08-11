@@ -23,7 +23,7 @@ const account = Account.generate({
 ```
 
 <Aside type="note">
-  Siguiendo [AIP-55](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-55.md) el SDK soporta autenticaciones `Legacy` y `Unified`. `Legacy` incluye `ED25519` y `MultiED25519` y `Unified` incluye autenticadores `SingleSender` y `MultiSender`.
+  Siguiendo [AIP-55](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-55.md) el SDK soporta autenticaciones `Legacy` y `Unified`. `Legacy` incluye `ED25519` y `MultiED25519` y `Unified` incluye autenticadores `SingleSender` y `MultiSender`.
 </Aside>
 
 Una vez que hayas generado credenciales, **debes** financiarla para que la red sepa que existe.
@@ -31,7 +31,7 @@ Una vez que hayas generado credenciales, **debes** financiarla para que la red s
 En localnet / devnet esto se puede hacer con un faucet ejecutando el siguiente comando:
 
 ```typescript filename="fund.ts"
-const transaction = await aptos.fundAccount({
+const transaction = await libra2.fundAccount({
   accountAddress: account.accountAddress,
   amount: 100,
 });

@@ -27,7 +27,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      </Aside>
 
      ```typescript filename="multi-agent.ts"
-     const transaction = await aptos.transaction.build.multiAgent({
+     const transaction = await libra2.transaction.build.multiAgent({
        sender: alice.accountAddress,
        secondarySignerAddresses: [bob.accountAddress],
        data: {
@@ -45,7 +45,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      提交前可通过模拟预览多代理交易结果:
 
      ```typescript filename="multi-agent.ts"
-     const [userTransactionResponse] = await aptos.transaction.simulate.multiAgent(
+     const [userTransactionResponse] = await libra2.transaction.simulate.multiAgent(
        {
          signerPublicKey: alice.publicKey,
          secondarySignersPublicKeys: [bob.publicKey],
@@ -63,12 +63,12 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      这些签名将在下一步合并使用.
 
      ```typescript filename="multi-agent.ts"
-     const aliceSenderAuthenticator = aptos.transaction.sign({
+     const aliceSenderAuthenticator = libra2.transaction.sign({
        signer: alice,
        transaction,
      });
      // Bob 作为本次交易的次要签名者
-     const bobSenderAuthenticator = aptos.transaction.sign({
+     const bobSenderAuthenticator = libra2.transaction.sign({
        signer: bob,
        transaction,
      });
@@ -77,7 +77,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   4. 通过 additionalSignerAuthenticators 参数合并所有代理签名后提交交易
 
      ```typescript filename="multi-agent.ts"
-     const committedTransaction = await aptos.transaction.submit.multiAgent({
+     const committedTransaction = await libra2.transaction.submit.multiAgent({
        transaction,
        senderAuthenticator: aliceSenderAuthenticator,
        additionalSignersAuthenticators: [bobSenderAuthenticator],
@@ -87,7 +87,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   5. 最后,等待交易确认
 
      ```typescript filename="multi-agent.ts"
-     const executedTransaction = await aptos.waitForTransaction({
+     const executedTransaction = await libra2.waitForTransaction({
        transactionHash: committedTransaction.hash,
      });
      ```
@@ -102,7 +102,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 1. 通过运行 `pnpm i @libra2-core/ts-sdk` 或使用您习惯的包管理器安装 `@libra2-core/ts-sdk`
 2. 更新下方代码片段以构建需要多代理签名的交易
    1. 替换下方注释后的函数和参数:`// REPLACE WITH YOUR MULTI-AGENT FUNCTION HERE`
-   2. 此自定义是必要的,因为 Libra 没有预制的需要多代理签名的合约.如果您想部署自己的示例多代理合约,可以部署 ["transfer two by two" 示例 Move 合约](https://github.com/libra2org/aptos-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5)
+   2. 此自定义是必要的,因为 Libra 没有预制的需要多代理签名的合约.如果您想部署自己的示例多代理合约,可以部署 ["transfer two by two" 示例 Move 合约](https://github.com/libra2org/libra2-ts-sdk/blob/main/tests/move/transfer/sources/script_two_by_two.move#L5)
 
 ```typescript filename="multi-agent.ts"
 /**
@@ -118,7 +118,7 @@ async function example() {
 
   // 0. 设置客户端和测试账户
   const config = new LibraConfig({ network: Network.DEVNET });
-  const aptos = new Libra(config);
+  const libra2 = new Libra(config);
 
   let alice = Account.generate();
   let bob = Account.generate();
@@ -130,15 +130,15 @@ async function example() {
   console.log(`Carol 的地址是: ${carol.accountAddress}`);
 
   console.log("\n=== 注资账户 ===\n");
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: alice.accountAddress,
     amount: 100_000_000,
   });
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: bob.accountAddress,
     amount: 100_000_000,
   });
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: carol.accountAddress,
     amount: 100_000_000,
   });
@@ -146,7 +146,7 @@ async function example() {
 
   // 1. 构建
   console.log("\n=== 1. 构建交易 ===\n");
-  const transaction = await aptos.transaction.build.multiAgent({
+  const transaction = await libra2.transaction.build.multiAgent({
     sender: alice.accountAddress,
     secondarySignerAddresses: [bob.accountAddress],
     data: {
@@ -160,7 +160,7 @@ async function example() {
 
   // 2. 模拟（可选）
   console.log("\n === 2. 模拟响应（可选）=== \n");
-  const [userTransactionResponse] = await aptos.transaction.simulate.multiAgent(
+  const [userTransactionResponse] = await libra2.transaction.simulate.multiAgent(
     {
       signerPublicKey: alice.publicKey,
       secondarySignersPublicKeys: [bob.publicKey],
@@ -171,11 +171,11 @@ async function example() {
 
   // 3. 签名
   console.log("\n=== 3. 交易签名 ===\n");
-  const aliceSenderAuthenticator = aptos.transaction.sign({
+  const aliceSenderAuthenticator = libra2.transaction.sign({
     signer: alice,
     transaction,
   });
-  const bobSenderAuthenticator = aptos.transaction.sign({
+  const bobSenderAuthenticator = libra2.transaction.sign({
     signer: bob,
     transaction,
   });
@@ -184,7 +184,7 @@ async function example() {
 
   // 4. 提交
   console.log("\n=== 4. 提交交易 ===\n");
-  const committedTransaction = await aptos.transaction.submit.multiAgent({
+  const committedTransaction = await libra2.transaction.submit.multiAgent({
     transaction,
     senderAuthenticator: aliceSenderAuthenticator,
     additionalSignersAuthenticators: [bobSenderAuthenticator],
@@ -193,7 +193,7 @@ async function example() {
 
   // 5. 等待结果
   console.log("\n=== 5. 等待交易结果 ===\n");
-  const executedTransaction = await aptos.waitForTransaction({
+  const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTransaction.hash,
   });
   console.log(executedTransaction);
@@ -204,4 +204,4 @@ example();
 
 ## 常见错误
 
-`NUMBER_OF_SIGNER_ARGUMENTS_MISMATCH` - 当您尝试为不需要该数量账户的函数进行多代理签名时,会发生此错误.例如,如果您尝试对 `0x1::aptos_account::transfer` 函数使用多个签名 - 该函数仅需要一个地址,因此当提供多个地址时会报错.
+`NUMBER_OF_SIGNER_ARGUMENTS_MISMATCH` - 当您尝试为不需要该数量账户的函数进行多代理签名时,会发生此错误.例如,如果您尝试对 `0x1::libra2_account::transfer` 函数使用多个签名 - 该函数仅需要一个地址,因此当提供多个地址时会报错.

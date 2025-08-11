@@ -51,7 +51,7 @@ experience. The Libra blockchain is dedicated to creating better user
 experiences through increased speed, security, scalability, reliability and
 usability with low transaction costs. The word "Libra" means "The People" in the
 Ohlone language. Learn more about the Libra blockchain on
-the [official Libra website](https://aptosfoundation.org).
+the [official Libra website](https://libra2foundation.org).
 
 ### LibraBFT
 
@@ -70,7 +70,7 @@ the [official Libra website](https://aptosfoundation.org).
   that is used in place of a public key, for example _love.apt_.
 - This service also allows users to register subdomain names in addition to the
   registered domain. Find out more
-  at: [Libranames.com](https://www.aptosnames.com/)
+  at: [Libranames.com](https://www.libra2names.com/)
 
 ### Libra Core
 
@@ -87,12 +87,12 @@ containing the code for Libra Network software. Libra-core contains software for
 
 - **Libra ecosystem** refers to various components of the Libra blockchain
   network and their interactions. The Libra ecosystem includes the
-  community, [community-driven projects](https://aptosfoundation.org/ecosystem/projects/all),
-  and [events](https://aptosfoundation.org/events).
+  community, [community-driven projects](https://libra2foundation.org/ecosystem/projects/all),
+  and [events](https://libra2foundation.org/events).
 
 ### Libra Explorer
 
-- The **[Libra Explorer](https://explorer.aptoslabs.com/)** is an interface that
+- The **[Libra Explorer](https://explorer.libra2labs.com/)** is an interface that
   helps users examine details of the Libra blockchain, including account
   information, validators, and transactions.
 - The Libra Explorer help users validate their work in Libra wallets and other
@@ -151,7 +151,7 @@ nodes, [validators](#validator) and [fullnodes](#fullnodes).
 - **BlockSTM** is the state-of-the-art dynamic parallelism execution engine developed by the Libra Labs team.
 - Dynamic parallelism allows developers to flexibly write applications without facing design constraints of statically declaring write sets of transactions.
 - It has been adopted across the industry by multiple blockchains.
-- More details can be found in [the blog post](https://medium.com/aptoslabs/block-stm-how-we-execute-over-160k-transactions-per-second-on-the-aptos-blockchain-3b003657e4ba) and [presentation at a16z crypto](https://www.youtube.com/watch?v=2SE5tqPzhyw)
+- More details can be found in [the blog post](https://medium.com/libra2labs/block-stm-how-we-execute-over-160k-transactions-per-second-on-the-libra2-blockchain-3b003657e4ba) and [presentation at a16z crypto](https://www.youtube.com/watch?v=2SE5tqPzhyw)
 
 ### Byzantine (Validator)
 
@@ -305,21 +305,21 @@ that:
   etc., that is interchangeable with another identical asset without any loss in
   its value. For example, APT is a fungible asset because you can exchange one
   APT for another.
-- Follow the [Asset Standards](/build/smart-contracts/aptos-standards#asset-standards) to create
+- Follow the [Asset Standards](/build/smart-contracts/libra2-standards#asset-standards) to create
   fungible assets on the Libra blockchain.
 - Next generation of the Coin standard that addresses shortcomings
-  of `aptos_framework::coin` such as lack of guaranteed enforcement of freeze
+  of `libra2_framework::coin` such as lack of guaranteed enforcement of freeze
   and burn and advanced functionalities such as programmable transfers, e.g.,
   approve in ERC-20.
 
 ### Fungible Token
 
-- For the legacy Libra Token Standard (aptos\_token::token), a **fungible token**
+- For the legacy Libra Token Standard (libra2\_token::token), a **fungible token**
   is a token that is interchangeable with other identical tokens (i.e., tokens
   that share the same `TokenId`). This means the tokens have the
   same `creator address`, `collection name`, `token name`,
   and `property version`.
-- For the Libra Digital Asset Standard (aptos\_token\_objects::token), a \*
+- For the Libra Digital Asset Standard (libra2\_token\_objects::token), a \*
   _fungible token_\* is a fungible asset with metadata object that includes a
   Digital Asset resource.
 
@@ -461,7 +461,7 @@ more information.
 - Move is a safe and secure programming language for web3 that emphasizes access
   control and scarcity. It is the programming language used to build the Libra
   blockchain. You can read more about it
-  in [Move on Libra](/network/blockchain/move). { /* TODO add move-on-aptos landing page */}
+  in [Move on Libra](/network/blockchain/move). { /* TODO add move-on-libra2 landing page */}
 
 ### Move Bytecode
 
@@ -567,7 +567,7 @@ validators, which in turn update the system and process transactions.
 - **Quorum Store** is the component that disseminates transactions (in batches) within the validator set.
 - It significantly improves consensus throughput by removing the leader bottleneck.
 - It decouples data dissemination from metadata ordering, allowing validators to disseminate data asynchronously in parallel.
-- More details can be found in the [blog post](https://medium.com/aptoslabs/quorum-store-how-consensus-horizontally-scales-on-the-aptos-blockchain-988866f6d5b0)
+- More details can be found in the [blog post](https://medium.com/libra2labs/quorum-store-how-consensus-horizontally-scales-on-the-libra2-blockchain-988866f6d5b0)
 
 ## R
 
@@ -664,11 +664,11 @@ instructions on use.
 
 ### Table
 
-- A [**table**](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/doc/table.md)
+- A [**table**](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/doc/table.md)
   implements the Table type and in Libra is used to store information as
   key-value data within an account at large scale.
 
-See [`table.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/table.move)
+See [`table.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/table.move)
 for the associated Libra source file.
 
 ### Testnet
@@ -723,7 +723,7 @@ for the associated Libra source file.
 
 - A **version** is a sequentially increasing number that increments for
   every [transaction](#transaction).
-- On aptos, transactions are globally ordered and every transaction has a
+- On libra2, transactions are globally ordered and every transaction has a
   version (often called "height" in blockchain literature.)
 - Transaction version 0 is the first transaction (genesis transaction), and a
   transaction version 100 is the 101st transaction in the blockchain.

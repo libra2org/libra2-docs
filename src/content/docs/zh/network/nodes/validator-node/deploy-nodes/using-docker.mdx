@@ -35,7 +35,7 @@ import { Aside } from '@astrojs/starlight/components';
 2. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
    ```shellscript filename="Terminal"
-   aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+   libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
    ```
 
    这将在 `~/$WORKSPACE/keys` 目录下创建 4 个密钥文件:
@@ -63,7 +63,7 @@ import { Aside } from '@astrojs/starlight/components';
    # 使用适当的 IP 或 DNS 地址替换下面的 <validator node IP / DNS address> 和 <Full Node IP / DNS address>。
 
    cd ~/$WORKSPACE
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -73,7 +73,7 @@ import { Aside } from '@astrojs/starlight/components';
 
    # For example, if you are using IP addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -83,12 +83,12 @@ import { Aside } from '@astrojs/starlight/components';
 
    # Otherwise, if you are using DNS addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
-      --validator-host bot.aptosdev.com:6180 \
-      --full-node-host fn.bot.aptosdev.com:6182 \
+      --validator-host bot.libra2dev.com:6180 \
+      --full-node-host fn.bot.libra2dev.com:6182 \
       --stake-amount 100000000000000
    ```
 

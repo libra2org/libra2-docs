@@ -10,7 +10,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 创世仪式
 
-`aptos` 工具支持通过所谓的创世仪式来引导新的区块链.创世仪式的输出是准备区块链进行在线运行的 move 指令的输出.输入包括:
+`libra2` 工具支持通过所谓的创世仪式来引导新的区块链.创世仪式的输出是准备区块链进行在线运行的 move 指令的输出.输入包括:
 
 - 一组验证者及其配置
 - 初始的 Move 模块集合,称为框架
@@ -24,7 +24,7 @@ import { Aside } from '@astrojs/starlight/components';
 - 每个参与者生成他们的 `ValidatorConfiguration` 并分发它.
 - 每个参与者从结果贡献中生成一个 `genesis.blob`.
 - 创世组织者执行 `genesis.blob` 以获得初始检查点并分发它.
-- 每个参与者启动他们的 `aptos-node`.`aptos-node` 在启动时验证创世组织者提供的带有检查点的 `genesis.blob`.
+- 每个参与者启动他们的 `libra2-node`.`libra2-node` 在启动时验证创世组织者提供的带有检查点的 `genesis.blob`.
 - 当有足够的质押达到法定人数时,区块链将开始共识.
 
 ### 准备 libra2-core
@@ -55,11 +55,11 @@ chain_id: 8
 
 ```shellscript filename="Terminal"
 cargo run --package framework
-mkdir aptos-framework-release
-cp aptos-framework/releases/artifacts/current/build/**/bytecode_modules/* aptos-framework-release
+mkdir libra2-framework-release
+cp libra2-framework/releases/artifacts/current/build/**/bytecode_modules/* libra2-framework-release
 ```
 
-框架将存储在 `aptos-framework-release` 目录中.
+框架将存储在 `libra2-framework-release` 目录中.
 
 ### `ValidatorConfiguration` 文件
 
@@ -89,18 +89,18 @@ full_node_host:
 stake_amount: 1
 ```
 
-要使用 `aptos` CLI 生成此文件:
+要使用 `libra2` CLI 生成此文件:
 
 1. 生成你的验证者密钥:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- genesis generate-keys --output-dir bobs
+cargo run --package libra2 -- genesis generate-keys --output-dir bobs
 ```
 
 2. 生成你的 `ValidatorConfiguration`:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- \\
+cargo run --package libra2 -- \\
     genesis set-validator-configuration \\
     --keys-dir bobs \\
     --username bob \\
@@ -121,12 +121,12 @@ cargo run --package aptos -- \\
 - 将所有 `ValidatorConfiguration` 文件放入 `genesis` 目录.
 - 确保 `ValidatorConfiguration` 文件在 `layout` 文件的 `users` 集合中列出.
 - 在 `genesis` 目录中创建一个 `framework` 目录,并将框架发布的 `.mv` 文件放入 `framework` 目录.
-- 使用 `aptos` CLI 生成创世和检查点:
+- 使用 `libra2` CLI 生成创世和检查点:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- genesis generate-genesis --local-repository-dir genesis
+cargo run --package libra2 -- genesis generate-genesis --local-repository-dir genesis
 ```
 
-### 启动 `aptos-node`
+### 启动 `libra2-node`
 
 生成 `genesis.blob` 和检查点后,将它们放入你的验证者和全节点的配置目录中,然后启动你的验证者和全节点.

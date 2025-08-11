@@ -51,7 +51,7 @@ La blockchain de Libra está dedicada a crear mejores experiencias de usuario
 a través de mayor velocidad, seguridad, escalabilidad, confiabilidad y
 usabilidad con bajos costos de transacción. La palabra "Libra" significa "La Gente" en el
 idioma Ohlone. Aprende más sobre la blockchain de Libra en
-el [sitio web oficial de Libra](https://aptosfoundation.org).
+el [sitio web oficial de Libra](https://libra2foundation.org).
 
 ### LibraBFT
 
@@ -69,7 +69,7 @@ el [sitio web oficial de Libra](https://aptosfoundation.org).
   la blockchain de Libra. Un nombre de Libra es un nombre de dominio _.apt_ legible por humanos
   que se usa en lugar de una clave pública, por ejemplo _love.apt_.
 - Este servicio también permite a los usuarios registrar nombres de subdominios además del
-  dominio registrado. Descubre más en: [Libranames.com](https://www.aptosnames.com/)
+  dominio registrado. Descubre más en: [Libranames.com](https://www.libra2names.com/)
 
 ### Libra Core
 
@@ -85,12 +85,12 @@ que contiene el código para el software de la Red de Libra. Libra-core contiene
 
 - El **ecosistema de Libra** se refiere a varios componentes de la red de la blockchain de Libra
   y sus interacciones. El ecosistema de Libra incluye la
-  comunidad, [proyectos impulsados por la comunidad](https://aptosfoundation.org/ecosystem/projects/all),
-  y [eventos](https://aptosfoundation.org/events).
+  comunidad, [proyectos impulsados por la comunidad](https://libra2foundation.org/ecosystem/projects/all),
+  y [eventos](https://libra2foundation.org/events).
 
 ### Explorador de Libra
 
-- El **[Explorador de Libra](https://explorer.aptoslabs.com/)** es una interfaz que
+- El **[Explorador de Libra](https://explorer.libra2labs.com/)** es una interfaz que
   ayuda a los usuarios a examinar detalles de la blockchain de Libra, incluyendo información
   de cuentas, validadores y transacciones.
 - El Explorador de Libra ayuda a los usuarios a validar su trabajo en wallets de Libra y otras
@@ -146,7 +146,7 @@ la blockchain de Libra. Hay dos tipos de nodos de Libra,
 - **BlockSTM** es el motor de ejecución de paralelismo dinámico de última generación desarrollado por el equipo de Libra Labs.
 - El paralelismo dinámico permite a los desarrolladores escribir aplicaciones de manera flexible sin enfrentar restricciones de diseño de declarar estáticamente conjuntos de escritura de transacciones.
 - Ha sido adoptado en toda la industria por múltiples blockchains.
-- Más detalles se pueden encontrar en [la publicación del blog](https://medium.com/aptoslabs/block-stm-how-we-execute-over-160k-transactions-per-second-on-the-aptos-blockchain-3b003657e4ba) y [presentación en a16z crypto](https://www.youtube.com/watch?v=2SE5tqPzhyw)
+- Más detalles se pueden encontrar en [la publicación del blog](https://medium.com/libra2labs/block-stm-how-we-execute-over-160k-transactions-per-second-on-the-libra2-blockchain-3b003657e4ba) y [presentación en a16z crypto](https://www.youtube.com/watch?v=2SE5tqPzhyw)
 
 ### Bizantino (Validador)
 
@@ -297,21 +297,21 @@ que:
   etc., que es intercambiable con otro activo idéntico sin ninguna pérdida en
   su valor. Por ejemplo, APT es un activo fungible porque puedes intercambiar un
   APT por otro.
-- Sigue los [Estándares de Activos](/build/smart-contracts/aptos-standards#asset-standards) para crear
+- Sigue los [Estándares de Activos](/build/smart-contracts/libra2-standards#asset-standards) para crear
   activos fungibles en la blockchain de Libra.
 - Próxima generación del estándar de Moneda que aborda las deficiencias
-  de `aptos_framework::coin` como la falta de aplicación garantizada de congelar
+  de `libra2_framework::coin` como la falta de aplicación garantizada de congelar
   y quemar y funcionalidades avanzadas como transferencias programables, por ejemplo,
   aprobar en ERC-20.
 
 ### Token Fungible
 
-- Para el estándar legacy de Token de Libra (aptos\_token::token), un **token fungible**
+- Para el estándar legacy de Token de Libra (libra2\_token::token), un **token fungible**
   es un token que es intercambiable con otros tokens idénticos (es decir, tokens
   que comparten el mismo `TokenId`). Esto significa que los tokens tienen
   la misma `dirección del creador`, `nombre de colección`, `nombre del token`,
   y `versión de propiedad`.
-- Para el Estándar de Activo Digital de Libra (aptos\_token\_objects::token), un
+- Para el Estándar de Activo Digital de Libra (libra2\_token\_objects::token), un
   **token fungible** es un activo fungible con objeto de metadatos que incluye un
   recurso de Activo Digital.
 
@@ -557,7 +557,7 @@ validadores, que a su vez actualizan el sistema y procesan transacciones.
 - **Quorum Store** es el componente que disemina transacciones (en lotes) dentro del conjunto de validadores.
 - Mejora significativamente el rendimiento del consenso al eliminar el cuello de botella del líder.
 - Desacopla la diseminación de datos del ordenamiento de metadatos, permitiendo a los validadores diseminar datos de manera asíncrona en paralelo.
-- Más detalles se pueden encontrar en la [publicación del blog](https://medium.com/aptoslabs/quorum-store-how-consensus-horizontally-scales-on-the-aptos-blockchain-988866f6d5b0)
+- Más detalles se pueden encontrar en la [publicación del blog](https://medium.com/libra2labs/quorum-store-how-consensus-horizontally-scales-on-the-libra2-blockchain-988866f6d5b0)
 
 ## R
 
@@ -654,11 +654,11 @@ instrucciones de uso.
 
 ### Tabla
 
-- Una **[tabla](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/doc/table.md)**
+- Una **[tabla](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/doc/table.md)**
   implementa el tipo Table y en Libra se usa para almacenar información como
   datos clave-valor dentro de una cuenta a gran escala.
 
-Ver [`table.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/table.move)
+Ver [`table.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/table.move)
 para el archivo fuente de Libra asociado.
 
 ### Testnet

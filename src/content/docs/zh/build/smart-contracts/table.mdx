@@ -49,7 +49,7 @@ title: "表（Table）"
 
 ```move filename="table.move"
 module 0x42::table_usage {
-    use aptos_std::table;
+    use libra2_std::table;
 
     public entry fun main() {
         let table = table::new<u64, u64>();
@@ -77,7 +77,7 @@ module 0x42::table_usage {
 
 ```move filename="table.move"
 module 0x42::table_usage {
-    use aptos_std::table;
+    use libra2_std::table;
 
     public fun add_and_upsert_entries() {
         let table = table::new<u64, u64>();
@@ -100,7 +100,7 @@ module 0x42::table_usage {
 
 ```move filename="table.move"
 module 0x42::table_usage {
-    use aptos_std::table;
+    use libra2_std::table;
 
     public fun borrow_mutable_references() {
         let table = table::new<u64, u64>();
@@ -119,7 +119,7 @@ module 0x42::table_usage {
 
 ## 源码链接
 
-- [table.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [table.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/table.move)
 
 ## 其他示例
 

@@ -12,18 +12,18 @@ to call the CLI, you must have a [_Move package_](/build/smart-contracts/book/pa
 In the simplest case, a Move package is defined by a directory with a set of
 `.move` files in it and a manifest of the name `Move.toml`. You can create a new
 Move package at a given location by running the command:
-`aptos move init --name <name>`
+`libra2 move init --name <name>`
 
 Once the package exists, call the Move Prover from the directory to be tested or
 by supplying its path to the `--package-dir` argument:
 
 - Prove the sources of the package in the current directory:
   ```shellscript filename="Terminal"
-  aptos move prove
+  libra2 move prove
   ```
 - Prove the sources of the package in a specific directly:
   ```shellscript filename="Terminal"
-  aptos move prove --package-dir <path>
+  libra2 move prove --package-dir <path>
   ```
 
 See example output and other available options in the
@@ -32,12 +32,12 @@ section of Use Libra CLI.
 
 ### Target filtering
 
-By default, the `aptos move prove` command verifies all files of a package.
+By default, the `libra2 move prove` command verifies all files of a package.
 During iterative development of larger packages, it is often more effective to
 focus verification on particular files with the `-f` (`--filter`) option, like so:
 
 ```shellscript filename="Terminal"
-aptos move prove -f coin
+libra2 move prove -f coin
 ```
 
 In general, if the string provided to the `-f` option is contained somewhere in
@@ -45,21 +45,21 @@ the file name of a source, that source will be included for verification.
 
 > NOTE: the Move Prover ensures there is no semantic difference between
 > verifying modules one-by-one or all at once. However, if your goal is to
-> verify all modules, verifying them in a single `aptos move prove` run will be
+> verify all modules, verifying them in a single `libra2 move prove` run will be
 > significantly faster than sequentially.
 
 ### Prover options
 
 The Move Prover has a number of options (such as the filter option above) that
-you pass with an invocation of: `aptos move prove <options>`. The most commonly
+you pass with an invocation of: `libra2 move prove <options>`. The most commonly
 used option is the `-t` (`--trace`) option that causes the Move Prover to
 produce richer diagnosis when it encounters errors:
 
 ```shellscript filename="Terminal"
-aptos move prove -f coin -t
+libra2 move prove -f coin -t
 ```
 
-To see the list of all command line options, run: `aptos move prove --help`
+To see the list of all command line options, run: `libra2 move prove --help`
 
 ### Prover configuration file
 

@@ -8614,7 +8614,7 @@
       "post": {
         "tags": ["Transactions"],
         "summary": "Submit transaction",
-        "description": "This endpoint accepts transaction submissions in two formats.\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure of that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Sign the encoded transaction and use it to create a TransactionSignature.\n3. Submit the request. Make sure to use the \"application/json\" Content-Type.\n\nTo submit a transaction as BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.\nMake sure to use the `application/x.aptos.signed_transaction+bcs` Content-Type.",
+        "description": "This endpoint accepts transaction submissions in two formats.\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure of that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Sign the encoded transaction and use it to create a TransactionSignature.\n3. Submit the request. Make sure to use the \"application/json\" Content-Type.\n\nTo submit a transaction as BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.\nMake sure to use the `application/x.libra2.signed_transaction+bcs` Content-Type.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -8622,7 +8622,7 @@
                 "$ref": "#/components/schemas/SubmitTransactionRequest"
               }
             },
-            "application/x.aptos.signed_transaction+bcs": {
+            "application/x.libra2.signed_transaction+bcs": {
               "schema": {
                 "type": "array",
                 "items": {
@@ -9274,7 +9274,7 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Get transaction by hash",
-        "description": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transaction](https://libra2-core.github.io/libra2-core/aptos_types/transaction/enum.Transaction.html).\n2. Apply hash algorithm `SHA3-256` to the hash message bytes.\n3. Hex-encode the hash bytes with `0x` prefix.",
+        "description": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transaction](https://libra2-core.github.io/libra2-core/libra2_types/transaction/enum.Transaction.html).\n2. Apply hash algorithm `SHA3-256` to the hash message bytes.\n3. Hex-encode the hash bytes with `0x` prefix.",
         "parameters": [
           {
             "name": "txn_hash",
@@ -11612,7 +11612,7 @@
       "post": {
         "tags": ["Transactions"],
         "summary": "Submit batch transactions",
-        "description": "This allows you to submit multiple transactions.  The response has three outcomes:\n\n1. All transactions succeed, and it will return a 202\n2. Some transactions succeed, and it will return the failed transactions and a 206\n3. No transactions succeed, and it will also return the failed transactions and a 206\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure to use that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Sign the encoded transaction and use it to create a TransactionSignature.\n3. Submit the request. Make sure to use the \"application/json\" Content-Type.\n\nTo submit a transaction as BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.\nMake sure to use the `application/x.aptos.signed_transaction+bcs` Content-Type.",
+        "description": "This allows you to submit multiple transactions.  The response has three outcomes:\n\n1. All transactions succeed, and it will return a 202\n2. Some transactions succeed, and it will return the failed transactions and a 206\n3. No transactions succeed, and it will also return the failed transactions and a 206\n\nTo submit a transaction as JSON, you must submit a SubmitTransactionRequest.\nTo build this request, do the following:\n\n1. Encode the transaction as BCS. If you are using a language that has\nnative BCS support, make sure to use that library. If not, you may take\nadvantage of /transactions/encode_submission. When using this\nendpoint, make sure you trust the node you're talking to, as it is\npossible they could manipulate your request.\n2. Sign the encoded transaction and use it to create a TransactionSignature.\n3. Submit the request. Make sure to use the \"application/json\" Content-Type.\n\nTo submit a transaction as BCS, you must submit a SignedTransaction\nencoded as BCS. See SignedTransaction in types/src/transaction/mod.rs.\nMake sure to use the `application/x.libra2.signed_transaction+bcs` Content-Type.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -11623,7 +11623,7 @@
                 }
               }
             },
-            "application/x.aptos.signed_transaction+bcs": {
+            "application/x.libra2.signed_transaction+bcs": {
               "schema": {
                 "type": "array",
                 "items": {
@@ -12417,7 +12417,7 @@
                 "$ref": "#/components/schemas/SubmitTransactionRequest"
               }
             },
-            "application/x.aptos.signed_transaction+bcs": {
+            "application/x.libra2.signed_transaction+bcs": {
               "schema": {
                 "type": "array",
                 "items": {
@@ -13929,7 +13929,7 @@
                 "$ref": "#/components/schemas/ViewRequest"
               }
             },
-            "application/x.aptos.view_function+bcs": {
+            "application/x.libra2.view_function+bcs": {
               "schema": {
                 "type": "array",
                 "items": {
@@ -14683,16 +14683,8 @@
       },
       "Libra2Error": {
         "type": "object",
-<<<<<<< HEAD
-        "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Aptos API specific error code.",
-        "required": ["message", "error_code"],
-=======
         "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Libra2 API specific error code.",
-        "required": [
-          "message",
-          "error_code"
-        ],
->>>>>>> 625be94 (migrate to libra2)
+        "required": ["message", "error_code"],
         "properties": {
           "message": {
             "type": "string",
@@ -14739,7 +14731,7 @@
         "type": "string",
         "format": "hex",
         "description": "A hex encoded 32 byte Libra2 account address or a struct tag.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x or\nFormat: `{address}::{module name}::{struct name}`\n",
-        "example": "0x1::aptos_coin::Libra2Coin"
+        "example": "0x1::libra2_coin::Libra2Coin"
       },
       "Block": {
         "type": "object",
@@ -15029,7 +15021,7 @@
                 "$ref": "#/components/schemas/BlockMetadataExtension"
               },
               {
-                "description": "If some, it means the internal txn type is `aptos_types::transaction::Transaction::BlockMetadataExt`.\nOtherwise, it is `aptos_types::transaction::Transaction::BlockMetadata`.\n\nNOTE: we could have introduced a new APT txn type to represent the corresponding internal type,\nbut that is a breaking change to the ecosystem.\n\nNOTE: `oai` does not support `flatten` together with `skip_serializing_if`.",
+                "description": "If some, it means the internal txn type is `libra2_types::transaction::Transaction::BlockMetadataExt`.\nOtherwise, it is `libra2_types::transaction::Transaction::BlockMetadata`.\n\nNOTE: we could have introduced a new APT txn type to represent the corresponding internal type,\nbut that is a breaking change to the ecosystem.\n\nNOTE: `oai` does not support `flatten` together with `skip_serializing_if`.",
                 "default": null
               }
             ]
@@ -15276,7 +15268,7 @@
       "EntryFunctionId": {
         "type": "string",
         "description": "Entry function id is string representation of a entry function defined on-chain.\n\nFormat: `{address}::{module name}::{function name}`\n\nBoth `module name` and `function name` are case-sensitive.\n",
-        "example": "0x1::aptos_coin::transfer"
+        "example": "0x1::libra2_coin::transfer"
       },
       "EntryFunctionPayload": {
         "type": "object",
@@ -15333,7 +15325,7 @@
       },
       "ExportedAggregateSignature": {
         "type": "object",
-        "description": "A more API-friendly representation of the on-chain `aptos_types::aggregate_signature::AggregateSignature`.",
+        "description": "A more API-friendly representation of the on-chain `libra2_types::aggregate_signature::AggregateSignature`.",
         "required": ["signer_indices"],
         "properties": {
           "signer_indices": {
@@ -15365,7 +15357,7 @@
       },
       "ExportedProviderJWKs": {
         "type": "object",
-        "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::ProviderJWKs`.",
+        "description": "A more API-friendly representation of the on-chain `libra2_types::jwks::ProviderJWKs`.",
         "required": ["issuer", "version", "jwks"],
         "properties": {
           "issuer": {
@@ -15385,7 +15377,7 @@
       },
       "ExportedQuorumCertifiedUpdate": {
         "type": "object",
-        "description": "A more API-friendly representation of the on-chain `aptos_types::jwks::QuorumCertifiedUpdate`.",
+        "description": "A more API-friendly representation of the on-chain `libra2_types::jwks::QuorumCertifiedUpdate`.",
         "required": ["update", "multi_sig"],
         "properties": {
           "update": {
@@ -15866,7 +15858,7 @@
       "MoveModuleId": {
         "type": "string",
         "description": "Move module id is a string representation of Move module.\n\nFormat: `{address}::{module name}`\n\n`address` should be hex-encoded 32 byte account address that is prefixed with `0x`.\n\nModule name is case-sensitive.\n",
-        "example": "0x1::aptos_coin"
+        "example": "0x1::libra2_coin"
       },
       "MoveResource": {
         "type": "object",
@@ -15962,8 +15954,8 @@
       },
       "MoveStructTag": {
         "type": "string",
-        "description": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n",
-        "example": "0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>",
+        "description": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://docs.libra2.org/concepts/accounts) for more details.\n",
+        "example": "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>",
         "pattern": "^0x[0-9a-zA-Z:_<>]+$"
       },
       "MoveStructValue": {
@@ -15986,7 +15978,7 @@
       },
       "MoveType": {
         "type": "string",
-        "description": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n",
+        "description": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n",
         "pattern": "^(bool|u8|u64|u128|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$"
       },
       "MoveValue": {

@@ -38,7 +38,7 @@ para que los desarrolladores construyan juegos Web3 usando el motor de juegos Un
 3. Ingresa la URL del SDK de Unity de Libra en este repositorio:
 
 ```shellscript
-https://github.com/libra2org/unity-sdk.git?path=/Packages/com.aptoslabs.aptos-unity-sdk
+https://github.com/libra2org/unity-sdk.git?path=/Packages/com.libra2labs.libra2-unity-sdk
 ```
 
 ### Instalar via `unitypackage`
@@ -90,8 +90,8 @@ class Example : MonoBehaviour
         var transaction = await client.Transaction.Build(
             sender: account,
             data: new GenerateEntryFunctionPayloadData(
-                function: "0x1::aptos_account::transfer_coins",
-                typeArguments: ["0x1::aptos_coin::LibraCoin"],
+                function: "0x1::libra2_account::transfer_coins",
+                typeArguments: ["0x1::libra2_coin::LibraCoin"],
                 functionArguments: [account.Address, "100000"]
             )
         );
@@ -108,5 +108,5 @@ class Example : MonoBehaviour
 ## Recursos
 
 <CardGrid>
-  <LinkCard href="https://github.com/libra2org/aptos-unity-starter" title="Libra Wallet Starter" description="Proyecto de ejemplo Unity con una integración del SDK de Unity de Libra." target="_blank" />
+  <LinkCard href="https://github.com/libra2org/libra2-unity-starter" title="Libra Wallet Starter" description="Proyecto de ejemplo Unity con una integración del SDK de Unity de Libra." target="_blank" />
 </CardGrid>

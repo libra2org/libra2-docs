@@ -39,7 +39,7 @@ and VFN will be deployed on separate machines.
    the following command with the Libra CLI:
 
    ```shellscript filename="Terminal"
-   aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+   libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
    ```
 
    This will create 4 key files under `~/$WORKSPACE/keys` directory:
@@ -72,7 +72,7 @@ and VFN will be deployed on separate machines.
    # with the appropriate IP or DNS address for your nodes.
 
    cd ~/$WORKSPACE
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -82,7 +82,7 @@ and VFN will be deployed on separate machines.
 
    # For example, if you are using IP addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -92,12 +92,12 @@ and VFN will be deployed on separate machines.
 
    # Otherwise, if you are using DNS addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
-       --validator-host bot.aptosdev.com:6180 \
-       --full-node-host fn.bot.aptosdev.com:6182 \
+       --validator-host bot.libra2dev.com:6180 \
+       --full-node-host fn.bot.libra2dev.com:6182 \
        --stake-amount 100000000000000
    ```
 
@@ -181,9 +181,9 @@ and VFN will be deployed on separate machines.
 
     ```shellscript filename="Terminal"
     cargo clean
-    cargo build -p aptos-node --release
-    sudo mv target/release/aptos-node /usr/local/bin
-    aptos-node -f ~/$WORKSPACE/config/validator.yaml
+    cargo build -p libra2-node --release
+    sudo mv target/release/libra2-node /usr/local/bin
+    libra2-node -f ~/$WORKSPACE/config/validator.yaml
     ```
 
     To start your VFN, run the following commands on a separate, dedicated VFN machine. You will need to download the
@@ -201,9 +201,9 @@ and VFN will be deployed on separate machines.
 
     ```shellscript filename="Terminal"
     cargo clean
-    cargo build -p aptos-node --release
-    sudo mv target/release/aptos-node /usr/local/bin
-    aptos-node -f ~/$WORKSPACE/config/fullnode.yaml
+    cargo build -p libra2-node --release
+    sudo mv target/release/libra2-node /usr/local/bin
+    libra2-node -f ~/$WORKSPACE/config/fullnode.yaml
     ```
 
     <Aside type="caution">
@@ -214,11 +214,11 @@ and VFN will be deployed on separate machines.
 
 ### (Optional) Running as a Service
 
-If you want to run `aptos-node` as a service, you can set it up to run as a service controlled by `systemctl`.
+If you want to run `libra2-node` as a service, you can set it up to run as a service controlled by `systemctl`.
 This is optional, and can be done using the service template below. You will need to modify the template
 to match your environment and configuration.
 
-```shellscript filename="/etc/systemd/system/aptos-node.service"
+```shellscript filename="/etc/systemd/system/libra2-node.service"
 [Unit]
 Description=Libra Node Service
 
@@ -230,14 +230,14 @@ LimitNOFILE=500000
 
 #Environment="RUST_LOG=error"
 WorkingDirectory=/home/nodeuser/libra2-core
-ExecStart=/usr/local/bin/aptos-node -f /home/nodeuser/aptos-mainnet/config/validator.yaml
+ExecStart=/usr/local/bin/libra2-node -f /home/nodeuser/libra2-mainnet/config/validator.yaml
 
 Restart=on-failure
 RestartSec=3s
 
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=aptos-node
+SyslogIdentifier=libra2-node
 
 [Install]
 WantedBy=multi-user.target

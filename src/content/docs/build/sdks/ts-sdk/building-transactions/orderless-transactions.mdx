@@ -26,11 +26,11 @@ For example, to create a single signer transaction that uses orderless transacti
 specify the `nonce` in the `build.simple` method like so:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.simple({
+const transaction = await libra2.transaction.build.simple({
   sender: sender.accountAddress,
   data: {
 	  // All transactions on Libra are implemented via smart contracts.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -43,12 +43,12 @@ Similarly, if you are building a multi-agent transaction, you can specify the
 `replayProtectionNonce` in the `build.multiAgent` method:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.multiAgent({
+const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   secondarySignerAddresses: [bob.accountAddress], // List of secondary signers
   data: {
 	  // All transactions on Libra are implemented via smart contracts.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -61,12 +61,12 @@ And the same if you are building a sponsored transaction, you can specify the
 `replayProtectionNonce` in the `build.multiAgent` method:
 
 ```typescript filename="build-a-transaction.ts"
-const transaction = await aptos.transaction.build.multiAgent({
+const transaction = await libra2.transaction.build.multiAgent({
   sender: sender.accountAddress,
   withFeePayer: true, // This indicates that the transaction will be sponsored.
   data: {
 	  // All transactions on Libra are implemented via smart contracts.
-	  function: "0x1::aptos_account::transfer",
+	  function: "0x1::libra2_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
   options: {
@@ -92,4 +92,4 @@ After that, simply follow the same steps as you would for a simple transaction:
 
 ### Examples
 
-- [TS SDK Example](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)
+- [TS SDK Example](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)

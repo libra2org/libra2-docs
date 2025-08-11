@@ -8,7 +8,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
   La característica está actualmente solo disponible en devnet y testnet y se considera una versión alpha; por lo tanto, puedes esperar cambios importantes.
 </Aside>
 
-Gracias a [AIP-113 Abstracción de Cuenta Derivable](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-113.md), podemos gestionar firmas x-chain de manera flexible y segura en la red de Libra.
+Gracias a [AIP-113 Abstracción de Cuenta Derivable](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md), podemos gestionar firmas x-chain de manera flexible y segura en la red de Libra.
 Esto significa que cualquier wallet con una implementación de función de autenticación en la cadena de Libra puede enviar transacciones a la red de Libra.
 
 Esta funcionalidad permite una variedad de casos de uso para dApps, mejorando la experiencia del usuario y la incorporación.
@@ -179,7 +179,7 @@ import { Libra, LibraConfig, Network, Ed25519PrivateKey, PrivateKey, PrivateKeyV
 
 // Initialize an Libra client
 const config = new LibraConfig({ network: Network.TESTNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
 // Generate a sponsor account or use an existing account
 const privateKey = new Ed25519PrivateKey(
@@ -200,9 +200,9 @@ const SignAndSubmit = () => {
 
     try {
       // Build the transaction
-      const rawTransaction = await aptos.transaction.build.simple({
+      const rawTransaction = await libra2.transaction.build.simple({
         data: {
-          function: "0x1::aptos_account::transfer",
+          function: "0x1::libra2_account::transfer",
           functionArguments: [account.address.toString(), 1],
         },
         sender: account.address,
@@ -215,13 +215,13 @@ const SignAndSubmit = () => {
       });
 
       // Sponsor account signs the transaction to pay for the gas fees
-      const sponsorAuthenticator = aptos.transaction.signAsFeePayer({
+      const sponsorAuthenticator = libra2.transaction.signAsFeePayer({
         signer: sponsor,
         transaction: rawTransaction,
       });
 
       // Submit the transaction to chain
-      const txnSubmitted = await aptosClient(network).transaction.submit.simple(
+      const txnSubmitted = await libra2Client(network).transaction.submit.simple(
         {
           transaction: rawTransaction,
           senderAuthenticator: walletSignedTransaction.authenticator,
@@ -230,7 +230,7 @@ const SignAndSubmit = () => {
       );
 
       // if you want to wait for transaction
-      await aptos.waitForTransaction({ transactionHash: txnSubmitted.hash });
+      await libra2.waitForTransaction({ transactionHash: txnSubmitted.hash });
     } catch (error) {
       console.error(error);
     }
@@ -254,6 +254,6 @@ export default SignAndSubmit;
 ### Resources
 
 - X-Chain Accounts Adapter Demo App
-  - [Live site](https://libra2-core.github.io/aptos-wallet-adapter/nextjs-cross-chain-example/)
-  - [Source code](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-x-chain)
-- [AIP-113 Derivable Account Abstraction](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-113.md)
+  - [Live site](https://libra2-core.github.io/libra2-wallet-adapter/nextjs-cross-chain-example/)
+  - [Source code](https://github.com/libra2org/libra2-wallet-adapter/tree/main/apps/nextjs-x-chain)
+- [AIP-113 Derivable Account Abstraction](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-113.md)

@@ -10,10 +10,10 @@ import { Aside } from '@astrojs/starlight/components';
 
 如果您是从 [libra2-core][libra2-core/libra2-core] 源代码运行您的 PFN,您也可以通过以下步骤来更新您的 PFN:
 
-1. 通过运行以下命令停止您的 PFN(或手动停止 `aptos-node` 进程):
+1. 通过运行以下命令停止您的 PFN(或手动停止 `libra2-node` 进程):
 
    ```shellscript filename="Terminal"
-   cargo stop aptos-node
+   cargo stop libra2-node
    ```
 
 2. 获取适用于您的网络的最新版本,例如 `devnet`,`testnet` 或 `mainnet`.确保将 `[network_branch]` 替换为以下适当的分支名称:
@@ -29,7 +29,7 @@ import { Aside } from '@astrojs/starlight/components';
 5. 通过运行与之前相同的部署命令重新启动您的 PFN.例如:
 
    ```shellscript filename="Terminal"
-   cargo run -p aptos-node --release -- -f ./fullnode.yaml
+   cargo run -p libra2-node --release -- -f ./fullnode.yaml
    ```
 
 ### 数据擦除和重置(Devnet)
@@ -43,7 +43,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 1. 删除数据文件夹(目录路径是您在配置文件中指定的,例如 `fullnode.yaml`).
 
-   - 默认数据文件夹是 `/opt/aptos/data`.
+   - 默认数据文件夹是 `/opt/libra2/data`.
 
 2. 删除 `genesis.blob` 文件和 `waypoint.txt` 文件(取决于您的配置方式,您可能没有此文件,而是在配置文件中直接有 `waypoint` ).
 
@@ -124,10 +124,10 @@ terraform apply -var force_helm_update=true
 
 [rest_spec]: https://github.com/libra2org/libra2-core/tree/main/api
 
-[devnet_genesis]: https://devnet.aptoslabs.com/genesis.blob
+[devnet_genesis]: https://devnet.libra2labs.com/genesis.blob
 
-[devnet_waypoint]: https://devnet.aptoslabs.com/waypoint.txt
+[devnet_waypoint]: https://devnet.libra2labs.com/waypoint.txt
 
 [libra2-core/libra2-core]: https://github.com/libra2org/libra2-core.git
 
-[status dashboard]: https://status.devnet.aptos.dev
+[status dashboard]: https://status.devnet.docs.libra2.org

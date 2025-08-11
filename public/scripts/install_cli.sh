@@ -15,7 +15,7 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # Default values
-SCRIPT="aptos"
+SCRIPT="libra2"
 TEST_COMMAND="$SCRIPT info"
 BIN_DIR="$HOME/.local/bin"
 FORCE=false
@@ -67,14 +67,14 @@ install_required_packages() {
 get_latest_version() {
     if command_exists curl; then
         curl -s "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100" | \
-        grep -m 1 '"tag_name": "aptos-cli-v' | \
+        grep -m 1 '"tag_name": "libra2-cli-v' | \
         cut -d'"' -f4 | \
-        sed 's/aptos-cli-v//'
+        sed 's/libra2-cli-v//'
     elif command_exists wget; then
         wget -qO- "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100" | \
-        grep -m 1 '"tag_name": "aptos-cli-v' | \
+        grep -m 1 '"tag_name": "libra2-cli-v' | \
         cut -d'"' -f4 | \
-        sed 's/aptos-cli-v//'
+        sed 's/libra2-cli-v//'
     else
         die "Neither curl nor wget is installed. Please install one of them."
     fi
@@ -145,7 +145,7 @@ install_cli() {
     mkdir -p "$BIN_DIR"
 
     # Download URL
-    url="https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v$version/aptos-cli-$version-$target.zip"
+    url="https://github.com/libra2org/libra2-core/releases/download/libra2-cli-v$version/libra2-cli-$version-$target.zip"
 
     # Create temporary directory
     tmp_dir=$(mktemp -d)
@@ -153,23 +153,23 @@ install_cli() {
 
     # Download and extract
     if command_exists curl; then
-        curl -L "$url" -o "$tmp_dir/aptos-cli.zip"
+        curl -L "$url" -o "$tmp_dir/libra2-cli.zip"
     elif command_exists wget; then
-        wget "$url" -O "$tmp_dir/aptos-cli.zip"
+        wget "$url" -O "$tmp_dir/libra2-cli.zip"
     else
         die "Neither curl nor wget is installed. Please install one of them."
     fi
 
     # Extract the zip file
     if command_exists unzip; then
-        unzip -q "$tmp_dir/aptos-cli.zip" -d "$tmp_dir"
+        unzip -q "$tmp_dir/libra2-cli.zip" -d "$tmp_dir"
     else
         die "unzip is not installed. Please install it."
     fi
 
     # Move the binary to the bin directory
-    mv "$tmp_dir/aptos" "$BIN_DIR/"
-    chmod +x "$BIN_DIR/aptos"
+    mv "$tmp_dir/libra2" "$BIN_DIR/"
+    chmod +x "$BIN_DIR/libra2"
 
     print_message "$GREEN" "Libra2 CLI installed successfully!"
 }
@@ -217,8 +217,8 @@ main() {
     target=$(get_target)
 
     # Check if CLI is already installed
-    if [ -x "$BIN_DIR/aptos" ] && [ "$FORCE" = false ]; then
-        current_version=$("$BIN_DIR/aptos" --version | awk '{print $NF}')
+    if [ -x "$BIN_DIR/libra2" ] && [ "$FORCE" = false ]; then
+        current_version=$("$BIN_DIR/libra2" --version | awk '{print $NF}')
         if [ "$current_version" = "$VERSION" ]; then
             print_message "$YELLOW" "Libra2 CLI version $VERSION is already installed."
             exit 0
@@ -244,7 +244,7 @@ main() {
 
     # Test the installation
     print_message "$CYAN" "Testing the installation..."
-    if "$BIN_DIR/aptos" --version >/dev/null 2>&1; then
+    if "$BIN_DIR/libra2" --version >/dev/null 2>&1; then
         print_message "$GREEN" "Libra2 CLI is working correctly!"
     else
         print_message "$RED" "There was a problem with the installation."

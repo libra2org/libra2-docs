@@ -2,19 +2,19 @@
 title: "Data Providers"
 ---
 
-If you want to access aptos blockchain data but don't need it in real-time.
+If you want to access libra2 blockchain data but don't need it in real-time.
 We have a few options that will let you access this data using SQL or UIs for building dashboards.
 This type of data is often used for analytics since it allows for aggregations.
 
 ## Review of data endpoints
 
-Hitting the full node directly will give the latest data (will be missing historical unless it's an archival full node) using [REST API](/build/apis#aptos-fullnode)
+Hitting the full node directly will give the latest data (will be missing historical unless it's an archival full node) using [REST API](/build/apis#libra2-fullnode)
 
-Indexer layer on top of this will provide a [GRPC transaction stream](/build/indexer/txn-stream/aptos-hosted-txn-stream)
+Indexer layer on top of this will provide a [GRPC transaction stream](/build/indexer/txn-stream/libra2-hosted-txn-stream)
 
 On top of this transaction stream, we've built out some product logic tables that can be queried through [GraphQL](/build/indexer/)
 
-Since the logic to parse out transaction is [public](https://github.com/libra2org/aptos-indexer-processors-v2), some vendors have implemented similar parsing logic to create a subset of tables and made them available to query.
+Since the logic to parse out transaction is [public](https://github.com/libra2org/libra2-indexer-processors-v2), some vendors have implemented similar parsing logic to create a subset of tables and made them available to query.
 
 ## SQL Tables
 
@@ -39,11 +39,11 @@ We store data as table items, resources or modules
 ## Vendors of off-chain data
 
 Most of our data vendors only provide core datasets.
-A [subset of vendors](https://aptosfoundation.org/currents/aptos-on-chain-data-capabilities-with-dune-nansen-and-other-providers) is listed below
+A [subset of vendors](https://libra2foundation.org/currents/libra2-on-chain-data-capabilities-with-dune-nansen-and-other-providers) is listed below
 
 ### Google bigquery public dataset
 
-Provides data through [google public data](https://console.cloud.google.com/marketplace/product/bigquery-public-data/crypto-aptos-mainnet-us)
+Provides data through [google public data](https://console.cloud.google.com/marketplace/product/bigquery-public-data/crypto-libra2-mainnet-us)
 
 ![bq\_sql](~/images/screenshots/bq_sql.png)
 
@@ -51,30 +51,30 @@ We also have sample analytics queries [using the above resources](https://github
 
 ### Dune
 
-We have a dashboard here: https://dune.com/aptos/aptos-chain-metrics-overview
+We have a dashboard here: https://dune.com/libra2/libra2-chain-metrics-overview
 
 ### Allium
 
-Data source for many downstream vendors such as defillama and rwa.xyz. Raw data is available: https://docs.allium.so/historical-data/supported-blockchains/move-ecosystem/aptos
+Data source for many downstream vendors such as defillama and rwa.xyz. Raw data is available: https://docs.allium.so/historical-data/supported-blockchains/move-ecosystem/libra2
 They also have transfers for stablecoins https://docs.allium.so/historical-data/stablecoins#stablecoin-metrics
 
 ### Artemis
 
-Provides [topline metrics](https://app.artemis.xyz/asset/aptos) as well as chart builder
+Provides [topline metrics](https://app.artemis.xyz/asset/libra2) as well as chart builder
 
 ### Nansen
 
-Provides [topline metrics](https://app.nansen.ai/macro/blockchains?chain=aptos) with additional functionality with account.
+Provides [topline metrics](https://app.nansen.ai/macro/blockchains?chain=libra2) with additional functionality with account.
 
 ### Sentio
 
-They have a guide here: https://docs.sentio.xyz/docs/aptos
-Data is found in data source -> external project  -> sentio/aptos-overview
+They have a guide here: https://docs.sentio.xyz/docs/libra2
+Data is found in data source -> external project  -> sentio/libra2-overview
 They also provide stack tracing of transactions
 
 ### RWA.xyz
 
-Data can be found here: https://app.rwa.xyz/networks/aptos
+Data can be found here: https://app.rwa.xyz/networks/libra2
 You'll need to make an account to access stablecoin details.
 
 ### Flipside
@@ -85,6 +85,6 @@ Has pivoted from dashboard vendor to more of a vibe coding tool. https://flipsid
 
 We also have some partners who target more enterprise use cases
 
-- [Token Terminal](https://tokenterminal.com/resources/articles/aptos-data-partnership)
-- [The Tie](https://www.thetie.io/insights/news/introducing-aptos-ecosystem-dashboard-and-on-chain-data/)
-- [Elliptic](https://www.elliptic.co/media-center/elliptic-partners-with-aptos-foundation-as-a-data-integration-provider-to-offer-compliance-screening-and-risk-services-for-aptos-network)
+- [Token Terminal](https://tokenterminal.com/resources/articles/libra2-data-partnership)
+- [The Tie](https://www.thetie.io/insights/news/introducing-libra2-ecosystem-dashboard-and-on-chain-data/)
+- [Elliptic](https://www.elliptic.co/media-center/elliptic-partners-with-libra2-foundation-as-a-data-integration-provider-to-offer-compliance-screening-and-risk-services-for-libra2-network)

@@ -48,7 +48,7 @@ const addNewList = async () => {
     // sign and submit transaction to chain
     const response = await signAndSubmitTransaction(transaction);
     // wait for transaction
-    await aptosClient().waitForTransaction({transactionHash:response.hash});
+    await libra2Client().waitForTransaction({transactionHash:response.hash});
     setAccountHasList(true);
   } catch (error: any) {
     setAccountHasList(false);
@@ -110,7 +110,7 @@ const addNewList = async () => {
     // sign and submit transaction to chain
     const response = await signAndSubmitTransaction(transaction);
     // wait for transaction
-    await aptosClient().waitForTransaction({transactionHash:response.hash});
+    await libra2Client().waitForTransaction({transactionHash:response.hash});
     setAccountHasList(true);
   } catch (error: any) {
     setAccountHasList(false);

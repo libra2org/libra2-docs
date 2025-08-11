@@ -58,7 +58,7 @@ also import `useState` using
 `import { useState, useEffect } from "react";`
 
 5. Import `MODULE_ADDRESS` variable using `import { MODULE_ADDRESS } from "./constants";`. This is the address of the module we published in the previous chapter.
-6. Import `aptosClient` using `import { aptosClient } from "./utils/aptosClient";`. This is a client `create-aptos-dapp` created for us to interact with the chain.
+6. Import `libra2Client` using `import { libra2Client } from "./utils/libra2Client";`. This is a client `create-libra2-dapp` created for us to interact with the chain.
 7. Our `useEffect` hook is calling a `fetchList` function; let’s create it:
 
 ```tsx filename="App.tsx"
@@ -66,7 +66,7 @@ const fetchList = async () => {
   if (!account) return [];
   const moduleAddress = MODULE_ADDRESS;
   try {
-    const todoListResource = await aptosClient().getAccountResource(
+    const todoListResource = await libra2Client().getAccountResource(
       {
         accountAddress:account?.address,
         resourceType:`${moduleAddress}::todolist::TodoList`
@@ -79,7 +79,7 @@ const fetchList = async () => {
 };
 ```
 
-The `aptosClient().getAccountResource()` expects an _account address_ that holds the resource we are looking for and a string representation of an on-chain _Move struct type_.
+The `libra2Client().getAccountResource()` expects an _account address_ that holds the resource we are looking for and a string representation of an on-chain _Move struct type_.
 
 - account address - is the current connected account (we are getting it from the wallet account object)
 - Move struct type string syntax:

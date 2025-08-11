@@ -7,7 +7,7 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
+  [libra2-core/libra2-dotnet-sdk](https://github.com/libra2org/libra2-dotnet-sdk)
   repository.
 </Aside>
 
@@ -69,8 +69,8 @@ you will need to follow a few steps to obtain the necessary components of a Keyl
      var transaction = await client.Transaction.Build(
          sender: keylessAccount,
          data: new GenerateEntryFunctionPayloadData(
-             function: "0x1::aptos_account::transfer_coins",
-             typeArguments: ["0x1::aptos_coin::LibraCoin"],
+             function: "0x1::libra2_account::transfer_coins",
+             typeArguments: ["0x1::libra2_coin::LibraCoin"],
              functionArguments: [account.Address, "100000"]
          )
      );
@@ -86,5 +86,5 @@ you will need to follow a few steps to obtain the necessary components of a Keyl
 ## Additional Resources
 
 <CardGrid>
-  <LinkCard href="https://libra2-core.github.io/aptos-dotnet-sdk/docs/Libra.KeylessAccount.html" title="KeylessAccount Reference" description="The full API reference for the KeylessAccount class." target="_blank" />
+  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk/docs/Libra.KeylessAccount.html" title="KeylessAccount Reference" description="The full API reference for the KeylessAccount class." target="_blank" />
 </CardGrid>

@@ -96,7 +96,7 @@ en el sentido de que la clave privada de _después_ de la operación ha aprobado
 rotación de claves. Por lo tanto, la tabla \[`account::OriginatingAddress`] _no_ se actualiza
 para rotaciones de claves no probadas, y por lo tanto no hay restricción en el número de
 cuentas que pueden ser autenticadas con una clave privada dada. Nota que la
-CLI `aptos` actualmente no soporta rotaciones de claves no probadas.
+CLI `libra2` actualmente no soporta rotaciones de claves no probadas.
 
 <Aside type="note" emoji="🧠">
   La [`account::rotate_authentication_key_call`] fue introducida para soportar
@@ -121,7 +121,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Inicia una localnet:
 
      ```shellscript filename="Terminal"
-     aptos node run-localnet
+     libra2 node run-localnet
      ```
 
      La localnet está lista cuando imprime:
@@ -138,7 +138,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
 
        ```shellscript filename="Terminal"
        mkdir -p localnet-data
-       aptos node run-localnet \
+       libra2 node run-localnet \
            --assume-yes \
            --test-dir localnet-data \
            --force-restart &
@@ -158,7 +158,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      dirección de cuenta inicial, que comienza con el prefijo de fantasía `0xaaa`:
 
      ```shellscript filename="Terminal"
-     aptos key generate \
+     libra2 key generate \
          --assume-yes \
          --output-file private-key-a \
          --vanity-prefix 0xaaa
@@ -187,7 +187,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      siguiente comando debería fallar con un mensaje correspondiente:
 
      ```shellscript filename="Terminal"
-     aptos account lookup-address \
+     libra2 account lookup-address \
          --public-key-file private-key-a.pub \
          --url http://localhost:8080
      ```
@@ -207,7 +207,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Usa la clave privada para inicializar `test-profile-1` en la localnet:
 
      ```shellscript filename="Terminal"
-     aptos init \
+     libra2 init \
          --assume-yes \
          --network local \
          --private-key-file private-key-a \
@@ -225,7 +225,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
+       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `libra2 --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -235,7 +235,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Nota que siempre puedes ver el perfil con:
 
      ```shellscript filename="Terminal"
-     aptos config show-profiles --profile test-profile-1
+     libra2 config show-profiles --profile test-profile-1
      ```
 
      <details>
@@ -260,7 +260,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      ver la clave privada:
 
      ```shellscript filename="Terminal"
-     aptos config show-private-key --profile test-profile-1
+     libra2 config show-private-key --profile test-profile-1
      ```
 
      <details>
@@ -276,10 +276,10 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
   4. Busca la dirección
 
      Ahora que hay una cuenta en la cadena de Libra asociada con la clave de autenticación,
-     puedes buscar la dirección de la cuenta usando `aptos account lookup-address`:
+     puedes buscar la dirección de la cuenta usando `libra2 account lookup-address`:
 
      ```shellscript filename="Terminal"
-     aptos account lookup-address \
+     libra2 account lookup-address \
          --public-key-file private-key-a.pub \
          --url http://localhost:8080
      ```
@@ -305,7 +305,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
 
        ```shellscript filename="Terminal"
        export ADDRESS_A=$(
-           aptos account lookup-address \
+           libra2 account lookup-address \
                --public-key-file private-key-a.pub \
                --url http://localhost:8080 \
                    | jq -r '.Result'
@@ -321,7 +321,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      idéntica a la clave de autenticación de la cuenta:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$ADDRESS_A \
          --function-id 0x1::account::get_authentication_key \
          --url http://localhost:8080
@@ -349,7 +349,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      no hay una entrada correspondiente en la tabla \[`account::OriginatingAddress`]:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -375,7 +375,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      puedes ejecutar \[`account::set_originating_address`]:
 
      ```shellscript filename="Terminal"
-     aptos move run \
+     libra2 move run \
          --assume-yes \
          --function-id 0x1::account::set_originating_address \
          --profile test-profile-1
@@ -404,7 +404,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Luego deberías ver una entrada en la tabla \[`account::OriginatingAddress`]:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -431,7 +431,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Genera una nueva clave privada:
 
      ```shellscript filename="Terminal"
-     aptos key generate \
+     libra2 key generate \
          --assume-yes \
          --output-file private-key-b \
          --vanity-prefix 0xbbb
@@ -455,7 +455,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      clave privada:
 
      ```shellscript filename="Terminal"
-     aptos account rotate-key \
+     libra2 account rotate-key \
          --assume-yes \
          --new-private-key-file private-key-b \
          --profile test-profile-1 \
@@ -491,8 +491,8 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      actual) notando que la clave pública ha cambiado, pero no la dirección de la cuenta:
 
      ```shellscript filename="Terminal"
-     aptos config show-profiles --profile test-profile-1
-     aptos config show-profiles --profile test-profile-2
+     libra2 config show-profiles --profile test-profile-1
+     libra2 config show-profiles --profile test-profile-2
      ```
 
      <details>
@@ -527,7 +527,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Busca la nueva clave de autenticación:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$ADDRESS_A \
          --function-id 0x1::account::get_authentication_key \
          --url http://localhost:8080
@@ -556,7 +556,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
 
        ```shellscript filename="Terminal"
        export AUTH_KEY_B=$(
-           aptos move view \
+           libra2 move view \
                --args address:$ADDRESS_A \
                --function-id 0x1::account::get_authentication_key \
                --url http://localhost:8080 \
@@ -571,7 +571,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Verifica la dirección de origen para la nueva clave de autenticación:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_B \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -596,7 +596,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
      Verifica la dirección de origen para la clave de autenticación antigua:
 
      ```shellscript filename="Terminal"
-     aptos move view \
+     libra2 move view \
          --args address:$AUTH_KEY_A \
          --function-id 0x1::account::originating_address \
          --url http://localhost:8080
@@ -622,7 +622,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       a la nueva clave de autenticación:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --new-private-key-file private-key-b \
           --profile test-profile-2 \
@@ -644,7 +644,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       Crea otra clave privada:
 
       ```shellscript filename="Terminal"
-      aptos key generate \
+      libra2 key generate \
           --assume-yes \
           --output-file private-key-c \
           --vanity-prefix 0xccc
@@ -667,7 +667,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       Inicializa un nuevo perfil:
 
       ```shellscript filename="Terminal"
-      aptos init \
+      libra2 init \
           --assume-yes \
           --network local \
           --private-key-file private-key-c \
@@ -685,7 +685,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
+        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `libra2 --help` for more information about commands
         {
           "Result": "Success"
         }
@@ -695,7 +695,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       Intenta una rotación inválida donde la nueva clave de autenticación ya está mapeada:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --max-gas 100000 \
           --new-private-key-file private-key-b \
@@ -722,7 +722,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       para la cuenta `0xccc...`:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --new-private-key-file private-key-c \
           --profile test-profile-2 \
@@ -757,7 +757,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       se estableció en la tabla \[`account::OriginatingAddress`] durante la última operación:
 
       ```shellscript filename="Terminal"
-      aptos account rotate-key \
+      libra2 account rotate-key \
           --assume-yes \
           --max-gas 100000 \
           --new-private-key-file private-key-b \
@@ -783,10 +783,10 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
       Elimina los perfiles de prueba:
 
       ```shell filename="Terminal"
-      aptos config delete-profile --profile test-profile-1
-      aptos config delete-profile --profile test-profile-2
-      aptos config delete-profile --profile test-profile-3
-      aptos config delete-profile --profile test-profile-4
+      libra2 config delete-profile --profile test-profile-1
+      libra2 config delete-profile --profile test-profile-2
+      libra2 config delete-profile --profile test-profile-3
+      libra2 config delete-profile --profile test-profile-4
       ```
 
       Luego puedes detener la localnet y eliminar los archivos de clave y clave pública.
@@ -795,10 +795,10 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
         Si estás usando una máquina UNIX-like:
 
         ```shell filename="Terminal"
-        aptos config delete-profile --profile test-profile-1
-        aptos config delete-profile --profile test-profile-2
-        aptos config delete-profile --profile test-profile-3
-        aptos config delete-profile --profile test-profile-4
+        libra2 config delete-profile --profile test-profile-1
+        libra2 config delete-profile --profile test-profile-2
+        libra2 config delete-profile --profile test-profile-3
+        libra2 config delete-profile --profile test-profile-4
         rm private-key-*
         kill $LOCALNET_PID
         rm -fr localnet-data
@@ -818,7 +818,7 @@ Este programa crea dos cuentas en devnet, Alice y Bob, las funde, y luego
 rota la clave de autenticación de Alice a la de Bob.
 
 Ver el ejemplo completo para este código
-[aquí](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
+[aquí](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
 
 La función para rotar es muy simple:
 
@@ -855,7 +855,7 @@ Este programa crea dos cuentas en devnet, Alice y Bob, las funde, y luego
 rota la clave de autenticación de Alice a la de Bob.
 
 Ver el ejemplo completo para este código
-[aquí](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/rotate_key.py).
+[aquí](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/rotate_key.py).
 
 Aquí está el código relevante que rota las claves de Alice a las de Bob:
 
@@ -886,8 +886,8 @@ Alice 0x213d...031013 '0x1c06...ac3bb3' '0xf2be...9486aa' '0xbbc1...abb808'
 Bob 0x1c06...ac3bb3 0x1c06...ac3bb3 0xf2be...9486aa 0xbbc1...abb808
 ```
 
-[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
+[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L326
 
-[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
+[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/libra2-move/framework/libra2-framework/sources/account.move#L294
 
 \[`account::RotationProofChallenge`

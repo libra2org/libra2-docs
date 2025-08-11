@@ -9,8 +9,8 @@ Move 脚本是一种在 Libra 上通过单笔交易运行多个 public 函数的
 ```move
 script {
   use std::signer;
-  use aptos_framework::coin;
-  use aptos_framework::aptos_account;
+  use libra2_framework::coin;
+  use libra2_framework::libra2_account;
 
   fun transfer_half<Coin>(caller: &signer, receiver_address: address) {
     // Retrieve the balance of the caller
@@ -19,7 +19,7 @@ script {
 
     // Send half to the receiver
     let half = balance / 2;
-    aptos_account::transfer_coins<Coin>(caller, receiver_address, half);
+    libra2_account::transfer_coins<Coin>(caller, receiver_address, half);
   }
 }
 ```

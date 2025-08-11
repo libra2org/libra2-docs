@@ -2,7 +2,7 @@
 title: "Ethereum 到 Libra 速查表"
 ---
 
-如需了解更多差异与相似之处,请参阅 [Libra Learn](https://learn.aptoslabs.com/en/tutorials/ethereum-to-aptos-guide/cheat-sheet?workshop=eth-to-aptos)
+如需了解更多差异与相似之处,请参阅 [Libra Learn](https://learn.libra2labs.com/en/tutorials/ethereum-to-libra2-guide/cheat-sheet?workshop=eth-to-libra2)
 
 ### 高层概览
 
@@ -15,12 +15,12 @@ title: "Ethereum 到 Libra 速查表"
 | **账户结构**   | 余额存储于单一字段,使用 nonce                                                                                                             | 模块与资源,使用序列号                                                                                                                           |
 | **数据存储**   | Patricia Merkle 树                                                                                                              | 通过资源和模块实现的全局存储                                                                                                                        |
 | **存储思路**   | 基于合约的存储                                                                                                                        | 以账户为中心的代码与数据管理                                                                                                                        |
-| **示例代码**   | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Fungible Asset](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) |
+| **示例代码**   | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Fungible Asset](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) |
 | **调用者 ID** | `msg.sender`                                                                                                                   | `&signer` reference                                                                                                                   |
 | **可升级性**   | 代理模式                                                                                                                           | 直接模块升级                                                                                                                                |
 | **安全性**    | 易受重入等攻击                                                                                                                        | 缓解常见漏洞                                                                                                                                |
 | **调度类型**   | 动态调度                                                                                                                           | 静态调度                                                                                                                                  |
-| **FT 标准**  | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/zh/build/smart-contracts/aptos-coin)(传统)与 [Fungible Asset](/zh/build/smart-contracts/fungible-asset)                          |
+| **FT 标准**  | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/zh/build/smart-contracts/libra2-coin)(传统)与 [Fungible Asset](/zh/build/smart-contracts/fungible-asset)                          |
 | **NFT 标准** | [ERC-721](https://docs.openzeppelin.com/contracts/4.x/erc721), [ERC-1155](https://docs.openzeppelin.com/contracts/4.x/erc1155) | [Digital Asset](/zh/build/smart-contracts/digital-asset)                                                                              |
 | **区块链交互**  | [Ethers.js library](https://docs.ethers.org/v6/)                                                                               | [Libra Typescript SDK](/zh/build/sdks/ts-sdk)                                                                                         |
 

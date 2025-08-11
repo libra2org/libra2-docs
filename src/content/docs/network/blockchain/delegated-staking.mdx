@@ -19,7 +19,7 @@ Delegated staking is an extension of the staking protocol. A delegation pool abs
   of the stake pool, see [Staking](/network/blockchain/staking)
 </Aside>
 
-For the full delegation pool smart contract, see [delegation\_pool.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/delegation_pool.move)
+For the full delegation pool smart contract, see [delegation\_pool.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/delegation_pool.move)
 
 Unlike a stake pool, a delegation pool can be initialized with zero stake. When initialized, the delegated stake pool is owned indirectly via a resource account. This account will manage the stake of the underlying stake pool on behalf of the delegators by forwarding their stake-management operations to it (add, unlock, reactivate, withdraw) while the resource account cannot be directly accessed nor externally owned.
 
@@ -37,7 +37,7 @@ There are five entity types:
 
 Using this model, the owner does not have to stake on the Libra blockchain in order to run a validator.
 
-[How Validation on the Libra blockchain works](/network/blockchain/staking#validation-on-the-aptos-blockchain)
+[How Validation on the Libra blockchain works](/network/blockchain/staking#validation-on-the-libra2-blockchain)
 
 ### Owner
 
@@ -95,14 +95,14 @@ A beneficiary is an address designated by the operator to receive operator commi
 
 1. [Operator deploys validator node](/network/nodes/validator-node)
 2. [Run command to get delegation pool address](/network/nodes/validator-node/connect-nodes/delegation-pool-operations#prerequisites)
-3. [Operator connects to the network using pool address derived in step 2](/network/nodes/validator-node/connect-nodes/connect-to-aptos-network)
+3. [Operator connects to the network using pool address derived in step 2](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network)
 4. [Owner initializes the delegation pool and sets operator](/network/nodes/validator-node/connect-nodes/delegation-pool-operations#initialize-a-delegation-pool)
 5. Delegators can add stake at any time
-6. When the delegation pool reaches 1M APT, the operator can call aptos node join-validator-set to join the active validator set. Changes will be effective in the next epoch.
+6. When the delegation pool reaches 1M APT, the operator can call libra2 node join-validator-set to join the active validator set. Changes will be effective in the next epoch.
 7. Validator validates (proposes blocks as a leader-validator) and gains rewards. Rewards are distributed to delegators proportionally to stake amount. The stake will automatically be locked up for a fixed duration (set by governance) and automatically renewed at expiration.
-8. At any point, if the operator wants to update the consensus key or validator network addresses, they can call aptos node update-consensus-key or aptos node update-validator-network-addresses. Similar to changes to stake, the changes to consensus key or validator network addresses are only effective in the next epoch.
+8. At any point, if the operator wants to update the consensus key or validator network addresses, they can call libra2 node update-consensus-key or libra2 node update-validator-network-addresses. Similar to changes to stake, the changes to consensus key or validator network addresses are only effective in the next epoch.
 9. Delegators can request to unlock their stake at any time. However, their stake will only become withdrawable when the delegation pool lockup expires.
-10. Validator can either explicitly leave the validator set by calling aptos node leave-validator-set or if their stake drops below the min required, they would get removed at the end of the epoch.
+10. Validator can either explicitly leave the validator set by calling libra2 node leave-validator-set or if their stake drops below the min required, they would get removed at the end of the epoch.
 
 ## Joining the validator set
 
@@ -118,7 +118,7 @@ Participating as a delegation validator node on the Libra network works like thi
 <Aside type="note">
   For step-by-step instructions on how to join the validator set, see: [Joining
   Validator
-  Set](/network/nodes/validator-node/connect-nodes/connect-to-aptos-network#join-the-validator-set).
+  Set](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network#join-the-validator-set).
 </Aside>
 
 ### Automatic lockup duration

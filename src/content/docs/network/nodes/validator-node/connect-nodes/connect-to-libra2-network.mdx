@@ -90,7 +90,7 @@ If you used Terraform to deploy your nodes (e.g., for AWS, Azure or GCP), follow
 2. Set the `enable_monitoring` variable in your terraform module. For example:
 
    ```terraform filename="config.tf"
-   module "aptos-node" {
+   module "libra2-node" {
      ...
      enable_monitoring           = true
      utility_instance_num        = 3  # this will add one more utility instance to run monitoring component
@@ -102,7 +102,7 @@ If you used Terraform to deploy your nodes (e.g., for AWS, Azure or GCP), follow
 4. Find the IP/DNS for the monitoring load balancer, using:
 
    ```shellscript filename="Terminal"
-   kubectl get svc ${WORKSPACE}-mon-aptos-monitoring --output jsonpath='{.status.loadBalancer.ingress[0]}'
+   kubectl get svc ${WORKSPACE}-mon-libra2-monitoring --output jsonpath='{.status.loadBalancer.ingress[0]}'
    ```
 
    You will be able to access the Terraform dashboard on `http://<ip/DNS>`.
@@ -116,13 +116,13 @@ If you used Terraform to deploy your nodes (e.g., for AWS, Azure or GCP), follow
 8. Recreate the secrets. Make sure the secret name matches your `era` number, e.g. if you have `era = 3`, then you should replace the secret name to be:
 
 ```shellscript filename="Terminal"
-${WORKSPACE}-aptos-node-0-genesis-e3
+${WORKSPACE}-libra2-node-0-genesis-e3
 ```
 
 ```shellscript filename="Terminal"
 export WORKSPACE=<your workspace name>
 
-kubectl create secret generic ${WORKSPACE}-aptos-node-0-genesis-e2 \
+kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e2 \
     --from-file=genesis.blob=genesis.blob \
     --from-file=waypoint.txt=waypoint.txt \
     --from-file=validator-identity.yaml=keys/validator-identity.yaml \
@@ -148,7 +148,7 @@ under the entry `account_private_key`.
 Replace `<operator_account_private_key>` with the value from the file in the command below:
 
 ```shellscript filename="Terminal"
-aptos init --profile mainnet-operator \
+libra2 init --profile mainnet-operator \
    --network mainnet \
    --private-key <operator_account_private_key> \
    --skip-faucet
@@ -160,7 +160,7 @@ Next, make sure you have enough funds to pay for transaction gas on the network.
 running the command below:
 
 ```shellscript filename="Terminal"
-aptos account list --profile mainnet-operator
+libra2 account list --profile mainnet-operator
 ```
 
 This will show you the coin balance you have in the validator account. You will see an output like below:
@@ -178,7 +178,7 @@ are able to connect to other peers in the network. First, fetch the pool address
 Note: the owner address is the address of the account that owns the stake pool, and was used to initialize the stake pool.
 
 ```shellscript filename="Terminal"
-aptos node get-stake-pool --owner-address <owner_address>
+libra2 node get-stake-pool --owner-address <owner_address>
 ```
 
 Using the pool address from the command above, you will need to update the network addresses for your nodes. You can
@@ -186,7 +186,7 @@ do this by running the command below. Note that it requires the `operator.yaml` 
 deployed your nodes.
 
 ```shellscript filename="Terminal"
-aptos node update-validator-network-addresses  \
+libra2 node update-validator-network-addresses  \
    --pool-address <pool-address> \
    --operator-config-file ~/$WORKSPACE/$USERNAME/operator.yaml \
    --profile mainnet-operator
@@ -206,7 +206,7 @@ participate in consensus. You can do this by running the command below. Note tha
 the `operator.yaml` file (similar to above).
 
 ```shellscript filename="Terminal"
-aptos node update-consensus-key  \
+libra2 node update-consensus-key  \
    --pool-address <pool-address> \
    --operator-config-file ~/$WORKSPACE/$USERNAME/operator.yaml \
    --profile mainnet-operator
@@ -223,7 +223,7 @@ aptos node update-consensus-key  \
 Finally, you will need to join the validator set. You can do this by running the command below:
 
 ```shellscript filename="Terminal"
-aptos node join-validator-set \
+libra2 node join-validator-set \
    --pool-address <pool-address> \
    --profile mainnet-operator
 ```
@@ -233,7 +233,7 @@ validator node is able to join the validator set.
 
 <Aside type="note">
   **IDENTIFYING THE NEXT EPOCH**<br />
-  You can identify the next epoch by checking the [Libra Explorer](https://explorer.aptoslabs.com/validators/all?network=mainnet) or by running the command `aptos node get-stake-pool`.
+  You can identify the next epoch by checking the [Libra Explorer](https://explorer.libra2labs.com/validators/all?network=mainnet) or by running the command `libra2 node get-stake-pool`.
 </Aside>
 
 ### 6. Check the validator set
@@ -242,14 +242,14 @@ When you execute the command to join the validator set, your validator will be i
 next epoch occurs. You can run the command below to look for your validator in the `pending_active` list.
 
 ```shellscript filename="Terminal"
-aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.pending_active' | grep <pool_address>
+libra2 node show-validator-set --profile mainnet-operator | jq -r '.Result.pending_active' | grep <pool_address>
 ```
 
 When the next epoch occurs, the node will be moved into `active_validators` list. Run the command
 below to see your validator in the "active\_validators" list:
 
 ```shellscript filename="Terminal"
-aptos node show-validator-set --profile mainnet-operator | jq -r '.Result.active_validators' | grep <pool_address>
+libra2 node show-validator-set --profile mainnet-operator | jq -r '.Result.active_validators' | grep <pool_address>
 ```
 
 ## Bootstrap your nodes

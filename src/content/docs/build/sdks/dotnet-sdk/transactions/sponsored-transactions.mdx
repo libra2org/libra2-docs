@@ -7,7 +7,7 @@ import { Aside, LinkCard, Steps } from '@astrojs/starlight/components';
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
+  [libra2-core/libra2-dotnet-sdk](https://github.com/libra2org/libra2-dotnet-sdk)
   repository.
 </Aside>
 
@@ -86,8 +86,8 @@ This section covers how to do sponsored transactions with the Libra .NET SDK.
              var transaction = await client.Transaction.Build(
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
-                     function: "0x1::aptos_account::transfer_coins",
-                     typeArguments: ["0x1::aptos_coin::LibraCoin"],
+                     function: "0x1::libra2_account::transfer_coins",
+                     typeArguments: ["0x1::libra2_coin::LibraCoin"],
                      functionArguments: [account.Address, "100000"]
                  ),
                  // It's important to set this flag to true to enable sponsored transactions

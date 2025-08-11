@@ -12,52 +12,52 @@ import { Aside } from '@astrojs/starlight/components';
   如果你还需要安装 CLI,请按照[这些步骤](/zh/build/cli/install-cli/install-cli-specific-version)操作.
 </Aside>
 
-1. 运行 `aptos init` 并按照命令行中的说明操作.
+1. 运行 `libra2 init` 并按照命令行中的说明操作.
 
 <Aside type="note" emoji="ℹ️">
   要使用默认设置,你可以不提供任何输入,只需按"Enter".例如:
 </Aside>
 
 ```shellscript filename="Terminal"
-aptos init
+libra2 init
 ```
 
 ```shellscript filename="输出"
 正在为配置文件 default 进行配置
-输入你的 rest 端点 [当前：无 | 无输入：https://api.devnet.aptoslabs.com]
+输入你的 rest 端点 [当前：无 | 无输入：https://api.devnet.libra2labs.com]
 
-未给出 rest url，使用 https://api.devnet.aptoslabs.com...
-输入你的水龙头端点 [当前：无 | 无输入：https://faucet.devnet.aptoslabs.com]
+未给出 rest url，使用 https://api.devnet.libra2labs.com...
+输入你的水龙头端点 [当前：无 | 无输入：https://faucet.devnet.libra2labs.com]
 
-未给出水龙头 url，使用 https://faucet.devnet.aptoslabs.com...
+未给出水龙头 url，使用 https://faucet.devnet.libra2labs.com...
 输入你的私钥作为十六进制字面量 (0x...) [当前：无 | 无输入：生成新密钥（或保留现有密钥）]
 
 未给出密钥，正在生成密钥...
 账户 00f1f20ddd0b0dd2291b6e42c97274668c479bca70f07c6b6a80b99720779696 不存在，正在创建并为其提供 10000 个代币
-Libra 现在已为账户 00f1f20ddd0b0dd2291b6e42c97274668c479bca70f07c6b6a80b99720779696 设置完成！运行 `aptos help` 获取有关命令的更多信息
+Libra 现在已为账户 00f1f20ddd0b0dd2291b6e42c97274668c479bca70f07c6b6a80b99720779696 设置完成！运行 `libra2 help` 获取有关命令的更多信息
 
 {
   "Result": "Success"
 }
 ```
 
-2. 稍后,如果你想更新这些设置,可以再次运行 `aptos init`.
-3. 其余的配置步骤是可选的/提高生活质量的.要继续使用 CLI 进行你的特定用例,请按照[这里的使用指南](/zh/build/cli#%EF%B8%8F-using-the-aptos-cli)操作.
+2. 稍后,如果你想更新这些设置,可以再次运行 `libra2 init`.
+3. 其余的配置步骤是可选的/提高生活质量的.要继续使用 CLI 进行你的特定用例,请按照[这里的使用指南](/zh/build/cli#%EF%B8%8F-using-the-libra2-cli)操作.
 
 ## (可选)创建命名配置(配置文件)
 
 对于测试更复杂的场景,你通常需要链上的多个账户.一种方法是创建我们称之为配置文件的命名配置.
 
-要创建配置文件,运行 `aptos init --profile <配置文件名称>`.你生成的配置可以在调用 CLI 命令时用作参数的替代.
+要创建配置文件,运行 `libra2 init --profile <配置文件名称>`.你生成的配置可以在调用 CLI 命令时用作参数的替代.
 
 例如:
 
 ```shellscript filename="Terminal"
-aptos init --profile bob
+libra2 init --profile bob
 ```
 
 ```shellscript filename="Terminal"
-aptos account fund-with-faucet --profile bob
+libra2 account fund-with-faucet --profile bob
 ```
 
 ```shellscript filename="输出"
@@ -75,25 +75,25 @@ aptos account fund-with-faucet --profile bob
 3. 使用你的特定 shell 和使用你的 shell 的补全输出文件运行以下命令:
 
 ```shellscript filename="Terminal"
-aptos config generate-shell-completions --shell <你的_SHELL> --output-file <你的_SHELL_的输出目标>
+libra2 config generate-shell-completions --shell <你的_SHELL> --output-file <你的_SHELL_的输出目标>
 ```
 
 [`oh my zsh`](https://ohmyz.sh/) 的示例命令:
 
 ```shellscript filename="Terminal"
-aptos config generate-shell-completions --shell zsh --output-file ~/.oh-my-zsh/completions/_aptos
+libra2 config generate-shell-completions --shell zsh --output-file ~/.oh-my-zsh/completions/_libra2
 ```
 
 ## (可选)全局配置
 
-默认情况下,CLI 将在每个工作空间目录的 `.aptos/config.yaml` 中查找配置.如果你想为所有工作空间使用共享配置,可以按照以下步骤操作:
+默认情况下,CLI 将在每个工作空间目录的 `.libra2/config.yaml` 中查找配置.如果你想为所有工作空间使用共享配置,可以按照以下步骤操作:
 
-1. 在你的主目录中创建一个名为 `.aptos` 的文件夹(所以它的路径是 `~/.aptos`).
-2. 在 `.aptos` 中创建一个名为 `global_config.yaml` 的 yaml 文件.
+1. 在你的主目录中创建一个名为 `.libra2` 的文件夹(所以它的路径是 `~/.libra2`).
+2. 在 `.libra2` 中创建一个名为 `global_config.yaml` 的 yaml 文件.
 3. 运行命令:
 
 ```shellscript filename="Terminal"
-aptos config set-global-config --config-type global
+libra2 config set-global-config --config-type global
 ```
 
 你应该看到:

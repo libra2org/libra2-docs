@@ -6,13 +6,13 @@ import { Aside, CardGrid, LinkCard, TabItem, Tabs } from '@astrojs/starlight/com
 
 import { RemoteCodeblock } from '~/components/RemoteCodeblock';
 
-Kaptos es un SDK **Multiplataforma** de Kotlin para interactuar con la blockchain de Libra
+Klibra2 es un SDK **Multiplataforma** de Kotlin para interactuar con la blockchain de Libra
 a través de varias plataformas. Ofrece una API **consistente** para solicitudes de datos,
 envíos de transacciones, y más, facilitando el desarrollo de apps multiplataforma
 con lógica de negocio compartida. El SDK incluye clientes **asíncronos** de Libra para
 interacciones suaves con la blockchain.
 
-Kaptos también proporciona SDKs **específicos de plataforma** para JVM, Android, iOS, JS, Linux,
+Klibra2 también proporciona SDKs **específicos de plataforma** para JVM, Android, iOS, JS, Linux,
 macOS y Windows.
 
 <div className="flex gap-2 mt-6 flex-wrap">
@@ -36,9 +36,9 @@ macOS y Windows.
 </div>
 
 <div className="flex gap-2 mt-6 flex-wrap">
-  <img src="https://img.shields.io/maven-central/v/xyz.mcxross.kaptos/kaptos.svg?label=Maven%20Central" alt="Maven Central" />
+  <img src="https://img.shields.io/maven-central/v/xyz.mcxross.klibra2/klibra2.svg?label=Maven%20Central" alt="Maven Central" />
 
-  <a target="_blank" href="https://mcxross.github.io/kaptos/">
+  <a target="_blank" href="https://mcxross.github.io/klibra2/">
     ![Static Badge](https://img.shields.io/badge/SDK_Reference-Docs)
   </a>
 </div>
@@ -46,7 +46,7 @@ macOS y Windows.
 ## Características
 
 - **Type-safe**: El SDK es completamente type-safe y proporciona un rico conjunto de tipos para todas las operaciones.
-- **Expresivo**: Kaptos proporciona una API simple y expresiva estilo DSL para construir transacciones.
+- **Expresivo**: Klibra2 proporciona una API simple y expresiva estilo DSL para construir transacciones.
 - **Multiplataforma**: Escribe aplicaciones multiplataforma con lógica de negocio compartida.
 - **API Consistente**: Todas las operaciones tienen una API uniforme y consistente a través de todas las plataformas.
 - **Soporte BCS**: El SDK usa BCS por defecto para serialización y deserialización de transacciones.
@@ -54,7 +54,7 @@ macOS y Windows.
 - **Configurable**: El SDK proporciona clientes altamente configurables para todas las plataformas.
 
 <Aside type="note">
-  Kaptos está actualmente en desarrollo, por favor da feedback [aquí](https://github.com/mcxross/kaptos/issues)
+  Klibra2 está actualmente en desarrollo, por favor da feedback [aquí](https://github.com/mcxross/klibra2/issues)
 </Aside>
 
 ## Instalación
@@ -63,7 +63,7 @@ macOS y Windows.
   <TabItem label="Multiplataforma">
     ```kotlin
     commonMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2:<version>")
     }
     ```
   </TabItem>
@@ -71,7 +71,7 @@ macOS y Windows.
   <TabItem label="JVM">
     ```kotlin
     jvmMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-jvm:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-jvm:<version>")
     }
     ```
   </TabItem>
@@ -79,7 +79,7 @@ macOS y Windows.
   <TabItem label="Android">
     ```kotlin
     androidMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-android:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-android:<version>")
     }
     ```
 
@@ -89,7 +89,7 @@ macOS y Windows.
 
       ```kotlin
       androidMain.dependencies {
-        implementation("xyz.mcxross.kaptos:kaptos-android-debug:<version>")
+        implementation("xyz.mcxross.klibra2:klibra2-android-debug:<version>")
       }
       ```
     </Aside>
@@ -103,7 +103,7 @@ macOS y Windows.
 
     ```kotlin
     iosMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-iosArm64:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-iosArm64:<version>")
     }
     ```
 
@@ -111,7 +111,7 @@ macOS y Windows.
 
     ```kotlin
     iosMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-iosX64:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-iosX64:<version>")
     }
     ```
   </TabItem>
@@ -119,7 +119,7 @@ macOS y Windows.
   <TabItem label="JS">
     ```kotlin
     jsMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-js:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-js:<version>")
     }
     ```
   </TabItem>
@@ -129,7 +129,7 @@ macOS y Windows.
 
     ```kotlin
     linuxMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-linux:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-linux:<version>")
     }
     ```
   </TabItem>
@@ -142,7 +142,7 @@ macOS y Windows.
 
     ```kotlin
     macosMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-macosX64:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-macosX64:<version>")
     }
     ```
 
@@ -150,7 +150,7 @@ macOS y Windows.
 
     ```kotlin
     macosMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-macosArm64:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-macosArm64:<version>")
     }
     ```
   </TabItem>
@@ -160,7 +160,7 @@ macOS y Windows.
 
     ```kotlin
     mingwMain.dependencies {
-      implementation("xyz.mcxross.kaptos:kaptos-mingwX64:<version>")
+      implementation("xyz.mcxross.klibra2:klibra2-mingwX64:<version>")
     }
     ```
   </TabItem>
@@ -172,14 +172,14 @@ Abajo hay un ejemplo de cómo puedes realizar una transacción usando el SDK de 
 El fragmento demuestra cómo construir una transacción para transferir APT. Luego
 firmamos y enviamos la transacción a la blockchain en un solo paso.
 
-<RemoteCodeblock permalink="https://github.com/mcxross/kaptos/blob/64731d7085bfa64e93941aad78ba5ac429787552/sample/jvmApp/src/main/kotlin/APTTransfer.kt#L59-L71" />
+<RemoteCodeblock permalink="https://github.com/mcxross/klibra2/blob/64731d7085bfa64e93941aad78ba5ac429787552/sample/jvmApp/src/main/kotlin/APTTransfer.kt#L59-L71" />
 
 El SDK también proporciona métodos pre-construidos para operaciones de transacción comunes. Por
 ejemplo, puedes usar el método `transferCoinTransaction` para generar una transacción de transferencia
 entre dos cuentas como se muestra abajo:
 
 ```kotlin
-val txn = aptos.transferCoinTransaction(
+val txn = libra2.transferCoinTransaction(
      alice.accountAddress,
      bob.accountAddress,
      SEND_AMOUNT
@@ -197,5 +197,5 @@ siguiente:
 <CardGrid>
   <LinkCard href="/es/build/sdks/community-sdks/kotlin-sdk/quickstart" title="Inicio Rápido" description="Integra Libra en < 5 minutos" />
 
-  <LinkCard href="https://github.com/mcxross/kaptos/tree/master/sample" title="Proyectos Únicos y Multiplataforma" description="Explora varias apps demo, proyectos únicos y multiplataforma, sobre cómo usar el SDK" target="_blank" />
+  <LinkCard href="https://github.com/mcxross/klibra2/tree/master/sample" title="Proyectos Únicos y Multiplataforma" description="Explora varias apps demo, proyectos únicos y multiplataforma, sobre cómo usar el SDK" target="_blank" />
 </CardGrid>

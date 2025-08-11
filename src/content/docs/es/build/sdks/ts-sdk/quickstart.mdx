@@ -78,7 +78,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
        // Configurar el cliente
        const config = new LibraConfig({ network: Network.DEVNET });
-       const aptos = new Libra(config);
+       const libra2 = new Libra(config);
      }
 
      example()
@@ -94,9 +94,9 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      ```typescript filename="quickstart.ts"
      ...
-     const ledgerInfo = await aptos.getLedgerInfo();
-     const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
-     const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
+     const ledgerInfo = await libra2.getLedgerInfo();
+     const modules = await libra2.getAccountModules({ accountAddress: "0x123" });
+     const tokens = await libra2.getAccountOwnedTokens({ accountAddress: "0x123" });
      ...
      ```
 
@@ -116,7 +116,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      const alice: Account = Account.generate();
 
      // Financiar la cuenta en la cadena. Financiar una cuenta la crea en la cadena.
-     await aptos.fundAccount({
+     await libra2.fundAccount({
        accountAddress: alice.accountAddress,
        amount: 100000000,
      });
@@ -125,7 +125,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      const bob: Account = Account.generate();
 
      // Financiar la cuenta en la cadena
-     await aptos.fundAccount({
+     await libra2.fundAccount({
        accountAddress: bob.accountAddress,
        amount: 100000000,
      });
@@ -134,22 +134,22 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      #### 2. Construir la Transacción
 
-     Puedes construir transacciones con `aptos.transaction.build.simple({...})` especificando:
+     Puedes construir transacciones con `libra2.transaction.build.simple({...})` especificando:
 
      1. `sender` - La cuenta que está enviando la transacción. Esta cuenta pagará las tarifas de gas.
      2. `data` - La información necesaria para que Libra identifique qué transacción ejecutar.
         1. `function` - Qué contrato inteligente en la cadena llamar. Esto tiene el formato `<address_account>::<module_move>::<function>`.
-        2. `functionArguments` - Estos son específicos para la función que se está llamando. Puedes buscar qué parámetros necesita una función buscando la cuenta y el módulo en la cadena con un explorador [como este](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
+        2. `functionArguments` - Estos son específicos para la función que se está llamando. Puedes buscar qué parámetros necesita una función buscando la cuenta y el módulo en la cadena con un explorador [como este](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet).
 
      Por ejemplo:
 
      ```typescript filename="quickstart.ts"
      ...
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
        sender: alice.accountAddress,
        data: {
      	  // La función de entrada de Move
-         function: "0x1::aptos_account::transfer",
+         function: "0x1::libra2_account::transfer",
          functionArguments: [bob.accountAddress, 100],
        },
      });
@@ -157,7 +157,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      ```
 
      <Aside type="note">
-       Para algunas situaciones, también puedes usar funciones simplificadas en el SDK como [`transferCoinTransaction`](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
+       Para algunas situaciones, también puedes usar funciones simplificadas en el SDK como [`transferCoinTransaction`](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/libra2_account?network=mainnet).
      </Aside>
 
      #### 3. Firmar y Enviar
@@ -166,12 +166,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      Una vez firmado, puedes enviarlo a la red para su verificación y ejecución en la cadena.
 
-     Puedes usar `aptos.signAndSubmitTransaction` que combina estos dos pasos en uno:
+     Puedes usar `libra2.signAndSubmitTransaction` que combina estos dos pasos en uno:
 
      ```typescript filename="quickstart.ts"
      ...
      // Ambos firman y envían (aunque también se pueden hacer por separado)
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction,
      });
@@ -180,13 +180,13 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
      #### 4. Esperar la Completación
 
-     Puedes ejecutar `aptos.waitForTransaction` para garantizar que tu código se ejecuta después de que la transacción haya sido procesada y aplicada.
+     Puedes ejecutar `libra2.waitForTransaction` para garantizar que tu código se ejecuta después de que la transacción haya sido procesada y aplicada.
 
      Esto también te ayuda a obtener cualquier error que pueda ocurrir después de enviar, como la transacción ser rechazada.
 
      ```typescript filename="quickstart.ts"
      ...
-     const executedTransaction = await aptos.waitForTransaction({ transactionHash: pendingTransaction.hash });
+     const executedTransaction = await libra2.waitForTransaction({ transactionHash: pendingTransaction.hash });
      ...
      ```
 </Steps>
@@ -222,7 +222,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::aptos_coin::LibraCoin";
+const APTOS_COIN = "0x1::libra2_coin::LibraCoin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -235,7 +235,7 @@ async function example() {
 
   // Configurar el cliente
   const config = new LibraConfig({ network: Network.DEVNET });
-  const aptos = new Libra(config);
+  const libra2 = new Libra(config);
 
   // Generar credenciales de dos cuentas
   // Cada cuenta tiene una clave privada, una clave pública y una dirección
@@ -249,12 +249,12 @@ async function example() {
   // Financiar las cuentas usando un faucet
   console.log("\n=== Financiando cuentas ===\n");
 
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: alice.accountAddress,
     amount: ALICE_INITIAL_BALANCE,
   });
 
-  await aptos.fundAccount({
+  await libra2.fundAccount({
     accountAddress: bob.accountAddress,
     amount: BOB_INITIAL_BALANCE,
   });
@@ -262,14 +262,14 @@ async function example() {
 
   // Buscar el saldo de la cuenta recién financiada
   console.log("\n=== Saldos ===\n");
-  const aliceAccountBalance = await aptos.getAccountResource({
+  const aliceAccountBalance = await libra2.getAccountResource({
     accountAddress: alice.accountAddress,
     resourceType: COIN_STORE,
   });
   const aliceBalance = Number(aliceAccountBalance.coin.value);
   console.log(`El saldo de Alice es: ${aliceBalance}`);
 
-  const bobAccountBalance = await aptos.getAccountResource({
+  const bobAccountBalance = await libra2.getAccountResource({
     accountAddress: bob.accountAddress,
     resourceType: COIN_STORE,
   });
@@ -277,36 +277,36 @@ async function example() {
   console.log(`El saldo de Bob es: ${bobBalance}`);
 
   // Enviar una transacción desde la cuenta de Alice a la cuenta de Bob
-  const txn = await aptos.transaction.build.simple({
+  const txn = await libra2.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
       // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
-      function: "0x1::aptos_account::transfer",
+      function: "0x1::libra2_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
   });
 
   console.log("\n=== Transacción de transferencia ===\n");
   // Ambos firman y envían
-  const committedTxn = await aptos.signAndSubmitTransaction({
+  const committedTxn = await libra2.signAndSubmitTransaction({
     signer: alice,
     transaction: txn,
   });
   // Espera a que Libra verifique y ejecute la transacción
-  const executedTransaction = await aptos.waitForTransaction({
+  const executedTransaction = await libra2.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
   console.log("Hash de la transacción:", executedTransaction.hash);
 
   console.log("\n=== Saldos después de la transferencia ===\n");
-  const newAliceAccountBalance = await aptos.getAccountResource({
+  const newAliceAccountBalance = await libra2.getAccountResource({
     accountAddress: alice.accountAddress,
     resourceType: COIN_STORE,
   });
   const newAliceBalance = Number(newAliceAccountBalance.coin.value);
   console.log(`El saldo de Alice es: ${newAliceBalance}`);
 
-  const newBobAccountBalance = await aptos.getAccountResource({
+  const newBobAccountBalance = await libra2.getAccountResource({
     accountAddress: bob.accountAddress,
     resourceType: COIN_STORE,
   });
@@ -331,14 +331,14 @@ En resumen, acabas de aprender a transferir APT a través de una transacción en
 
 1. Conectándote a la red usando el cliente de `Libra`.
 2. Creando una cuenta.
-3. Buscando datos de la cadena usando funciones de ayuda del cliente como [`aptos.getAccountModules`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
+3. Buscando datos de la cadena usando funciones de ayuda del cliente como [`libra2.getAccountModules`](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
 4. Firmando y enviando una transacción a la red.
 5. Esperando que Libra ejecute la transacción.
 
 Para ver todo esto en acción, puedes copiar y ejecutar el fragmento de código de inicio rápido completo de arriba.
 
 <Aside type="note">
-  Para el desarrollo futuro, asegúrate de marcar la [documentación de referencia](https://libra2-core.github.io/aptos-ts-sdk/) para buscar las firmas de funciones específicas.
+  Para el desarrollo futuro, asegúrate de marcar la [documentación de referencia](https://libra2-core.github.io/libra2-ts-sdk/) para buscar las firmas de funciones específicas.
 
-  Ten en cuenta que la mayoría de las funciones de ayuda están listadas en el objeto [`Libra` cliente](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
+  Ten en cuenta que la mayoría de las funciones de ayuda están listadas en el objeto [`Libra` cliente](https://libra2-core.github.io/libra2-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
 </Aside>

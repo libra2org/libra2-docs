@@ -17,8 +17,8 @@ Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Am
 
 |     | AWS 备份数据                                                                              | Google Cloud 备份数据                                                               |
 | --- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| 测试网 | 已停止                                                                                   | https://github.com/libra2org/aptos-networks/blob/main/testnet/backups/gcs.yaml |
-| 主网  | https://github.com/libra2org/aptos-networks/blob/main/mainnet/backups/s3-public.yaml | https://github.com/libra2org/aptos-networks/blob/main/mainnet/backups/gcs.yaml |
+| 测试网 | 已停止                                                                                   | https://github.com/libra2org/libra2-networks/blob/main/testnet/backups/gcs.yaml |
+| 主网  | https://github.com/libra2org/libra2-networks/blob/main/mainnet/backups/s3-public.yaml | https://github.com/libra2org/libra2-networks/blob/main/mainnet/backups/gcs.yaml |
 
 <Aside type="note">
   备份仅针对 `testnet` 和 `mainnet` 创建.鉴于 `devnet` 经常清空,所以没有必要维护它的备份.
@@ -37,7 +37,7 @@ Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Am
 
 下面的图表提供了备份数据结构的可视化表示:
 
-![aptos-db-restore.png](~/images/aptos-db-restore.png)
+![libra2-db-restore.png](~/images/libra2-db-restore.png)
 
 ## 恢复 Libra 数据库
 
@@ -54,7 +54,7 @@ Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Am
 
 ### 引导到最新版本
 
-`aptos node bootstrap-db` 命令可以快速从最近的快照中恢复数据库到目标版本,但它不会恢复目标版本之前的交易历史.
+`libra2 node bootstrap-db` 命令可以快速从最近的快照中恢复数据库到目标版本,但它不会恢复目标版本之前的交易历史.
 
 运行命令时可以使用以下选项:
 
@@ -65,7 +65,7 @@ Libra Labs 通过持续查询 PFN 并存储备份数据在远程存储中(如 Am
 示例命令:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
     --target-version 500000000 \
     --command-adapter-config /path/to/s3-public.yaml \
     --target-db-dir /path/to/local/db
@@ -73,7 +73,7 @@ aptos node bootstrap-db \
 
 ### 在特定时间段内恢复
 
-`aptos node bootstrap-db`命令可以恢复指定期间内的交易历史,以及目标版本的默克尔树状态.
+`libra2 node bootstrap-db`命令可以恢复指定期间内的交易历史,以及目标版本的默克尔树状态.
 
 使用以下选项运行命令:
 
@@ -85,7 +85,7 @@ aptos node bootstrap-db \
 示例命令:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
     --ledger-history-start-version 150000000 \
     --target-version 155000000 \
     --command-adapter-config /path/to/s3-public.yaml \
@@ -109,7 +109,7 @@ aptos node bootstrap-db \
 示例命令:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
   --ledger-history-start-version 0 \
   --target-version use_the_largest_version_in_backup \
   --command-adapter-config /path/to/s3-public.yaml \

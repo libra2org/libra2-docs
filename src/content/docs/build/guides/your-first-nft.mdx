@@ -29,10 +29,10 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      ```tsx filename="index.ts"
      const APTOS_NETWORK = NetworkToNetworkName[process.env.APTOS_NETWORK] || Network.DEVNET;
      const config = new LibraConfig({ network: APTOS_NETWORK });
-     const aptos = new Libra(config);
+     const libra2 = new Libra(config);
      ```
 
-     This `aptos` object allows us to interact with the Libra blockchain (funding accounts, creating assets, submitting transactions, etc.).
+     This `libra2` object allows us to interact with the Libra blockchain (funding accounts, creating assets, submitting transactions, etc.).
 
   2. Create and Fund Accounts
 
@@ -42,8 +42,8 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      const alice = Account.generate();
      const bob = Account.generate();
 
-     await aptos.fundAccount({ accountAddress: alice.accountAddress, amount: INITIAL_BALANCE });
-     await aptos.fundAccount({ accountAddress: bob.accountAddress, amount: INITIAL_BALANCE });
+     await libra2.fundAccount({ accountAddress: alice.accountAddress, amount: INITIAL_BALANCE });
+     await libra2.fundAccount({ accountAddress: bob.accountAddress, amount: INITIAL_BALANCE });
      ```
 
   3. Create a Collection
@@ -51,18 +51,18 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      We create a collection in Alice's account. A collection acts like a "folder" or "category" for digital assets. In this case, we are creating `"Example Collection"`.
 
      ```tsx filename="index.ts"
-     const createCollectionTransaction = await aptos.createCollectionTransaction({
+     const createCollectionTransaction = await libra2.createCollectionTransaction({
        creator: alice,
        description: "This is an example collection.",
        name: "Example Collection",
-       uri: "aptos.dev",
+       uri: "docs.libra2.org",
      });
 
-     const committedTxn = await aptos.signAndSubmitTransaction({
+     const committedTxn = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction: createCollectionTransaction,
      });
-     await aptos.waitForTransaction({ transactionHash: committedTxn.hash });
+     await libra2.waitForTransaction({ transactionHash: committedTxn.hash });
      ```
 
      <Aside type="note">
@@ -74,19 +74,19 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      With the collection created, we can now mint a digital asset (an NFT) for the collection. This involves providing details like the name, description, and a URI (often linking to metadata like images).
 
      ```tsx filename="index.ts"
-     const mintTokenTransaction = await aptos.mintDigitalAssetTransaction({
+     const mintTokenTransaction = await libra2.mintDigitalAssetTransaction({
        creator: alice,
        collection: "Example Collection",
        description: "This is an example digital asset.",
        name: "Example Asset",
-       uri: "https://aptos.dev/asset.png",
+       uri: "https://docs.libra2.org/asset.png",
      });
 
-     const mintTxn = await aptos.signAndSubmitTransaction({
+     const mintTxn = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction: mintTokenTransaction,
      });
-     await aptos.waitForTransaction({ transactionHash: mintTxn.hash });
+     await libra2.waitForTransaction({ transactionHash: mintTxn.hash });
      ```
 
      <Aside type="note">
@@ -98,20 +98,20 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      Once minted, the asset belongs to Alice. We can verify this by fetching Alice's digital assets. Then we build and submit a transaction to transfer this asset to Bob.
 
      ```tsx filename="index.ts"
-     const aliceDigitalAssets = await aptos.getOwnedDigitalAssets({ ownerAddress: alice.accountAddress });
+     const aliceDigitalAssets = await libra2.getOwnedDigitalAssets({ ownerAddress: alice.accountAddress });
      const digitalAssetAddress = aliceDigitalAssets[0].token_data_id;
 
-     const transferTransaction = await aptos.transferDigitalAssetTransaction({
+     const transferTransaction = await libra2.transferDigitalAssetTransaction({
        sender: alice,
        digitalAssetAddress,
        recipient: bob.accountAddress,
      });
 
-     const transferTxn = await aptos.signAndSubmitTransaction({
+     const transferTxn = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction: transferTransaction,
      });
-     await aptos.waitForTransaction({ transactionHash: transferTxn.hash });
+     await libra2.waitForTransaction({ transactionHash: transferTxn.hash });
      ```
 
      After completion, the asset should now appear in Bob's account.
@@ -121,8 +121,8 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      Finally, we check both Alice's and Bob's accounts to ensure that Alice no longer has the asset and Bob now has it.
 
      ```tsx filename="index.ts"
-     const aliceDigitalAssetsAfter = await aptos.getOwnedDigitalAssets({ ownerAddress: alice.accountAddress });
-     const bobDigitalAssetsAfter = await aptos.getOwnedDigitalAssets({ ownerAddress: bob.accountAddress });
+     const aliceDigitalAssetsAfter = await libra2.getOwnedDigitalAssets({ ownerAddress: alice.accountAddress });
+     const bobDigitalAssetsAfter = await libra2.getOwnedDigitalAssets({ ownerAddress: bob.accountAddress });
 
      console.log(`Alice's digital asset balance: ${aliceDigitalAssetsAfter.length}`);
      console.log(`Bob's digital asset balance: ${bobDigitalAssetsAfter.length}`);
@@ -139,8 +139,8 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      Create a new directory for your project and initialize a Node.js project:
 
      ```shellscript filename="Terminal"
-     mkdir aptos-digital-asset-tutorial
-     cd aptos-digital-asset-tutorial
+     mkdir libra2-digital-asset-tutorial
+     cd libra2-digital-asset-tutorial
      npm init -y
      ```
 
@@ -216,7 +216,7 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      console.log("Step 1: Setting up a client to connect to Libra");
      const APTOS_NETWORK = NetworkToNetworkName[process.env.APTOS_NETWORK!] || Network.DEVNET;
      const config = new LibraConfig({ network: APTOS_NETWORK });
-     const aptos = new Libra(config);
+     const libra2 = new Libra(config);
 
      async function example() {
          console.log("\n=== Step 2: Creating and funding accounts ===\n");
@@ -227,21 +227,21 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          console.log(`Bob's address: ${bob.accountAddress}`);
 
          console.log("Funding Alice's account...");
-         await aptos.fundAccount({ accountAddress: alice.accountAddress, amount: INITIAL_BALANCE });
+         await libra2.fundAccount({ accountAddress: alice.accountAddress, amount: INITIAL_BALANCE });
          console.log("Alice's account funded!");
 
          console.log("Funding Bob's account...");
-         await aptos.fundAccount({ accountAddress: bob.accountAddress, amount: INITIAL_BALANCE });
+         await libra2.fundAccount({ accountAddress: bob.accountAddress, amount: INITIAL_BALANCE });
          console.log("Bob's account funded!");
 
          console.log("\n=== Step 3: Creating a collection ===\n");
          // TODO: Update these values to customize your Digital Asset!
          const collectionName = "Example Collection";
          const collectionDescription = "This is an example collection.";
-         const collectionURI = "aptos.dev";
+         const collectionURI = "docs.libra2.org";
 
          console.log("Building the collection creation transaction...");
-         const createCollectionTransaction = await aptos.createCollectionTransaction({
+         const createCollectionTransaction = await libra2.createCollectionTransaction({
              creator: alice,
              description: collectionDescription,
              name: collectionName,
@@ -249,23 +249,23 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          });
 
          console.log("Submitting the collection creation transaction...");
-         const committedTxn = await aptos.signAndSubmitTransaction({
+         const committedTxn = await libra2.signAndSubmitTransaction({
              signer: alice,
              transaction: createCollectionTransaction,
          });
 
          console.log("Waiting for the collection creation transaction to complete...");
-         await aptos.waitForTransaction({ transactionHash: committedTxn.hash });
+         await libra2.waitForTransaction({ transactionHash: committedTxn.hash });
          console.log("Collection created successfully!");
 
          console.log("\n=== Step 4: Minting a digital asset ===\n");
          // TODO: Update the values of the Digital Assets you are minting!
          const tokenName = "Example Asset";
          const tokenDescription = "This is an example digital asset.";
-         const tokenURI = "aptos.dev/asset";
+         const tokenURI = "docs.libra2.org/asset";
 
          console.log("Building the mint transaction...");
-         const mintTokenTransaction = await aptos.mintDigitalAssetTransaction({
+         const mintTokenTransaction = await libra2.mintDigitalAssetTransaction({
              creator: alice,
              collection: collectionName,
              description: tokenDescription,
@@ -275,14 +275,14 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          console.log(mintTokenTransaction)
 
          console.log("Submitting the mint transaction...");
-         const mintTxn = await aptos.signAndSubmitTransaction({
+         const mintTxn = await libra2.signAndSubmitTransaction({
              signer: alice,
              transaction: mintTokenTransaction,
          });
          console.log(mintTxn)
 
          console.log("Waiting for the mint transaction to complete...");
-         await aptos.waitForTransaction({ transactionHash: mintTxn.hash });
+         await libra2.waitForTransaction({ transactionHash: mintTxn.hash });
          console.log("Digital asset minted successfully!");
 
          console.log("\n=== Step 5: Transferring the digital asset ===\n");
@@ -290,7 +290,7 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          // Wait for the indexer to update with the latest data from on-chain
          await new Promise((resolve) => setTimeout(resolve, 5000));
 
-         const aliceDigitalAssets = await aptos.getOwnedDigitalAssets({
+         const aliceDigitalAssets = await libra2.getOwnedDigitalAssets({
              ownerAddress: alice.accountAddress,
          });
 
@@ -303,27 +303,27 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          const digitalAssetAddress = aliceDigitalAssets[0].token_data_id;
 
          console.log("Building the transfer transaction...");
-         const transferTransaction = await aptos.transferDigitalAssetTransaction({
+         const transferTransaction = await libra2.transferDigitalAssetTransaction({
              sender: alice,
              digitalAssetAddress,
              recipient: bob.accountAddress,
          });
 
          console.log("Submitting the transfer transaction...");
-         const transferTxn = await aptos.signAndSubmitTransaction({
+         const transferTxn = await libra2.signAndSubmitTransaction({
              signer: alice,
              transaction: transferTransaction,
          });
 
          console.log("Waiting for the transfer transaction to complete...");
-         await aptos.waitForTransaction({ transactionHash: transferTxn.hash });
+         await libra2.waitForTransaction({ transactionHash: transferTxn.hash });
          console.log("Digital asset transferred successfully!");
 
          console.log("\n=== Step 6: Verifying digital asset balances ===\n");
-         const aliceDigitalAssetsAfter = await aptos.getOwnedDigitalAssets({
+         const aliceDigitalAssetsAfter = await libra2.getOwnedDigitalAssets({
              ownerAddress: alice.accountAddress,
          });
-         const bobDigitalAssetsAfter = await aptos.getOwnedDigitalAssets({
+         const bobDigitalAssetsAfter = await libra2.getOwnedDigitalAssets({
              ownerAddress: bob.accountAddress,
          });
 
@@ -335,7 +335,7 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          console.log(`Mint transaction: ${mintTxn.hash}`);
          console.log(`Transfer transaction: ${transferTxn.hash}`);
          console.log("\nYou can view these transactions on the Libra Explorer:");
-         console.log("https://explorer.aptoslabs.com/?network=devnet");
+         console.log("https://explorer.libra2labs.com/?network=devnet");
      }
 
      example();
@@ -361,13 +361,13 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      Transfer transaction: 0x3a1e99d6fd3f8e7e962c311f3dfd92c11e468da5b6084123b8f7e0248a37ffa7
 
      You can view these transactions on the Libra Explorer:
-     https://explorer.aptoslabs.com/?network=devnet
+     https://explorer.libra2labs.com/?network=devnet
      ```
 
      You can view these transactions on the Libra Explorer:
 
      1. Copy the transaction hash from your console
-     2. Visit [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet)
+     2. Visit [Libra Explorer](https://explorer.libra2labs.com/?network=devnet)
      3. Make sure you're on the correct network (Devnet)
      4. Paste the transaction hash in the search bar
      5. View the details of your transaction, including:
@@ -381,6 +381,6 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
 
 ### Further Reading & Resources
 
-- [aptos ts-sdk docs](/build/sdks/ts-sdk)
+- [libra2 ts-sdk docs](/build/sdks/ts-sdk)
 - [Account basics](/network/blockchain/accounts)
-- [REST API specification](/network/nodes/aptos-api-spec)
+- [REST API specification](/network/nodes/libra2-api-spec)

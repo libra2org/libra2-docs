@@ -22,7 +22,7 @@ Agrega el contrato de Pyth a las dependencias de tu proyecto en el archivo `Move
 
 ```toml copy
 [dependencies]
-Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/aptos/contracts", rev = "main" }
+Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/libra2/contracts", rev = "main" }
 ```
 
 Las direcciones nombradas de `pyth`, `wormhole` y `deployers` deben definirse en tiempo de compilación. Estas direcciones se usan para interactuar con el contrato de Pyth en Libra.
@@ -34,7 +34,7 @@ deployer = "0xb31e712b26fd295357355f6845e77c888298636609e93bc9b05f0f604049f434"
 wormhole = "0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625"
 ```
 
-Consulta [Direcciones de Contrato de Libra](https://docs.pyth.network/price-feeds/contract-addresses/aptos) para la lista completa de direcciones de contrato en diferentes redes de Libra.
+Consulta [Direcciones de Contrato de Libra](https://docs.pyth.network/price-feeds/contract-addresses/libra2) para la lista completa de direcciones de contrato en diferentes redes de Libra.
 
 ## Escribir Código de Contrato
 
@@ -45,7 +45,7 @@ module example::example {
     use pyth::pyth;
     use pyth::price::Price;
     use pyth::price_identifier;
-    use aptos_framework::coin;
+    use libra2_framework::coin;
 
     // Agrega el argumento pyth_price_update a cualquier método en tu contrato que necesite leer el precio de Pyth.
     // Consulta https://docs.pyth.network/price-feeds/fetch-price-updates para más información sobre cómo obtener el pyth_price_update.
@@ -117,9 +117,9 @@ Para más detalles sobre feeds patrocinados, consulta [aquí](https://docs.pyth.
 
 ### Referencia de API
 
-La [referencia de API de Libra](https://docs.pyth.network/price-feeds/api-reference/aptos) te permite explorar interactivamente la API completa del contrato de Pyth.
+La [referencia de API de Libra](https://docs.pyth.network/price-feeds/api-reference/libra2) te permite explorar interactivamente la API completa del contrato de Pyth.
 
 ### Aplicaciones de Ejemplo
 
-- [Contrato on-chain mínimo](https://github.com/pyth-network/pyth-examples/blob/main/price_feeds/aptos/fetch_btc_price/sources/example.move), que actualiza y devuelve el precio BTC/USD de los feeds de precios de Pyth.
-- [Acuñar NFT](https://github.com/pyth-network/pyth-examples/tree/main/price_feeds/aptos/mint_nft) que usa feeds de precios de Pyth para acuñar un NFT.
+- [Contrato on-chain mínimo](https://github.com/pyth-network/pyth-examples/blob/main/price_feeds/libra2/fetch_btc_price/sources/example.move), que actualiza y devuelve el precio BTC/USD de los feeds de precios de Pyth.
+- [Acuñar NFT](https://github.com/pyth-network/pyth-examples/tree/main/price_feeds/libra2/mint_nft) que usa feeds de precios de Pyth para acuñar un NFT.

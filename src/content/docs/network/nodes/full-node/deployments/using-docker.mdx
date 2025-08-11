@@ -21,14 +21,14 @@ This section describes how to configure and run your PFN using Docker.
 ```shellscript filename="Terminal"
 mkdir mainnet && cd mainnet
 mkdir data && \
-curl -O https://raw.githubusercontent.com/libra2-core/libra2-core/mainnet/docker/compose/aptos-node/fullnode.yaml && \
-curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/waypoint.txt && \
-curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/genesis.blob
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-core/mainnet/docker/compose/libra2-node/fullnode.yaml && \
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/waypoint.txt && \
+curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/genesis.blob
 ```
 
 <Aside type="caution">
   **Don't want to connect to mainnet?**<br />
-  To connect to other networks (e.g., `devnet` and `testnet`), you can find the genesis and waypoint here ➜ https://github.com/libra2org/aptos-networks.
+  To connect to other networks (e.g., `devnet` and `testnet`), you can find the genesis and waypoint here ➜ https://github.com/libra2org/libra2-networks.
   Be sure to download the `genesis.blob` and `waypoint.txt` for those networks, instead of using the genesis
   and waypoint pointed to by the `curl` commands above.
 </Aside>
@@ -39,12 +39,12 @@ curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainne
 ```yaml filename="fullnode.yaml"
 base:
   role: "full_node"
-  data_dir: "/opt/aptos/data"
+  data_dir: "/opt/libra2/data"
   waypoint:
-    from_file: "/opt/aptos/etc/waypoint.txt"
+    from_file: "/opt/libra2/etc/waypoint.txt"
 
 execution:
-  genesis_file_location: "/opt/aptos/etc/genesis.blob"
+  genesis_file_location: "/opt/libra2/etc/genesis.blob"
 
 full_node_networks:
   - network_id: "public"
@@ -67,10 +67,10 @@ api:
 docker run --pull=always \
   --rm -p 8080:8080 \
   -p 9101:9101 -p 6180:6180 \
-  -v $(pwd):/opt/aptos/etc -v $(pwd)/data:/opt/aptos/data \
-  --workdir /opt/aptos/etc \
-  --name=aptos-fullnode aptoslabs/validator:mainnet aptos-node \
-  -f /opt/aptos/etc/fullnode.yaml
+  -v $(pwd):/opt/libra2/etc -v $(pwd)/data:/opt/libra2/data \
+  --workdir /opt/libra2/etc \
+  --name=libra2-fullnode libra2labs/validator:mainnet libra2-node \
+  -f /opt/libra2/etc/fullnode.yaml
 ```
 
 <Aside type="caution">
@@ -81,7 +81,7 @@ docker run --pull=always \
 <Aside type="note">
   **Docker tags**<br />
   The `mainnet` tag always refers to the latest official Docker image tag. You can find the latest hash for comparison at:
-  https://github.com/libra2org/aptos-networks/tree/main/mainnet
+  https://github.com/libra2org/libra2-networks/tree/main/mainnet
 </Aside>
 
 You have now successfully configured and started running a PFN in the Libra mainnet.

@@ -38,7 +38,7 @@ La creación de cuentas de Libra se puede soportar entre wallets de la siguiente
 2. Obtener la semilla maestra de esa frase mnemónica.
 3. Usar el path derivado de BIP44 para recuperar una dirección de cuenta (ej. `m/44'/637'/0'/0'/0'`)
 
-- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/aptos-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
+- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
 - Por ejemplo, Petra Wallet siempre usa el path `m/44'/637'/0'/0'/0'` ya que
   hay un mnemónico por una cuenta.
 
@@ -79,7 +79,7 @@ estos pasos para generar cuentas
 3. Usar el path derivado de BIP44 para recuperar claves privadas (ej. `m/44'/637'/i'/0'/0'`)
    donde `i` es el índice de la cuenta.
 
-- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/aptos_account.ts#L49-L69)
+- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/libra2_account.ts#L49-L69)
 
 4. Incrementar `i` hasta que se encuentren todas las cuentas que el usuario quiere importar.
 
@@ -111,7 +111,7 @@ for (let i = 0; currentGap < gapLimit; i += 1) {
 
 Más importante que la creación de cuentas, es cómo las wallets y las dapps se comunican.
 
-[Siguiendo AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md), el estándar de Wallet define una API para la interacción entre wallet y aplicación.
+[Siguiendo AIP-62](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-62.md), el estándar de Wallet define una API para la interacción entre wallet y aplicación.
 
 ### Interfaz de Wallet Estándar
 
@@ -208,19 +208,19 @@ Una dapp usa la función [getLibraWallets()](https://github.com/libra2org/wallet
 ```typescript
 import { getLibraWallets } from "@libra2-core/wallet-standard";
 
-let { aptosWallets, on } = getLibraWallets();
+let { libra2Wallets, on } = getLibraWallets();
 ```
 
 En la primera carga, y antes de que la dapp haya sido cargada, obtiene todas las wallets que han sido registradas hasta ahora. Para seguir obteniendo todas las wallets registradas después de este punto, la dapp debe añadir un listener para nuevas wallets que se registran, recibiendo una función de desuscripción, que puede usar más tarde para eliminar el listener.
 
 ```typescript
 const removeRegisterListener = on("register", function () {
-  // La dapp puede añadir nuevas wallets de aptos a su propio contexto de estado a medida que se registran
-  let { aptosWallets } = getLibraWallets();
+  // La dapp puede añadir nuevas wallets de libra2 a su propio contexto de estado a medida que se registran
+  let { libra2Wallets } = getLibraWallets();
 });
 
 const removeUnregisterListener = on("unregister", function () {
-  let { aptosWallets } = getLibraWallets();
+  let { libra2Wallets } = getLibraWallets();
 });
 ```
 
@@ -230,7 +230,7 @@ Una dapp hace una solicitud de wallet llamando el nombre de la característica q
 
 ```typescript
 const onConnect = () => {
-  this.wallet.features["aptos:connect"].connect();
+  this.wallet.features["libra2:connect"].connect();
 };
 ```
 

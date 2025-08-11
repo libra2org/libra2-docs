@@ -12,17 +12,17 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   1. 在 PowerShell 中运行安装脚本:
 
      ```powershell filename="Terminal"
-     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr https://aptos.dev/scripts/install_cli.ps1 | iex
+     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr https://docs.libra2.org/scripts/install_cli.ps1 | iex
      ```
 
-  2. 打开新的终端并运行 aptos help 验证安装是否成功.
+  2. 打开新的终端并运行 libra2 help 验证安装是否成功.
 
      - 您应该能看到 CLI 可运行的命令列表.
      - 这是未来学习每个命令具体用法的有用资源.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  如需通过脚本将 Libra CLI 更新至最新版本,可以运行 `aptos update`.
+  如需通过脚本将 Libra CLI 更新至最新版本,可以运行 `libra2 update`.
 </Aside>
 
 # 通过包管理器安装(可选)
@@ -34,19 +34,19 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 ### 如果已安装 [Scoop](https://scoop.sh/),可运行以下命令安装 Libra CLI:
 
 ```powershell filename="Terminal"
-scoop install https://aptos.dev/scoop/aptos.json
+scoop install https://docs.libra2.org/scoop/libra2.json
 ```
 
 ### 如果已安装 [Chocolatey](https://chocolatey.org/),可运行以下命令安装 Libra CLI:
 
 ```powershell filename="Terminal"
-choco install aptos
+choco install libra2
 ```
 
 ### 如果已安装 [winget](https://winget.run/),可运行以下命令安装 Libra CLI:
 
 ```powershell filename="Terminal"
-winget install aptos
+winget install libra2
 ```
 
 # 通过预编译二进制文件安装(备用方案)
@@ -58,16 +58,16 @@ winget install aptos
 
   3. 下载适用于 Windows 的 zip 文件.
 
-     - 文件名格式类似:`aptos-cli-<version>-Windows-x86_64.zip`
+     - 文件名格式类似:`libra2-cli-<version>-Windows-x86_64.zip`
      - 下载时可能需要忽略"可疑文件"警告.
 
   4. 解压下载的文件.
 
-     - 将文件移动至您未来希望调用 `aptos` 的任意文件夹.
+     - 将文件移动至您未来希望调用 `libra2` 的任意文件夹.
 
   5. 右键点击,然后复制可执行文件路径.
 
-     例如 `C:\Users\<username>\Downloads\aptos-cli-3.1.0-Windows-x86_64\aptos.exe`.
+     例如 `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe`.
 
      <Aside type="note" emoji="ℹ️">
        建议将此路径添加至 PATH 环境变量,以便后续简化 Libra CLI 调用.
@@ -78,7 +78,7 @@ winget install aptos
   7. 运行 help 命令验证安装.
 
      使用之前复制的路径调用 Libra CLI.
-     例如 `C:\Users\<username>\Downloads\aptos-cli-3.1.0-Windows-x86_64\aptos.exe help`.
+     例如 `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe help`.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">

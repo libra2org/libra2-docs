@@ -74,7 +74,7 @@ Las siguientes constantes definen varios códigos de error usados dentro del mó
 
 ```move filename="smart_table.move"
 module 0x42::smart_table_usage {
-    use aptos_std::smart_table;
+    use libra2_std::smart_table;
 
     public entry fun main() {
         let table = smart_table::new<u64, u64>();
@@ -102,7 +102,7 @@ module 0x42::smart_table_usage {
 
 ```move filename="smart_table.move"
 module 0x42::smart_table_usage {
-    use aptos_std::smart_table;
+    use libra2_std::smart_table;
 
     public fun add_multiple_entries() {
         let table = smart_table::new<u64, u64>();
@@ -132,7 +132,7 @@ module 0x42::smart_table_usage {
 
 ```move filename="smart_table.move"
 module 0x42::smart_table_usage {
-    use aptos_std::smart_table;
+    use libra2_std::smart_table;
 
     public fun update_and_clear_table() {
         let table = smart_table::new<u64, u64>();
@@ -156,8 +156,8 @@ module 0x42::smart_table_usage {
 
 ```move filename="smart_table.move"
 module 0x42::smart_table_usage {
-    use aptos_std::smart_table;
-    use aptos_std::simple_map;
+    use libra2_std::smart_table;
+    use libra2_std::simple_map;
 
     public fun convert_to_simple_map() {
         let table = smart_table::new<u64, u64>();
@@ -181,7 +181,7 @@ module 0x42::smart_table_usage {
 
 ## Código Fuente
 
-- [smart\_table.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/data_structures/smart_table.move)
+- [smart\_table.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/data_structures/smart_table.move)
 
 ## Otros Ejemplos
 

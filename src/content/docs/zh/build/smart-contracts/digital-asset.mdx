@@ -10,7 +10,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 数字资产(DA)标准是 Libra 上现代的非同质化代币(NFT)标准.NFT 代表链上的独特资产,并存储在集合中.这些 NFT 可以自定义,后续可通过你的智能合约进行转移,灵魂绑定,销毁,变更或扩展.
 
-该标准取代了旧的 [Libra Token Standard](/zh/build/smart-contracts/aptos-token).主要改进如下:
+该标准取代了旧的 [Libra Token Standard](/zh/build/smart-contracts/libra2-token).主要改进如下:
 
 | **改进项**       | **描述**                                                              |
 | ------------- | ------------------------------------------------------------------- |
@@ -18,7 +18,7 @@ import { Aside } from '@astrojs/starlight/components';
 | **直接 NFT 转账** | 现在可以直接转移 NFT,无需接收方在链上"预先注册".                              |
 | **NFT 组合性**   | NFT 可以拥有其他 NFT,便于组合.                                                |
 
-如果你只需要简单铸造 NFT,无需自定义或扩展功能,可以使用实现了 DA 标准的 `aptos_token` 模块(见下文用法).
+如果你只需要简单铸造 NFT,无需自定义或扩展功能,可以使用实现了 DA 标准的 `libra2_token` 模块(见下文用法).
 
 <Aside type="note">
   请注意,所有数字资产模块都部署在保留地址 `0x4`.
@@ -47,7 +47,7 @@ dark: '~/images/digital-asset-dark.svg',
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Description** | 可选字符串,少于 2048 字符(可通过 `MutatorRef` 修改).                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Name**        | 必填字符串,用于标识 `Collection`.名称在每个账户内必须唯一,即单个创建者账户不能创建多个同名 `Collection`.                                                                                                                                                                                                                                                                                                                                                                                                     |
-| **Royalty**     | 可选 [`Royalty`](/zh/move-reference/mainnet/aptos-token-objects/royalty#Royalty) 结构体,表示销售价格中归创作者的分成比例.可通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/royalty.move) 生成的 `MutatorRef` 修改.该模块是 DA 标准的扩展.示例见 [`aptos_token.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/aptos_token.move). |
+| **Royalty**     | 可选 [`Royalty`](/zh/move-reference/mainnet/libra2-token-objects/royalty#Royalty) 结构体,表示销售价格中归创作者的分成比例.可通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/royalty.move) 生成的 `MutatorRef` 修改.该模块是 DA 标准的扩展.示例见 [`libra2_token.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move). |
 | **URI length**  | 可选字符串,少于 512 字符,链接到 `Collection` 相关内容(可通过 `MutatorRef` 修改).                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ### 创建 `Collection`
@@ -59,7 +59,7 @@ dark: '~/images/digital-asset-dark.svg',
 如需固定供应量的 `Collection`,可使用 `collection::create_fixed_collection`:
 
 ```move filename="example.move"
-use aptos_token_objects::collection;
+use libra2_token_objects::collection;
 use std::option::{Self, Option};
 
 public entry fun create_collection(creator: &signer) {
@@ -159,7 +159,7 @@ public entry fun create_collection(creator: &signer) {
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Description** | 可选字符串,少于 2048 字符(可通过 `MutatorRef` 修改).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | **Name**        | 必填字符串,用于标识 `Collection`,在每个 `Collection` 内唯一.即单个 `Collection` 账户不能有多个同名 `Token`.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Royalty**     | 可选 [`Royalty`](https://aptos.dev/reference/move/?branch=mainnet\&page=aptos-token-objects/doc/royalty.md#0x4_royalty_Royalty) 结构体,表示销售价格中归创作者的分成比例.可通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/royalty.move) 生成的 `MutatorRef` 修改(该模块为 DA 标准扩展,示例见 [`aptos_token.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/aptos_token.move)).通常 royalty 设置在 collection 上,但也可为单独的 `Token` 设置自定义分成比例. |
+| **Royalty**     | 可选 [`Royalty`](https://docs.libra2.org/reference/move/?branch=mainnet\&page=libra2-token-objects/doc/royalty.md#0x4_royalty_Royalty) 结构体,表示销售价格中归创作者的分成比例.可通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/royalty.move) 生成的 `MutatorRef` 修改(该模块为 DA 标准扩展,示例见 [`libra2_token.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move)).通常 royalty 设置在 collection 上,但也可为单独的 `Token` 设置自定义分成比例. |
 | **URI length**  | 可选字符串,少于 512 字符,链接到 `Collection` 相关内容(可通过 `MutatorRef` 修改).                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 ### 创建 Token
@@ -169,7 +169,7 @@ public entry fun create_collection(creator: &signer) {
 1. 命名 Token.使用 `Token` 名称生成命名 Object.这样如果知道 token 和 `Collection` 名称,便于查找 token 地址,但命名 Object 不可删除.尝试删除命名 token 只会删除数据,Object 本身不会被删除.
 
 ```move filename="example.move"
-use aptos_token_objects::token;
+use libra2_token_objects::token;
 use std::option::{Self, Option};
 
 public entry fun mint_token(creator: &signer) {
@@ -195,7 +195,7 @@ public entry fun mint_token(creator: &signer) {
 2. "未命名" token.创建未命名 _Object_(可删除),但仍有 `Token` 名称.由于 Object 地址不可预测,需通过 Indexer 查找其地址.
 
 ```move filename="example.move"
-use aptos_token_objects::token;
+use libra2_token_objects::token;
 use std::option::{Self, Option};
 
 public entry fun mint_token(creator: &signer) {
@@ -267,7 +267,7 @@ public entry fun mint_token(creator: &signer) {
 
 #### Token 转账
 
-可通过 [`object::transfer`](/zh/move-reference/mainnet/aptos-framework/object#transfer) 转移 `Token`.
+可通过 [`object::transfer`](/zh/move-reference/mainnet/libra2-framework/object#transfer) 转移 `Token`.
 
 ```move filename="example.move"
 public entry fun transfer<T: key>(owner: &signer, object: object::Object<T>, to: address)
@@ -280,9 +280,9 @@ public entry fun transfer<T: key>(owner: &signer, object: object::Object<T>, to:
 ```move filename="example.move"
 module 0x42::example {
   use std::option;
-  use aptos_token_objects::token::{Self, BurnRef, Token};
+  use libra2_token_objects::token::{Self, BurnRef, Token};
   use std::string::utf8;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   struct CustomData has key, drop {
     burn_ref: BurnRef,
@@ -330,9 +330,9 @@ module 0x42::example {
 ```move filename="example.move"
 module 0x42::example {
   use std::option;
-  use aptos_token_objects::token::{Self, MutatorRef, Token};
+  use libra2_token_objects::token::{Self, MutatorRef, Token};
   use std::string::utf8;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   struct CustomData has key, drop {
     mutator_ref: MutatorRef,
@@ -371,7 +371,7 @@ module 0x42::example {
 ```
 
 <Aside type="caution">
-  修改 royalty 需通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/royalty.move) 生成 _单独_ 的 `MutatorRef`.
+  修改 royalty 需通过 [Royalty 模块](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/royalty.move) 生成 _单独_ 的 `MutatorRef`.
 </Aside>
 
 #### Token 扩展
@@ -380,23 +380,23 @@ module 0x42::example {
 
 ## Libra Token
 
-如果你不想自定义 NFT 逻辑,可直接使用 [`aptos_token`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/aptos_token.move) 模块铸造 NFT.该模块已部署在 `0x4`,支持:
+如果你不想自定义 NFT 逻辑,可直接使用 [`libra2_token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move) 模块铸造 NFT.该模块已部署在 `0x4`,支持:
 
 1. 铸造可转让,带分成的 `Token`.
 2. 铸造灵魂绑定 `Token`.
 3. 管理 NFT 的资源.
 
-所有可用辅助函数见 `aptos_token` [参考文档](/zh/move-reference/mainnet/aptos-token-objects/aptos_token).
+所有可用辅助函数见 `libra2_token` [参考文档](/zh/move-reference/mainnet/libra2-token-objects/libra2_token).
 
 <Aside type="caution">
-  使用 `aptos_token` 模块的主要限制是 Token 不可扩展(`mint` 函数不会返回 `ConstructorRef`).
+  使用 `libra2_token` 模块的主要限制是 Token 不可扩展(`mint` 函数不会返回 `ConstructorRef`).
 </Aside>
 
-### 使用 `aptos_token` 铸造
+### 使用 `libra2_token` 铸造
 
-使用 `aptos_token` 铸造 `Token` 所需参数与实现 DA 标准的 token 相同.此外,`aptos_token` 模块允许你指定属性键值对(property map)以满足 NFT 的其他需求.
+使用 `libra2_token` 铸造 `Token` 所需参数与实现 DA 标准的 token 相同.此外,`libra2_token` 模块允许你指定属性键值对(property map)以满足 NFT 的其他需求.
 
-可通过调用 `aptos_token::mint` 铸造 `Token`:
+可通过调用 `libra2_token::mint` 铸造 `Token`:
 
 ```move filename="example.move"
 public entry fun mint(
@@ -413,7 +413,7 @@ public entry fun mint(
 
 #### 灵魂绑定 Token
 
-如需铸造灵魂绑定 `Token`,可调用 [`aptos_token::mint_soul_bound`](/zh/move-reference/mainnet/aptos-token-objects/aptos_token#mint_soul_bound):
+如需铸造灵魂绑定 `Token`,可调用 [`libra2_token::mint_soul_bound`](/zh/move-reference/mainnet/libra2-token-objects/libra2_token#mint_soul_bound):
 
 ```move filename="example.move"
 public entry fun mint_soul_bound(
@@ -430,12 +430,12 @@ public entry fun mint_soul_bound(
 ```
 
 <Aside type="caution">
-  近期将发布新模块 `TokenMinter` 替代 `aptos_token`.可在 [此处](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-72.md) 跟进进展.
+  近期将发布新模块 `TokenMinter` 替代 `libra2_token`.可在 [此处](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-72.md) 跟进进展.
 </Aside>
 
 ## 示例与有用链接
 
-- [数字资产示例](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/token_objects)
-- [数字资产市场示例](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/marketplace)
-- [源代码](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/token.move)
-- [`aptos_token` 源代码](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/aptos_token.move)
+- [数字资产示例](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/token_objects)
+- [数字资产市场示例](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/marketplace)
+- [源代码](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
+- [`libra2_token` 源代码](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move)

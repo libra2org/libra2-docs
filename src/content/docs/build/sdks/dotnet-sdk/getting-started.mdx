@@ -7,7 +7,7 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
+  [libra2-core/libra2-dotnet-sdk](https://github.com/libra2org/libra2-dotnet-sdk)
   repository.
 </Aside>
 
@@ -79,8 +79,8 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
              var transaction = await client.Transaction.Build(
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
-                     function: "0x1::aptos_account::transfer_coins",
-                     typeArguments: ["0x1::aptos_coin::LibraCoin"],
+                     function: "0x1::libra2_account::transfer_coins",
+                     typeArguments: ["0x1::libra2_coin::LibraCoin"],
                      functionArguments: [account.Address, "100000"]
                  )
              );
@@ -113,7 +113,7 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
                  new GenerateViewFunctionPayloadData(
                      function: "0x1::coin::name",
                      functionArguments: [],
-                     typeArguments: ["0x1::aptos_coin::LibraCoin"]
+                     typeArguments: ["0x1::libra2_coin::LibraCoin"]
                  )
              );
 
@@ -127,5 +127,5 @@ If you have not already installed the Libra .NET SDK, follow one of the guides b
 ## Additional Resources
 
 <CardGrid>
-  <LinkCard href="https://libra2-core.github.io/aptos-dotnet-sdk" title="Full API Reference" description="The full API reference for the Libra .NET SDK." target="_blank" />
+  <LinkCard href="https://libra2-core.github.io/libra2-dotnet-sdk" title="Full API Reference" description="The full API reference for the Libra .NET SDK." target="_blank" />
 </CardGrid>

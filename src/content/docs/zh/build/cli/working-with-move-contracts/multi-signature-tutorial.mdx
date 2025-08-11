@@ -8,20 +8,20 @@ import { Aside } from '@astrojs/starlight/components';
 
 这部分内容是以[JSON 中的参数教程](/zh/build/cli/working-with-move-contracts/arguments-in-json-tutorial)为基础展开的.如果你尚未完成那个教程,请先行阅读并实践它.
 
-此外,这个教程也会用到 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
+此外,这个教程也会用到 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args).
 
 <Aside type="note" emoji="ℹ️">
   如果你准备学习这一部分,那么请确保你已经按照[JSON 中的参数教程](/zh/build/cli/working-with-move-contracts/arguments-in-json-tutorial)的步骤进行了学习.
 </Aside>
 
-在本例中,Ace 和 Bee 将通过一个 2-of-2 形式的“多签版本 2 (multisig v2)”账户来执行治理操作.所谓 “2-of-2”,意味着需要至少两个账户的签名才能完成操作,这一账户类型是按照 [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move) 文件中定义的.
+在本例中,Ace 和 Bee 将通过一个 2-of-2 形式的“多签版本 2 (multisig v2)”账户来执行治理操作.所谓 “2-of-2”,意味着需要至少两个账户的签名才能完成操作,这一账户类型是按照 [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/multisig_account.move) 文件中定义的.
 
 ## 创建账户
 
 既然 Ace 的账户已经在 [JSON 中的参数教程](/zh/build/cli/working-with-move-contracts/arguments-in-json-tutorial)中创建,我们接下来为 Bee 也生成一个个性化地址(vanity address)账户吧:
 
 ```shellscript filename="Terminal"
-aptos key generate \
+libra2 key generate \
     --vanity-prefix 0xbee \
     --output-file bee.key
 ```
@@ -55,7 +55,7 @@ bee_addr=0xbeec980219d246581cef5166dc6ba5fb1e090c7a7786a5176d111a9029b16ddc
 通过水龙头(faucet)为 Bee 的账户打入资金:
 
 ```shellscript filename="Terminal"
-aptos account fund-with-faucet --account $bee_addr
+libra2 account fund-with-faucet --account $bee_addr
 ```
 
 <details>
@@ -71,7 +71,7 @@ aptos account fund-with-faucet --account $bee_addr
 此时,Ace 可以创建一个多重签名账户:
 
 ```shellscript filename="Terminal"
-aptos multisig create \
+libra2 multisig create \
     --additional-owners $bee_addr \
     --num-signatures-required 2 \
     --private-key-file ace.key \
@@ -108,10 +108,10 @@ multisig_addr=0x57478da34604655c68b1dcb89e4f4a9124b6c0ecc1c59a0931d58cc4e60ac5c5
 
 ## 检查多重签名账户
 
-利用 [`multisig_account.move` view 函数](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237)来详细了解这个多重签名账户的情况:
+利用 [`multisig_account.move` view 函数](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/libra2-move/framework/libra2-framework/sources/multisig_account.move#L237)来详细了解这个多重签名账户的情况:
 
 ```shellscript filename="需要提供的签名数"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::num_signatures_required \
     --args \
         address:"$multisig_addr"
@@ -130,7 +130,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="Owners"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::owners \
     --args \
         address:"$multisig_addr"
@@ -152,7 +152,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="最后解决的序号"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::last_resolved_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -171,7 +171,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="下一个序号"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -191,12 +191,12 @@ aptos move view \
 
 ## 提交一个发布交易的队列(enqueued)
 
-第一个排队的多签交易将是一个为了发布 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args) 的交易.
+第一个排队的多签交易将是一个为了发布 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args) 的交易.
 
 首先创建一个包含发布信息的 JSON 文件:
 
 ```shellscript filename="Command"
-aptos move build-publish-payload \
+libra2 move build-publish-payload \
     --named-addresses test_account=$multisig_addr \
     --json-output-file publication.json \
     --assume-yes
@@ -215,7 +215,7 @@ aptos move build-publish-payload \
 接着让 Ace 提议从多签账户发布这个包,但链上只记录(payload)相关信息的哈希值:
 
 ```shellscript filename="Command"
-aptos multisig create-transaction \
+libra2 multisig create-transaction \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --store-hash-only \
@@ -246,7 +246,7 @@ aptos multisig create-transaction \
 注意目前最新完成的交易序列号仍为 0,因为还没有任何交易完成处理:
 
 ```shellscript filename="最后解决的序号"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::last_resolved_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -267,7 +267,7 @@ aptos move view \
 然而,由于已经提交了一个交易至处理队列,下一个序列号已经增加:
 
 ```shellscript filename="下一个序号"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -288,7 +288,7 @@ aptos move view \
 现在,我们可以检查已提交至链上的多签交易了:
 
 ```shellscript filename="获取交易"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::get_transaction \
     --args \
         address:"$multisig_addr" \
@@ -333,7 +333,7 @@ aptos move view \
 接下来由 Bee 队列(enqueue)一个治理参数设置的交易,并把整个交易的详细信息直接保存(payload)在区块链上:
 
 ```shellscript filename="Command"
-aptos multisig create-transaction \
+libra2 multisig create-transaction \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -370,7 +370,7 @@ aptos multisig create-transaction \
 注意,交易队列的序号又增加了:
 
 ```shellscript filename="下一个序号"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -391,7 +391,7 @@ aptos move view \
 目前,包发布交易和治理参数设置交易都已提交,正处于待执行的状态:
 
 ```shellscript filename="获取待处理的交易"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::get_pending_transactions \
     --args \
         address:"$multisig_addr"
@@ -455,7 +455,7 @@ aptos move view \
 因为只有 Ace 对包发布的交易进行了投票(他在提交提议时就默认同意了),所以这个交易目前还不能执行:
 
 ```shellscript filename="是否可以被执行"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -477,7 +477,7 @@ aptos move view \
 不过,在 Bee 投票前,她先核对了链上存储的哈希值与包发布的 JSON 文件是否一致:
 
 ```shellscript filename="验证交易提案"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --sequence-number 1
@@ -518,7 +518,7 @@ aptos multisig verify-proposal \
 验证无误后,Bee 确信链上记录的哈希与她本地编译的包发布的 JSON 文件相符,于是她投了赞成票:
 
 ```shellscript filename="批准交易"
-aptos multisig approve \
+libra2 multisig approve \
     --multisig-address $multisig_addr \
     --sequence-number 1 \
     --private-key-file bee.key \
@@ -548,7 +548,7 @@ aptos multisig approve \
 现在,这个交易已经被执行了:
 
 ```shellscript filename="是否能够被执行"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -570,7 +570,7 @@ aptos move view \
 此时,无论是 Ace 还是 Bee 都有权利通过多重签名账户发起包发布交易,但是需要提交完整的交易详情,因为在区块链上仅记录了这些详情的哈希值:
 
 ```shellscript filename="Publication"
-aptos multisig execute-with-payload \
+libra2 multisig execute-with-payload \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --private-key-file bee.key \
@@ -593,7 +593,7 @@ aptos multisig execute-with-payload \
 目前只有 Bee 对这项治理参数交易投了票(她在提出这个提议时就表达了支持),所以现在还不能执行交易:
 
 ```shellscript filename="是否能否被执行"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -615,7 +615,7 @@ aptos move view \
 然而,在 Ace 投票之前,他会核实链上记录的交易信息是否与他所预期要处理的功能参数一致:
 
 ```shellscript filename="验证交易提案"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -663,7 +663,7 @@ aptos multisig verify-proposal \
 需要注意的是,一旦 Ace 更改任何一个参数,那么核实过程将不会通过:
 
 ```shellscript filename="由于修改了 u8 类型数据，交易验证失败。"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -681,7 +681,7 @@ aptos multisig verify-proposal \
 
   ```shellscript filename="Terminal"
   {
-    "Error": "Unexpected error: Transaction mismatch: The transaction you provided has a payload hash of 0xe494b0072d6f940317344967cf0e818c80082375833708c773b0275f3ad07e51, but the on-chain transaction proposal you specified has a payload hash of 0x070ed7c3f812f25f585461305d507b96a4e756f784e01c8c59901871267a1580. For more info, see https://aptos.dev/move/move-on-aptos/cli#multisig-governance"
+    "Error": "Unexpected error: Transaction mismatch: The transaction you provided has a payload hash of 0xe494b0072d6f940317344967cf0e818c80082375833708c773b0275f3ad07e51, but the on-chain transaction proposal you specified has a payload hash of 0x070ed7c3f812f25f585461305d507b96a4e756f784e01c8c59901871267a1580. For more info, see https://docs.libra2.org/move/move-on-libra2/cli#multisig-governance"
   }
   ```
 </details>
@@ -689,7 +689,7 @@ aptos multisig verify-proposal \
 Ace 对这次交易表示了支持:
 
 ```shellscript filename="批准交易"
-aptos multisig approve \
+libra2 multisig approve \
     --multisig-address $multisig_addr \
     --sequence-number 2 \
     --private-key-file ace.key \
@@ -719,7 +719,7 @@ aptos multisig approve \
 由于交易信息已经保存在链上,就不必执行那些待处理的交易了:
 
 ```shellscript filename="Execution"
-aptos multisig execute \
+libra2 multisig execute \
     --multisig-address $multisig_addr \
     --private-key-file ace.key \
     --max-gas 10000 \

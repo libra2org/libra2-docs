@@ -23,7 +23,7 @@ import { Aside } from '@astrojs/starlight/components';
 1. 检查您的节点是否正在进行状态同步,运行此命令:
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_state_sync_version"
    ```
 
    您应该期望看到 `synced` 或 `synced_states` 的版本增加.首先是验证者全节点(VFN)的版本号开始增加,随后您的验证器节点也将开始进行同步.
@@ -36,14 +36,14 @@ import { Aside } from '@astrojs/starlight/components';
 2. 验证您的验证者节点是否正在连接到网络上的其他节点.
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_connections{.*\"Validator\".*}"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_connections{.*\"Validator\".*}"
    ```
 
    该命令将输出您的验证者节点的入站和出站连接数量.例如:
 
    ```shellscript filename="Terminal"
-   aptos_connections{direction="inbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 5
-   aptos_connections{direction="outbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 2
+   libra2_connections{direction="inbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 5
+   libra2_connections{direction="outbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 2
    ```
 
    只要其中一个指标大于零,就表示您的验证者节点就至少连接到了网络上的一个节点.如果您的验证者没有连接到任何节点,请确保您的 VFN 已经完成了同步.一旦您的 VFN 完成同步,您的验证者节点将开始同步,并最终能够连接到其他节点.
@@ -51,9 +51,9 @@ import { Aside } from '@astrojs/starlight/components';
 3. 节点更新到最新版本之后,你还可以检查网络是否正常运作,且你的节点是否在正常提出共识提议.
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_consensus_current_round"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_consensus_current_round"
 
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_consensus_proposals_count"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_consensus_proposals_count"
    ```
 
    您应该期望看到这些数字持续增加.
@@ -64,7 +64,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 - **指标:** 您可以通过运行 `curl` 命令来监控您的本地指标端点,[节点检查服务](/zh/network/nodes/measure/node-inspection-service)并验证关键指标.例如,您可以通过运行在[验证同步](/zh/network/nodes/full-node/verify-pfn#验证同步状态)部分中描述的命令来验证您节点的同步状态.
 
-- **REST API:** 您也可以通过查询 REST API 来监控您节点的健康状况.例如,您可以通过 ping 您节点的 REST API 的索引(index)页面来验证您节点的当前区块高度.有关更多信息,请参阅 [Libra API 规范](/zh/network/nodes/aptos-api-spec).
+- **REST API:** 您也可以通过查询 REST API 来监控您节点的健康状况.例如,您可以通过 ping 您节点的 REST API 的索引(index)页面来验证您节点的当前区块高度.有关更多信息,请参阅 [Libra API 规范](/zh/network/nodes/libra2-api-spec).
 
 - **监控工具:** 为了提高可观测性,您还可以安装监控工具来抓取本地指标端点:
   - 对于基于 Kubernetes 的部署,请安装监控 Helm 图表 ([https://github.com/libra2org/libra2-core/tree/main/terraform/helm/monitoring](https://github.com/libra2org/libra2-core/tree/main/terraform/helm/monitoring)).

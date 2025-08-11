@@ -14,7 +14,7 @@ Now that you are all set up, let's explore the `contract` directory.
 
 A `Move.toml` file is a manifest file that contains metadata such as name, version, and dependencies for the package.
 
-Take a look at the new `Move.toml` file. You should see your package information and an `LibraFramework` dependency. The `LibraFramework` dependency points to the `libra2-core/aptos-move/framework/aptos-framework` GitHub repo main branch.
+Take a look at the new `Move.toml` file. You should see your package information and an `LibraFramework` dependency. The `LibraFramework` dependency points to the `libra2-core/libra2-move/framework/libra2-framework` GitHub repo main branch.
 
 ### Why `sources` directory?
 
@@ -30,7 +30,7 @@ An account is needed to publish a Move module. When we installed the template, t
 If you open that file, you will see content resembling:
 
 ```shellscript filename=".env"
-PROJECT_NAME=my-aptos-dapp
+PROJECT_NAME=my-libra2-dapp
 VITE_APP_NETWORK=devnet
 VITE_APTOS_API_KEY=""
 VITE_MODULE_PUBLISHER_ACCOUNT_ADDRESS=0x1cecfef9e239eff12fb1a3d189a121c37f48908d86c0e9c02ec103e0a05ddebb
@@ -78,7 +78,7 @@ todolist_addr='_'
 
 The `'_'` is a placeholder for the account address. When we run the `move` compiler, the compiler will replace it with the actual account address.
 
-`create-aptos-dapp` comes with premade scripts to easily run `move` commands, like `compile`, `test` and `publish`.
+`create-libra2-dapp` comes with premade scripts to easily run `move` commands, like `compile`, `test` and `publish`.
 
 1. Open each of the files in the `scripts/move` directory and update the `message_board_addr` variable to be `todolist_addr`.
 
@@ -174,9 +174,9 @@ We have some errors on `Unbound type`- this is happening because we used some ty
 
 ```move filename="todolist.move"
 ...
-use aptos_framework::event;
+use libra2_framework::event;
 use std::string::String;
-use aptos_std::table::Table;
+use libra2_std::table::Table;
 ...
 ```
 
@@ -287,7 +287,7 @@ public entry fun create_task(account: &signer, content: String) acquires TodoLis
 
 ```move filename="todolist.move"
 use std::signer;
-use aptos_std::table::{Self, Table}; // This one we already have, need to modify it
+use libra2_std::table::{Self, Table}; // This one we already have, need to modify it
 ```
 
 **Back to the code; what is happening here?**
@@ -297,7 +297,7 @@ use aptos_std::table::{Self, Table}; // This one we already have, need to modify
 - We can now increment the `task_counter` property, and create a new `Task` with the `signer_address`, `counter` and the provided `content`.
 - We push it to the `todo_list.tasks` table that holds all of our tasks along with the new `counter` (which is the table key) and the newly created Task.
 - Then we assign the global `task_counter` to be the new incremented counter.
-- Finally, we emit the `task_created` event that holds the new Task data. `emit_event` is an `aptos-framework` function that accepts a reference to the event handle and a message. In our case, we are passing the function a reference (using the sign &) to the account’s `TodoListresource` `set_task_event` property as the first argument and a second message argument which is the new Task we just created. Remember, we have a `set_task_event` property in our `TodoList` struct.
+- Finally, we emit the `task_created` event that holds the new Task data. `emit_event` is an `libra2-framework` function that accepts a reference to the event handle and a message. In our case, we are passing the function a reference (using the sign &) to the account’s `TodoListresource` `set_task_event` property as the first argument and a second message argument which is the new Task we just created. Remember, we have a `set_task_event` property in our `TodoList` struct.
 
 ### Complete task function
 
@@ -330,7 +330,7 @@ Now try to compile the code:
 3. Another `Unbound` error? To fix this, add a `use` statement to use the `account` module.
 
 ```move filename="todolist.move"
-use aptos_framework::account;
+use libra2_framework::account;
 ```
 
 4. run `npm run move:compile` again.
@@ -559,7 +559,7 @@ This test confirms that an account can’t use that function if they haven’t c
 
 The test also uses a special annotation `#[expected_failure]` that, as the name suggests, expects to fail with an `ENOT_INITIALIZED` error code.
 
-6. Run the `aptos move test` command. If all goes right, we should see a success message like:
+6. Run the `libra2 move test` command. If all goes right, we should see a success message like:
 
 ```shellscript filename="Terminal"
 Running Move unit tests
@@ -618,14 +618,14 @@ Let's try again:
 4. That will compile, simulate and finally publish your module into devnet. You should see a success message:
 
 ```shellscript filename="Terminal"
-Transaction submitted: https://explorer.aptoslabs.com/txn/0x68dadf24b9ec29b9c32bd78836d20032de615bbef5f10db580228577f7ca945a?network=devnet
+Transaction submitted: https://explorer.libra2labs.com/txn/0x68dadf24b9ec29b9c32bd78836d20032de615bbef5f10db580228577f7ca945a?network=devnet
 Code was successfully deployed to object address 0x2bce4f7bb8a67641875ba5076850d2154eb9621b0c021982bdcd80731279efa6
 {
   "Result": "Success"
 }
 ```
 
-6. You can now head to the [Libra Explorer](https://explorer.aptoslabs.com/) link and view the transaction details. You can also see the module published on chain by looking for the object address.
+6. You can now head to the [Libra Explorer](https://explorer.libra2labs.com/) link and view the transaction details. You can also see the module published on chain by looking for the object address.
 
 <Aside type="note">
   Check out your `.env` file and see the `VITE_MODULE_ADDRESS` variable, it is set to the object address of the published module.

@@ -10,7 +10,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Genesis ceremonies
 
-The `aptos` tool supports bootstrapping new blockchains through what is known as a genesis ceremony. The output of the genesis ceremony is the output of move instructions that prepares a blockchain for online operation. The input consists of:
+The `libra2` tool supports bootstrapping new blockchains through what is known as a genesis ceremony. The output of the genesis ceremony is the output of move instructions that prepares a blockchain for online operation. The input consists of:
 
 - A set of validators and their configuration
 - The initial set of Move modules, known as a framework
@@ -24,7 +24,7 @@ The `aptos` tool supports bootstrapping new blockchains through what is known as
 - Each participant generates their `ValidatorConfiguration` and distributes it.
 - Each participant generates a `genesis.blob` from the resulting contributions.
 - The genesis organizer executes the `genesis.blob` to derive the initial waypoint and distributes it.
-- Each participant begins their `aptos-node`. The `aptos-node` verifies upon startup that the `genesis.blob` with the waypoint provided by the genesis organizer.
+- Each participant begins their `libra2-node`. The `libra2-node` verifies upon startup that the `genesis.blob` with the waypoint provided by the genesis organizer.
 - The blockchain will begin consensus after a quorum of stake is available.
 
 ### Prepare libra2-core
@@ -55,11 +55,11 @@ From your Libra-core repository, build the framework and package it:
 
 ```shellscript filename="Terminal"
 cargo run --package framework
-mkdir aptos-framework-release
-cp aptos-framework/releases/artifacts/current/build/**/bytecode_modules/* aptos-framework-release
+mkdir libra2-framework-release
+cp libra2-framework/releases/artifacts/current/build/**/bytecode_modules/* libra2-framework-release
 ```
 
-The framework will be stored within the `aptos-framework-release` directory.
+The framework will be stored within the `libra2-framework-release` directory.
 
 ### The `ValidatorConfiguration` file
 
@@ -89,18 +89,18 @@ full_node_host:
 stake_amount: 1
 ```
 
-To generate this using the `aptos` CLI:
+To generate this using the `libra2` CLI:
 
 1. Generate your validator's keys:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- genesis generate-keys --output-dir bobs
+cargo run --package libra2 -- genesis generate-keys --output-dir bobs
 ```
 
 2. Generate your `ValidatorConfiguration`:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- \\
+cargo run --package libra2 -- \\
     genesis set-validator-configuration \\
     --keys-dir bobs \\
     --username bob \\
@@ -121,12 +121,12 @@ To generate the `genesis.blob` and waypoint:
 - Place all the `ValidatorConfiguration` files into the `genesis` directory.
 - Ensure that the `ValidatorConfiguration` files are listed under the set of `users` within the `layout` file.
 - Make a `framework` directory within the `genesis` directory and place the framework release `.mv` files into the `framework` directory.
-- Use the `aptos` CLI to generate genesis and waypoint:
+- Use the `libra2` CLI to generate genesis and waypoint:
 
 ```shellscript filename="Terminal"
-cargo run --package aptos -- genesis generate-genesis --local-repository-dir genesis
+cargo run --package libra2 -- genesis generate-genesis --local-repository-dir genesis
 ```
 
-### Starting an `aptos-node`
+### Starting an `libra2-node`
 
 Upon generating the `genesis.blob` and waypoint, place them into your validator and fullnode's configuration directory and begin your validator and fullnode.

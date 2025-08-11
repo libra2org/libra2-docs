@@ -29,7 +29,7 @@ export default navDictionary({
   // Smart Contracts & Move Sub-Groups
   "smartContracts.group.moveBook": "Move 语言概念", // Move Language Concepts
   "smartContracts.group.development": "开发", // Development
-  "smartContracts.group.aptosFeatures": "Libra Move 功能", // Libra Move Features
+  "smartContracts.group.libra2Features": "Libra Move 功能", // Libra Move Features
   "smartContracts.group.tooling": "工具", // Tooling
   "smartContracts.group.reference": "Move 参考", // Move Reference
 

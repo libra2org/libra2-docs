@@ -22,7 +22,7 @@ diferencias notables.
 </Aside>
 
 <Steps>
-  1. Construir la transacción incluyendo aptos.AdditionalSigners con una lista de cada firmante adicional.
+  1. Construir la transacción incluyendo libra2.AdditionalSigners con una lista de cada firmante adicional.
 
      <Aside type="note">
        Asegúrate de reemplazar el campo `Function` de abajo con tu función de entrada
@@ -30,21 +30,21 @@ diferencias notables.
      </Aside>
 
      ```go filename="multi_agent.go"
-     transaction, err := client.BuildTransactionMultiAgent(alice.AccountAddress(), aptos.TransactionPayload{
-       Payload: &aptos.EntryFunction{
+     transaction, err := client.BuildTransactionMultiAgent(alice.AccountAddress(), libra2.TransactionPayload{
+       Payload: &libra2.EntryFunction{
          // Reemplaza módulo y función con tu función multi-agente
-         Module: aptos.ModuleId{
-           Address: aptos.AccountOne,
-           Name:    "aptos_account",
+         Module: libra2.ModuleId{
+           Address: libra2.AccountOne,
+           Name:    "libra2_account",
          },
          Function: "transfer",
-         ArgTypes: []aptos.TypeTag{},
+         ArgTypes: []libra2.TypeTag{},
          Args: [][]byte{
            accountBytes,
            amountBytes,
          },
        },
-       AdditionalSigners: []aptos.AccountAddress{bob.AccountAddress()},
+       AdditionalSigners: []libra2.AccountAddress{bob.AccountAddress()},
      })
      ```
 
@@ -71,7 +71,7 @@ diferencias notables.
      signedTxn, ok := rawTxn.ToMultiAgentSignedTransaction(aliceAuth, []crypto.AccountAuthenticator{bobAuth})
      ```
 
-  4. Enviar la transacción combinando todas las firmas de agentes a través del parámetro aptos.AdditionalSigners.
+  4. Enviar la transacción combinando todas las firmas de agentes a través del parámetro libra2.AdditionalSigners.
 
      ```go filename="multi_agent.go"
      submitResponse, err := client.SubmitTransaction(signedTxn)
@@ -91,5 +91,5 @@ diferencias notables.
 `NUMBER_OF_SIGNER_ARGUMENTS_MISMATCH` - Esto sucede cuando intentas
 hacer firma multi-agente para una función que no requiere ese número de
 cuentas. Por ejemplo, si intentas usar múltiples firmas para una
-función `0x1::aptos_account::transfer` - solo espera una dirección, y por eso
+función `0x1::libra2_account::transfer` - solo espera una dirección, y por eso
 produce un error cuando se proporciona más de una.

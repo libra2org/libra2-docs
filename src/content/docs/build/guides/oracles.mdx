@@ -22,7 +22,7 @@ Add the Pyth Contract to your project dependencies in the `Move.toml` file:
 
 ```toml copy
 [dependencies]
-Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/aptos/contracts", rev = "main" }
+Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/libra2/contracts", rev = "main" }
 ```
 
 The named addresses of `pyth`, `wormhole`, and `deployers` must be defined at compile time. These addresses are used to interact with the Pyth contract on Libra.
@@ -34,7 +34,7 @@ deployer = "0xb31e712b26fd295357355f6845e77c888298636609e93bc9b05f0f604049f434"
 wormhole = "0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625"
 ```
 
-Consult [Libra Contract Addresses](https://docs.pyth.network/price-feeds/contract-addresses/aptos) for the complete list of contract addresses on different Libra networks.
+Consult [Libra Contract Addresses](https://docs.pyth.network/price-feeds/contract-addresses/libra2) for the complete list of contract addresses on different Libra networks.
 
 ## Write Contract Code
 
@@ -45,7 +45,7 @@ module example::example {
     use pyth::pyth;
     use pyth::price::Price;
     use pyth::price_identifier;
-    use aptos_framework::coin;
+    use libra2_framework::coin;
 
     // Add the pyth_price_update argument to any method on your contract that needs to read the Pyth price.
     // See https://docs.pyth.network/price-feeds/fetch-price-updates for more information on how to fetch the pyth_price_update.
@@ -117,9 +117,9 @@ For more details on sponsored feeds, check [here](https://docs.pyth.network/pric
 
 ### API Reference
 
-The [Libra API reference](https://docs.pyth.network/price-feeds/api-reference/aptos) lets you interactively explore the complete API of the Pyth contract.
+The [Libra API reference](https://docs.pyth.network/price-feeds/api-reference/libra2) lets you interactively explore the complete API of the Pyth contract.
 
 ### Example Applications
 
-- [Minimal on-chain contract](https://github.com/pyth-network/pyth-examples/blob/main/price_feeds/aptos/fetch_btc_price/sources/example.move), which updates and returns the BTC/USD price from Pyth price feeds.
-- [Mint NFT](https://github.com/pyth-network/pyth-examples/tree/main/price_feeds/aptos/mint_nft) that use Pyth price feeds to mint an NFT.
+- [Minimal on-chain contract](https://github.com/pyth-network/pyth-examples/blob/main/price_feeds/libra2/fetch_btc_price/sources/example.move), which updates and returns the BTC/USD price from Pyth price feeds.
+- [Mint NFT](https://github.com/pyth-network/pyth-examples/tree/main/price_feeds/libra2/mint_nft) that use Pyth price feeds to mint an NFT.

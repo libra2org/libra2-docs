@@ -12,13 +12,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   1. 在终端中使用以下任一命令:
 
      ```shellscript filename="Terminal"
-     curl -fsSL "https://aptos.dev/scripts/install_cli.sh" | sh
+     curl -fsSL "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
      或使用等效的 `wget` 命令:
 
      ```shellscript filename="Terminal"
-     wget -qO- "https://aptos.dev/scripts/install_cli.sh" | sh
+     wget -qO- "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
      <Aside type="caution">
@@ -26,7 +26,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
        特别是对于较旧的非 SIMD 处理器或在 ARM Mac 上的 Ubuntu x86\_64 docker 容器,您可能需要改用以下命令来跳过 SIMD 指令:
 
        ```shellscript filename="Terminal"
-         curl -fsSL "https://aptos.dev/scripts/install_cli.sh" | sh -s -- --generic-linux
+         curl -fsSL "https://docs.libra2.org/scripts/install_cli.sh" | sh -s -- --generic-linux
        ```
      </Aside>
 
@@ -35,14 +35,14 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      - 将目录添加到 PATH 的步骤取决于您使用的 shell.
      - 您可以运行 `echo $SHELL` 来打印机器的默认 shell,然后搜索针对该 shell 添加目录到 PATH 的具体步骤.
 
-  3. 打开新终端并运行 aptos help 来验证安装是否成功
+  3. 打开新终端并运行 libra2 help 来验证安装是否成功
 
      - 您应该能看到 CLI 可运行的命令列表.
      - 未来这将是一个有用的资源,可以详细了解每个命令的工作原理.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  如果想将 Libra CLI 更新到最新版本,可以运行 `aptos update`.
+  如果想将 Libra CLI 更新到最新版本,可以运行 `libra2 update`.
 </Aside>
 
 # 通过包管理器安装(可选)
@@ -56,15 +56,15 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 #### 通过 AUR (Arch 用户仓库) 安装
 
 ```shellscript filename="Terminal"
-git clone https://aur.archlinux.org/aptos-bin.git
-cd aptos-bin
+git clone https://aur.archlinux.org/libra2-bin.git
+cd libra2-bin
 makepkg -si
 ```
 
 或使用 AUR 助手如 `yay`:
 
 ```shellscript filename="Terminal"
-yay -S aptos-bin
+yay -S libra2-bin
 ```
 
 # 通过预编译二进制文件安装(备用方法)
@@ -76,7 +76,7 @@ yay -S aptos-bin
 
   3. 下载适用于 Linux 的 zip 文件.
 
-     1. 文件名类似:`aptos-cli-<version>-Linux-x86_64.zip` 或 `aptos-cli-<version>-Linux-aarch64.zip`.
+     1. 文件名类似:`libra2-cli-<version>-Linux-x86_64.zip` 或 `libra2-cli-<version>-Linux-aarch64.zip`.
      2. 确保选择与您计算机架构匹配的 zip 文件(x86\_64 对应 Intel/AMD,aarch64 对应 ARM).
      3. 下载时可能需要忽略关于该文件可疑的警告.
 
@@ -86,9 +86,9 @@ yay -S aptos-bin
 
   6. 打开终端并导航至您偏好的文件夹.
 
-  7. 通过运行 chmod +x ~/aptos 使 ~/aptos 成为可执行文件.
+  7. 通过运行 chmod +x ~/libra2 使 ~/libra2 成为可执行文件.
 
-  8. 运行 ~/aptos help 验证已安装版本是否正常工作.
+  8. 运行 ~/libra2 help 验证已安装版本是否正常工作.
 
      您应该会看到所有 CLI 命令的使用说明.这些说明在未来尝试理解如何使用特定命令时会很有帮助.
 

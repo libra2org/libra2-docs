@@ -4,7 +4,7 @@ title: "Adaptador de Wallet"
 
 Hay dos estándares de adaptador de wallet en el ecosistema de Libra:
 
-1. [Adaptador de Wallet de Libra](#aptos-wallet-adapter) por Libra Labs
+1. [Adaptador de Wallet de Libra](#libra2-wallet-adapter) por Libra Labs
 2. [OKX Connect](#okx-connect) por OKX
 
 ## Adaptador de Wallet de Libra
@@ -14,7 +14,7 @@ de Libra y las wallets de Libra se comuniquen entre sí.
 
 Para desarrolladores de dapps, esto significa que puedes conectarte a cualquier wallet de Libra que esté
 integrada con el Adaptador de Wallet sin necesidad de escribir código personalizado para cada
-wallet. Esto se describe en [AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md),
+wallet. Esto se describe en [AIP-62](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-62.md),
 que define el Estándar de Wallet Moderno y la autodetección de wallets.
 
 Para proveedores de wallets de Libra, integrar con AIP-62 significa que tu wallet será
@@ -23,28 +23,28 @@ compatible con cualquier dapp que use el Adaptador de Wallet.
 ### Para Dapps de Libra
 
 Sigue la [Guía del Adaptador de Wallet para Constructores de Dapps](/build/sdks/wallet-adapter/dapp) sobre cómo usar el
-Adaptador de Wallet (via el [paquete Wallet Adapter React](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-react)).
+Adaptador de Wallet (via el [paquete Wallet Adapter React](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-react)).
 
 ### Para Proveedores de Wallets de Libra
 
 Sigue una de estas guías para cómo implementar un plugin del Adaptador de Wallet que
 las dapps puedan conectar:
 
-1. Para [Wallets de Extensión de Navegador](/build/sdks/wallet-adapter/browser-extension-wallets) (ej. [Petra](https://chromewebstore.google.com/detail/petra-aptos-wallet/ejjladinnckdgjemekebdpeokbikhfci?hl=en))
-2. Para [Wallets SDK](/build/sdks/wallet-adapter/wallets) (ej. [LibraConnect](https://aptosconnect.app))
+1. Para [Wallets de Extensión de Navegador](/build/sdks/wallet-adapter/browser-extension-wallets) (ej. [Petra](https://chromewebstore.google.com/detail/petra-libra2-wallet/ejjladinnckdgjemekebdpeokbikhfci?hl=en))
+2. Para [Wallets SDK](/build/sdks/wallet-adapter/wallets) (ej. [LibraConnect](https://libra2connect.app))
 
 ## OKX Connect
 
 El adaptador OKX Connect proporciona una interfaz para que las dapps de Libra se conecten a la wallet
 de OKX y otras wallets que soporten el estándar OKX Connect. Puedes encontrar
-más información sobre OKX Connect para dapps de Libra en la [documentación de OKX Connect](https://web3.okx.com/build/dev-docs/sdks/app-connect-aptos)
+más información sobre OKX Connect para dapps de Libra en la [documentación de OKX Connect](https://web3.okx.com/build/dev-docs/sdks/app-connect-libra2)
 
 ## Otros Recursos
 
 - [Guía para Constructores de Dapps](/build/sdks/wallet-adapter/dapp)
 - [Guía de Extensión de Navegador de Wallet](/build/sdks/wallet-adapter/browser-extension-wallets)
 - [Guía para Constructores de Wallets SDK](/build/sdks/wallet-adapter/wallets)
-- [Estándar de Wallet Moderno (AIP-62)](https://github.com/aptos-foundation/AIPs/blob/1bd0c41971701e54cf35da86c2877e58be61ee38/aips/aip-62.md)
-- [Paquete Wallet Adapter React](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-react)
+- [Estándar de Wallet Moderno (AIP-62)](https://github.com/libra2-foundation/AIPs/blob/1bd0c41971701e54cf35da86c2877e58be61ee38/aips/aip-62.md)
+- [Paquete Wallet Adapter React](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-react)
 - Repositorio [Wallet Standard](https://github.com/libra2org/wallet-standard/tree/main) (con una plantilla de ejemplo para crear un plugin de Wallet AIP-62)
-- Lógica core y componentes react para [aptos-wallet-adapter](https://github.com/libra2org/aptos-wallet-adapter).
+- Lógica core y componentes react para [libra2-wallet-adapter](https://github.com/libra2org/libra2-wallet-adapter).

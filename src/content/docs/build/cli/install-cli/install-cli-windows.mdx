@@ -12,17 +12,17 @@ For Windows, the easiest way to install the Libra CLI tool is via PowerShell scr
   1. In PowerShell, run the install script:
 
      ```powershell filename="Terminal"
-     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr https://aptos.dev/scripts/install_cli.ps1 | iex
+     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser; iwr https://docs.libra2.org/scripts/install_cli.ps1 | iex
      ```
 
-  2. Verify the script is installed by opening a new terminal and running aptos help.
+  2. Verify the script is installed by opening a new terminal and running libra2 help.
 
      - You should see a list of commands you can run using the CLI.
      - In the future, this is a helpful resource to learn exactly how each command works.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  If you would like to update the Libra CLI to the latest version via script, you can run `aptos update`.
+  If you would like to update the Libra CLI to the latest version via script, you can run `libra2 update`.
 </Aside>
 
 # Install via Package Manager (Optional)
@@ -34,19 +34,19 @@ For Windows, the easiest way to install the Libra CLI tool is via PowerShell scr
 ### If you have [Scoop](https://scoop.sh/) installed, you can run the following command to install the Libra CLI:
 
 ```powershell filename="Terminal"
-scoop install https://aptos.dev/scoop/aptos.json
+scoop install https://docs.libra2.org/scoop/libra2.json
 ```
 
 ### If you have [Chocolatey](https://chocolatey.org/) installed, you can run the following command to install the Libra CLI:
 
 ```powershell filename="Terminal"
-choco install aptos
+choco install libra2
 ```
 
 ### If you have [winget](https://winget.run/) installed, you can run the following command to install the Libra CLI:
 
 ```powershell filename="Terminal"
-winget install aptos
+winget install libra2
 ```
 
 # Install via Pre-Compiled Binaries (Backup Method)
@@ -58,16 +58,16 @@ winget install aptos
 
   3. Download the zip file for Windows.
 
-     - It will have a name like: `aptos-cli-<version>-Windows-x86_64.zip`
+     - It will have a name like: `libra2-cli-<version>-Windows-x86_64.zip`
      - You will likely have to dismiss warnings that this is a suspicious file when downloading.
 
   4. Unzip the downloaded file.
 
-     - Move the file to whichever folder you would like to call `aptos` from in the future.
+     - Move the file to whichever folder you would like to call `libra2` from in the future.
 
   5. Right click, then copy the path to the executable.
 
-     Ex. `C:\Users\<username>\Downloads\aptos-cli-3.1.0-Windows-x86_64\aptos.exe`.
+     Ex. `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe`.
 
      <Aside type="note" emoji="ℹ️">
        You may want to add this path to your PATH environment variable to simplify calling the Libra CLI going forward.
@@ -78,7 +78,7 @@ winget install aptos
   7. Verify the installation by running the help command.
 
      Use the path you copied earlier to call the Libra CLI.
-     Ex. `C:\Users\<username>\Downloads\aptos-cli-3.1.0-Windows-x86_64\aptos.exe help`.
+     Ex. `C:\Users\<username>\Downloads\libra2-cli-3.1.0-Windows-x86_64\libra2.exe help`.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">

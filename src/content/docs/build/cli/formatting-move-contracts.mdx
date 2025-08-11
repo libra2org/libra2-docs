@@ -10,14 +10,14 @@ title: "Formatting Move Contracts"
 
 ```shellscript filename="Terminal"
 # Install movefmt for first time usage
-aptos update movefmt
+libra2 update movefmt
 ```
 
 To install a specific version of `movefmt`:
 
 ```shellscript filename="Terminal"
 # Install movefmt with the target <VERSION>
-aptos update movefmt --target-version <VERSION>
+libra2 update movefmt --target-version <VERSION>
 ```
 
 The latest release of `movefmt` can be found [here](https://github.com/movebit/movefmt/releases).
@@ -28,7 +28,7 @@ Similar to compilation and testing, you can use the following command to format 
 
 ```shellscript filename="Terminal"
 # Format the Move package
-aptos move fmt
+libra2 move fmt
 ```
 
 Different ways of emitting the formatting result is supported:
@@ -36,16 +36,16 @@ Different ways of emitting the formatting result is supported:
 ```shellscript filename="Terminal"
 # Format and overwrite all the target move files in the package.
 # This is the default behavior if `--emit-mode` is not explicitly specified
-aptos move fmt --emit-mode=overwrite
+libra2 move fmt --emit-mode=overwrite
 
 # Print the formatting result to terminal
-aptos move fmt --emit-mode=std-out
+libra2 move fmt --emit-mode=std-out
 
 # Print the formatting result to new files with the suffix `.fmt.out` in the same directory
-aptos move fmt --emit-mode=new-file
+libra2 move fmt --emit-mode=new-file
 
 # Print the difference between before and after formatting
-aptos move fmt --emit-mode=diff
+libra2 move fmt --emit-mode=diff
 ```
 
 `movefmt` also provides different options to configure how the code will be formatted.
@@ -63,7 +63,7 @@ and put it in Move package directory or manually specify it in the command line:
 
 ```shellscript filename="Terminal"
 # When formatting the code, set `max_width` to 80 and `indent_size` to 2
-aptos move fmt --config max_width=80,indent_size=2
+libra2 move fmt --config max_width=80,indent_size=2
 ```
 
 ## Feedback

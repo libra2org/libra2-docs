@@ -32,7 +32,7 @@ public fun authenticate(account: signer, auth_data: AbstractionAuthData): signer
 
 ```move
 module deployer::authenticator {
-    use aptos_framework::auth_data::{AbstractionAuthData};
+    use libra2_framework::auth_data::{AbstractionAuthData};
 
     public fun authenticate(account: signer, auth_data: AbstractionAuthData): signer {
         // ... 验证逻辑 ...
@@ -77,7 +77,7 @@ MoveVM 会检查 `digest` 以确保提交的交易签名消息与 `AbstractionAu
 
 ```move
 module deployer::hello_world_authenticator {
-    use aptos_framework::auth_data::{Self, AbstractionAuthData};
+    use libra2_framework::auth_data::{Self, AbstractionAuthData};
 
     public fun authenticate(
         account: signer,
@@ -114,7 +114,7 @@ const abstractedAccount = new AbstractedAccount({
 
      ```move
      module deployer::hello_world_authenticator {
-         use aptos_framework::auth_data::{Self, AbstractionAuthData};
+         use libra2_framework::auth_data::{Self, AbstractionAuthData};
          use std::bcs;
 
          public fun authenticate(
@@ -128,10 +128,10 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     部署模块可使用 [Libra CLI](/zh/build/cli) 的以下命令.假设您已通过 `aptos init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
+     部署模块可使用 [Libra CLI](/zh/build/cli) 的以下命令.假设您已通过 `libra2 init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
-     aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
+     libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
      ```
 
   2. 2. 设置环境
@@ -141,7 +141,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<hello_world_authenticator_deployer>"
 
-     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
 
@@ -153,7 +153,7 @@ const abstractedAccount = new AbstractedAccount({
      在要求启用账户抽象前,您可以通过调用 `isAccountAbstractionEnabled` 函数检查账户是否已启用账户抽象.该函数返回布尔值表示账户抽象状态.
 
      ```typescript
-     const accountAbstractionStatus = await aptos.abstraction.isAccountAbstractionEnabled({
+     const accountAbstractionStatus = await libra2.abstraction.isAccountAbstractionEnabled({
          accountAddress: alice.accountAddress,
          authenticationFunction,
      });
@@ -166,17 +166,17 @@ const abstractedAccount = new AbstractedAccount({
      若账户未启用账户抽象,您需要通过调用 `enableAccountAbstractionTransaction` 函数为账户启用认证功能.这将创建一个需要签名并提交到网络的原始交易.本示例中,`alice` 账户将被启用.
 
      ```typescript
-     const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
+     const transaction = libra2.abstraction.enableAccountAbstractionTransaction({
        accountAddress: alice.accountAddress,
        authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
      });
 
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        transaction,
        signer: alice.signer,
      });
 
-     await aptos.waitForTransaction({ hash: pendingTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingTransaction.hash });
 
      console.log("Account Abstraction enabled for account: ", alice.accountAddress);
      ```
@@ -199,19 +199,19 @@ const abstractedAccount = new AbstractedAccount({
              if (!account) return;
 
              // 注意：Libra 客户端必须在应用某处定义
-             const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
+             const transaction = libra2.abstraction.enableAccountAbstractionTransaction({
                accountAddress: account.address,
                authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
              });
 
              const senderAuthenticator = await signTransaction(txn);
 
-             const pendingTxn = await aptos.transaction.submit.simple({
+             const pendingTxn = await libra2.transaction.submit.simple({
                transaction: txn,
                senderAuthenticator,
              });
 
-             return await aptos.waitForTransaction({ hash: pendingTxn.hash });
+             return await libra2.waitForTransaction({ hash: pendingTxn.hash });
            }
          }
        }
@@ -237,28 +237,28 @@ const abstractedAccount = new AbstractedAccount({
      与抽象账户地址一致.
 
      ```typescript
-     const coinTransferTransaction = await aptos.transaction.build.simple({
+     const coinTransferTransaction = await libra2.transaction.build.simple({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
 
-     const pendingCoinTransferTransaction = await aptos.transaction.signAndSubmitTransaction({
+     const pendingCoinTransferTransaction = await libra2.transaction.signAndSubmitTransaction({
        transaction: coinTransferTransaction,
        signer: abstractedAccount,
      });
 
-     await aptos.waitForTransaction({ transactionHash: pendingCoinTransferTransaction.hash });
+     await libra2.waitForTransaction({ transactionHash: pendingCoinTransferTransaction.hash });
 
      console.log("代币转账交易已提交！ ", pendingCoinTransferTransaction.hash);
      ```
 
   7. 7. 结论
 
-     要验证您是否已成功使用抽象账户签名并提交交易,您可以使用区块链浏览器检查交易记录.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表明您已成功使用账户抽象功能!完整端到端演示代码可在[此处](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)查看.
+     要验证您是否已成功使用抽象账户签名并提交交易,您可以使用区块链浏览器检查交易记录.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表明您已成功使用账户抽象功能!完整端到端演示代码可在[此处](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)查看.
 
      ![交易签名](https://i.imgur.com/HZylFnc.png)
 </Steps>
@@ -280,15 +280,15 @@ const abstractedAccount = new AbstractedAccount({
      ```move
      module deployer::public_key_authenticator {
          use std::signer;
-         use aptos_std::smart_table::{Self, SmartTable};
-         use aptos_std::ed25519::{
+         use libra2_std::smart_table::{Self, SmartTable};
+         use libra2_std::ed25519::{
              Self,
              new_signature_from_bytes,
              new_unvalidated_public_key_from_bytes,
              unvalidated_public_key_to_bytes
          };
-         use aptos_framework::bcs_stream::{Self, deserialize_u8};
-         use aptos_framework::auth_data::{Self, AbstractionAuthData};
+         use libra2_framework::bcs_stream::{Self, deserialize_u8};
+         use libra2_framework::auth_data::{Self, AbstractionAuthData};
 
          // ====== 错误码 ====== //
 
@@ -476,10 +476,10 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     要部署该模块,您可以使用 [Libra CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `aptos init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
+     要部署该模块,您可以使用 [Libra CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `libra2 init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
-     aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
+     libra2 move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
      ```
 
   2. 2. 设置环境
@@ -489,7 +489,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<public_key_authenticator_deployer>"
 
-     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
      const bob = Account.generate();
@@ -502,7 +502,7 @@ const abstractedAccount = new AbstractedAccount({
      在启用认证功能之前,我们可以通过调用 `isAccountAbstractionEnabled` 函数来检查账户是否已启用账户抽象.这将返回一个布尔值,表示账户是否启用了账户抽象.
 
      ```typescript
-     const accountAbstractionStatus = await aptos.abstraction.isAccountAbstractionEnabled({
+     const accountAbstractionStatus = await libra2.abstraction.isAccountAbstractionEnabled({
          accountAddress: alice.accountAddress,
          authenticationFunction,
      });
@@ -515,17 +515,17 @@ const abstractedAccount = new AbstractedAccount({
      假设账户尚未启用账户抽象,我们需要为账户启用认证功能.这可以通过调用 `enableAccountAbstractionTransaction` 函数来完成.这会创建一个需要签名并提交到网络的原始交易.在本示例中,`alice` 将是被启用的账户.
 
      ```typescript
-     const transaction = await aptos.abstraction.enableAccountAbstractionTransaction({
+     const transaction = await libra2.abstraction.enableAccountAbstractionTransaction({
        accountAddress: alice.accountAddress,
        authenticationFunction,
      });
 
-     const pendingTransaction = await aptos.signAndSubmitTransaction({
+     const pendingTransaction = await libra2.signAndSubmitTransaction({
        transaction,
        signer: alice.signer,
      });
 
-     await aptos.waitForTransaction({ hash: pendingTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingTransaction.hash });
 
      console.log("Account Abstraction enabled for account: ", alice.accountAddress);
      ```
@@ -535,7 +535,7 @@ const abstractedAccount = new AbstractedAccount({
      现在我们已经启用了认证功能,可以授权 `bob` 的公钥代表 `alice` 签署交易.
 
      ```typescript
-     const enableBobPublicKeyTransaction = await aptos.transaction.build.simple({
+     const enableBobPublicKeyTransaction = await libra2.transaction.build.simple({
          sender: alice.accountAddress,
          data: {
            function: `${alice.accountAddress}::public_key_authenticator::permit_public_key`,
@@ -544,12 +544,12 @@ const abstractedAccount = new AbstractedAccount({
          },
        });
 
-     const pendingEnableBobPublicKeyTransaction = await aptos.signAndSubmitTransaction({
+     const pendingEnableBobPublicKeyTransaction = await libra2.signAndSubmitTransaction({
        signer: alice,
        transaction: enableBobPublicKeyTransaction,
      });
 
-     await aptos.waitForTransaction({ hash: pendingEnableBobPublicKeyTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingEnableBobPublicKeyTransaction.hash });
 
      console.log(`Enable Bob's public key transaction hash: ${pendingEnableBobPublicKeyTransaction.hash}`);
      ```
@@ -577,28 +577,28 @@ const abstractedAccount = new AbstractedAccount({
      创建抽象账户后,我们可以正常使用它来签署交易.需要注意的是,交易中的 `sender` 字段必须与抽象账户地址一致.
 
      ```typescript
-     const coinTransferTransaction = new aptos.transaction.build.simple({
+     const coinTransferTransaction = new libra2.transaction.build.simple({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::LibraCoin"],
+         typeArguments: ["0x1::libra2_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
 
-     const pendingCoinTransferTransaction = await aptos.transaction.signAndSubmitTransaction({
+     const pendingCoinTransferTransaction = await libra2.transaction.signAndSubmitTransaction({
        transaction: coinTransferTransaction,
        signer: abstractedAccount,
      });
 
-     await aptos.waitForTransaction({ hash: pendingCoinTransferTransaction.hash });
+     await libra2.waitForTransaction({ hash: pendingCoinTransferTransaction.hash });
 
      console.log("Coin transfer transaction submitted! ", pendingCoinTransferTransaction.hash);
      ```
 
   8. 8. 结论
 
-     要验证是否成功使用抽象账户签署并提交了交易,可以通过区块链浏览器检查该交易.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表示您已成功使用账户抽象功能!完整端到端示例代码可在此处查看 [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
+     要验证是否成功使用抽象账户签署并提交了交易,可以通过区块链浏览器检查该交易.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表示您已成功使用账户抽象功能!完整端到端示例代码可在此处查看 [here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
 
      ![交易签名](https://i.imgur.com/3U40YSb.png)
 </Steps>
@@ -608,7 +608,7 @@ const abstractedAccount = new AbstractedAccount({
 如需禁用某个账户的账户抽象功能,可以使用 `disableAccountAbstractionTransaction` 方法.如果不指定认证函数,该交易将禁用该账户的所有认证函数.
 
 ```typescript
-const transaction = aptos.abstraction.disableAccountAbstractionTransaction({
+const transaction = libra2.abstraction.disableAccountAbstractionTransaction({
   accountAddress: alice.accountAddress,
   /**
    * 指定要禁用的认证函数。若保持 `undefined` 则禁用所有认证函数

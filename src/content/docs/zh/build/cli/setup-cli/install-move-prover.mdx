@@ -11,7 +11,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 1. [安装最新的 Libra CLI 二进制文件](/zh/build/cli/install-cli/install-cli-mac).
 
-2. 执行命令 `aptos update prover-dependencies`.
+2. 执行命令 `libra2 update prover-dependencies`.
 
 <Aside type="note">
   安装后环境变量 `BOOGIE_EXE` 和 `Z3_EXE` 将自动设置.请确保它们在当前环境中生效.
@@ -42,19 +42,19 @@ import { Aside } from '@astrojs/starlight/components';
      2. 运行开发设置脚本来准备您的环境:`PowerShell -ExecutionPolicy Bypass -File ./scripts/windows_dev_setup.ps1 -y`
    </details>
 
-安装后,您可以运行 Move Prover 来验证一个[示例](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_prover):
+安装后,您可以运行 Move Prover 来验证一个[示例](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_prover):
 
 ```shellscript filename="Terminal"
-aptos move prove --package-dir aptos-move/move-examples/hello_prover/
+libra2 move prove --package-dir libra2-move/move-examples/hello_prover/
 ```
 
 ## 故障排除
 
-如果在运行命令时遇到如下错误,请检查您的 Libra CLI 版本或验证您使用的是正确的 `aptos` 工具,特别是如果您安装了多个版本.
+如果在运行命令时遇到如下错误,请检查您的 Libra CLI 版本或验证您使用的是正确的 `libra2` 工具,特别是如果您安装了多个版本.
 
 ```shellscript filename="Terminal"
 error: unexpected token
-    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
+    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/libra2-move/framework/libra2-framework/sources/randomness.move:515:16
     │
 515 │         for (i in 0..n) {
     │             -  ^ Expected ')'

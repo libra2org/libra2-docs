@@ -27,15 +27,15 @@ git clone git@github.com:libra2-core/libra2-core.git ~/libra2-core
 Navega al directorio `managed_fungible_asset` y luego publica este paquete en tu cuenta `default` usando la CLI:
 
 ```shellscript filename="Terminal"
-cd ~/libra2-core/aptos-move/move-examples/fungible_asset/managed_fungible_asset
-aptos move publish --named-addresses example_addr=default
+cd ~/libra2-core/libra2-move/move-examples/fungible_asset/managed_fungible_asset
+libra2 move publish --named-addresses example_addr=default
 ```
 
 Navega al directorio `multisig_managed_coin` y luego publica este paquete en tu cuenta `default` usando la CLI también:
 
 ```shellscript filename="Terminal"
-cd ~/libra2-core/aptos-move/move-examples/fungible_asset/multisig_managed_coin
-aptos move publish --named-addresses example_addr=default
+cd ~/libra2-core/libra2-move/move-examples/fungible_asset/multisig_managed_coin
+libra2 move publish --named-addresses example_addr=default
 ```
 
 Para este tutorial, `multisig_managed_coin` necesita llamar funciones definidas en `managed_fungible_asset` en la misma dirección. Así que ambos módulos deben ser publicados.

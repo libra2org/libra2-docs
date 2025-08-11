@@ -28,7 +28,7 @@ Surf es una librería de TypeScript construida sobre el SDK de TypeScript de Lib
          MODULE_NAME=fungible_asset_launchpad
 
          # guarda el ABI en un archivo TypeScript
-         echo "export const ABI = $(curl https://fullnode.$NETWORK.aptoslabs.com/v1/accounts/$CONTRACT_ADDRESS/module/$MODULE_NAME | sed -n 's/.*\"abi\":\({.*}\).*}$/\1/p') as const" > abi.ts
+         echo "export const ABI = $(curl https://fullnode.$NETWORK.libra2labs.com/v1/accounts/$CONTRACT_ADDRESS/module/$MODULE_NAME | sed -n 's/.*\"abi\":\({.*}\).*}$/\1/p') as const" > abi.ts
          ```
        </TabItem>
 
@@ -42,7 +42,7 @@ Surf es una librería de TypeScript construida sobre el SDK de TypeScript de Lib
          $MODULE_NAME = "fungible_asset_launchpad"
 
          # guarda el ABI en un archivo TypeScript
-         Invoke-RestMethod -Uri "https://fullnode.$NETWORK.aptoslabs.com/v1/accounts/$CONTRACT_ADDRESS/module/$MODULE_NAME" |
+         Invoke-RestMethod -Uri "https://fullnode.$NETWORK.libra2labs.com/v1/accounts/$CONTRACT_ADDRESS/module/$MODULE_NAME" |
              Select-Object -ExpandProperty abi | ConvertTo-Json -Compress |
              Foreach-Object { "export const ABI = $_ as const" } |
              Out-File -FilePath "abi.ts"
@@ -54,27 +54,27 @@ Surf es una librería de TypeScript construida sobre el SDK de TypeScript de Lib
 
      Con el ABI, puedes usar Surf como una capa sobre el cliente `Libra` del SDK de TypeScript de Libra al interactuar con contratos Move. Para operaciones no relacionadas con contratos, aún deberás usar `Libra`.
 
-     ```typescript filename="src/utils/aptos.ts"
+     ```typescript filename="src/utils/libra2.ts"
      import { createSurfClient } from '@thalalabs/surf';
      import { Libra, LibraConfig, NETWORK } from "@libra2-core/ts-sdk";
      import { ABI } from "./abi";
 
      // Primero, crea un cliente de Libra, asegúrate de que la red sea la misma donde vive el contrato
-     export const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     export const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET }));
      // Segundo, crea un SurfClient con el cliente de Libra y el ABI
-     export const surfClient = createSurfClient(aptos).useABI(ABI);
+     export const surfClient = createSurfClient(libra2).useABI(ABI);
 
      // Usa Surf para ejecutar una función de entrada
      const result = await surfClient.entry.transfer({
        functionArguments: ['0x1', 1],
-       typeArguments: ['0x1::aptos_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::LibraCoin'],
        account: Account.fromPrivateKey(...),
      });
 
      // Usa Surf para consultar una función de vista
      const [balance] = await surfClient.view.balance({
        functionArguments: ['0x1'],
-       typeArguments: ['0x1::aptos_coin::LibraCoin'],
+       typeArguments: ['0x1::libra2_coin::LibraCoin'],
      });
      ```
 </Steps>
@@ -83,7 +83,7 @@ Surf es una librería de TypeScript construida sobre el SDK de TypeScript de Lib
 
 - [Surf GitHub](https://github.com/ThalaLabs/surf)
 - [Un ejemplo simple de Next.js demostrando Surf](https://github.com/ThalaLabs/surf/tree/main/example)
-- [Un ejemplo de un launchpad de activo fungible usando Surf](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad): Este ejemplo es parte de la guía Solana a Libra en Libra Learn, puedes probarlo [aquí](https://fungible-asset-launchpad.vercel.app/) y leer el tutorial completo [aquí](https://learn.aptoslabs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-aptos).
+- [Un ejemplo de un launchpad de activo fungible usando Surf](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad): Este ejemplo es parte de la guía Solana a Libra en Libra Learn, puedes probarlo [aquí](https://fungible-asset-launchpad.vercel.app/) y leer el tutorial completo [aquí](https://learn.libra2labs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-libra2).
 
 ## Créditos
 

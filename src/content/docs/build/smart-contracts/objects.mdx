@@ -12,7 +12,7 @@ Here's an example of creating an Object and transferring it:
 module my_addr::object_playground {
   use std::signer;
   use std::string::{Self, String};
-  use aptos_framework::object::{Self, ObjectCore};
+  use libra2_framework::object::{Self, ObjectCore};
 
   struct MyStruct1 has key {
     message: String,
@@ -56,6 +56,6 @@ For example, you could use an Object to represent a soulbound NFT by making it o
 
 ## Examples with Object contracts
 
-- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/marketplace)
-- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/token_objects)
-- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset)
+- [Digital Asset Marketplace Example](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/marketplace)
+- [Digital Assets Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/token_objects)
+- [Fungible Asset Examples](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset)

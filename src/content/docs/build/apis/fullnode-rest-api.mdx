@@ -10,16 +10,16 @@ For more advanced queries, we recommend using the [Indexer GraphQL API](/build/i
 ## Fullnode REST API Explorer
 
 <CardGrid>
-  <LinkCard href="https://fullnode.mainnet.aptoslabs.com/v1/spec#/" title="Mainnet Fullnode REST API" description="REST API Explorer for Mainnet" target="_blank" />
+  <LinkCard href="https://fullnode.mainnet.libra2labs.com/v1/spec#/" title="Mainnet Fullnode REST API" description="REST API Explorer for Mainnet" target="_blank" />
 
-  <LinkCard href="https://fullnode.testnet.aptoslabs.com/v1/spec#/" title="Testnet Fullnode REST API" description="REST API Explorer for Testnet" target="_blank" />
+  <LinkCard href="https://fullnode.testnet.libra2labs.com/v1/spec#/" title="Testnet Fullnode REST API" description="REST API Explorer for Testnet" target="_blank" />
 
-  <LinkCard href="https://fullnode.devnet.aptoslabs.com/v1/spec#/" title="Devnet Fullnode REST API" description="REST API Explorer for Devnet" target="_blank" />
+  <LinkCard href="https://fullnode.devnet.libra2labs.com/v1/spec#/" title="Devnet Fullnode REST API" description="REST API Explorer for Devnet" target="_blank" />
 </CardGrid>
 
 ## Understanding rate limits
 
-As with the [Libra Indexer](/build/indexer/indexer-api), the Libra REST API has rate limits based on compute units. You can learn more about how the ratelimiting works by reading the [Libra Build docs](https://build.aptoslabs.com/docs/start/billing).
+As with the [Libra Indexer](/build/indexer/indexer-api), the Libra REST API has rate limits based on compute units. You can learn more about how the ratelimiting works by reading the [Libra Build docs](https://build.libra2labs.com/docs/start/billing).
 
 ## Viewing current and historical state
 
@@ -54,9 +54,9 @@ that mitigate the need to directly query from a node.
 
 The REST API offers querying transactions and events in these ways:
 
-- [Transactions for an account](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_account_transactions)
-- [Transactions by version](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_transaction_by_version)
-- [Events by event handle](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_events_by_event_handle)
+- [Transactions for an account](https://api.devnet.libra2labs.com/v1/spec#/operations/get_account_transactions)
+- [Transactions by version](https://api.devnet.libra2labs.com/v1/spec#/operations/get_transaction_by_version)
+- [Events by event handle](https://api.devnet.libra2labs.com/v1/spec#/operations/get_events_by_event_handle)
 
 ## Reading state with the View function
 
@@ -66,7 +66,7 @@ potentially complex on-chain state using Move. For example, you can evaluate who
 contract. Here are related files:
 
 - [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) for an example
-- related [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) code
+- related [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/libra2-move/framework/libra2-framework/sources/coin.move#L226) code
 - [specification](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
 
 The view function operates like the Libra simulation API,
@@ -83,7 +83,7 @@ through the [Libra CLI](/build/cli).
 In the Libra CLI, a view function request would look like this:
 
 ```shellscript filename="Terminal"
-aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
+libra2 move view --function-id devnet::message::get_message --profile devnet --args address:devnet
 {
   "Result": [
     "View functions rock!"
@@ -96,10 +96,10 @@ In the TypeScript SDK, a view function request would look like this:
 ```typescript filename="index.ts"
 import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Libra();
-const [balance] = aptos.view<[string]>({
+const libra2 = new Libra();
+const [balance] = libra2.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::LibraCoin"],
+  typeArguments: ["0x1::libra2_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

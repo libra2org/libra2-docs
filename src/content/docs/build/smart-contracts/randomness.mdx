@@ -32,7 +32,7 @@ module module_owner::lottery {
     entry fun decide_winner() {
         let lottery_state = load_lottery_state_mut();
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::timestamp::now_microseconds() % n;
+        let winner_idx = libra2_framework::timestamp::now_microseconds() % n;
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -105,7 +105,7 @@ module module_owner::lottery {
     entry fun decide_winner() {
         let lottery_state = load_lottery_state_mut();
         let n = vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -113,7 +113,7 @@ module module_owner::lottery {
 
 where:
 
-- `let winner_idx = aptos_framework::randomness::u64_range(0, n);` is the randomness API call that returns an u64 integer in range `[0, n)` uniformly at random.
+- `let winner_idx = libra2_framework::randomness::u64_range(0, n);` is the randomness API call that returns an u64 integer in range `[0, n)` uniformly at random.
 - `#[randomness]` is a required attribute to enable the API call at runtime.
 
 <Aside type="note">
@@ -126,7 +126,7 @@ where:
 
 ### Prerequisites
 
-Ensure you have the latest [aptos-cli](/build/cli) installed.
+Ensure you have the latest [libra2-cli](/build/cli) installed.
 
 ### Keep undergasing attacks in mind
 
@@ -173,7 +173,7 @@ module module_owner::lottery {
     #[randomness]
     entry fun decide_winner() {
         // ...
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -183,7 +183,7 @@ The above example uses function `u64_range()` but many other basic types are als
 Here's a quick overview of all the API, where `T` can be one of `u8, u16, u32, u64, u128, u256`.
 
 ```move
-module aptos_framework::randomness {
+module libra2_framework::randomness {
     /// Generates an number uniformly at random.
     fun u8_integer(): u8 {}
 
@@ -212,7 +212,7 @@ module aptos_framework::randomness {
 }
 ```
 
-The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/randomness.md).
 
 ## Security considerations
 
@@ -245,7 +245,7 @@ module module_owner::lottery {
     // A private helper function
     fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -259,7 +259,7 @@ malicious players can deploy their own contract to:
 3. abort if the result is not in their favor.
    By repeatedly calling their own contract until a txn succeeds,
    malicious users can bias the uniform distribution of the winner (dApp developer's initial design).
-   This is referred to as a [test-and-abort attack](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
+   This is referred to as a [test-and-abort attack](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
 The Libra Move compiler has been updated to prevent this attack for your contract safety:
 a randomness-dependent public function is treated as a compile error.
@@ -271,7 +271,7 @@ module module_owner::lottery {
     // Compile error!
     public fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -285,7 +285,7 @@ module module_owner::lottery {
     #[lint::allow_unsafe_randomness]
     public fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -302,7 +302,7 @@ A malicious user can control its account balance, so it covers at most 108 gas u
 and the cleanup branch (total gas cost: 110) will always abort with an out-of-gas error.
 The user then repeatedly call the entry function until it gets the reward.
 
-Formally, this is referred to as an [undergasing attack](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#undergasing-attacks),
+Formally, this is referred to as an [undergasing attack](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#undergasing-attacks),
 where an attacker can control how much gas is left for the entry function to execute,
 and so can arbitrarily decide to abort paths that cost more gas,
 biasing the outcome (i.e., effectively changing the distribution of random numbers).
@@ -339,9 +339,9 @@ For example, in your contract, DO NOT try to do the following.
 
 [Aptogotchi Random Mint](https://github.com/libra2org/aptogotchi-random-mint/tree/main) is an official demo dApp built to demonstrate the use of randomness API.
 
-The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/randomness.md).
 
-You can also find the partial implementation of the API functions and example unit tests [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
+You can also find the partial implementation of the API functions and example unit tests [here](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/randomness.move).
 
-See [AIP-41](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md) for the API design,
-and [AIP-79](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-79.md) if you are interested in system-level/cryptography details.
+See [AIP-41](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md) for the API design,
+and [AIP-79](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-79.md) if you are interested in system-level/cryptography details.

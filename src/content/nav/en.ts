@@ -26,7 +26,7 @@ const labels = {
   // Smart Contracts & Move Sub-Groups
   "smartContracts.group.moveBook": "Move Book",
   "smartContracts.group.development": "Development",
-  "smartContracts.group.aptosFeatures": "Libra Move Features",
+  "smartContracts.group.libra2Features": "Libra Move Features",
   "smartContracts.group.tooling": "Tooling",
   "smartContracts.group.reference": "Move Reference",
 

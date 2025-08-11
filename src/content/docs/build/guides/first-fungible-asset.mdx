@@ -4,7 +4,7 @@ title: "Your First Fungible Asset"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-This tutorial will teach you how to create your own Fungible Asset (FA) named [FACoin](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset/fa_coin). The [Fungible Asset Standard](/build/smart-contracts/fungible-asset) provides built-in support for minting, transferring, burning, and tracking account balances, so is useful for representing fungible assets. We will use the [TypeScript SDK](/build/sdks/ts-sdk) to deploy the contract and test it once it is on-chain.
+This tutorial will teach you how to create your own Fungible Asset (FA) named [FACoin](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset/fa_coin). The [Fungible Asset Standard](/build/smart-contracts/fungible-asset) provides built-in support for minting, transferring, burning, and tracking account balances, so is useful for representing fungible assets. We will use the [TypeScript SDK](/build/sdks/ts-sdk) to deploy the contract and test it once it is on-chain.
 
 At a high level, the Fungible Asset Standard works through two main Objects:
 
@@ -15,7 +15,7 @@ Sending a fungible asset to someone will cause them to receive a `FungibleStore`
 
 ## Seeing Fungible Assets In Action
 
-Here we will modify, deploy, and test the example [FACoin](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/move/facoin/sources/fa_coin.move) contract to see how the Fungible Asset Standard works. If you are writing your own fungible asset contract, you may also want to reference the Stablecoin example contract [here](https://learn.aptoslabs.com/en/code-examples/stablecoin).
+Here we will modify, deploy, and test the example [FACoin](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/move/facoin/sources/fa_coin.move) contract to see how the Fungible Asset Standard works. If you are writing your own fungible asset contract, you may also want to reference the Stablecoin example contract [here](https://learn.libra2labs.com/en/code-examples/stablecoin).
 
 <Steps>
   1. Install the .
@@ -27,13 +27,13 @@ Here we will modify, deploy, and test the example [FACoin](https://github.com/li
      This repo contains the Fungible Asset example code.
 
      ```shellscript filename="Terminal"
-     git clone https://github.com/libra2org/aptos-ts-sdk.git
+     git clone https://github.com/libra2org/libra2-ts-sdk.git
      ```
 
   3. Navigate to the top-level of the cloned repository.
 
      ```shellscript filename="Terminal"
-     cd aptos-ts-sdk
+     cd libra2-ts-sdk
      ```
 
   4. Install the SDKs dependencies.
@@ -87,9 +87,9 @@ Here we will modify, deploy, and test the example [FACoin](https://github.com/li
       Charlie: 0xd824909be65a224f651ff6e9b82ec99ad5707fcef739d1003be20fc69fb93d7a
 
       === Compiling FACoin package locally ===
-      In order to run compilation, you must have the `aptos` CLI installed.
+      In order to run compilation, you must have the `libra2` CLI installed.
       Running the compilation locally, in a real situation you may want to compile this ahead of time.
-      aptos move build-publish-payload --json-output-file move/facoin/facoin.json --package-dir move/facoin --named-addresses FACoin=0x0c5dd7abbd67db06325fa1a2f37a1833f9a92ff2beb90f32495a9d80972429cd --assume-yes
+      libra2 move build-publish-payload --json-output-file move/facoin/facoin.json --package-dir move/facoin --named-addresses FACoin=0x0c5dd7abbd67db06325fa1a2f37a1833f9a92ff2beb90f32495a9d80972429cd --assume-yes
       Compiling, may take a little while to download git dependencies...
       UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-core.git
       INCLUDING DEPENDENCY LibraFramework
@@ -125,7 +125,7 @@ Here we will modify, deploy, and test the example [FACoin](https://github.com/li
 
 ## Understanding the `fa_coin.move` Example Contract
 
-The full contract for FACoin.move can be found [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/move/facoin/sources/fa_coin.move).
+The full contract for FACoin.move can be found [here](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript/move/facoin/sources/fa_coin.move).
 
 Let’s go step by step through how this contract is written.
 
@@ -148,7 +148,7 @@ Let’s go step by step through how this contract is written.
      [dependencies.LibraFramework]
      git = "https://github.com/libra2org/libra2-core.git"
      rev = "mainnet"
-     subdir = "aptos-move/framework/aptos-framework"
+     subdir = "libra2-move/framework/libra2-framework"
      ```
 
   2. Imports
@@ -161,9 +161,9 @@ Let’s go step by step through how this contract is written.
 
      ```move filename="fa_coin.move"
      module FACoin::fa_coin {
-         use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
-         use aptos_framework::object::{Self, Object};
-         use aptos_framework::primary_fungible_store;
+         use libra2_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
+         use libra2_framework::object::{Self, Object};
+         use libra2_framework::primary_fungible_store;
          use std::error;
          use std::signer;
          use std::string::utf8;
@@ -239,8 +239,8 @@ Let’s go step by step through how this contract is written.
 
 ## Summary
 
-If you want to build your own Fungible Asset, you can use [`fa_coin.move`](https://github.com/libra2org/aptos-ts-sdk/tree/main/examples/typescript/move/facoin) as a starting point, or look to other code examples [here](https://learn.aptoslabs.com/en/code-examples).
+If you want to build your own Fungible Asset, you can use [`fa_coin.move`](https://github.com/libra2org/libra2-ts-sdk/tree/main/examples/typescript/move/facoin) as a starting point, or look to other code examples [here](https://learn.libra2labs.com/en/code-examples).
 
 Regardless, the Fungible Asset Standard will help you mint, transfer, burn, and keep track of balances automatically for whichever fungible assets you want to represent on-chain.
 
-You can find the [Move reference for Fungible Assets](/move-reference/mainnet/aptos-framework/fungible_asset) for more details on the function signatures and implementation details.
+You can find the [Move reference for Fungible Assets](/move-reference/mainnet/libra2-framework/fungible_asset) for more details on the function signatures and implementation details.

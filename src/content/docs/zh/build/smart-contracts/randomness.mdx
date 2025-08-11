@@ -30,7 +30,7 @@ module module_owner::lottery {
     entry fun decide_winner() {
         let lottery_state = load_lottery_state_mut();
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::timestamp::now_microseconds() % n;
+        let winner_idx = libra2_framework::timestamp::now_microseconds() % n;
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -102,7 +102,7 @@ module module_owner::lottery {
     entry fun decide_winner() {
         let lottery_state = load_lottery_state_mut();
         let n = vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -110,7 +110,7 @@ module module_owner::lottery {
 
 其中:
 
-- `let winner_idx = aptos_framework::randomness::u64_range(0, n);` 是随机性 API 调用,返回 `[0, n)` 区间内均匀分布的 u64 整数.
+- `let winner_idx = libra2_framework::randomness::u64_range(0, n);` 是随机性 API 调用,返回 `[0, n)` 区间内均匀分布的 u64 整数.
 - `#[randomness]` 是启用该 API 调用所需的属性.
 
 <Aside type="note">
@@ -123,7 +123,7 @@ module module_owner::lottery {
 
 ### 前置条件
 
-确保你已安装最新版 [aptos-cli](/zh/build/cli).
+确保你已安装最新版 [libra2-cli](/zh/build/cli).
 
 ### 注意 undergasing 攻击
 
@@ -170,7 +170,7 @@ module module_owner::lottery {
     #[randomness]
     entry fun decide_winner() {
         // ...
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -180,7 +180,7 @@ module module_owner::lottery {
 以下是所有 API 的简要概览,其中 `T` 可以是 `u8, u16, u32, u64, u128, u256` 之一.
 
 ```move
-module aptos_framework::randomness {
+module libra2_framework::randomness {
     /// 均匀生成一个随机数。
     fun u8_integer(): u8 {}
 
@@ -209,7 +209,7 @@ module aptos_framework::randomness {
 }
 ```
 
-完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/randomness.md).
 
 ## 安全性注意事项
 
@@ -242,7 +242,7 @@ module module_owner::lottery {
     // 私有辅助函数
     fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -256,7 +256,7 @@ module module_owner::lottery {
 3. 若结果不利于自己则中止.
    通过反复调用自己的合约直到交易成功,
    恶意用户可以操控获胜者分布(违背 dApp 开发者初衷).
-   这被称为 [test-and-abort 攻击](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
+   这被称为 [test-and-abort 攻击](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
 Libra Move 编译器已更新以防止此类攻击,保障你的合约安全:
 依赖随机性的 public 函数会被视为编译错误.
@@ -268,7 +268,7 @@ module module_owner::lottery {
     // 编译错误！
     public fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -282,7 +282,7 @@ module module_owner::lottery {
     #[lint::allow_unsafe_randomness]
     public fun decide_winner_internal(lottery_state: &mut lottery_state) {
         let n = std::vector::length(&lottery_state.players);
-        let winner_idx = aptos_framework::randomness::u64_range(0, n);
+        let winner_idx = libra2_framework::randomness::u64_range(0, n);
         lottery_state.winner_idx = std::option::some(winner_idx);
     }
 }
@@ -299,7 +299,7 @@ module module_owner::lottery {
 这样清理分支(总 gas 消耗:110)总会因 gas 不足而中止.
 用户便可反复调用入口函数直到获得奖励.
 
-严格来说,这被称为 [undergasing 攻击](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#undergasing-attacks),
+严格来说,这被称为 [undergasing 攻击](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md#undergasing-attacks),
 攻击者可控制入口函数剩余 gas,从而随意中止高 gas 路径,
 进而操控随机数分布(即改变原本的概率分布).
 
@@ -335,9 +335,9 @@ module module_owner::lottery {
 
 [Aptogotchi Random Mint](https://github.com/libra2org/aptogotchi-random-mint/tree/main) 是官方演示随机性 API 用法的 dApp.
 
-完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/randomness.md).
 
-部分 API 实现及单元测试见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
+部分 API 实现及单元测试见 [这里](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/randomness.move).
 
-API 设计详见 [AIP-41](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md),
-系统级/密码学细节见 [AIP-79](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-79.md).
+API 设计详见 [AIP-41](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-41.md),
+系统级/密码学细节见 [AIP-79](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-79.md).

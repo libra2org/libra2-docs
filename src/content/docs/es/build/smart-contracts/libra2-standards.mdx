@@ -4,14 +4,14 @@ title: "Estándares de Libra"
 
 Los estándares definen una interfaz común interoperable para que todos los desarrolladores construyan
 sobre ella. Consisten en reglas para asegurar compatibilidad entre aplicaciones y
-billeteras en la blockchain de Libra. Consulta una [lista de direcciones de recursos de monedas conocidas](https://github.com/hippospace/aptos-coin-list)
+billeteras en la blockchain de Libra. Consulta una [lista de direcciones de recursos de monedas conocidas](https://github.com/hippospace/libra2-coin-list)
 en Libra proporcionada por hippospace.
 
 ## Estándares de Move
 
 ### [Objeto de Libra](/build/smart-contracts/objects)
 
-El [modelo de Objeto](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/object.move)
+El [modelo de Objeto](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/object.move)
 permite a Move representar un tipo complejo como un conjunto de recursos almacenados dentro de una
 sola dirección y ofrece un modelo de capacidades rico que permite control granular
 de recursos y gestión de propiedad.
@@ -20,29 +20,29 @@ de recursos y gestión de propiedad.
 
 ### [Activo Digital (DA)](/build/smart-contracts/digital-asset)
 
-El nuevo [Estándar de Activo Digital de Libra](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/token.move)
+El nuevo [Estándar de Activo Digital de Libra](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/token.move)
 permite:
 
 - Activos y coleccionables ricos y flexibles.
 - Fácil mejora de la funcionalidad base para proporcionar funcionalidades
-  personalizadas más ricas. Un ejemplo de esto es el [módulo aptos\_token](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token-objects/sources/aptos_token.move)
+  personalizadas más ricas. Un ejemplo de esto es el [módulo libra2\_token](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token-objects/sources/libra2_token.move)
 
 El Activo Digital (DA) es recomendado para cualquier nueva colección o protocolo que quiera
 construir NFT o tokens semi-fungibles.
 
 ### [Activo Fungible (FA)](/build/smart-contracts/fungible-asset)
 
-El nuevo [Estándar de Activo Fungible de Libra](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move)
+El nuevo [Estándar de Activo Fungible de Libra](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move)
 es un estándar destinado para activos fungibles simples, seguros de tipo y basados en el modelo
 de objeto con la intención de reemplazar la moneda de Libra. El Activo Fungible (FA) ofrece más características
 y flexibilidad a los desarrolladores de Move de Libra para crear y gestionar activos fungibles.
 
 ## Estándares Legacy
 
-### [Token de Libra](/build/smart-contracts/aptos-token)
+### [Token de Libra](/build/smart-contracts/libra2-token)
 
 El antiguo
-módulo [Token existente](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move),
+módulo [Token existente](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move),
 por otro lado:
 
 - Encapsula activos y coleccionables ricos y flexibles. Estos activos son discretos
@@ -50,9 +50,9 @@ por otro lado:
 - El estándar de token está en su propio paquete `LibraToken` en la Dirección `0x3` para
   permitir iteración rápida basada en retroalimentación de la comunidad.
 
-### [Moneda de Libra](/build/smart-contracts/aptos-coin)
+### [Moneda de Libra](/build/smart-contracts/libra2-coin)
 
-El [módulo Coin](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
+El [módulo Coin](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move)
 es un estándar ligero destinado para activos fungibles simples y seguros de tipo. El
 estándar de moneda está separado en su propio módulo Move para asegurar que:
 

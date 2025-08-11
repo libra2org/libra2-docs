@@ -34,13 +34,13 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
   3. Verify the installation
 
-     Run `aptos --version` to verify you have it installed.
+     Run `libra2 --version` to verify you have it installed.
 
      ```shellscript filename="Terminal"
-     aptos --version
+     libra2 --version
      ```
 
-     You should see a response like `aptos 4.6.1`.
+     You should see a response like `libra2 4.6.1`.
 
   4. Create a project folder
 
@@ -56,7 +56,7 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
   6. Initialize your account
 
-     Run `aptos init` and press 'enter' for each step of setup to create a test account on `devnet`.
+     Run `libra2 init` and press 'enter' for each step of setup to create a test account on `devnet`.
 
      <Aside type="note">
        As we are configuring your Libra CLI for this folder, notice that this setup follows the logic of the blockchain itself:
@@ -79,7 +79,7 @@ Changes to the blockchain are called “transactions”, and they require an acc
      ```
 
      <Aside type="note">
-       What you might not have noticed is that the Libra CLI has created a new hidden folder `.aptos/` with a `.gitignore` and `config.yaml` which contains the account information, including private key, public key, and account address.
+       What you might not have noticed is that the Libra CLI has created a new hidden folder `.libra2/` with a `.gitignore` and `config.yaml` which contains the account information, including private key, public key, and account address.
 
        You can view hidden files with `ls -a` in Unix/Mac terminal or `dir /ah` in Windows.
      </Aside>
@@ -100,7 +100,7 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
   2. Open the Libra Explorer
 
-     Go to the [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet).
+     Go to the [Libra Explorer](https://explorer.libra2labs.com/?network=devnet).
 
      This is the primary way to quickly check what is happening on devnet, testnet, or mainnet. We will use it later on to view our deployed contracts.
 
@@ -130,7 +130,7 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
   7. Verify your balance
 
-     Click the "Coins" tab to see that you have 1 APT of the Libra Coin. This will allow you to publish and interact with smart contracts on the aptos devnet.
+     Click the "Coins" tab to see that you have 1 APT of the Libra Coin. This will allow you to publish and interact with smart contracts on the libra2 devnet.
 
      <Aside type="note">
        The explorer is an important tool to see the contracts we are deploying, and also offers a way to look up what a contract does. Just search for the address where a contract is deployed and you will be able to see the code for that module.
@@ -164,7 +164,7 @@ Our first module will be a simple message storage system that allows accounts to
 <Steps>
   1. Initialize the project
 
-     Initialize a new move project with `aptos move init --name my_first_module`
+     Initialize a new move project with `libra2 move init --name my_first_module`
 
      This creates a project structure with a `sources` directory and a `Move.toml` file.
 
@@ -217,7 +217,7 @@ Our first module will be a simple message storage system that allows accounts to
 
   3. Compile the module
 
-     Compile the Move module we just created with `aptos move compile --named-addresses my_first_module=default`
+     Compile the Move module we just created with `libra2 move compile --named-addresses my_first_module=default`
 
      <Aside type="note">
        The `--named-addresses` flag maps our module name to our account's address. In Move, modules must be associated with an address at compile time - we're using `'default'` which points to the account we just created.
@@ -226,9 +226,9 @@ Our first module will be a simple message storage system that allows accounts to
      You should see a message like this if it succeeded:
 
      ```shellscript filename="Terminal"
-     ❯ aptos move compile --named-addresses my_first_module=default
+     ❯ libra2 move compile --named-addresses my_first_module=default
      Compiling, may take a little while to download git dependencies...
-     UPDATING GIT DEPENDENCY https://github.com/libra2org/aptos-framework.git
+     UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-framework.git
      INCLUDING DEPENDENCY LibraFramework
      INCLUDING DEPENDENCY LibraStdlib
      INCLUDING DEPENDENCY MoveStdlib
@@ -294,7 +294,7 @@ Testing and debugging are crucial parts of Move module development. Move has bui
      module my_first_module::message_tests {
          use std::string;
          use std::signer;
-         use aptos_framework::account;
+         use libra2_framework::account;
          use my_first_module::message;
 
          #[test]
@@ -314,7 +314,7 @@ Testing and debugging are crucial parts of Move module development. Move has bui
 
   3. Run the tests
 
-     Now run the tests with `aptos move test --named-addresses my_first_module=default`
+     Now run the tests with `libra2 move test --named-addresses my_first_module=default`
 
      You should see output if the tests pass: (See below for how to handle errors)
 
@@ -361,13 +361,13 @@ After successfully compiling and testing your module, you can publish it to the 
 <Steps>
   1. Publish the module
 
-     Publish your module with `aptos move publish --named-addresses my_first_module=default`
+     Publish your module with `libra2 move publish --named-addresses my_first_module=default`
 
      You'll see output showing the compilation process and then a prompt asking about gas fees:
 
      ```shellscript filename="Terminal"
      Compiling, may take a little while to download git dependencies...
-     UPDATING GIT DEPENDENCY https://github.com/libra2org/aptos-framework.git
+     UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-framework.git
      INCLUDING DEPENDENCY LibraFramework
      INCLUDING DEPENDENCY LibraStdlib
      INCLUDING DEPENDENCY MoveStdlib
@@ -406,7 +406,7 @@ After successful publication, you can verify your module is on-chain by followin
 <Steps>
   1. Open the Explorer
 
-     Go to the [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet)
+     Go to the [Libra Explorer](https://explorer.libra2labs.com/?network=devnet)
 
   2. Check the transaction
 
@@ -445,7 +445,7 @@ Now that your module is published, you can interact with it through the Libra CL
      Set a message using the CLI:
 
      ```shellscript filename="Terminal"
-     aptos move run --function-id 'default::message::set_message' --args 'string:Hello, Libra!'
+     libra2 move run --function-id 'default::message::set_message' --args 'string:Hello, Libra!'
      ```
 
      You'll see a gas fee prompt similar to what you saw during publishing.
@@ -455,7 +455,7 @@ Now that your module is published, you can interact with it through the Libra CL
      After confirming with `y`, you should get a success response like:
 
      ```shellscript filename="Terminal"
-     Transaction submitted: https://explorer.aptoslabs.com/txn/0x0c0b1e56a31d037280278327eb8fdfcc469a20213e5e65accf6e7c56af574449?network=devnet
+     Transaction submitted: https://explorer.libra2labs.com/txn/0x0c0b1e56a31d037280278327eb8fdfcc469a20213e5e65accf6e7c56af574449?network=devnet
      {
        "Result": {
          "transaction_hash": "0x0c0b1e56a31d037280278327eb8fdfcc469a20213e5e65accf6e7c56af574449",
@@ -500,11 +500,11 @@ Here are some **suggested next steps to get a deeper understanding of Move modul
 1. Try modifying the module to add a new feature. You can use the [Move Book](/build/smart-contracts/book) to build your understanding of writing Move modules.
 2. To understand how Move works on-chain, you can learn about Move's [resource system](/network/blockchain/resources).
 3. If you're building an application to interact with contracts or look up data from on-chain, learn how to use the SDKs [here](/build/sdks/).
-4. Join the [Libra Discord](https://discord.gg/aptoslabs) to connect with other developers.
+4. Join the [Libra Discord](https://discord.gg/libra2labs) to connect with other developers.
 
 ## Supporting documentation
 
 - [Account basics](/network/blockchain/accounts)
 - [TypeScript SDK](/build/sdks/ts-sdk)
 - [Python SDK](/build/sdks/python-sdk)
-- [REST API specification](/network/nodes/aptos-api-spec)
+- [REST API specification](/network/nodes/libra2-api-spec)

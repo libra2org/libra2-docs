@@ -32,7 +32,7 @@ function App() {
 const fetchList = async () => {
   if (!account) return [];
   try {
-    const todoListResource = await aptosClient().getAccountResource({
+    const todoListResource = await libra2Client().getAccountResource({
       accountAddress:account?.address,
       resourceType:`${moduleAddress}::todolist::TodoList`
     });
@@ -50,7 +50,7 @@ const fetchList = async () => {
         value_type: `${moduleAddress}::todolist::Task`,
         key: `${counter}`,
       };
-      const task = await aptosClient().getTableItem<Task>({handle:tableHandle, data:tableItem});
+      const task = await libra2Client().getTableItem<Task>({handle:tableHandle, data:tableItem});
       tasks.push(task);
       counter++;
     }
@@ -84,7 +84,7 @@ while (counter <= taskCounter) {
     value_type: `${moduleAddress}::todolist::Task`,
     key: `${counter}`,
   };
-  const task = await aptosClient().getTableItem(tableHandle, tableItem);
+  const task = await libra2Client().getTableItem(tableHandle, tableItem);
   tasks.push(task);
   counter++;
 }
@@ -241,7 +241,7 @@ When someones adds a new task we:
       // sign and submit transaction to chain
       const response = await signAndSubmitTransaction(transaction);
       // wait for transaction
-      await aptosClient().waitForTransaction({ transactionHash: response.hash });
+      await libra2Client().waitForTransaction({ transactionHash: response.hash });
 
       // Create a new array based on current state:
       let newTasks = [...tasks];
@@ -313,7 +313,7 @@ const onCheckboxChange = async (event: React.ChangeEvent<HTMLInputElement>, task
       // sign and submit transaction to chain
       const response = await signAndSubmitTransaction(transaction);
       // wait for transaction
-      await aptosClient().waitForTransaction({ transactionHash: response.hash });
+      await libra2Client().waitForTransaction({ transactionHash: response.hash });
 
       setTasks((prevState) => {
         const newState = prevState.map((obj) => {

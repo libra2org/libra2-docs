@@ -26,7 +26,7 @@ You can verify the correctness of your nodes by inspecting several simple metric
 1. Check if your nodes are state syncing by running this command:
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_state_sync_version"
    ```
 
    You should expect to see the `synced` or `synced_states` versions increasing. The versions should start increasing
@@ -40,14 +40,14 @@ You can verify the correctness of your nodes by inspecting several simple metric
 2. Verify that your validator is connecting to other peers on the network.
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_connections{.*\"Validator\".*}"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_connections{.*\"Validator\".*}"
    ```
 
    The command will output the number of inbound and outbound connections of your validator node. For example:
 
    ```shellscript filename="Terminal"
-   aptos_connections{direction="inbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 5
-   aptos_connections{direction="outbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 2
+   libra2_connections{direction="inbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 5
+   libra2_connections{direction="outbound",network_id="Validator",peer_id="f326fd30",role_type="validator"} 2
    ```
 
    As long as one of the metrics is greater than zero, your validator node is connected to at least one of the peers on the network. If your validator is not
@@ -57,9 +57,9 @@ You can verify the correctness of your nodes by inspecting several simple metric
 3. After your node syncs to the latest version, you can also check if consensus is making progress, and your node is proposing.
 
    ```shellscript filename="Terminal"
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_consensus_current_round"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_consensus_current_round"
 
-   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_consensus_proposals_count"
+   curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_consensus_proposals_count"
    ```
 
    You should expect to see these numbers continue to increase.

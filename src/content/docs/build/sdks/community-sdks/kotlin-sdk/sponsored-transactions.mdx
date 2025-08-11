@@ -22,12 +22,12 @@ like `transferCoinTransaction`. However, in the case of sponsored transactions, 
 need to specify the optional `withFeePayer` parameter as `true` in all cases.
 
 ```kotlin
-val txn = aptos.buildTransaction.simple(
+val txn = libra2.buildTransaction.simple(
       sender = alice.accountAddress,
       data =
         entryFunctionData {
           function = "0x1::coin::transfer"
-          typeArguments = typeArguments { +TypeTagStruct("0x1::aptos_coin::LibraCoin") }
+          typeArguments = typeArguments { +TypeTagStruct("0x1::libra2_coin::LibraCoin") }
           functionArguments = functionArguments {
             +bob.accountAddress
             +U64(SEND_AMOUNT_UNITS.toULong())
@@ -40,7 +40,7 @@ val txn = aptos.buildTransaction.simple(
 OR
 
 ```kotlin
-val txn = aptos.transferCoinTransaction(
+val txn = libra2.transferCoinTransaction(
       sender = alice,
       receiver = bob.accountAddress,
       amount = SEND_AMOUNT_UNITS,
@@ -54,7 +54,7 @@ Once you have built a transaction, you (the sender) can sign it using the `sign`
 method.
 
 ```kotlin
-val aliceAuthenticator = aptos.sign(
+val aliceAuthenticator = libra2.sign(
     sender = alice,
     transaction = txn,
 )
@@ -65,7 +65,7 @@ val aliceAuthenticator = aptos.sign(
 To sign the transaction as a fee payer, you can use the `signAsFeePayer` method.
 
 ```kotlin
-val signerAuthenticator = aptos.signAsFeePayer(
+val signerAuthenticator = libra2.signAsFeePayer(
     feePayer = sponsor,
     transaction = txn,
 )
@@ -76,7 +76,7 @@ val signerAuthenticator = aptos.signAsFeePayer(
 Finally, you can submit the transaction to the network using the `submit` method.
 
 ```kotlin
-val committedTxn = aptos.submitTransaction.simple(
+val committedTxn = libra2.submitTransaction.simple(
       transaction = txn,
       senderAuthenticator = aliceAuthenticator,
       feePayerAuthenticator = signerAuthenticator,
@@ -87,6 +87,6 @@ val committedTxn = aptos.submitTransaction.simple(
   You can collapse the fee payer signing and submitting steps into one by using the `signAndSubmitAsFeePayer` method.
 
   ```kotlin
-    val committedTxn = aptos.signAndSubmitAsFeePayer(sponsor, aliceAuthenticator, txn)
+    val committedTxn = libra2.signAndSubmitAsFeePayer(sponsor, aliceAuthenticator, txn)
   ```
 </Aside>

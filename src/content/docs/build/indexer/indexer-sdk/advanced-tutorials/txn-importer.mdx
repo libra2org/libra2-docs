@@ -4,15 +4,15 @@ title: "Importing Transactions"
 
 ## Overview
 
-This guide explains how to import Libra transactions for testing using the `aptos-indexer-transaction-generator` tool. These test transactions can be used to test your custom processors and support their local development.
+This guide explains how to import Libra transactions for testing using the `libra2-indexer-transaction-generator` tool. These test transactions can be used to test your custom processors and support their local development.
 
 ## General Flow of Transaction Importing
 
-First, identify the transaction versions you need to fetch from the Libra network. This tool interacts with the [Transaction Stream](https://aptos.dev/en/build/indexer/txn-stream) to retrieve transaction data in JSON format. The transactions are then consolidated into a Rust file, where each transaction is represented as a constant variable. These constants can be seamlessly used as mocked inputs in processor automated tests. During testing, the processor fetches the specified transactions, processes them, and writes the results to a database. You can then verify the outcomes by loading the written data and validating it against the expected data.
+First, identify the transaction versions you need to fetch from the Libra network. This tool interacts with the [Transaction Stream](https://docs.libra2.org/en/build/indexer/txn-stream) to retrieve transaction data in JSON format. The transactions are then consolidated into a Rust file, where each transaction is represented as a constant variable. These constants can be seamlessly used as mocked inputs in processor automated tests. During testing, the processor fetches the specified transactions, processes them, and writes the results to a database. You can then verify the outcomes by loading the written data and validating it against the expected data.
 
 ## Prerequisites
 
-1. A valid API key to connect to [Transaction Stream](https://aptos.dev/en/build/indexer/txn-stream/aptos-hosted-txn-stream)
+1. A valid API key to connect to [Transaction Stream](https://docs.libra2.org/en/build/indexer/txn-stream/libra2-hosted-txn-stream)
 2. Clone the [libra2-core](https://github.com/libra2org/libra2-core) repository:
    - Navigate to the `libra2-core/ecosystem/indexer-grpc/indexer-transaction-generator` directory.
 
@@ -30,7 +30,7 @@ In this file, specify the versions to import from Devnet|Testnet|Mainnet by conf
 
 ```yaml
 testnet:
-  transaction_stream_endpoint: https://grpc.testnet.aptoslabs.com:443
+  transaction_stream_endpoint: https://grpc.testnet.libra2labs.com:443
   api_key: TESTNET_API_KEY  # <--- Replace this with your API key to generate files locally
   versions_to_import:
     # Replace these with the versions you want to import
@@ -44,7 +44,7 @@ testnet:
     5523474016: 5523474016_validator_txn
 
 mainnet:
-  transaction_stream_endpoint: https://grpc.mainnet.aptoslabs.com:443
+  transaction_stream_endpoint: https://grpc.mainnet.libra2labs.com:443
   api_key: MAINNET_API_KEY
   versions_to_import:
     308783012: 308783012_fa_transfer
@@ -110,19 +110,19 @@ Options available:
 
 Update the `mod.rs` file to include the generated Rust file containing the transaction constants. If `mod.rs` doesn’t exist, create one in the target folder:
 
-[Reference mod.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
+[Reference mod.rs](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
 
 ### Export the `json_transactions` Folder
 
 Since the `generated_transactions.rs` reles on the `json_transactions` Ensure the `json_transactions` folder is properly exported in the library file for your tests have direct access to the transaction data.
 
-[Reference lib.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
+[Reference lib.rs](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
 
 ### Integrate into Test Cases
 
 Use the exported transaction constants directly in your test cases to simulate real transactions and validate processing logic.
 
-[Example Crate](https://github.com/libra2org/aptos-indexer-processor-example/tree/main/test-transactions-example).
+[Example Crate](https://github.com/libra2org/libra2-indexer-processor-example/tree/main/test-transactions-example).
 
 ## Next Steps
 

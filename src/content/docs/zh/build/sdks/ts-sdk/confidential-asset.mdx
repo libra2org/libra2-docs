@@ -29,7 +29,7 @@ import {
 } from '@lukachi/libra2-core-ts-sdk'
 
 const RANGE_PROOF_WASM_URL =
-  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/libra2_rp_wasm_bg.wasm'
 
 export async function genBatchRangeZKP(
   opts: BatchRangeProofInputs,
@@ -105,7 +105,7 @@ import {
 import { bytesToNumberLE } from '@noble/curves/abstract/utils'
 
 const POLLARD_KANGAROO_WASM_URL =
-  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/libra2_pollard_kangaroo_wasm_bg.wasm'
 
 export async function createKangaroo(secret_size: number) {
   await initWasm({ module_or_path: POLLARD_KANGAROO_WASM_URL })
@@ -157,7 +157,7 @@ const init = async () => {
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
 const config = new LibraConfig({ network: APTOS_NETWORK });
-export const aptos = new Libra(config);
+export const libra2 = new Libra(config);
 ```
 
 ### 创建解密密钥(DK)
@@ -198,16 +198,16 @@ export const registerConfidentialBalance = async (
   publicKeyHex: string,
   tokenAddress = "0x...",
 ) => {
-  const txBody = await aptos.confidentialAsset.deposit({
+  const txBody = await libra2.confidentialAsset.deposit({
     sender: account.accountAddress,
     to: AccountAddress.from(to),
     tokenAddress: tokenAddress,
     amount: amount,
   })
 
-  const txResponse = await aptos.signAndSubmitTransaction({ signer: user, transaction: userRegisterCBTxBody });
+  const txResponse = await libra2.signAndSubmitTransaction({ signer: user, transaction: userRegisterCBTxBody });
 
-  const txReceipt = await aptos.waitForTransaction({ transactionHash: txResponse.hash });
+  const txReceipt = await libra2.waitForTransaction({ transactionHash: txResponse.hash });
 
   return txReceipt;
 }
@@ -220,7 +220,7 @@ export const getIsAccountRegisteredWithToken = async (
   account: Account,
   tokenAddress = "0x...",
 ) => {
-  const isRegistered = await aptos.confidentialAsset.hasUserRegistered({
+  const isRegistered = await libra2.confidentialAsset.hasUserRegistered({
     accountAddress: account.accountAddress,
     tokenAddress: tokenAddress,
   })
@@ -242,7 +242,7 @@ export const depositConfidentialBalance = async (
   to: string,
   tokenAddress = "0x...",
 ) => {
-  const txBody = await aptos.confidentialAsset.deposit({
+  const txBody = await libra2.confidentialAsset.deposit({
     sender: account.accountAddress,
     to: AccountAddress.from(to),
     tokenAddress: tokenAddress,
@@ -257,7 +257,7 @@ export const depositConfidentialBalance = async (
 存款后,让我们检查用户的余额.
 
 ````typescript
-const userConfidentialBalance = await aptos.confidentialAsset.getBalance({ accountAddress: user.accountAddress, tokenAddress: TOKEN_ADDRESS });
+const userConfidentialBalance = await libra2.confidentialAsset.getBalance({ accountAddress: user.accountAddress, tokenAddress: TOKEN_ADDRESS });
 ```该方法返回用户的[`pending`和`actual`](confidential-asset#confidential-asset-store)保密余额，要[解密](confidential-asset#encryption-and-decryption)这些余额，可以使用`ConfidentialAmount`类
 
 ```typescript
@@ -268,7 +268,7 @@ export const getConfidentialBalances = async (
 ) => {
   const decryptionKey = new TwistedEd25519PrivateKey(decryptionKeyHex)
 
-  const { pending, actual } = await aptos.confidentialAsset.getBalance({
+  const { pending, actual } = await libra2.confidentialAsset.getBalance({
     accountAddress: account.accountAddress,
     tokenAddress,
   })
@@ -299,13 +299,13 @@ export const getConfidentialBalances = async (
 
 用户无法操作`pending`余额,因此您可以将其[结转](/zh/build/sdks/ts-sdk/confidential-asset#rollover-pending-balance)到`actual`余额.
 
-为此,请使用`aptos.confidentialAsset.rolloverPendingBalance`.
+为此,请使用`libra2.confidentialAsset.rolloverPendingBalance`.
 
 <Aside type="caution">
   重要提示:在`rollover`操作前,用户的actual余额需要先进行[标准化](/zh/build/sdks/ts-sdk/confidential-asset#normalize)处理.
 </Aside>
 
-要同时处理[标准化](#normalization)和`rollover`操作,可以使用`aptos.confidentialAsset.safeRolloverPendingCB`.
+要同时处理[标准化](#normalization)和`rollover`操作,可以使用`libra2.confidentialAsset.safeRolloverPendingCB`.
 
 ```typescript
 export const safelyRolloverConfidentialBalance = async (
@@ -313,7 +313,7 @@ export const safelyRolloverConfidentialBalance = async (
   decryptionKeyHex: string,
   tokenAddress = "0x...",
 ) => {
-  const rolloverTxPayloads = await aptos.confidentialAsset.safeRolloverPendingCB({
+  const rolloverTxPayloads = await libra2.confidentialAsset.safeRolloverPendingCB({
     sender: account.accountAddress,
     tokenAddress,
     decryptionKey: new TwistedEd25519PrivateKey(decryptionKeyHex),
@@ -340,7 +340,7 @@ export const getIsBalanceNormalized = async (
   account: Account,
   tokenAddress = "0x...",
 ) => {
-  const isNormalized = await aptos.confidentialAsset.isUserBalanceNormalized({
+  const isNormalized = await libra2.confidentialAsset.isUserBalanceNormalized({
     accountAddress: account.accountAddress,
     tokenAddress: tokenAddress,
   })
@@ -349,7 +349,7 @@ export const getIsBalanceNormalized = async (
 }
 ```
 
-获取余额后,最终调用`aptos.confidentialAsset.normalizeUserBalance`方法:
+获取余额后,最终调用`libra2.confidentialAsset.normalizeUserBalance`方法:
 
 ```typescript
 export const normalizeConfidentialBalance = async (
@@ -359,7 +359,7 @@ export const normalizeConfidentialBalance = async (
   amount: bigint,
   tokenAddress = "0x...",
 ) => {
-  const normalizeTx = await aptos.confidentialAsset.normalizeUserBalance({
+  const normalizeTx = await libra2.confidentialAsset.normalizeUserBalance({
     tokenAddress,
     decryptionKey: new TwistedEd25519PrivateKey(decryptionKeyHex),
     unnormalizedEncryptedBalance: encryptedPendingBalance,
@@ -385,7 +385,7 @@ export const withdrawConfidentialBalance = async (
   encryptedActualBalance: TwistedElGamalCiphertext[],
   tokenAddress = '0x...',
 ) => {
-  const withdrawTx = await aptos.confidentialAsset.withdraw({
+  const withdrawTx = await libra2.confidentialAsset.withdraw({
     sender: account.accountAddress,
     to: receiver,
     tokenAddress,
@@ -400,13 +400,13 @@ export const withdrawConfidentialBalance = async (
 
 ### 转账
 
-进行[机密转账](/zh/build/sdks/ts-sdk/confidential-asset#confidential-transfer)需要知道接收方的加密密钥和`aptos`账户地址
+进行[机密转账](/zh/build/sdks/ts-sdk/confidential-asset#confidential-transfer)需要知道接收方的加密密钥和`libra2`账户地址
 
 假设您已有接收方账户地址,让我们获取其加密密钥:
 
 ```typescript
 export const getEkByAddr = async (addrHex: string, tokenAddress: string) => {
-  return aptos.confidentialAsset.getEncryptionByAddr({
+  return libra2.confidentialAsset.getEncryptionByAddr({
     accountAddress: AccountAddress.from(addrHex),
     tokenAddress,
   })
@@ -432,7 +432,7 @@ export const transferConfidentialCoin = async (
     tokenAddress,
   )
 
-  const transferTx = await aptos.confidentialAsset.transferCoin({
+  const transferTx = await libra2.confidentialAsset.transferCoin({
     senderDecryptionKey: decryptionKey,
     recipientEncryptionKey: new TwistedEd25519PublicKey(
       recipientEncryptionKeyHex,
@@ -453,14 +453,14 @@ export const transferConfidentialCoin = async (
 
 ### 密钥轮换
 
-要进行[密钥轮换](/zh/build/sdks/ts-sdk/confidential-asset#rotate-encryption-key),您需要创建新的解密密钥并使用`aptos.confidentialAsset.rotateCBKey`
+要进行[密钥轮换](/zh/build/sdks/ts-sdk/confidential-asset#rotate-encryption-key),您需要创建新的解密密钥并使用`libra2.confidentialAsset.rotateCBKey`
 
 <Aside type="caution">
   但请注意,`key-rotation`会检查待处理余额是否为0.
   在这种情况下,我们可以使用带有`freeze`选项的`rollover`操作,将资产从待处理余额转移到实际余额并锁定余额.
 
   ```typescript
-  aptos.confidentialAsset.safeRolloverPendingCB({
+  libra2.confidentialAsset.safeRolloverPendingCB({
     ...,
     withFreezeBalance: false,
   })
@@ -473,7 +473,7 @@ export const transferConfidentialCoin = async (
 const balances = await getBalances(user.accountAddress.toString(), myDecryptionKey, TOKEN_ADDRESS);
 
 const NEW_DECRYPTION_KEY = TwistedEd25519PrivateKey.generate();
-const keyRotationAndUnfreezeTxResponse = await ConfidentialCoin.safeRotateCBKey(aptos, user, {
+const keyRotationAndUnfreezeTxResponse = await ConfidentialCoin.safeRotateCBKey(libra2, user, {
   sender: user.accountAddress,
 
   currDecryptionKey: currentDecryptionKey,

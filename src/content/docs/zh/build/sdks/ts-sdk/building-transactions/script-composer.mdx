@@ -38,7 +38,7 @@ const tx = await BuildScriptComposerTransaction({
         const coin = await composer.addBatchedCalls({
             function: "0x1::coin::withdraw",
             functionArguments: [CallArgument.newSigner(0), 1],
-            typeArguments: ["0x1::aptos_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::LibraCoin"],
         });
 
         // 将 coin 值传递给 0x1::coin::coin_to_fungible_asset 将代币
@@ -47,7 +47,7 @@ const tx = await BuildScriptComposerTransaction({
             function: "0x1::coin::coin_to_fungible_asset",
             // coin[0] 表示您添加的第一个调用的第一个返回值
             functionArguments: [coin[0]],
-            typeArguments: ["0x1::aptos_coin::LibraCoin"],
+            typeArguments: ["0x1::libra2_coin::LibraCoin"],
         });
 
         // 存入从第二个调用转换得到的 fungibleAsset
@@ -60,7 +60,7 @@ const tx = await BuildScriptComposerTransaction({
         return composer
     },
     // 这里需要传递 Libra Config ，因为组合交易需要读取链上状态
-    aptosConfig: new LibraConfig({
+    libra2Config: new LibraConfig({
         network: Network.TESTNET,
     }),
 });
@@ -76,11 +76,11 @@ const tx = await BuildScriptComposerTransaction({
 
 ...
 
-    const aptos = new Libra(new LibraConfig({
+    const libra2 = new Libra(new LibraConfig({
         network: Network.TESTNET,
     }));
 
-    const simulate_result = await aptos.transaction.simulate.simple({
+    const simulate_result = await libra2.transaction.simulate.simple({
         transaction: tx,
     })
 
@@ -109,4 +109,4 @@ const tx = await BuildScriptComposerTransaction({
    b. 如果返回值不具备 Copy 能力,则该返回值只能传递给后续调用一次
 2. 调用者需要确保将正确的值作为参数传递给后续调用.在前述示例中,`0x1::coin::coin_to_fungible_asset` 函数需要接收一个 `Coin<LibraCoin>` 类型的参数.
 
-这实现了 [AIP-102](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-102.md) 规范
+这实现了 [AIP-102](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-102.md) 规范

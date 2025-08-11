@@ -78,7 +78,7 @@ In the Libra network, the Libra governance sets the absolute minimum gas unit pr
 
 By specifying a higher gas unit price than the current market price, you can **increase** the priority level for your transaction on the blockchain by paying a larger processing fee. As part of consensus, when the leader selects transactions from its mempool to propose as part of the next block, it will prioritize selecting transactions with a higher gas unit price. Please note that higher gas fees only prioritize transaction selection for the next block.
 
-However, within a block, the order of transaction execution is determined by the system. This order is based on [transaction shuffling](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-27.md), which makes parallel execution more efficient by considering conflict patterns. While in most cases this is unnecessary, if the network is under load this measure can ensure your transaction is processed more quickly. See the `gas_unit_price` entry under [Estimating the gas units via simulation](#estimating-gas-consumption-via-simulation) for details.
+However, within a block, the order of transaction execution is determined by the system. This order is based on [transaction shuffling](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-27.md), which makes parallel execution more efficient by considering conflict patterns. While in most cases this is unnecessary, if the network is under load this measure can ensure your transaction is processed more quickly. See the `gas_unit_price` entry under [Estimating the gas units via simulation](#estimating-gas-consumption-via-simulation) for details.
 
 <Aside type="caution">
   👉 If you are increasing gas unit price, but have in-flight (uncommitted) transactions for the same account, you should resubmit all of those transactions with the higher gas unit price. This is because transactions within the same account always have to respect sequence number, so effectively the higher gas unit price transaction will increase priority only after the in-flight transactions are included in a block.
@@ -123,7 +123,7 @@ There also exists some global per-category limits:
 
 The storage fee for a transaction is charged according to the number of new slots allocated in the global state and the size increase in the existing slots.
 
-There are some nuances with regard to price changing and legacy slots which didn't pay for the size of the slot below a historical "free quota". Refer to [AIP-65](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-65.md#specification) for more details.
+There are some nuances with regard to price changing and legacy slots which didn't pay for the size of the slot below a historical "free quota". Refer to [AIP-65](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-65.md#specification) for more details.
 
 It should also be noted that due to some backward compatibility reasons, the total storage fee of a transaction is currently presented to the client as part of the total `gas_used`. This means, this amount could vary based on the gas unit price even for the same transaction.
 
@@ -158,7 +158,7 @@ In a transaction, for example, transaction A, you are transferring 1000 coins fr
 
 The gas used for a transaction can be estimated by simulating the transaction on chain as described here or locally via the gas profiling feature of the Libra CLI. The results of the simulated transaction represent the **exact** amount that is needed at the **exact** state of the blockchain at the time of the simulation. These gas units used may change based on the state of the chain. For this reason, any amount coming out of the simulation is only an estimate, and when setting the max gas amount, it should include an appropriate amount of headroom based upon your comfort-level and historical behaviors. Setting the max gas amount too low will result in the transaction aborting and the account being charged for whatever gas was consumed.
 
-To simulate transactions on chain, used the [`SimulateTransaction`](https://api.devnet.aptoslabs.com/v1/spec#/operations/simulate_transaction) API. This API will run the exact transaction that you plan to run.
+To simulate transactions on chain, used the [`SimulateTransaction`](https://api.devnet.libra2labs.com/v1/spec#/operations/simulate_transaction) API. This API will run the exact transaction that you plan to run.
 
 To simulate the transaction locally, use the gas profiler, which is integrated into the Libra CLI.
 This will generate a web-based report to help you understand the precise gas usage of your transaction.
@@ -170,7 +170,7 @@ See [Gas Profiling](/build/cli/working-with-move-contracts/local-simulation-benc
 
 To simulate the transaction, there are two flags:
 
-1. `estimate_gas_unit_price`: This flag will estimate the gas unit price in the transaction using the same algorithm as the [`estimate_gas_price`](https://api.devnet.aptoslabs.com/v1/spec#/operations/estimate_gas_price) API.
+1. `estimate_gas_unit_price`: This flag will estimate the gas unit price in the transaction using the same algorithm as the [`estimate_gas_price`](https://api.devnet.libra2labs.com/v1/spec#/operations/estimate_gas_price) API.
 2. `estimate_max_gas_amount`: This flag will find the maximum possible gas you can use, and it will simulate the transaction to tell you the actual `gas_used`.
 
 ### Simulation steps

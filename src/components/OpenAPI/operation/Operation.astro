@@ -26,7 +26,7 @@ const { operation } = pathItemOperation;
 <Deprecated deprecated={operation.deprecated} />
 <OperationDescription operation={pathItemOperation} {schema} />
 <OperationExamples
-  baseUrl="https://api.mainnet.aptoslabs.com"
+  baseUrl="https://api.mainnet.libra2labs.com"
   prefix={document.servers?.[0]?.url ?? ""}
   method={pathItemOperation.method}
   operationPath={ensureNonNullable(pathItemOperation.path, "Operation path is required")}

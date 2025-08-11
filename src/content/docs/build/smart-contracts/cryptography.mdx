@@ -17,15 +17,15 @@ Move, through the Libra adapter, encompasses several fundamental cryptographic t
 
 Three fundamental principles guide the design and integration of the Libra cryptographic extensions into Move:
 
-1. **Economic Gas Usage** – Striving to minimize gas costs for Move developers by implementing key primitives as [Move native functions](/build/smart-contracts/book/functions#native-functions). For example, see the module for [BLS signatures over BLS12-381 elliptic curves](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move).
-2. **Type-Safe APIs** – Ensuring that APIs are resistant to common mistakes, type-safety enhances code reliability and promotes an efficient development process. For an example, see the [Ed25519 signature module](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ed25519.move).
-3. **Empowerment of Developers** – In instances where native functions are unavailable, we empower developers to build their own cryptographic primitives on top of abstract cryptographic building blocks such as _finite fields_ and _Abelian groups_. Refer to the [`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move) module for more insights.
+1. **Economic Gas Usage** – Striving to minimize gas costs for Move developers by implementing key primitives as [Move native functions](/build/smart-contracts/book/functions#native-functions). For example, see the module for [BLS signatures over BLS12-381 elliptic curves](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move).
+2. **Type-Safe APIs** – Ensuring that APIs are resistant to common mistakes, type-safety enhances code reliability and promotes an efficient development process. For an example, see the [Ed25519 signature module](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move).
+3. **Empowerment of Developers** – In instances where native functions are unavailable, we empower developers to build their own cryptographic primitives on top of abstract cryptographic building blocks such as _finite fields_ and _Abelian groups_. Refer to the [`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move) module for more insights.
 
-Continue reading to delve a bit deeper and uncover some of the intricacies behind these extensions, as well as the range of applications they empower. For the most comprehensive understanding of this subject, refer to the [cryptography Move modules code](https://github.com/libra2org/libra2-core/tree/main/aptos-move/framework/aptos-stdlib/sources/cryptography).
+Continue reading to delve a bit deeper and uncover some of the intricacies behind these extensions, as well as the range of applications they empower. For the most comprehensive understanding of this subject, refer to the [cryptography Move modules code](https://github.com/libra2org/libra2-core/tree/main/libra2-move/framework/libra2-stdlib/sources/cryptography).
 
 ## Cryptographic hash functions
 
-Developers can now use more cryptographic hash functions in Move via the [`aptos_std::aptos_hash`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/hash.move) module:
+Developers can now use more cryptographic hash functions in Move via the [`libra2_std::libra2_hash`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/hash.move) module:
 
 | Hash function | Hash size (bits) | Cost for hashing 1KiB (in internal gas units) | Collision-resistance security (bits) |
 | ------------- | ---------------- | --------------------------------------------- | ------------------------------------ |
@@ -43,8 +43,8 @@ All hash functions have the same security properties (e.g., one-wayness, collisi
   RIPEMD160 should be avoided as a collision-resistant function due to its 80-bit security level. It is mainly supported for backward-compatibility reasons: e.g., Bitcoin address derivation relies on RIPEMD160.
 </Aside>
 
-Some of these functions can be used for interoperability with other chains (e.g., verifying Ethereum Merkle proofs via [`aptos_std::aptos_hash::keccak256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/aptos-move/framework/aptos-stdlib/sources/hash.move#L35)).
-Others, have lower gas costs, such as [`aptos_std::aptos_hash::blake2b_256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/aptos-move/framework/aptos-stdlib/sources/hash.move#L69).
+Some of these functions can be used for interoperability with other chains (e.g., verifying Ethereum Merkle proofs via [`libra2_std::libra2_hash::keccak256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/libra2-move/framework/libra2-stdlib/sources/hash.move#L35)).
+Others, have lower gas costs, such as [`libra2_std::libra2_hash::blake2b_256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/libra2-move/framework/libra2-stdlib/sources/hash.move#L69).
 In general, a wider variety of hash functions give developers additional freedom in terms of both security and interoperability with other off-chain cryptographic systems.
 
 ## Digital signature verification
@@ -53,11 +53,11 @@ Developers can now use a _type-safe_ API for verifying many kinds of digital sig
 
 | Signature scheme                                                                                                                                           | Curve         | Sig. size (bytes) | PK size (bytes) | Malleability | Assumptions | Pros          | Cons                |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ----------------- | --------------- | ------------ | ----------- | ------------- | ------------------- |
-| [ECDSA](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/secp256k1.move)                          | secp256k1     | 64                | 64              | Yes          | GGM         | Wide adoption | Security proof      |
-| [Ed25519](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ed25519.move)                          | Edwards 25519 | 64                | 32              | No           | DLA, ROM    | Fast          | Subtleties          |
-| [MultiEd25519](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/multi_ed25519.move)               | Edwards 25519 | $4 + t \cdot 64$  | $n \cdot 32$    | No           | DLA, ROM    | Easy-to-adopt | Large sig. size     |
-| [MinPK BLS](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move)                       | BLS12-381     | 96                | 48              | No           | CDH, ROM    | Versatile     | Slower verification |
-| [MinSig BLS](https://github.com/libra2org/libra2-core/blob/7d4fb98c6604c67e526a96f55668e7add7aaebf6/aptos-move/move-examples/drand/sources/drand.move#L57) | BLS12-381     | 48                | 96              | No           | CDH, ROM    | Versatile     | Slower verification |
+| [ECDSA](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/secp256k1.move)                          | secp256k1     | 64                | 64              | Yes          | GGM         | Wide adoption | Security proof      |
+| [Ed25519](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move)                          | Edwards 25519 | 64                | 32              | No           | DLA, ROM    | Fast          | Subtleties          |
+| [MultiEd25519](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/multi_ed25519.move)               | Edwards 25519 | $4 + t \cdot 64$  | $n \cdot 32$    | No           | DLA, ROM    | Easy-to-adopt | Large sig. size     |
+| [MinPK BLS](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move)                       | BLS12-381     | 96                | 48              | No           | CDH, ROM    | Versatile     | Slower verification |
+| [MinSig BLS](https://github.com/libra2org/libra2-core/blob/7d4fb98c6604c67e526a96f55668e7add7aaebf6/libra2-move/move-examples/drand/sources/drand.move#L57) | BLS12-381     | 48                | 96              | No           | CDH, ROM    | Versatile     | Slower verification |
 
 <Aside type="note">
   - CDH stands for the _"Computational Diffie-Hellman Assumption"_
@@ -93,7 +93,7 @@ The right choice of a signature scheme in your dapp could depend on many factors
 </Aside>
 
 <Aside type="note">
-  Our [`aptos_std::bls12381`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move) module for [MinPK BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) supports verification of individual signatures, **multi**-signatures, **aggregate** signatures and **threshold** signatures.
+  Our [`libra2_std::bls12381`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move) module for [MinPK BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) supports verification of individual signatures, **multi**-signatures, **aggregate** signatures and **threshold** signatures.
 </Aside>
 
 ## Elliptic curve arithmetic
@@ -104,9 +104,9 @@ Instead, we expose basic building blocks that developers can use to implement th
 
 Specifically, we currently expose low-level arithmetic operations on two popular elliptic curve groups and their associated finite fields:
 
-1. Ristretto255, via [`aptos_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255.move)
-2. BLS12-381, via [`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move)
-   and [`aptos_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381_algebra.move)
+1. Ristretto255, via [`libra2_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255.move)
+2. BLS12-381, via [`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move)
+   and [`libra2_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381_algebra.move)
 
 These modules support low-level operations such as:
 
@@ -125,16 +125,16 @@ Examples of powerful applications that can be built on top include:
 
 ### Ristretto255 arithmetic
 
-The [`aptos_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255.move) module provides support for elliptic curve arithmetic on the popular [Ristretto255 curve](https://ristretto.group/).
+The [`libra2_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255.move) module provides support for elliptic curve arithmetic on the popular [Ristretto255 curve](https://ristretto.group/).
 One of the main advantages of Ristretto255 is that it is a prime order group (unlike the Edwards 25519 curve), which obviates small-subgroup attacks on higher-level cryptosystems built on top of it.
 Furthermore, Ristretto255 serialization is canonical and deserialization only accepts canonical encodings, which obviates malleability issues in higher-level protocols.
 
 This module has proven useful for implementing several cryptographic primitives:
 
 1. **Zero-knowledge $\Sigma$-protocols** – See the [`veiled_coin` example](#veiled-coins).
-2. **ElGamal** encryption – See [`aptos_std::ristretto255_elgamal`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_elgamal.move)
-3. **Pedersen** commitments – See [`aptos_std::ristretto255_pedersen`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_pedersen.move)
-4. **Bulletproofs** ZK range proofs\[^bulletproofs] – See [`aptos_std::ristretto255_bulletproofs`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_bulletproofs.move)
+2. **ElGamal** encryption – See [`libra2_std::ristretto255_elgamal`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_elgamal.move)
+3. **Pedersen** commitments – See [`libra2_std::ristretto255_pedersen`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_pedersen.move)
+4. **Bulletproofs** ZK range proofs\[^bulletproofs] – See [`libra2_std::ristretto255_bulletproofs`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_bulletproofs.move)
 
 Need ideas for a cryptosystem to build on top of `ristretto255`?
 A popular primitive that you could easily build would be the [schnorrkel](https://github.com/w3f/schnorrkel) signature scheme, which is a hardened version of Schnorr signatures over Ristretto255 groups.
@@ -143,17 +143,17 @@ A popular primitive that you could easily build would be the [schnorrkel](https:
 
 What is better than one curve? More curves!
 
-The [`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move) provides elliptic curve arithmetic operations for **any** supported elliptic curve, including pairing-friendly curves.
+The [`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move) provides elliptic curve arithmetic operations for **any** supported elliptic curve, including pairing-friendly curves.
 As a consequence, Move developers can implement a cryptosystem generically over **any** curve that is or will be supported in the future.
 Compared to fixing a particular curve in the code (e.g., by implementing against the [Ristretto255 module](#ristretto255-arithmetic)), this approach provides more flexibility and lowers development time when migrating to a different curve.
 
-Although currently the `crypto_algebra` module only supports arithmetic over BLS12-381 curves (via the marker types declared in [`aptos_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381_algebra.move)), more curves will be supported into the future (e.g., BN254, Ristretto255, BLS12-377, BW6-761, secp256k1, secp256r1).
+Although currently the `crypto_algebra` module only supports arithmetic over BLS12-381 curves (via the marker types declared in [`libra2_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381_algebra.move)), more curves will be supported into the future (e.g., BN254, Ristretto255, BLS12-377, BW6-761, secp256k1, secp256r1).
 
 As an example, a Move developer can implement the popular Boneh-Lynn-Shacham (BLS) signature scheme generically over **any** curve by using [type arguments](/build/smart-contracts/book/functions#type-parameters) for the curve type in their implementation:
 
 ```rust
 use std::option;
-use aptos_std::crypto_algebra::{eq, pairing, one, deserialize, hash_to};
+use libra2_std::crypto_algebra::{eq, pairing, one, deserialize, hash_to};
 
 /// Example of a BLS signature verification function that works over any pairing-friendly
 /// group triple `Gr1`, `Gr2`, `GrT` where signatures are in `Gr1` and PKs in `Gr2`.
@@ -183,7 +183,7 @@ Using the `bls_verify_sig` _generic_ function from above, developers can verify 
 For example, one can verify [MinSig BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) signatures over BLS12-381 curves by calling the function above with the right BLS12-381 marker types as its type arguments:
 
 ```rust
-use aptos_std::bls12381_algebra::{
+use libra2_std::bls12381_algebra::{
     G1, G2, Gt, FormatG1Compr, FormatG2Compr, HashG1XmdSha256SswuRo
 };
 
@@ -205,7 +205,7 @@ For more use cases of the `crypto_algebra` module, check out some Move examples:
 
 ### Veiled coins
 
-The [`veiled_coin` example](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-experimental/sources/veiled_coin/) demonstrates how to use [the Ristretto255 modules from above](#ristretto255-arithmetic) to add a reasonable layer of confidentiality to coin balances and transactions.
+The [`veiled_coin` example](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-experimental/sources/veiled_coin/) demonstrates how to use [the Ristretto255 modules from above](#ristretto255-arithmetic) to add a reasonable layer of confidentiality to coin balances and transactions.
 
 Specifically, users can **veil** their balance, keeping it hidden from everyone, including validators.
 Furthermore, a user can send a **veiled transaction** that hides the transaction amount from everybody, including validators.
@@ -217,7 +217,7 @@ An important caveat is that veiled transactions do **not** hide the identities o
 
 ### Groth16 zkSNARK verifier
 
-The [`groth16` example](https://github.com/libra2org/libra2-core/blob/main/aptos-move/move-examples/groth16_example/sources/groth16.move) demonstrates how to verify Groth16 zkSNARK proofs\[^groth16], which are the shortest, fastest-to-verify, general-purpose zero-knowledge proofs.
+The [`groth16` example](https://github.com/libra2org/libra2-core/blob/main/libra2-move/move-examples/groth16_example/sources/groth16.move) demonstrates how to verify Groth16 zkSNARK proofs\[^groth16], which are the shortest, fastest-to-verify, general-purpose zero-knowledge proofs.
 Importantly, as explained [above](#generic-elliptic-curve-arithmetic), this implementation is _generic_ over **any** curve, making it very easy for Move developers to use it with their favorite (supported) curves.
 
 <Aside type="note">
@@ -226,9 +226,9 @@ Importantly, as explained [above](#generic-elliptic-curve-arithmetic), this impl
 
 ### Verifying randomness from the `drand` beacon
 
-The [`drand` example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/drand/sources) shows how to verify public randomness from the [drand](https://drand.love) randomness beacon.
+The [`drand` example](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/drand/sources) shows how to verify public randomness from the [drand](https://drand.love) randomness beacon.
 This randomness can be used in games or any other chance-based smart contract.
-We give a simple example of a lottery implemented on top of `drand` randomness in [`lottery.move`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/drand/sources/lottery.move).
+We give a simple example of a lottery implemented on top of `drand` randomness in [`lottery.move`](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/drand/sources/lottery.move).
 
 <Aside type="note">
   This code has not been audited by a third-party organization. If using it in a production system, proceed at your own risk.

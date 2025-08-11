@@ -10,27 +10,27 @@ If you are running your own instance of the [Indexer API](/build/indexer), or an
 
 All endpoints are in GCP us-central1 unless otherwise specified.
 
-- **Mainnet:** grpc.mainnet.aptoslabs.com:443
-- **Testnet:** grpc.testnet.aptoslabs.com:443
-- **Devnet:** grpc.devnet.aptoslabs.com:443
+- **Mainnet:** grpc.mainnet.libra2labs.com:443
+- **Testnet:** grpc.testnet.libra2labs.com:443
+- **Devnet:** grpc.devnet.libra2labs.com:443
 
-You can learn about the rate limits for this service by reading the [Libra Build docs](https://build.aptoslabs.com/docs/start/billing).
+You can learn about the rate limits for this service by reading the [Libra Build docs](https://build.libra2labs.com/docs/start/billing).
 
 ## Authorization via API Key
 
 In order to use the Labs-Hosted Transaction Stream Service you must have an API key. To get an API key, do the following:
 
-1. Go to https://build.aptoslabs.com.
+1. Go to https://build.libra2labs.com.
 2. Sign in and select "API Resource".
 3. Create a new key. You will see the API key secret in the first table.
 
 You can provide the API key by setting the `Authorization` HTTP header ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)). For example, with curl:
 
 ```shellscript filename="Terminal"
-curl -H 'Authorization: Bearer aptoslabs_yj4donpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx'
+curl -H 'Authorization: Bearer libra2labs_yj4donpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx'
 ```
 
-Learn more about API keys at the [Libra Build docs site](https://build.aptoslabs.com/docs/start/api-keys).
+Learn more about API keys at the [Libra Build docs site](https://build.libra2labs.com/docs/start/api-keys).
 
 For more comprehensive information about how to use the Transaction Stream Service, see the docs for the downstream systems:
 

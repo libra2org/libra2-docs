@@ -43,7 +43,7 @@ SHELL = os.getenv("SHELL", "")
 WINDOWS = sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
 MINGW = sysconfig.get_platform().startswith("mingw")
 MACOS = sys.platform == "darwin"
-SCRIPT = "aptos.exe" if WINDOWS else "aptos"
+SCRIPT = "libra2.exe" if WINDOWS else "libra2"
 TEST_COMMAND = f"{SCRIPT} info"
 
 X86_64 = ["x86_64", "amd64"]
@@ -150,31 +150,31 @@ def string_to_bool(value):
 def bin_dir() -> Path:
     if WINDOWS and not MINGW:
         # ~ is %USERPROFILE% on Windows
-        return Path("~/.aptoscli/bin").expanduser()
+        return Path("~/.libra2cli/bin").expanduser()
     else:
         return Path("~/.local/bin").expanduser()
 
 
-PRE_MESSAGE = """Welcome to the {aptos} CLI installer!
+PRE_MESSAGE = """Welcome to the {libra2} CLI installer!
 
-This will download and install the latest version of the {aptos} CLI at this location:
+This will download and install the latest version of the {libra2} CLI at this location:
 
-{aptos_home_bin}
+{libra2_home_bin}
 """
 
-POST_MESSAGE = """The {aptos} CLI ({version}) is installed now. Great!
+POST_MESSAGE = """The {libra2} CLI ({version}) is installed now. Great!
 
 You can test that everything is set up by executing this command:
 
 {test_command}
 """
 
-POST_MESSAGE_NOT_IN_PATH = """The {aptos} CLI ({version}) is installed now. Great!
+POST_MESSAGE_NOT_IN_PATH = """The {libra2} CLI ({version}) is installed now. Great!
 
-To get started you need the {aptos} CLI's bin directory ({aptos_home_bin}) in your `PATH`
+To get started you need the {libra2} CLI's bin directory ({libra2_home_bin}) in your `PATH`
 environment variable.
 {configure_message}
-Alternatively, you can call the {aptos} CLI explicitly with `{aptos_executable}`.
+Alternatively, you can call the {libra2} CLI explicitly with `{libra2_executable}`.
 
 You can test that everything is set up by executing:
 
@@ -184,19 +184,19 @@ You can test that everything is set up by executing:
 POST_MESSAGE_CONFIGURE_UNIX = """
 Add the following to your shell configuration file (e.g. .bashrc):
 
-export PATH="{aptos_home_bin}:$PATH"
+export PATH="{libra2_home_bin}:$PATH"
 
 After this, restart your terminal.
 """
 
 POST_MESSAGE_CONFIGURE_FISH = """
-You can execute `set -U fish_user_paths {aptos_home_bin} $fish_user_paths`
+You can execute `set -U fish_user_paths {libra2_home_bin} $fish_user_paths`
 """
 
 POST_MESSAGE_CONFIGURE_WINDOWS = """
 Execute the following command to update your PATH:
 
-setx PATH "%PATH%;{aptos_home_bin}"
+setx PATH "%PATH%;{libra2_home_bin}"
 
 After this, restart your terminal.
 """
@@ -251,7 +251,7 @@ class Installer:
     def latest_release_info(self):
         # Iterate through the releases and find the latest CLI release.
         for release in self.release_info:
-            if release["tag_name"].startswith("aptos-cli-"):
+            if release["tag_name"].startswith("libra2-cli-"):
                 return release
         raise RuntimeError("Failed to find latest CLI release")
 
@@ -297,10 +297,10 @@ class Installer:
         url = self.build_binary_url(version, target)
 
         with tempfile.TemporaryDirectory() as tmpdirname:
-            zip_file = os.path.join(tmpdirname, "aptos-cli.zip")
+            zip_file = os.path.join(tmpdirname, "libra2-cli.zip")
             urlretrieve(url, zip_file)
             # This assumes that the binary within the zip file is always
-            # called `aptos` / `aptos.exe`.
+            # called `libra2` / `libra2.exe`.
             shutil.unpack_archive(zip_file, self.bin_dir)
 
         os.chmod(self.bin_path, 0o755)
@@ -318,12 +318,12 @@ class Installer:
         )
 
     def build_binary_url(self, version: str, target: str) -> str:
-        return f"https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v{version}/aptos-cli-{version}-{target}.zip"
+        return f"https://github.com/libra2org/libra2-core/releases/download/libra2-cli-v{version}/libra2-cli-{version}-{target}.zip"
 
     def display_pre_message(self) -> None:
         kwargs = {
-            "aptos": colorize("info", "Libra2"),
-            "aptos_home_bin": colorize("comment", self.bin_dir),
+            "libra2": colorize("info", "Libra2"),
+            "libra2_home_bin": colorize("comment", self.bin_dir),
         }
         self._write(PRE_MESSAGE.format(**kwargs))
 
@@ -354,12 +354,12 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Libra2"),
+                libra2=colorize("info", "Libra2"),
                 version=colorize("b", version),
-                aptos_home_bin=colorize("comment", self.bin_dir),
-                aptos_executable=colorize("b", self.bin_path),
+                libra2_home_bin=colorize("comment", self.bin_dir),
+                libra2_executable=colorize("b", self.bin_path),
                 configure_message=POST_MESSAGE_CONFIGURE_WINDOWS.format(
-                    aptos_home_bin=colorize("comment", self.bin_dir)
+                    libra2_home_bin=colorize("comment", self.bin_dir)
                 ),
                 test_command=colorize("b", TEST_COMMAND),
             )
@@ -376,12 +376,12 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Libra2"),
+                libra2=colorize("info", "Libra2"),
                 version=colorize("b", version),
-                aptos_home_bin=colorize("comment", self.bin_dir),
-                aptos_executable=colorize("b", self.bin_path),
+                libra2_home_bin=colorize("comment", self.bin_dir),
+                libra2_executable=colorize("b", self.bin_path),
                 configure_message=POST_MESSAGE_CONFIGURE_FISH.format(
-                    aptos_home_bin=colorize("comment", self.bin_dir)
+                    libra2_home_bin=colorize("comment", self.bin_dir)
                 ),
                 test_command=colorize("b", TEST_COMMAND),
             )
@@ -396,12 +396,12 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Libra2"),
+                libra2=colorize("info", "Libra2"),
                 version=colorize("b", version),
-                aptos_home_bin=colorize("comment", self.bin_dir),
-                aptos_executable=colorize("b", self.bin_path),
+                libra2_home_bin=colorize("comment", self.bin_dir),
+                libra2_executable=colorize("b", self.bin_path),
                 configure_message=POST_MESSAGE_CONFIGURE_UNIX.format(
-                    aptos_home_bin=colorize("comment", self.bin_dir)
+                    libra2_home_bin=colorize("comment", self.bin_dir)
                 ),
                 test_command=colorize("b", TEST_COMMAND),
             )
@@ -490,7 +490,7 @@ class Installer:
             sys.stdout.write(
                 colorize(
                     "error",
-                    "You are trying to install from macOS. Please use brew to install Libra2 CLI instead - [brew install aptos]",
+                    "You are trying to install from macOS. Please use brew to install Libra2 CLI instead - [brew install libra2]",
                 )
             )
             self._write("")
@@ -682,7 +682,7 @@ def main():
 
             _, path = tempfile.mkstemp(
                 suffix=".log",
-                prefix="aptos-cli-installer-error-",
+                prefix="libra2-cli-installer-error-",
                 dir=str(Path.cwd()),
                 text=True,
             )

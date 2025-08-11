@@ -11,7 +11,7 @@ There are two ways to install Prover dependencies.
 
 1. [Install the latest Libra CLI binary](/build/cli/install-cli/install-cli-mac).
 
-2. Execute the command `aptos update prover-dependencies`.
+2. Execute the command `libra2 update prover-dependencies`.
 
 <Aside type="note">
   Environment variables `BOOGIE_EXE` and `Z3_EXE` will be set automatically after installation. Please make sure
@@ -43,19 +43,19 @@ There are two ways to install Prover dependencies.
      2. Run the dev setup script to prepare your environment: `PowerShell -ExecutionPolicy Bypass -File ./scripts/windows_dev_setup.ps1 -y`
    </details>
 
-After installation, you can run the Move Prover to prove an [example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_prover):
+After installation, you can run the Move Prover to prove an [example](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_prover):
 
 ```shellscript filename="Terminal"
-aptos move prove --package-dir aptos-move/move-examples/hello_prover/
+libra2 move prove --package-dir libra2-move/move-examples/hello_prover/
 ```
 
 ## Troubleshooting
 
-If you encounter errors like the one below when running the command, double-check your Libra CLI version or verify that you're using the correct `aptos` tool, especially if you have multiple versions installed.
+If you encounter errors like the one below when running the command, double-check your Libra CLI version or verify that you're using the correct `libra2` tool, especially if you have multiple versions installed.
 
 ```shellscript filename="Terminal
 error: unexpected token
-    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
+    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/libra2-move/framework/libra2-framework/sources/randomness.move:515:16
     │
 515 │         for (i in 0..n) {
     │             -  ^ Expected ')'

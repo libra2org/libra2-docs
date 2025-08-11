@@ -171,7 +171,7 @@ export class CustomComponentTransformer extends BaseTransformer {
               newAttributes.push({
                 type: "mdxJsxAttribute",
                 name: "endpoint",
-                value: "https://api.mainnet.aptoslabs.com/nft-aggregator-staging/v1/graphql",
+                value: "https://api.mainnet.libra2labs.com/nft-aggregator-staging/v1/graphql",
               } as MdxJsxAttribute);
             }
 

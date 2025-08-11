@@ -4,7 +4,7 @@ title: "使用 Move 合约"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Libra CLI 主要用于编译,测试和形式化验证 Move 合约.如果你还没有安装 Libra CLI,可以按照[安装 Libra CLI](/zh/build/cli#-install-the-aptos-cli) 的步骤进行安装.
+Libra CLI 主要用于编译,测试和形式化验证 Move 合约.如果你还没有安装 Libra CLI,可以按照[安装 Libra CLI](/zh/build/cli#-install-the-libra2-cli) 的步骤进行安装.
 
 你可以使用右侧的目录跳转到特定部分.
 
@@ -19,7 +19,7 @@ Libra CLI 主要用于编译,测试和形式化验证 Move 合约.如果你还�
 你可以通过运行以下命令编译 Move 包:
 
 ```shellscript filename="Terminal"
-aptos move compile --package-dir <你的包目录>
+libra2 move compile --package-dir <你的包目录>
 ```
 
 <Aside type="note" emoji="ℹ️">
@@ -28,7 +28,7 @@ aptos move compile --package-dir <你的包目录>
 
 根据你的 `Move.toml` 文件中的设置,你可能需要向编译命令传递额外的信息.
 
-例如,如果你查看 [hello\_blockchain 示例 Move 合约](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_blockchain),在 `Move.toml` 文件中指定了一个名为 `hello_blockchain` 的地址变量.
+例如,如果你查看 [hello\_blockchain 示例 Move 合约](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/hello_blockchain),在 `Move.toml` 文件中指定了一个名为 `hello_blockchain` 的地址变量.
 
 ```toml filename="Move.toml"
 [addresses]
@@ -41,10 +41,10 @@ hello_blockchain = "_"
 在我们的示例中,我们将使用 `default`:
 
 ```shellscript filename="Terminal"
-aptos move compile --package-dir aptos-move/move-examples/hello_blockchain/ --named-addresses hello_blockchain=default
+libra2 move compile --package-dir libra2-move/move-examples/hello_blockchain/ --named-addresses hello_blockchain=default
 ```
 
-你可以通过运行 `aptos move compile --help` 了解编译 Move 合约时的可选参数.
+你可以通过运行 `libra2 move compile --help` 了解编译 Move 合约时的可选参数.
 
 ...(about 300 lines omitted)...
 
@@ -57,7 +57,7 @@ aptos move compile --package-dir aptos-move/move-examples/hello_blockchain/ --na
 安装 Move Prover 后,你可以通过运行以下命令从 Libra CLI 使用它:
 
 ```shellscript filename="Terminal"
-aptos move prove --package-dir <你的包目录>
+libra2 move prove --package-dir <你的包目录>
 ```
 
-要了解如何形式化验证你的代码,请按照[这里](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/move-tutorial)的深入 Move 教程进行操作(步骤 7 和 8 介绍了如何在示例代码中使用 Move Prover 和编写形式规范).
+要了解如何形式化验证你的代码,请按照[这里](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/move-tutorial)的深入 Move 教程进行操作(步骤 7 和 8 介绍了如何在示例代码中使用 Move Prover 和编写形式规范).

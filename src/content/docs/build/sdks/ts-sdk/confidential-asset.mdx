@@ -29,7 +29,7 @@ import {
 } from '@lukachi/libra2-core-ts-sdk'
 
 const RANGE_PROOF_WASM_URL =
-  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/libra2_rp_wasm_bg.wasm'
 
 export async function genBatchRangeZKP(
   opts: BatchRangeProofInputs,
@@ -105,7 +105,7 @@ import {
 import { bytesToNumberLE } from '@noble/curves/abstract/utils'
 
 const POLLARD_KANGAROO_WASM_URL =
-  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/libra2_pollard_kangaroo_wasm_bg.wasm'
 
 export async function createKangaroo(secret_size: number) {
   await initWasm({ module_or_path: POLLARD_KANGAROO_WASM_URL })
@@ -157,7 +157,7 @@ Now we are ready to go. Let's define Libra client:
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
 const config = new LibraConfig({ network: APTOS_NETWORK });
-export const aptos = new Libra(config);
+export const libra2 = new Libra(config);
 ```
 
 ### Create Decryption Key (DK)
@@ -198,16 +198,16 @@ export const registerConfidentialBalance = async (
   publicKeyHex: string,
   tokenAddress = "0x...",
 ) => {
-  const txBody = await aptos.confidentialAsset.deposit({
+  const txBody = await libra2.confidentialAsset.deposit({
     sender: account.accountAddress,
     to: AccountAddress.from(to),
     tokenAddress: tokenAddress,
     amount: amount,
   })
 
-  const txResponse = await aptos.signAndSubmitTransaction({ signer: user, transaction: userRegisterCBTxBody });
+  const txResponse = await libra2.signAndSubmitTransaction({ signer: user, transaction: userRegisterCBTxBody });
 
-  const txReceipt = await aptos.waitForTransaction({ transactionHash: txResponse.hash });
+  const txReceipt = await libra2.waitForTransaction({ transactionHash: txResponse.hash });
 
   return txReceipt;
 }
@@ -220,7 +220,7 @@ export const getIsAccountRegisteredWithToken = async (
   account: Account,
   tokenAddress = "0x...",
 ) => {
-  const isRegistered = await aptos.confidentialAsset.hasUserRegistered({
+  const isRegistered = await libra2.confidentialAsset.hasUserRegistered({
     accountAddress: account.accountAddress,
     tokenAddress: tokenAddress,
   })
@@ -242,7 +242,7 @@ export const depositConfidentialBalance = async (
   to: string,
   tokenAddress = "0x...",
 ) => {
-  const txBody = await aptos.confidentialAsset.deposit({
+  const txBody = await libra2.confidentialAsset.deposit({
     sender: account.accountAddress,
     to: AccountAddress.from(to),
     tokenAddress: tokenAddress,
@@ -257,7 +257,7 @@ export const depositConfidentialBalance = async (
 Let's check the user's balance after the deposit.
 
 ```typescript
-const userConfidentialBalance = await aptos.confidentialAsset.getBalance({ accountAddress: user.accountAddress, tokenAddress: TOKEN_ADDRESS });
+const userConfidentialBalance = await libra2.confidentialAsset.getBalance({ accountAddress: user.accountAddress, tokenAddress: TOKEN_ADDRESS });
 ```
 
 This method returns you the user's [`pending` and `actual`](/build/sdks/ts-sdk/confidential-asset#confidential-asset-store) confidential balances, and to [decrypt](/build/sdks/ts-sdk/confidential-asset#encryption-and-decryption) them, you can use `ConfidentialAmount` class
@@ -270,7 +270,7 @@ export const getConfidentialBalances = async (
 ) => {
   const decryptionKey = new TwistedEd25519PrivateKey(decryptionKeyHex)
 
-  const { pending, actual } = await aptos.confidentialAsset.getBalance({
+  const { pending, actual } = await libra2.confidentialAsset.getBalance({
     accountAddress: account.accountAddress,
     tokenAddress,
   })
@@ -301,13 +301,13 @@ After you deposited to user's confidential balance, you can see, that he has, fo
 
 User can't operate with `pending` balance, so you could [rollover](/build/sdks/ts-sdk/confidential-asset#rollover-pending-balance) it to `actual` one.
 
-And to do so - use `aptos.confidentialAsset.rolloverPendingBalance`.
+And to do so - use `libra2.confidentialAsset.rolloverPendingBalance`.
 
 <Aside type="caution">
   Important note, that user's actual balance need to be [normalized](/build/sdks/ts-sdk/confidential-asset#normalize) before `rollover` operation.
 </Aside>
 
-To cover [normalization](#normalization) & `rollover` simultaneously, you could use `aptos.confidentialAsset.safeRolloverPendingCB`.
+To cover [normalization](#normalization) & `rollover` simultaneously, you could use `libra2.confidentialAsset.safeRolloverPendingCB`.
 
 ```typescript
 export const safelyRolloverConfidentialBalance = async (
@@ -315,7 +315,7 @@ export const safelyRolloverConfidentialBalance = async (
   decryptionKeyHex: string,
   tokenAddress = "0x...",
 ) => {
-  const rolloverTxPayloads = await aptos.confidentialAsset.safeRolloverPendingCB({
+  const rolloverTxPayloads = await libra2.confidentialAsset.safeRolloverPendingCB({
     sender: account.accountAddress,
     tokenAddress,
     decryptionKey: new TwistedEd25519PrivateKey(decryptionKeyHex),
@@ -342,7 +342,7 @@ export const getIsBalanceNormalized = async (
   account: Account,
   tokenAddress = "0x...",
 ) => {
-  const isNormalized = await aptos.confidentialAsset.isUserBalanceNormalized({
+  const isNormalized = await libra2.confidentialAsset.isUserBalanceNormalized({
     accountAddress: account.accountAddress,
     tokenAddress: tokenAddress,
   })
@@ -351,7 +351,7 @@ export const getIsBalanceNormalized = async (
 }
 ```
 
-Get your balance and finally call the `aptos.confidentialAsset.normalizeUserBalance` method:
+Get your balance and finally call the `libra2.confidentialAsset.normalizeUserBalance` method:
 
 ```typescript
 export const normalizeConfidentialBalance = async (
@@ -361,7 +361,7 @@ export const normalizeConfidentialBalance = async (
   amount: bigint,
   tokenAddress = "0x...",
 ) => {
-  const normalizeTx = await aptos.confidentialAsset.normalizeUserBalance({
+  const normalizeTx = await libra2.confidentialAsset.normalizeUserBalance({
     tokenAddress,
     decryptionKey: new TwistedEd25519PrivateKey(decryptionKeyHex),
     unnormalizedEncryptedBalance: encryptedPendingBalance,
@@ -387,7 +387,7 @@ export const withdrawConfidentialBalance = async (
   encryptedActualBalance: TwistedElGamalCiphertext[],
   tokenAddress = '0x...',
 ) => {
-  const withdrawTx = await aptos.confidentialAsset.withdraw({
+  const withdrawTx = await libra2.confidentialAsset.withdraw({
     sender: account.accountAddress,
     to: receiver,
     tokenAddress,
@@ -402,13 +402,13 @@ export const withdrawConfidentialBalance = async (
 
 ### Transfer
 
-For [transfer](/build/sdks/ts-sdk/confidential-asset#confidential-transfer) you need to know the recipient's encryption key and `aptos` account address
+For [transfer](/build/sdks/ts-sdk/confidential-asset#confidential-transfer) you need to know the recipient's encryption key and `libra2` account address
 
 Let's say you have a recipient's account address, let's get their encryption key.
 
 ```typescript
 export const getEkByAddr = async (addrHex: string, tokenAddress: string) => {
-  return aptos.confidentialAsset.getEncryptionByAddr({
+  return libra2.confidentialAsset.getEncryptionByAddr({
     accountAddress: AccountAddress.from(addrHex),
     tokenAddress,
   })
@@ -434,7 +434,7 @@ export const transferConfidentialCoin = async (
     tokenAddress,
   )
 
-  const transferTx = await aptos.confidentialAsset.transferCoin({
+  const transferTx = await libra2.confidentialAsset.transferCoin({
     senderDecryptionKey: decryptionKey,
     recipientEncryptionKey: new TwistedEd25519PublicKey(
       recipientEncryptionKeyHex,
@@ -455,14 +455,14 @@ export const transferConfidentialCoin = async (
 
 ### Key Rotation
 
-To do [key rotation](/build/sdks/ts-sdk/confidential-asset#rotate-encryption-key), you need to create a new decryption key and use `aptos.confidentialAsset.rotateCBKey`
+To do [key rotation](/build/sdks/ts-sdk/confidential-asset#rotate-encryption-key), you need to create a new decryption key and use `libra2.confidentialAsset.rotateCBKey`
 
 <Aside type="caution">
   But keep in mind, that `key-rotation` checks that pending balance equals 0.
   In that case, we could do a `rollover` with `freeze` option, to move assets from the pending balance to the actual one and lock our balance.
 
   ```typescript
-  aptos.confidentialAsset.safeRolloverPendingCB({
+  libra2.confidentialAsset.safeRolloverPendingCB({
     ...,
     withFreezeBalance: false,
   })
@@ -475,7 +475,7 @@ Now let's create a new decryption key and rotate our encryption key:
 const balances = await getBalances(user.accountAddress.toString(), myDecryptionKey, TOKEN_ADDRESS);
 
 const NEW_DECRYPTION_KEY = TwistedEd25519PrivateKey.generate();
-const keyRotationAndUnfreezeTxResponse = await ConfidentialCoin.safeRotateCBKey(aptos, user, {
+const keyRotationAndUnfreezeTxResponse = await ConfidentialCoin.safeRotateCBKey(libra2, user, {
   sender: user.accountAddress,
 
   currDecryptionKey: currentDecryptionKey,

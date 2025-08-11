@@ -42,7 +42,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
    gsutil mb gs://BUCKET_NAME
 
    # Here's an example of creating a bucket
-   gsutil mb gs://<project-name>-aptos-terraform-dev
+   gsutil mb gs://<project-name>-libra2-terraform-dev
    ```
 
 3. Create a Terraform file called `main.tf` in your working directory:
@@ -59,13 +59,13 @@ Using this guide, the validator and VFN will be deployed on separate machines.
      required_version = "~> 1.3.6"
      backend "gcs" {
        bucket = "BUCKET_NAME" # The bucket name created above
-       prefix = "state/aptos-node"
+       prefix = "state/libra2-node"
      }
    }
 
-   module "aptos-node" {
+   module "libra2-node" {
      # Download the Terraform module from the libra2-core repository.
-     source        = "github.com/libra2org/libra2-core.git//terraform/aptos-node/gcp"
+     source        = "github.com/libra2org/libra2-core.git//terraform/libra2-node/gcp"
      region        = "us-central1"  # Specify the GCP region
      zone          = "c"            # Specify the zone suffix
      project       = "<GCP Project ID>" # Specify your GCP project ID
@@ -78,8 +78,8 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
    For all customization options, see:
 
-   - The Terraform variables: [https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/gcp/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/gcp/variables.tf)
-   - The Helm values: [https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml).
+   - The Terraform variables: [https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/gcp/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/gcp/variables.tf)
+   - The Helm values: [https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml).
 
 5. Initialize Terraform in the `$WORKSPACE` directory where you created the `main.tf` file.
 
@@ -108,7 +108,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
 8. After `terraform apply` finishes, you can check if the resources have been created correctly, by running the following commands:
 
-   - `gcloud container clusters get-credentials aptos-$WORKSPACE --zone <region/zone> --project <project>`: This command will configure access for your k8s cluster.
+   - `gcloud container clusters get-credentials libra2-$WORKSPACE --zone <region/zone> --project <project>`: This command will configure access for your k8s cluster.
    - `kubectl get pods`: This command will output all pods in the cluster. You should see haproxy, the
      validator and the VFN (with the validator and VFN pod `pending` due to further action in later steps).
    - `kubectl get svc`: This command will output all services in the cluster. You should see the
@@ -117,16 +117,16 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 9. Next, we need to inject your node's IP information into your environment. You can do this by running the following commands:
 
    ```shellscript filename="Terminal"
-   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
-   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
    ```
 
 10. Now, generate the key pairs for your nodes in your working directory. You can do this by running
     the following command with the Libra CLI:
 
     ```shellscript filename="Terminal"
-    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+    libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
     ```
 
     This will create 4 key files under `~/$WORKSPACE/keys` directory:
@@ -146,7 +146,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
     which may be IP addresses or DNS addresses. This can be done by running the following command:
 
     ```shellscript filename="Terminal"
-    aptos genesis set-validator-configuration \
+    libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -167,7 +167,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
 13. To recap, in your working directory (`~/$WORKSPACE`), you should have a list of files:
 
-    - `main.tf`: The Terraform files to install the `aptos-node` module.
+    - `main.tf`: The Terraform files to install the `libra2-node` module.
     - `keys` folder containing:
       - `public-keys.yaml`: Public keys for both nodes.
       - `private-keys.yaml`: Private keys for both nodes.
@@ -183,7 +183,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
     by running the following command:
 
     ```shellscript filename="Terminal"
-    kubectl create secret generic ${WORKSPACE}-aptos-node-0-genesis-e1 \
+    kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e1 \
         --from-file=genesis.blob=genesis.blob \
         --from-file=waypoint.txt=waypoint.txt \
         --from-file=validator-identity.yaml=keys/validator-identity.yaml \
@@ -209,9 +209,9 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
     # Example output
     NAME                                        READY   STATUS    RESTARTS   AGE
-    node1-aptos-node-0-fullnode-e9-0              1/1     Running   0          4h31m
-    node1-aptos-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
-    node1-aptos-node-0-validator-0                1/1     Running   0          4h30m
+    node1-libra2-node-0-fullnode-e9-0              1/1     Running   0          4h31m
+    node1-libra2-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
+    node1-libra2-node-0-validator-0                1/1     Running   0          4h30m
     ```
 
 <Aside type="caution">

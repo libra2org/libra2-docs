@@ -17,17 +17,17 @@ on how to download the `libra2-core` repository and build the binary. Then, foll
    - Run this command to download the genesis blob (for mainnet):
 
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/genesis.blob
+     curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/genesis.blob
      ```
 
    - Run this command to download the waypoint file (for mainnet):
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/waypoint.txt
+     curl -O https://raw.githubusercontent.com/libra2-core/libra2-networks/main/mainnet/waypoint.txt
      ```
 
    <Aside type="caution">
      **Don't want to connect to mainnet?**<br />
-     To connect to other networks (e.g., `devnet` and `testnet`), you can find the genesis and waypoint here ➜ https://github.com/libra2org/aptos-networks.
+     To connect to other networks (e.g., `devnet` and `testnet`), you can find the genesis and waypoint here ➜ https://github.com/libra2org/libra2-networks.
      Be sure to download the `genesis.blob` and `waypoint.txt` for those networks, instead of using the genesis
      and waypoint pointed to by the `curl` commands above.
    </Aside>
@@ -61,12 +61,12 @@ on how to download the `libra2-core` repository and build the binary. Then, foll
 6. Start your local public fullnode by running the below command:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node --release -- -f ./fullnode.yaml
+cargo run -p libra2-node --release -- -f ./fullnode.yaml
 ```
 
 <Aside type="note">
   **Debugging?**<br />
-  The command above will build a release binary for `aptos-node` at: `libra2-core/target/release/aptos-node`. The release
+  The command above will build a release binary for `libra2-node` at: `libra2-core/target/release/libra2-node`. The release
   binaries tend to be substantially faster than debug binaries but lack debugging information useful for development.
   To build a debug binary, omit the `--release` flag from the command above.
 </Aside>

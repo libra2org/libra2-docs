@@ -38,7 +38,7 @@ const enableApiReference = true;
 export default defineConfig({
   site:
     ENV.VERCEL_ENV === "production"
-      ? "https://aptos.dev"
+      ? "https://docs.libra2.org"
       : ENV.VERCEL_URL
         ? `https://${ENV.VERCEL_URL}`
         : "http://localhost:4321",
@@ -64,7 +64,7 @@ export default defineConfig({
         replacesTitle: false,
       },
       editLink: {
-        baseUrl: "https://github.com/libra2org/aptos-docs/edit/main/",
+        baseUrl: "https://github.com/libra2org/libra2-docs/edit/main/",
       },
       lastUpdated: true,
       expressiveCode: {
@@ -96,11 +96,11 @@ export default defineConfig({
       ),
       social: [
         { label: "GitHub", icon: "github", href: "https://github.com/libra2org" },
-        { label: "X", icon: "x.com", href: "https://x.com/aptos" },
-        { label: "Discord", icon: "discord", href: "https://discord.com/invite/aptosnetwork" },
-        //{ label: "Forum", icon: "discourse", href: "https://forum.aptosfoundation.org" },
+        { label: "X", icon: "x.com", href: "https://x.com/libra2" },
+        { label: "Discord", icon: "discord", href: "https://discord.com/invite/libra2network" },
+        //{ label: "Forum", icon: "discourse", href: "https://forum.libra2foundation.org" },
         //{ label: "Reddit", icon: "reddit", href: "https://www.reddit.com/r/Libra2" },
-        { label: "Telegram", icon: "telegram", href: "https://t.me/aptos" },
+        { label: "Telegram", icon: "telegram", href: "https://t.me/libra2" },
       ],
       components: {
         Head: "./src/starlight-overrides/Head.astro",
@@ -238,7 +238,7 @@ export default defineConfig({
   },
   prefetch: true,
   image: {
-    domains: ["preview.aptos.dev", "aptos.dev"],
+    domains: ["preview.docs.libra2.org", "docs.libra2.org"],
     remotePatterns: [{ protocol: "https" }],
   },
   env: {

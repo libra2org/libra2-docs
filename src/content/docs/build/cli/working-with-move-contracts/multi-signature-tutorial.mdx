@@ -8,20 +8,20 @@ import { Aside } from '@astrojs/starlight/components';
 
 This section builds upon the [Arguments in JSON tutorial](/build/cli/working-with-move-contracts/arguments-in-json-tutorial). If you have not done that, please complete that tutorial first.
 
-This tutorial likewise references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
+This tutorial likewise references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args).
 
 <Aside type="note" emoji="ℹ️">
   If you would like to follow along, start by completing the [Arguments in JSON](/build/cli/working-with-move-contracts/arguments-in-json-tutorial) tutorial steps!
 </Aside>
 
-For this example, Ace and Bee will conduct governance operations from a 2-of-2 "multisig v2" account (an on-chain multisig account per [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move))
+For this example, Ace and Bee will conduct governance operations from a 2-of-2 "multisig v2" account (an on-chain multisig account per [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/multisig_account.move))
 
 ## Account creation
 
 Since Ace's account was created during the [Arguments in JSON](/build/cli/working-with-move-contracts/arguments-in-json-tutorial) tutorial, start by mining a vanity address account for Bee too:
 
 ```shellscript filename="Terminal"
-aptos key generate \
+libra2 key generate \
     --vanity-prefix 0xbee \
     --output-file bee.key
 ```
@@ -54,7 +54,7 @@ bee_addr=0xbeec980219d246581cef5166dc6ba5fb1e090c7a7786a5176d111a9029b16ddc
 Fund Bee's account using the faucet:
 
 ```shellscript filename="Terminal"
-aptos account fund-with-faucet --account $bee_addr
+libra2 account fund-with-faucet --account $bee_addr
 ```
 
 <details>
@@ -70,7 +70,7 @@ aptos account fund-with-faucet --account $bee_addr
 Ace can now create a multisig account:
 
 ```shellscript filename="Terminal"
-aptos multisig create \
+libra2 multisig create \
     --additional-owners $bee_addr \
     --num-signatures-required 2 \
     --private-key-file ace.key \
@@ -107,10 +107,10 @@ multisig_addr=0x57478da34604655c68b1dcb89e4f4a9124b6c0ecc1c59a0931d58cc4e60ac5c5
 
 ## Inspect the multisig
 
-Use the assorted [`multisig_account.move` view functions](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237) to inspect the multisig:
+Use the assorted [`multisig_account.move` view functions](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/libra2-move/framework/libra2-framework/sources/multisig_account.move#L237) to inspect the multisig:
 
 ```shellscript filename="Number of signatures required"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::num_signatures_required \
     --args \
         address:"$multisig_addr"
@@ -129,7 +129,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="Owners"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::owners \
     --args \
         address:"$multisig_addr"
@@ -151,7 +151,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="Last resolved sequence number"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::last_resolved_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -170,7 +170,7 @@ aptos move view \
 </details>
 
 ```shellscript filename="Next sequence number"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -190,11 +190,11 @@ aptos move view \
 
 ## Enqueue a publication transaction
 
-The first multisig transaction enqueued will be a transaction for publication of the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
+The first multisig transaction enqueued will be a transaction for publication of the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/cli_args).
 First, generate a publication payload entry function JSON file:
 
 ```shellscript filename="Command"
-aptos move build-publish-payload \
+libra2 move build-publish-payload \
     --named-addresses test_account=$multisig_addr \
     --json-output-file publication.json \
     --assume-yes
@@ -213,7 +213,7 @@ aptos move build-publish-payload \
 Now have Ace propose publication of the package from the multisig account, storing only the payload hash on-chain:
 
 ```shellscript filename="Command"
-aptos multisig create-transaction \
+libra2 multisig create-transaction \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --store-hash-only \
@@ -244,7 +244,7 @@ aptos multisig create-transaction \
 Note that the last resolved sequence number is still 0 because no transactions have been resolved:
 
 ```shellscript filename="Last resolved sequence number"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::last_resolved_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -265,7 +265,7 @@ aptos move view \
 However, the next sequence number has been incremented because a transaction has been enqueued:
 
 ```shellscript filename="Next sequence number"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -286,7 +286,7 @@ aptos move view \
 The multisig transaction enqueued on-chain can now be inspected:
 
 ```shellscript filename="Get transaction"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::get_transaction \
     --args \
         address:"$multisig_addr" \
@@ -331,7 +331,7 @@ Note from the above result that no payload is stored on-chain, and that Ace impl
 Now have Bee enqueue a governance parameter setter transaction, storing the entire transaction payload on-chain:
 
 ```shellscript filename="Command"
-aptos multisig create-transaction \
+libra2 multisig create-transaction \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -368,7 +368,7 @@ aptos multisig create-transaction \
 Note the next sequence number has been incremented again:
 
 ```shellscript filename="Next sequence number"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::next_sequence_number \
     --args \
         address:"$multisig_addr"
@@ -389,7 +389,7 @@ aptos move view \
 Now both the publication and parameter transactions are pending:
 
 ```shellscript filename="Get pending transactions"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::get_pending_transactions \
     --args \
         address:"$multisig_addr"
@@ -453,7 +453,7 @@ aptos move view \
 Since only Ace has voted on the publication transaction (which he implicitly approved upon proposing) the transaction can't be executed yet:
 
 ```shellscript filename="Can be executed"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -475,7 +475,7 @@ aptos move view \
 Before Bee votes, however, she verifies that the payload hash stored on-chain matches the publication entry function JSON file:
 
 ```shellscript filename="Verifying transaction proposal"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --sequence-number 1
@@ -516,7 +516,7 @@ aptos multisig verify-proposal \
 Since Bee has verified that the on-chain payload hash checks out against her locally-compiled package publication JSON file, she votes yes:
 
 ```shellscript filename="Approving transaction"
-aptos multisig approve \
+libra2 multisig approve \
     --multisig-address $multisig_addr \
     --sequence-number 1 \
     --private-key-file bee.key \
@@ -546,7 +546,7 @@ aptos multisig approve \
 Now the transaction can be executed:
 
 ```shellscript filename="Can be executed"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -568,7 +568,7 @@ aptos move view \
 Now either Ace or Bee can invoke the publication transaction from the multisig account, passing the full transaction payload since only the hash was stored on-chain:
 
 ```shellscript filename="Publication"
-aptos multisig execute-with-payload \
+libra2 multisig execute-with-payload \
     --multisig-address $multisig_addr \
     --json-file publication.json \
     --private-key-file bee.key \
@@ -591,7 +591,7 @@ aptos multisig execute-with-payload \
 Since only Bee has voted on the governance parameter transaction (which she implicitly approved upon proposing), the transaction can't be executed yet:
 
 ```shellscript filename="Can be executed"
-aptos move view \
+libra2 move view \
     --function-id 0x1::multisig_account::can_be_executed \
     --args \
         address:"$multisig_addr" \
@@ -613,7 +613,7 @@ aptos move view \
 Before Ace votes, however, he verifies that the payload stored on-chain matches the function arguments he expects:
 
 ```shellscript filename="Verifying transaction proposal"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -661,7 +661,7 @@ aptos multisig verify-proposal \
 Note that the verification fails if he modifies even a single argument:
 
 ```shellscript filename="Failed transaction verification with modified u8"
-aptos multisig verify-proposal \
+libra2 multisig verify-proposal \
     --multisig-address $multisig_addr \
     --function-id $multisig_addr::cli_args::set_vals \
     --type-args \
@@ -679,7 +679,7 @@ aptos multisig verify-proposal \
 
   ```shellscript filename="Terminal"
   {
-    "Error": "Unexpected error: Transaction mismatch: The transaction you provided has a payload hash of 0xe494b0072d6f940317344967cf0e818c80082375833708c773b0275f3ad07e51, but the on-chain transaction proposal you specified has a payload hash of 0x070ed7c3f812f25f585461305d507b96a4e756f784e01c8c59901871267a1580. For more info, see https://aptos.dev/move/move-on-aptos/cli#multisig-governance"
+    "Error": "Unexpected error: Transaction mismatch: The transaction you provided has a payload hash of 0xe494b0072d6f940317344967cf0e818c80082375833708c773b0275f3ad07e51, but the on-chain transaction proposal you specified has a payload hash of 0x070ed7c3f812f25f585461305d507b96a4e756f784e01c8c59901871267a1580. For more info, see https://docs.libra2.org/move/move-on-libra2/cli#multisig-governance"
   }
   ```
 </details>
@@ -687,7 +687,7 @@ aptos multisig verify-proposal \
 Ace approves the transaction:
 
 ```shellscript filename="Approving transaction"
-aptos multisig approve \
+libra2 multisig approve \
     --multisig-address $multisig_addr \
     --sequence-number 2 \
     --private-key-file ace.key \
@@ -717,7 +717,7 @@ aptos multisig approve \
 Since the payload was stored on-chain, it is not required to execute the pending transaction:
 
 ```shellscript filename="Execution"
-aptos multisig execute \
+libra2 multisig execute \
     --multisig-address $multisig_addr \
     --private-key-file ace.key \
     --max-gas 10000 \

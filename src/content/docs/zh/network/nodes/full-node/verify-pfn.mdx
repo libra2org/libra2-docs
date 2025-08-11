@@ -15,7 +15,7 @@ import { Aside } from '@astrojs/starlight/components';
 在您的 PFN 初始同步期间,可能需要传输大量数据(有关状态同步工作原理的更多信息,请参见[状态同步](/zh/network/nodes/configure/state-sync)指南).您可以通过查询指标端口来监控状态同步进度,查看节点当前同步到的版本.运行以下示例命令以查看节点当前同步的版本:
 
 ```shellscript filename="Terminal"
-curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version{.*\"synced\"}" | awk '{print $2}'
+curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_state_sync_version{.*\"synced\"}" | awk '{print $2}'
 ```
 
 该命令将输出节点当前同步的版本.例如:
@@ -24,17 +24,17 @@ curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version{.*\"sy
 71000
 ```
 
-请将命令返回的同步版本号(如 `71000`)与 [Libra explorer 页面](https://explorer.aptoslabs.com/?network=mainnet)上显示的最新版本号进行比较.如果您的节点版本正在迅速接近最新版本,说明它的同步是正常的.浏览器页面上的版本号与您的节点相差几个版本是正常现象,因为浏览器节点本身可能存在一定的同步延迟.
+请将命令返回的同步版本号(如 `71000`)与 [Libra explorer 页面](https://explorer.libra2labs.com/?network=mainnet)上显示的最新版本号进行比较.如果您的节点版本正在迅速接近最新版本,说明它的同步是正常的.浏览器页面上的版本号与您的节点相差几个版本是正常现象,因为浏览器节点本身可能存在一定的同步延迟.
 
 <Aside type="caution">
   **使用快速同步?**
   如果您的节点正在进行快速同步,该命令可能在最终更新到最新版本之前一直显示`0`.要验证节点是否正在进行快速同步,请运行以下命令:
 
   ```shellscript filename="Terminal"
-  curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version{.*\"synced_states\"}" | awk '{print $2}'
+  curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_state_sync_version{.*\"synced_states\"}" | awk '{print $2}'
   ```
 
-  这应该显示同步状态数量的增加.您的节点可能需要几个小时才能快速同步到最新版本.最终,一旦快速同步完成,`aptos_state_sync_version{.*"synced"}`命令将返回节点当前同步的版本.
+  这应该显示同步状态数量的增加.您的节点可能需要几个小时才能快速同步到最新版本.最终,一旦快速同步完成,`libra2_state_sync_version{.*"synced"}`命令将返回节点当前同步的版本.
 
   您可以在此处阅读有关快速同步的更多信息:[状态同步引导](/zh/network/nodes/configure/state-sync#bootstrapping-phase).
 </Aside>
@@ -44,14 +44,14 @@ curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_state_sync_version{.*\"sy
 如果您愿意,您还可以检查您的 PFN 的出站网络连接.健康 PFN 的出站网络连接数量应该大于`0`.运行以下命令:
 
 ```shellscript filename="Terminal"
-curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_connections{direction=\"outbound\""
+curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_connections{direction=\"outbound\""
 ```
 
 上述命令将输出节点的出站网络连接数量.例如:
 
 ```shellscript filename="Terminal"
-curl 127.0.0.1:9101/metrics 2> /dev/null | grep "aptos_connections{direction=\"outbound\""
-aptos_connections{direction="outbound",network_id="Public",peer_id="aabd651f",role_type="full_node"} 3
+curl 127.0.0.1:9101/metrics 2> /dev/null | grep "libra2_connections{direction=\"outbound\""
+libra2_connections{direction="outbound",network_id="Public",peer_id="aabd651f",role_type="full_node"} 3
 ```
 
 如果返回的出站连接数量为 `0`,则意味着您的节点无法连接到 Libra 区块链.如果遇到这种情况,请按照以下步骤解决问题:
@@ -75,15 +75,15 @@ id=$(docker container ls | grep public_full_node_fullnode_1 | grep -oE "^[0-9a-z
 docker exec -it $id /bin/bash
 
 # 观察卷（账本）大小：
-du -cs -BM /opt/aptos/data
+du -cs -BM /opt/libra2/data
 ```
 
 [rest_spec]: https://github.com/libra2org/libra2-core/tree/main/api
 
-[devnet_genesis]: https://devnet.aptoslabs.com/genesis.blob
+[devnet_genesis]: https://devnet.libra2labs.com/genesis.blob
 
-[devnet_waypoint]: https://devnet.aptoslabs.com/waypoint.txt
+[devnet_waypoint]: https://devnet.libra2labs.com/waypoint.txt
 
 [libra2-core/libra2-core]: https://github.com/libra2org/libra2-core.git
 
-[status dashboard]: https://status.devnet.aptos.dev
+[status dashboard]: https://status.devnet.docs.libra2.org

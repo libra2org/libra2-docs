@@ -13,10 +13,10 @@ is wiped on every new release.
 If you run your PFN from the [libra2-core][libra2-core/libra2-core] source code, you can update your PFN by
 following these steps:
 
-1. Stop your PFN by running the command below (or killing the `aptos-node` process manually):
+1. Stop your PFN by running the command below (or killing the `libra2-node` process manually):
 
    ```shellscript filename="Terminal"
-   cargo stop aptos-node
+   cargo stop libra2-node
    ```
 
 2. Fetch the latest release appropriate for your network, e.g., `devnet`, `testnet`, or `mainnet`. Be sure to replace
@@ -33,7 +33,7 @@ following these steps:
 5. Restart your PFN by running the same deployment command as before. For example:
 
    ```shellscript filename="Terminal"
-   cargo run -p aptos-node --release -- -f ./fullnode.yaml
+   cargo run -p libra2-node --release -- -f ./fullnode.yaml
    ```
 
 ### (Devnet) Data Wipe and Reset
@@ -48,7 +48,7 @@ If your PFN is running in `devnet`, follow these additional steps after stopping
 
 1. Delete the data folder (the directory path is what you specified in the configuration file, e.g., `fullnode.yaml`).
 
-   - The default data folder is `/opt/aptos/data`.
+   - The default data folder is `/opt/libra2/data`.
 
 2. Delete the `genesis.blob` file and `waypoint.txt` file (depending on how you configured it, you might not have this file and may instead have a `waypoint` directly in your configuration file).
 
@@ -127,10 +127,10 @@ terraform apply -var force_helm_update=true
 
 [rest_spec]: https://github.com/libra2org/libra2-core/tree/main/api
 
-[devnet_genesis]: https://devnet.aptoslabs.com/genesis.blob
+[devnet_genesis]: https://devnet.libra2labs.com/genesis.blob
 
-[devnet_waypoint]: https://devnet.aptoslabs.com/waypoint.txt
+[devnet_waypoint]: https://devnet.libra2labs.com/waypoint.txt
 
 [libra2-core/libra2-core]: https://github.com/libra2org/libra2-core.git
 
-[status dashboard]: https://status.devnet.aptos.dev
+[status dashboard]: https://status.devnet.docs.libra2.org

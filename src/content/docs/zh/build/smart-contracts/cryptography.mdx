@@ -17,15 +17,15 @@ import { Aside } from '@astrojs/starlight/components';
 
 Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
 
-1. **经济的 Gas 使用** – 通过将关键原语实现为 [Move 原生函数](/zh/build/smart-contracts/book/functions#native-functions),努力为 Move 开发者最小化 gas 成本.例如,参见 [BLS 签名在 BLS12-381 椭圆曲线上的模块](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move).
-2. **类型安全的 API** – 确保 API 抵抗常见错误,类型安全性增强了代码可靠性并促进了高效的开发过程.有关示例,请参见 [Ed25519 签名模块](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ed25519.move).
-3. **开发者赋能** – 在原生函数不可用的情况下,我们赋能开发者在抽象的密码学构建块(如有限域和阿贝尔群)之上构建自己的密码学原语.有关更多见解,请参阅 [`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move) 模块.
+1. **经济的 Gas 使用** – 通过将关键原语实现为 [Move 原生函数](/zh/build/smart-contracts/book/functions#native-functions),努力为 Move 开发者最小化 gas 成本.例如,参见 [BLS 签名在 BLS12-381 椭圆曲线上的模块](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move).
+2. **类型安全的 API** – 确保 API 抵抗常见错误,类型安全性增强了代码可靠性并促进了高效的开发过程.有关示例,请参见 [Ed25519 签名模块](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move).
+3. **开发者赋能** – 在原生函数不可用的情况下,我们赋能开发者在抽象的密码学构建块(如有限域和阿贝尔群)之上构建自己的密码学原语.有关更多见解,请参阅 [`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move) 模块.
 
-继续阅读以深入了解这些扩展背后的一些复杂性,以及它们赋能的应用范围.要全面了解此主题,请参阅 [密码学 Move 模块代码](https://github.com/libra2org/libra2-core/tree/main/aptos-move/framework/aptos-stdlib/sources/cryptography).
+继续阅读以深入了解这些扩展背后的一些复杂性,以及它们赋能的应用范围.要全面了解此主题,请参阅 [密码学 Move 模块代码](https://github.com/libra2org/libra2-core/tree/main/libra2-move/framework/libra2-stdlib/sources/cryptography).
 
 ## 密码学哈希函数
 
-开发者现在可以通过 [`aptos_std::aptos_hash`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/hash.move) 模块在 Move 中使用更多的密码学哈希函数:
+开发者现在可以通过 [`libra2_std::libra2_hash`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/hash.move) 模块在 Move 中使用更多的密码学哈希函数:
 
 | 哈希函数        | 哈希大小(位) | 对 1KiB 进行哈希的成本(内部 gas 单位) | 抗碰撞安全性(位)  |
 | ----------- | ------- | ------------------------- | ---------- |
@@ -43,8 +43,8 @@ Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
   RIPEMD160 由于其 80 位的安全级别,应避免作为抗碰撞函数使用.它主要是为了向后兼容的原因而支持:例如,比特币地址推导依赖于 RIPEMD160.
 </Aside>
 
-其中一些函数可用于与其他链的互操作性(例如,通过 [`aptos_std::aptos_hash::keccak256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/aptos-move/framework/aptos-stdlib/sources/hash.move#L35) 验证以太坊 Merkle 证明).
-其他函数具有较低的 gas 成本,例如 [`aptos_std::aptos_hash::blake2b_256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/aptos-move/framework/aptos-stdlib/sources/hash.move#L69).
+其中一些函数可用于与其他链的互操作性(例如,通过 [`libra2_std::libra2_hash::keccak256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/libra2-move/framework/libra2-stdlib/sources/hash.move#L35) 验证以太坊 Merkle 证明).
+其他函数具有较低的 gas 成本,例如 [`libra2_std::libra2_hash::blake2b_256`](https://github.com/libra2org/libra2-core/blob/137acee4c6dddb1c86398dce25b041d78a3028d3/libra2-move/framework/libra2-stdlib/sources/hash.move#L69).
 一般来说,更广泛的哈希函数种类为开发者在安全性和与其他链下密码系统的互操作性方面提供了更多自由.
 
 ## 数字签名验证
@@ -53,11 +53,11 @@ Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
 
 | 签名方案                                                                                                                                                       | 曲线            | 签名大小(字节)         | 公钥大小(字节)     | 可变性 | 假设       | 优点   | 缺点    |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ---------------- | ------------ | --- | -------- | ---- | ----- |
-| [ECDSA](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/secp256k1.move)                          | secp256k1     | 64               | 64           | 是   | GGM      | 广泛采用 | 安全性证明 |
-| [Ed25519](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ed25519.move)                          | Edwards 25519 | 64               | 32           | 否   | DLA, ROM | 快速   | 细节问题  |
-| [MultiEd25519](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/multi_ed25519.move)               | Edwards 25519 | $4 + t \cdot 64$ | $n \cdot 32$ | 否   | DLA, ROM | 易于采用 | 大签名大小 |
-| [MinPK BLS](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move)                       | BLS12-381     | 96               | 48           | 否   | CDH, ROM | 多功能  | 验证较慢  |
-| [MinSig BLS](https://github.com/libra2org/libra2-core/blob/7d4fb98c6604c67e526a96f55668e7add7aaebf6/aptos-move/move-examples/drand/sources/drand.move#L57) | BLS12-381     | 48               | 96           | 否   | CDH, ROM | 多功能  | 验证较慢  |
+| [ECDSA](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/secp256k1.move)                          | secp256k1     | 64               | 64           | 是   | GGM      | 广泛采用 | 安全性证明 |
+| [Ed25519](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ed25519.move)                          | Edwards 25519 | 64               | 32           | 否   | DLA, ROM | 快速   | 细节问题  |
+| [MultiEd25519](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/multi_ed25519.move)               | Edwards 25519 | $4 + t \cdot 64$ | $n \cdot 32$ | 否   | DLA, ROM | 易于采用 | 大签名大小 |
+| [MinPK BLS](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move)                       | BLS12-381     | 96               | 48           | 否   | CDH, ROM | 多功能  | 验证较慢  |
+| [MinSig BLS](https://github.com/libra2org/libra2-core/blob/7d4fb98c6604c67e526a96f55668e7add7aaebf6/libra2-move/move-examples/drand/sources/drand.move#L57) | BLS12-381     | 48               | 96           | 否   | CDH, ROM | 多功能  | 验证较慢  |
 
 <Aside type="note">
   - CDH 代表 _"计算 Diffie-Hellman 假设"_
@@ -93,7 +93,7 @@ Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
 </Aside>
 
 <Aside type="note">
-  我们的 [`aptos_std::bls12381`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move) 模块支持 [MinPK BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) 的单个签名,多重签名,聚合签名和阈值签名的验证.
+  我们的 [`libra2_std::bls12381`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381.move) 模块支持 [MinPK BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) 的单个签名,多重签名,聚合签名和阈值签名的验证.
 </Aside>
 
 ## 椭圆曲线算术
@@ -104,9 +104,9 @@ Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
 
 具体来说,我们目前公开了两个流行的椭圆曲线群及其相关有限域的低级算术操作:
 
-1. Ristretto255,通过 [`aptos_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255.move)
-2. BLS12-381,通过 [`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move)
-   和 [`aptos_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381_algebra.move)
+1. Ristretto255,通过 [`libra2_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255.move)
+2. BLS12-381,通过 [`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move)
+   和 [`libra2_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381_algebra.move)
 
 这些模块支持低级操作,例如:
 
@@ -125,16 +125,16 @@ Libra 密码学扩展在 Move 中的设计和集成由三个基本原则指导:
 
 ### Ristretto255 算术
 
-[`aptos_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255.move) 模块提供了对流行的 [Ristretto255 曲线](https://ristretto.group/) 上的椭圆曲线算术的支持.
+[`libra2_std::ristretto255`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255.move) 模块提供了对流行的 [Ristretto255 曲线](https://ristretto.group/) 上的椭圆曲线算术的支持.
 Ristretto255 的主要优势之一是它是一个素数阶群(与 Edwards 25519 曲线不同),这消除了在其上构建的高级密码系统中的小子群攻击.
 此外,Ristretto255 的序列化是规范的,反序列化仅接受规范编码,这消除了高级协议中的可变性问题.
 
 此模块已被证明对实现多种密码学原语有用:
 
 1. **零知识 $\Sigma$ 协议** – 请参阅 [`veiled_coin` 示例](#veiled-coins).
-2. **ElGamal** 加密 – 请参阅 [`aptos_std::ristretto255_elgamal`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_elgamal.move)
-3. **Pedersen** 承诺 – 请参阅 [`aptos_std::ristretto255_pedersen`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_pedersen.move)
-4. **Bulletproofs** ZK 范围证明\[^bulletproofs] – 请参阅 [`aptos_std::ristretto255_bulletproofs`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_bulletproofs.move)
+2. **ElGamal** 加密 – 请参阅 [`libra2_std::ristretto255_elgamal`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_elgamal.move)
+3. **Pedersen** 承诺 – 请参阅 [`libra2_std::ristretto255_pedersen`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_pedersen.move)
+4. **Bulletproofs** ZK 范围证明\[^bulletproofs] – 请参阅 [`libra2_std::ristretto255_bulletproofs`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/ristretto255_bulletproofs.move)
 
 需要关于在 `ristretto255` 上构建密码系统的想法吗?
 您可以轻松构建的一个流行原语是 [schnorrkel](https://github.com/w3f/schnorrkel) 签名方案,它是 Ristretto255 群上 Schnorr 签名的强化版本.
@@ -143,17 +143,17 @@ Ristretto255 的主要优势之一是它是一个素数阶群(与 Edwards 25519 
 
 比一条曲线更好的是?更多的曲线!
 
-[`aptos_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move) 提供了对 **任何** 支持的椭圆曲线,包括配对友好曲线的椭圆曲线算术操作.
+[`libra2_std::crypto_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/crypto_algebra.move) 提供了对 **任何** 支持的椭圆曲线,包括配对友好曲线的椭圆曲线算术操作.
 因此,Move 开发者可以在 **任何** 当前或将来支持的曲线上通用地实现密码系统.
 与在代码中固定特定曲线(例如,通过针对 [Ristretto255 模块](#ristretto255-arithmetic) 实现)相比,这种方法提供了更大的灵活性,并降低了迁移到不同曲线时的开发时间.
 
-尽管目前 `crypto_algebra` 模块仅支持 BLS12-381 曲线上的算术(通过在 [`aptos_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381_algebra.move) 中声明的标记类型),但未来将支持更多曲线(例如,BN254,Ristretto255,BLS12-377,BW6-761,secp256k1,secp256r1).
+尽管目前 `crypto_algebra` 模块仅支持 BLS12-381 曲线上的算术(通过在 [`libra2_std::bls12381_algebra`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-stdlib/sources/cryptography/bls12381_algebra.move) 中声明的标记类型),但未来将支持更多曲线(例如,BN254,Ristretto255,BLS12-377,BW6-761,secp256k1,secp256r1).
 
 例如,Move 开发者可以通过在其实现中使用 [类型参数](/zh/build/smart-contracts/book/functions#type-parameters) 为曲线类型,通用地在 **任何** 曲线上实现流行的 Boneh-Lynn-Shacham (BLS) 签名方案:
 
 ```rust
 use std::option;
-use aptos_std::crypto_algebra::{eq, pairing, one, deserialize, hash_to};
+use libra2_std::crypto_algebra::{eq, pairing, one, deserialize, hash_to};
 
 /// 示例 BLS 签名验证函数，适用于任何配对友好
 /// 群三元组 `Gr1`、`Gr2`、`GrT`，其中签名在 `Gr1` 中，公钥在 `Gr2` 中。
@@ -183,7 +183,7 @@ public fun bls_verify_sig<Gr1, Gr2, GrT, FormatG1, FormatG2, HashMethod>(
 例如,可以通过在调用上述函数时使用正确的 BLS12-381 标记类型作为其类型参数来验证 [MinSig BLS](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-05#name-variants) 签名:
 
 ```rust
-use aptos_std::bls12381_algebra::{
+use libra2_std::bls12381_algebra::{
     G1, G2, Gt, FormatG1Compr, FormatG2Compr, HashG1XmdSha256SswuRo
 };
 
@@ -205,7 +205,7 @@ assert(
 
 ### Veiled coins
 
-[`veiled_coin` 示例](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-experimental/sources/veiled_coin/) 演示了如何使用 [上述 Ristretto255 模块](#ristretto255-arithmetic) 为硬币余额和交易添加合理的机密性层.
+[`veiled_coin` 示例](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-experimental/sources/veiled_coin/) 演示了如何使用 [上述 Ristretto255 模块](#ristretto255-arithmetic) 为硬币余额和交易添加合理的机密性层.
 
 具体来说,用户可以 **隐藏** 他们的余额,使其对所有人,包括验证者,保持隐藏.
 此外,用户可以发送 **隐藏交易**,隐藏交易金额,使其对所有人,包括验证者,保持隐藏.
@@ -217,7 +217,7 @@ assert(
 
 ### Groth16 zkSNARK 验证器
 
-[`groth16` 示例](https://github.com/libra2org/libra2-core/blob/main/aptos-move/move-examples/groth16_example/sources/groth16.move) 演示了如何验证 Groth16 zkSNARK 证明\[^groth16],这是最短,最快验证的通用零知识证明.
+[`groth16` 示例](https://github.com/libra2org/libra2-core/blob/main/libra2-move/move-examples/groth16_example/sources/groth16.move) 演示了如何验证 Groth16 zkSNARK 证明\[^groth16],这是最短,最快验证的通用零知识证明.
 重要的是,如上所述 [通用椭圆曲线算术](#generic-elliptic-curve-arithmetic),此实现在 **任何** 曲线上是 _通用_ 的,使 Move 开发者能够非常容易地将其与他们喜欢的(支持的)曲线一起使用.
 
 <Aside type="note">
@@ -226,9 +226,9 @@ assert(
 
 ### 验证 `drand` 信标的随机性
 
-[`drand` 示例](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/drand/sources) 显示了如何验证来自 [drand](https://drand.love) 随机信标的公共随机性.
+[`drand` 示例](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/drand/sources) 显示了如何验证来自 [drand](https://drand.love) 随机信标的公共随机性.
 此随机性可用于游戏或任何其他基于机会的智能合约.
-我们在 [`lottery.move`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/drand/sources/lottery.move) 中给出了一个基于 `drand` 随机性的简单彩票示例.
+我们在 [`lottery.move`](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/drand/sources/lottery.move) 中给出了一个基于 `drand` 随机性的简单彩票示例.
 
 <Aside type="note">
   此代码尚未经过第三方组织的审计.如果在生产系统中使用,请自行承担风险.

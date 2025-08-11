@@ -17,7 +17,7 @@ import { readFileSync } from "fs";
 import { Libra, Account, AccountAddress } from "@libra2-core/ts-sdk";
 
 // Setup client, and account to sign
-const aptos = new Libra();
+const libra2 = new Libra();
 const account = Account.generate();
 
 // Load script bytecode
@@ -25,21 +25,21 @@ const buffer = readFileSync("./transfer_half.mv", "buffer");
 const bytecode = new Uint8Array.from(buffer);
 
 // Build a transaction with the bytecode of the script
-const transaction = await aptos.transaction.build.simple({
+const transaction = await libra2.transaction.build.simple({
   sender: account.accountAddress,
   data: {
     bytecode,
-    typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
+    typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
     functionArguments: [AccountAddress.from("0x1")],
   },
 });
 
 // Submit and wait for the transaction to complete
-const pendingTxn = await aptos.signAndSubmitTransaction({
+const pendingTxn = await libra2.signAndSubmitTransaction({
   signer: account,
   transaction,
 });
-await aptos.waitForTransaction({ transactionHash: pendingTxn.hash });
+await libra2.waitForTransaction({ transactionHash: pendingTxn.hash });
 ```
 
 ## Running scripts with the Libra Wallet Adapter
@@ -68,7 +68,7 @@ export default function App() {
     signAndSubmitTransaction({
       data: {
         bytecode: BYTECODE_IN_HEX,
-        typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
+        typeArguments: [parseTypeTag("0x1::libra2_coin::LibraCoin")],
         functionArguments: [AccountAddress.from("0x1")],
       },
     });
@@ -83,7 +83,7 @@ export default function App() {
 Running scripts with the CLI can be run with the command
 
 ```shellscript filename="Terminal"
-aptos move run-script
+libra2 move run-script
 ```
 
 There are two ways to run it, with a pre-compiled script, or it will compile the
@@ -93,11 +93,11 @@ If you already have a compiled script, you can run it
 with `--compiled-script-path` like the example below:
 
 ```shellscript filename="Terminal"
-aptos move run-script --compiled-script-path /opt/git/developer-docs/apps/docusaurus/static/move-examples/scripts/transfer_half/script.mv
+libra2 move run-script --compiled-script-path /opt/git/developer-docs/apps/docusaurus/static/move-examples/scripts/transfer_half/script.mv
 ```
 
 Similarly, if it's not compiled, just use `--script-path`
 
 ```shellscript filename="Terminal"
-aptos move run-script --script-path ./sources/transfer_half.move
+libra2 move run-script --script-path ./sources/transfer_half.move
 ```

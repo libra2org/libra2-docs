@@ -22,10 +22,10 @@ This provides a standard interface for using all Libra wallets, and allows new w
          <b>For versions prior to v4.0.0</b>
        </summary>
 
-       ### (Optional) Install the plugins for any “Legacy Standard Compatible” Wallets you want to support from [this list](https://github.com/libra2org/aptos-wallet-adapter/blob/main/README.md#supported-wallet-packages).
+       ### (Optional) Install the plugins for any “Legacy Standard Compatible” Wallets you want to support from [this list](https://github.com/libra2org/libra2-wallet-adapter/blob/main/README.md#supported-wallet-packages).
 
        <Aside type="note">
-         The more modern [AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md) wallets do NOT require installing a package - they work by default!
+         The more modern [AIP-62](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-62.md) wallets do NOT require installing a package - they work by default!
          The legacy standard required installing plugins manually.
        </Aside>
 
@@ -34,7 +34,7 @@ This provides a standard interface for using all Libra wallets, and allows new w
        For example:
 
        ```shellscript filename="Terminal"
-       npm i @okwallet/aptos-wallet-adapter
+       npm i @okwallet/libra2-wallet-adapter
        ```
 
        ### In `App.tsx` or it’s equivalent, import the Libra Wallet Adapter and any legacy Wallet plugins.
@@ -42,7 +42,7 @@ This provides a standard interface for using all Libra wallets, and allows new w
        ```tsx filename="App.tsx"
        import { LibraWalletAdapterProvider } from "@libra2-core/wallet-adapter-react";
        // Import any additional wallet plugins. Ex.
-       import { OKXWallet } from "@okwallet/aptos-wallet-adapter";
+       import { OKXWallet } from "@okwallet/libra2-wallet-adapter";
        // ...
        ```
      </details>
@@ -57,12 +57,12 @@ This provides a standard interface for using all Libra wallets, and allows new w
      2. Set the `dappConfig` with:
 
      - The `network` property set to the network your dapp works with
-     - The `aptosApiKeys` property set to the generated Api Key for the specified network
+     - The `libra2ApiKeys` property set to the generated Api Key for the specified network
 
      | Field         | Description                                                                                                                                                                                                                               | Example                                                                  |
      | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
      | `autoConnect` | A prop indicates whether the dapp should auto connect with the most recently connected wallet on page reload.                                                                                                                             | `true`                                                                   |
-     | `dappConfig`  | Specify an alternate network to work on. This prop only works for wallets which are NOT chrome extensions. If set, this object must include the name of the network the app is connected to. The object may include a aptosConnectDappId. | `{ network: 'mainnet', aptosApiKeys:{}, aptosConnectDappId: undefined }` |
+     | `dappConfig`  | Specify an alternate network to work on. This prop only works for wallets which are NOT chrome extensions. If set, this object must include the name of the network the app is connected to. The object may include a libra2ConnectDappId. | `{ network: 'mainnet', libra2ApiKeys:{}, libra2ConnectDappId: undefined }` |
      | `onError`     | A callback function to fire when the adapter throws an error.                                                                                                                                                                             | `(error) => { console.log("error", error); }`                            |
 
      #### Full Example
@@ -79,7 +79,7 @@ This provides a standard interface for using all Libra wallets, and allows new w
            autoConnect={true}
            dappConfig={{
              network: Network.MAINNET,
-             aptosApiKeys: {
+             libra2ApiKeys: {
                mainnet: process.env.APTOS_API_KEY_MAINNET,
              }
            }}
@@ -105,17 +105,17 @@ This provides a standard interface for using all Libra wallets, and allows new w
 
 # Choose a UI Package
 
-The [Wallet Adapter repository](https://github.com/libra2org/aptos-wallet-adapter) provides several UI packages to simplify allowing users to connect and select a wallet.
+The [Wallet Adapter repository](https://github.com/libra2org/libra2-wallet-adapter) provides several UI packages to simplify allowing users to connect and select a wallet.
 
 For UI components that work out of the box, but are less customizable, choose one of:
 
-- [Ant Design](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-ant-design)
-- [MUI](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-mui-design) (Material UI)
+- [Ant Design](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-ant-design)
+- [MUI](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-mui-design) (Material UI)
 
-Otherwise, you should use the [shadcn/ui wallet selector](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/README.md#use-shadcnui-wallet-selector-for-your-own-app), as it has the most customization options. For more details on how to customize this wallet selector or build your own wallet selector, see [this guide](https://github.com/libra2org/aptos-wallet-adapter/blob/main/packages/wallet-adapter-react/docs/BYO-wallet-selector.md).
+Otherwise, you should use the [shadcn/ui wallet selector](https://github.com/libra2org/libra2-wallet-adapter/blob/main/apps/nextjs-example/README.md#use-shadcnui-wallet-selector-for-your-own-app), as it has the most customization options. For more details on how to customize this wallet selector or build your own wallet selector, see [this guide](https://github.com/libra2org/libra2-wallet-adapter/blob/main/packages/wallet-adapter-react/docs/BYO-wallet-selector.md).
 
 <Aside type="note">
-  For an example that shows how these UI options work in practice, see the [live demo app](https://libra2-core.github.io/aptos-wallet-adapter/) (you can find its reference code [here](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example)).
+  For an example that shows how these UI options work in practice, see the [live demo app](https://libra2-core.github.io/libra2-wallet-adapter/) (you can find its reference code [here](https://github.com/libra2org/libra2-wallet-adapter/tree/main/apps/nextjs-example)).
 </Aside>
 
 ## `useWallet` Fields and Functions
@@ -133,7 +133,7 @@ Otherwise, you should use the [shadcn/ui wallet selector](https://github.com/lib
 
 ### Functions
 
-_See [`WalletCore.ts`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/packages/wallet-adapter-core/src/WalletCore.ts) in [`wallet-adapter-core`](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) for where these functions are implemented._
+_See [`WalletCore.ts`](https://github.com/libra2org/libra2-wallet-adapter/blob/main/packages/wallet-adapter-core/src/WalletCore.ts) in [`wallet-adapter-core`](https://github.com/libra2org/libra2-wallet-adapter/tree/main/packages/wallet-adapter-core) for where these functions are implemented._
 
 | Function                   | Signature                                                                                                                                                                              | Description                                                                       |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
@@ -150,8 +150,8 @@ _See [`WalletCore.ts`](https://github.com/libra2org/aptos-wallet-adapter/blob/ma
 
 See the next.js example dapp for a demonstration of how these components are used in practice:
 
-- [Live site](https://libra2-core.github.io/aptos-wallet-adapter/)
-- [Source code](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example)
+- [Live site](https://libra2-core.github.io/libra2-wallet-adapter/)
+- [Source code](https://github.com/libra2org/libra2-wallet-adapter/tree/main/apps/nextjs-example)
 
 ### `wallets`
 
@@ -186,7 +186,7 @@ const displayAllWalletsDemo = () => {
 
   const { wallets = [], notDetectedWallets = [] } = useWallet();
 
-  const { aptosConnectWallets, availableWallets, installableWallets } =
+  const { libra2ConnectWallets, availableWallets, installableWallets } =
     groupAndSortWallets(
       [...wallets, ...notDetectedWallets]
     );
@@ -194,8 +194,8 @@ const displayAllWalletsDemo = () => {
   return (
     <div>
       /** Wallets that use social login to create an account on the blockchain */
-      {aptosConnectWallets.map((aptosConnectwallet) => (
-        return <p>{aptosConnectwallet.name}</p>
+      {libra2ConnectWallets.map((libra2Connectwallet) => (
+        return <p>{libra2Connectwallet.name}</p>
       ))}
       /** Wallets that are currently installed or loadable. */
       {availableWallets.map((availableWallet) => (
@@ -270,7 +270,7 @@ import { useWallet } from '@libra2-core/wallet-adapter-react';
 import { Libra, LibraConfig, Network } from '@libra2-core/ts-sdk';
 
 const config = new LibraConfig({ network: Network.MAINNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
 const SignAndSubmit = () => {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -282,13 +282,13 @@ const SignAndSubmit = () => {
     const response = await signAndSubmitTransaction({
       sender: account.address,
       data: {
-        function: "0x1::aptos_account::transfer",
+        function: "0x1::libra2_account::transfer",
         functionArguments: [account.address, 1],
       },
     });
     // if you want to wait for transaction
     try {
-      await aptos.waitForTransaction({ transactionHash: response.hash });
+      await libra2.waitForTransaction({ transactionHash: response.hash });
     } catch (error) {
       console.error(error);
     }
@@ -501,13 +501,13 @@ const onSignAndSubmitBCSTransaction = async () => {
   const response = await signAndSubmitTransaction({
     sender: account.address,
     data: {
-      function: "0x1::aptos_account::transfer",
+      function: "0x1::libra2_account::transfer",
       functionArguments: [AccountAddress.from(account.address), new U64(1)],
     },
   });
   // if you want to wait for transaction
   try {
-    await aptos.waitForTransaction({ transactionHash: response.hash });
+    await libra2.waitForTransaction({ transactionHash: response.hash });
   } catch (error) {
     console.error(error);
   }
@@ -526,7 +526,7 @@ This allows the dapp to display wallets that aren’t detectable in a mobile bro
 ```tsx filename="registry.tsx"
 {
   name: "Petra",
-  url: "https://chromewebstore.google.com/detail/petra-aptos-wallet/ejjladinnckdgjemekebdpeokbikhfci?hl=en",
+  url: "https://chromewebstore.google.com/detail/petra-libra2-wallet/ejjladinnckdgjemekebdpeokbikhfci?hl=en",
   icon: "data:image/png;base64,iVBOR...QmCC",
   readyState: WalletReadyState.NotDetected,
   isAIP62Standard: true,
@@ -546,7 +546,7 @@ To render wallets with `deeplinkProvider` support in your dapp—assuming you're
 
        const { wallets = [], notDetectedWallets = [] } = useWallet();
 
-       const { aptosConnectWallets, availableWallets, installableWallets } =
+       const { libra2ConnectWallets, availableWallets, installableWallets } =
          groupAndSortWallets(
            [...wallets, ...notDetectedWallets]
          );
@@ -554,8 +554,8 @@ To render wallets with `deeplinkProvider` support in your dapp—assuming you're
        return (
          <div>
            /** Wallets that use social login to create an account on the blockchain */
-           {aptosConnectWallets.map((aptosConnectwallet) => (
-             <WalletItemComponent wallet={aptosConnectwallet}/>
+           {libra2ConnectWallets.map((libra2Connectwallet) => (
+             <WalletItemComponent wallet={libra2Connectwallet}/>
            ))}
            /** Wallets that are currently installed or loadable. */
            {availableWallets.map((availableWallet) => (

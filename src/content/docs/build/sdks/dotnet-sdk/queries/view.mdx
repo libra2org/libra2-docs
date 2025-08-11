@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
+  [libra2-core/libra2-dotnet-sdk](https://github.com/libra2org/libra2-dotnet-sdk)
   repository.
 </Aside>
 
@@ -40,7 +40,7 @@ class Program
             new GenerateViewFunctionPayloadData(
                 function: "0x1::coin::balance",
                 functionArguments: ["0x1"],
-                typeArguments: ["0x1::aptos_coin::LibraCoin"]
+                typeArguments: ["0x1::libra2_coin::LibraCoin"]
             )
         );
 
@@ -143,7 +143,7 @@ class Program
             new GenerateViewFunctionPayloadData(
                 function: "0x1::coin::supply",
                 functionArguments: [],
-                typeArguments: ["0x1::aptos_coin::LibraCoin"]
+                typeArguments: ["0x1::libra2_coin::LibraCoin"]
             )
         );
 

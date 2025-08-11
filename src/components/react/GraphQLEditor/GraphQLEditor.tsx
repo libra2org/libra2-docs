@@ -23,7 +23,7 @@ interface GraphQLEditorProps {
 
 const getNetworkUrl = (network = "mainnet", customEndpoint?: string) => {
   if (customEndpoint) return customEndpoint;
-  return `https://api.${network}.aptoslabs.com/v1/graphql`;
+  return `https://api.${network}.libra2labs.com/v1/graphql`;
 };
 
 export const GraphQLEditor: React.FC<GraphQLEditorProps> = ({

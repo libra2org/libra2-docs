@@ -2,7 +2,7 @@
 title: "Hoja de Referencia de Ethereum a Libra"
 ---
 
-Para aprender más sobre las diferencias y similitudes ve [Aprende Libra](https://learn.aptoslabs.com/en/tutorials/ethereum-to-aptos-guide/cheat-sheet?workshop=eth-to-aptos)
+Para aprender más sobre las diferencias y similitudes ve [Aprende Libra](https://learn.libra2labs.com/en/tutorials/ethereum-to-libra2-guide/cheat-sheet?workshop=eth-to-libra2)
 
 ### Visión General de Alto Nivel
 
@@ -15,12 +15,12 @@ Para aprender más sobre las diferencias y similitudes ve [Aprende Libra](https:
 | **Estructura de Cuenta**   | Balance en un solo campo, usa nonce                                                                                              | Módulos y recursos, usa número de secuencia                                                                                           |
 | **Almacenamiento de Datos**| Árboles Patricia Merkle                                                                                                          | Almacenamiento global con recursos y módulos                                                                                         |
 | **Mentalidad de Almacenamiento** | Almacenamiento basado en contratos                                                                                               | Mentalidad centrada en cuenta para código y datos                                                                                     |
-| **Código de Ejemplo**      | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Activo Fungible](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) |
+| **Código de Ejemplo**      | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Activo Fungible](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) |
 | **ID del Llamador**        | `msg.sender`                                                                                                                   | Referencia `&signer`                                                                                                                   |
 | **Actualizabilidad**       | Patrones de proxy                                                                                                                 | Actualizaciones directas de módulos                                                                                                    |
 | **Seguridad**              | Vulnerable a ataques como reentrancy                                                                                              | Mitiga vulnerabilidades comunes                                                                                                        |
 | **Tipo de Despacho**       | Despacho dinámico                                                                                                                 | Despacho estático                                                                                                                       |
-| **Estándar FT**            | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/build/smart-contracts/aptos-coin) (legacy) y [Activo Fungible](/build/smart-contracts/fungible-asset)                        |
+| **Estándar FT**            | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/build/smart-contracts/libra2-coin) (legacy) y [Activo Fungible](/build/smart-contracts/fungible-asset)                        |
 | **Estándares NFT**         | [ERC-721](https://docs.openzeppelin.com/contracts/4.x/erc721), [ERC-1155](https://docs.openzeppelin.com/contracts/4.x/erc1155) | [Activo Digital](/build/smart-contracts/digital-asset)                                                                                 |
 | **Interacción con Blockchain** | [Biblioteca Ethers.js](https://docs.ethers.org/v6/)                                                                               | [SDK de TypeScript de Libra](/build/sdks/ts-sdk)                                                                                            |
 

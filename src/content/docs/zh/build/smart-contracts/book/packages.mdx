@@ -85,7 +85,7 @@ specified_address = "0xB0B"
 # 本地依赖
 LocalDep = { local = "projects/move-awesomeness", addr_subst = { "std" = "0x1" } }
 # Git依赖
-MoveStdlib = { git = "https://github.com/libra2org/aptos-framework", subdir="move-stdlib", rev = "mainnet" }
+MoveStdlib = { git = "https://github.com/libra2org/libra2-framework", subdir="move-stdlib", rev = "mainnet" }
 
 [dev-addresses] # 用于开发时使用
 address_to_be_filled_in = "0x101010101"
@@ -237,7 +237,7 @@ Move 包系统作为 Move CLI 的一部分提供了命令行选项 `move <flags>
 
 使用本地字节码作为依赖项需要将字节码文件下载到本地,并且每个命名地址的实际地址必须在 `Move.toml` 中或通过 `--named-addresses` 指定.
 
-请注意,`aptos move prove` 和 `aptos move test` 命令目前不支持将字节码作为依赖项.
+请注意,`libra2 move prove` 和 `libra2 move test` 命令目前不支持将字节码作为依赖项.
 
 ## 推荐结构
 
@@ -330,7 +330,7 @@ Foo = { local = "../C" }
             发现冲突依赖: 包 'LibraFramework' 与 'LibraFramework' 冲突
 ```
 
-要解决此问题,您可以通过命令行选项覆盖标准库包.这允许您在整个依赖关系树中强制执行特定版本的标准库.您可以将覆盖应用于诸如 `aptos move compile`,`aptos move run` 等命令.语法如下:
+要解决此问题,您可以通过命令行选项覆盖标准库包.这允许您在整个依赖关系树中强制执行特定版本的标准库.您可以将覆盖应用于诸如 `libra2 move compile`,`libra2 move run` 等命令.语法如下:
 
 ```
 --override-std <network name>

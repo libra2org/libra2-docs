@@ -1,7 +1,7 @@
 /// A playful 404 module that uses Libra blockchain concepts
 module 0x404::lost_transaction {
-    use aptos_framework::account;
-    use aptos_framework::coin::{Self, LibraCoin};
+    use libra2_framework::account;
+    use libra2_framework::coin::{Self, LibraCoin};
     use std::error;
     use std::signer;
 

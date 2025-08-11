@@ -83,7 +83,7 @@ Google Cloud 为每位新用户提供 [90 天,$300 免费试用期](https://clou
 ```shellscript filename="Terminal"
 gsutil mb gs://BUCKET_NAME
 # 例如
-gsutil mb gs://<project-name>-aptos-terraform-dev
+gsutil mb gs://<project-name>-libra2-terraform-dev
 ```
 
 3. 在你的工作目录中创建一个名为 `main.tf` 的 Terraform 文件:
@@ -97,7 +97,7 @@ touch main.tf
 
 **注意**:如果你正在使用不同版本的 Terraform,你需要使用 `tfenv` 命令更改为所需的版本.
 
-你可以在 [Libra Docker Hub](https://hub.docker.com/r/aptoslabs/validator/tags?page=1\&ordering=last_updated\&name=devnet) 上找到 `devnet` 的 Docker 镜像标签.
+你可以在 [Libra Docker Hub](https://hub.docker.com/r/libra2labs/validator/tags?page=1\&ordering=last_updated\&name=devnet) 上找到 `devnet` 的 Docker 镜像标签.
 
 <Aside type="caution">
   **想连接到不同的网络?**<br />
@@ -158,28 +158,28 @@ terraform apply
 1. 配置你的 Kubernetes 客户端以访问你刚刚部署的集群:
 
 ```shellscript filename="Terminal"
-gcloud container clusters get-credentials aptos-$WORKSPACE --zone <region_zone_name> --project <project_name>
+gcloud container clusters get-credentials libra2-$WORKSPACE --zone <region_zone_name> --project <project_name>
 # 例如：
-gcloud container clusters get-credentials aptos-devnet --zone us-central1-a --project aptos-fullnode
+gcloud container clusters get-credentials libra2-devnet --zone us-central1-a --project libra2-fullnode
 ```
 
 2. 检查你的 PFN pod(容器) 现在是否正在运行(这可能需要几分钟):
 
 ```shellscript filename="Terminal"
-kubectl get pods -n aptos
+kubectl get pods -n libra2
 ```
 
 你应该看到这样的内容:
 
 ```shellscript filename="Terminal"
 NAME                       READY   STATUS    RESTARTS   AGE
-devnet0-aptos-fullnode-0   1/1     Running   0          56s
+devnet0-libra2-fullnode-0   1/1     Running   0          56s
 ```
 
 3. 获取你的 PFN IP:
 
 ```shellscript filename="Terminal"
-kubectl get svc -o custom-columns=IP:status.loadBalancer.ingress -n aptos
+kubectl get svc -o custom-columns=IP:status.loadBalancer.ingress -n libra2
 ```
 
 你应该看到这样的内容:
@@ -217,20 +217,20 @@ curl http://<IP>/v1
 
    你可以按照以下步骤操作:
 
-   - 设置到 aptos-fullnode pod 的端口转发.使用 `kubectl get pods -n aptos` 获取 pod 的名称:
+   - 设置到 libra2-fullnode pod 的端口转发.使用 `kubectl get pods -n libra2` 获取 pod 的名称:
 
      ```shellscript filename="Terminal"
-     kubectlport-forward -n aptos <pod-name> 9101:9101
+     kubectlport-forward -n libra2 <pod-name> 9101:9101
      # 例如：
-     kubectl port-forward -n aptos devnet0-aptos-fullnode-0 9101:9101
+     kubectl port-forward -n libra2 devnet0-libra2-fullnode-0 9101:9101
      ```
 
    - 打开一个新的 SSH 终端.执行以下 curl 命令来验证 PFN 是否正确:
 
      ```shellscript filename="Terminal"
-     curl -v http://0:9101/metrics 2> /dev/null | grep "aptos_state_sync_version{type=\"synced\"}"
+     curl -v http://0:9101/metrics 2> /dev/null | grep "libra2_state_sync_version{type=\"synced\"}"
 
-     curl -v http://0:9101/metrics 2> /dev/null | grep "aptos_connections{direction=\"outbound\"
+     curl -v http://0:9101/metrics 2> /dev/null | grep "libra2_connections{direction=\"outbound\"
      ```
 
    - 完成时通过在终端中输入 control-c 退出端口转发.
@@ -295,19 +295,19 @@ module "fullnode" {
 
   fullnode_helm_values = {
     # 将上游的对等节点列表添加为种子
-    aptos_chains = {
+    libra2_chains = {
       devnet = {
         seeds = {
           "bb14af025d226288a3488b4433cf5cb54d6a710365a2d95ac6ffbd9b9198a86a" = {
-          addresses = ["/dns4/pfn0.node.devnet.aptoslabs.com/tcp/6182/noise-ik/bb14af025d226288a3488b4433cf5cb54d6a710365a2d95ac6ffbd9b9198a86a/handshake/0"]
+          addresses = ["/dns4/pfn0.node.devnet.libra2labs.com/tcp/6182/noise-ik/bb14af025d226288a3488b4433cf5cb54d6a710365a2d95ac6ffbd9b9198a86a/handshake/0"]
           role = "Upstream"
           },
           "7fe8523388084607cdf78ff40e3e717652173b436ae1809df4a5fcfc67f8fc61" = {
-          addresses = ["/dns4/pfn1.node.devnet.aptoslabs.com/tcp/6182/noise-ik/7fe8523388084607cdf78ff40e3e717652173b436ae1809df4a5fcfc67f8fc61/handshake/0"]
+          addresses = ["/dns4/pfn1.node.devnet.libra2labs.com/tcp/6182/noise-ik/7fe8523388084607cdf78ff40e3e717652173b436ae1809df4a5fcfc67f8fc61/handshake/0"]
           role = "Upstream"
           },
           "f6b135a59591677afc98168791551a0a476222516fdc55869d2b649c614d965b" = {
-          addresses = ["/dns4/pfn2.node.devnet.aptoslabs.com/tcp/6182/noise-ik/f6b135a59591677afc98168791551a0a476222516fdc55869d2b649c614d965b/handshake/0"]
+          addresses = ["/dns4/pfn2.node.devnet.libra2labs.com/tcp/6182/noise-ik/f6b135a59591677afc98168791551a0a476222516fdc55869d2b649c614d965b/handshake/0"]
           role = "Upstream"
           }
         }
@@ -329,19 +329,19 @@ terraform apply
 
 ```shellscript filename="Terminal"
 # 获取 pod 列表
-kubectl get pods -n aptos
+kubectl get pods -n libra2
 
 # 获取 pod 的日志
-kubectl logs <pod-name> -n aptos
+kubectl logs <pod-name> -n libra2
 # 例如：
-kubectl logs devnet0-aptos-fullnode-0 -n aptos
+kubectl logs devnet0-libra2-fullnode-0 -n libra2
 ```
 
 当使用 GKE 时,集群和 pod 的日志将自动显示在 Google Cloud 控制台中.从控制台菜单中选择 `Kubernetes Engine`.从侧边菜单中选择 `Workloads`.你将看到列出了集群中的所有 pod.
 
 ![GKE Workloads截图](~/images/tutorial-gcp-logging1.png "GKE Workloads截图")
 
-`devnet0-aptos-fullnode` 是运行 aptos fullnode 容器的 pod.点击 pod 查看详细信息.你将看到一些指标和其他关于 pod 的详细信息.
+`devnet0-libra2-fullnode` 是运行 libra2 fullnode 容器的 pod.点击 pod 查看详细信息.你将看到一些指标和其他关于 pod 的详细信息.
 
 ![GKE Workloads Pod截图](~/images/tutorial-gcp-logging2.png "GKE Workloads Pod截图")
 
@@ -361,7 +361,7 @@ kubectl logs devnet0-aptos-fullnode-0 -n aptos
 
 ## 检查监控(Monitoring)
 
-Google Cloud 能够从集群中收集众多指标,并且可以在控制台中轻松地进行查看.您可以在控制台菜单中选择 `Kubernetes Engine`,然后点击您部署了 aptos 应用的集群.接着点击右上角的 `Operations` 链接.最后点击 `Metrics` 子标签,即可查阅具体的集群指标.
+Google Cloud 能够从集群中收集众多指标,并且可以在控制台中轻松地进行查看.您可以在控制台菜单中选择 `Kubernetes Engine`,然后点击您部署了 libra2 应用的集群.接着点击右上角的 `Operations` 链接.最后点击 `Metrics` 子标签,即可查阅具体的集群指标.
 
 ![GKE Monitoring metrics截图](~/images/tutorial-gcp-mon1.png "GKE Monitoring metrics截图")
 

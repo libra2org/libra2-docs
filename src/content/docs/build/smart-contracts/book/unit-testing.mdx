@@ -125,7 +125,7 @@ module 0x42::other {
 
 ## Running Unit Tests
 
-Unit tests for a Move package can be run with the `aptos move test` command. See [package](/build/smart-contracts/book/packages) for more info.
+Unit tests for a Move package can be run with the `libra2 move test` command. See [package](/build/smart-contracts/book/packages) for more info.
 
 When running tests, every test will either `PASS`, `FAIL`, or `TIMEOUT`. If a test case fails, the location of the failure along with the function name that caused the failure will be reported if possible. You can see an example of this below.
 
@@ -134,7 +134,7 @@ A test will be marked as timing out if it exceeds the maximum number of instruct
 There are also a number of options that can be passed to the unit testing binary to fine-tune testing and to help debug failing tests. These can be found using the help flag:
 
 ```shellscript filename="Terminal"
-$ aptos move test -h
+$ libra2 move test -h
 ```
 
 ## Example
@@ -144,14 +144,14 @@ A simple module using some of the unit testing features is shown in the followin
 First create an empty package inside an empty directory:
 
 ```shellscript filename="Terminal"
-$ aptos move init --name TestExample
+$ libra2 move init --name TestExample
 ```
 
 Next add the following to the `Move.toml`:
 
 ```toml
 [dependencies]
-MoveStdlib = { git = "https://github.com/libra2org/aptos-framework.git", subdir="aptos-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
+MoveStdlib = { git = "https://github.com/libra2org/libra2-framework.git", subdir="libra2-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
 ```
 
 Next add the following module under the `sources` directory:
@@ -203,10 +203,10 @@ module 0x1::my_module {
 
 ### Running Tests
 
-You can then run these tests with the `aptos move test` command:
+You can then run these tests with the `libra2 move test` command:
 
 ```shellscript filename="Terminal"
-$ aptos move test
+$ libra2 move test
 BUILDING MoveStdlib
 BUILDING TestExample
 Running Move unit tests
@@ -223,7 +223,7 @@ Test result: OK. Total tests: 3; passed: 3; failed: 0
 This will only run tests whose fully qualified name contains `<str>`. For example if we wanted to only run tests with `"zero_coin"` in their name:
 
 ```shellscript filename="Terminal"
-$ aptos move test -f zero_coin
+$ libra2 move test -f zero_coin
 CACHED MoveStdlib
 BUILDING TestExample
 Running Move unit tests
@@ -237,7 +237,7 @@ Test result: OK. Total tests: 2; passed: 2; failed: 0
 This will compute code being covered by test cases and generate coverage summary.
 
 ```shellscript filename="Terminal"
-$ aptos move test --coverage
+$ libra2 move test --coverage
 INCLUDING DEPENDENCY LibraFramework
 INCLUDING DEPENDENCY LibraStdlib
 INCLUDING DEPENDENCY MoveStdlib
@@ -255,11 +255,11 @@ Module 0000000000000000000000000000000000000000000000000000000000000001::my_modu
 +-------------------------+
 | % Move Coverage: 100.00  |
 +-------------------------+
-Please use `aptos move coverage -h` for more detailed source or bytecode test coverage of this package
+Please use `libra2 move coverage -h` for more detailed source or bytecode test coverage of this package
 ```
 
-Then by running `aptos move coverage`, we can get more detailed coverage information. These can be found using the help flag:
+Then by running `libra2 move coverage`, we can get more detailed coverage information. These can be found using the help flag:
 
 ```shellscript filename="Terminal"
-$ aptos move coverage -h
+$ libra2 move coverage -h
 ```

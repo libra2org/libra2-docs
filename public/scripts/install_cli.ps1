@@ -15,9 +15,9 @@ $BOLD = "${ESC}[1m"
 $NC = "${ESC}[0m"
 
 # Default values
-$SCRIPT = "aptos.exe"
+$SCRIPT = "libra2.exe"
 $TEST_COMMAND = "$SCRIPT info"
-$BIN_DIR = "$env:USERPROFILE\.aptoscli\bin"
+$BIN_DIR = "$env:USERPROFILE\.libra2cli\bin"
 $FORCE = $false
 $ACCEPT_ALL = $false
 $VERSION = ""
@@ -48,8 +48,8 @@ function Test-CommandExists {
 function Get-LatestVersion {
     try {
         $response = Invoke-RestMethod -Uri "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100"
-        $latestRelease = $response | Where-Object { $_.tag_name -match 'aptos-cli-v' } | Select-Object -First 1
-        return $latestRelease.tag_name -replace 'aptos-cli-v', ''
+        $latestRelease = $response | Where-Object { $_.tag_name -match 'libra2-cli-v' } | Select-Object -First 1
+        return $latestRelease.tag_name -replace 'libra2-cli-v', ''
     }
     catch {
         Die "Failed to get latest version: $_"
@@ -81,8 +81,8 @@ function Install-CLI {
     }
 
     # Download URL
-    $url = "https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v$Version/aptos-cli-$Version-$Target.zip"
-    $zipPath = Join-Path $env:TEMP "aptos-cli.zip"
+    $url = "https://github.com/libra2org/libra2-core/releases/download/libra2-cli-v$Version/libra2-cli-$Version-$Target.zip"
+    $zipPath = Join-Path $env:TEMP "libra2-cli.zip"
 
     try {
         # Download the file

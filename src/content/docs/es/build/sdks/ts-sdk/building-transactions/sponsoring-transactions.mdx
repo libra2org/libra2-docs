@@ -14,12 +14,12 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
   1. Construye la transacción con el parámetro withFeePayer: true.
 
      ```typescript filename="sponsor.ts"
-     const transaction = await aptos.transaction.build.simple({
+     const transaction = await libra2.transaction.build.simple({
          sender: sender.accountAddress,
          withFeePayer: true,
          data: {
              // Todas las transacciones en Libra se implementan vía contratos inteligentes.
-             function: "0x1::aptos_account::transfer",
+             function: "0x1::libra2_account::transfer",
              functionArguments: [destination.accountAddress, 100],
          },
      });
@@ -35,11 +35,11 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
      </Aside>
 
      ```typescript filename="sponsor.ts"
-     const senderAuthenticator = aptos.transaction.sign({
+     const senderAuthenticator = libra2.transaction.sign({
          signer: sender,
          transaction,
      });
-     const feePayerAuthenticator = aptos.transaction.signAsFeePayer({
+     const feePayerAuthenticator = libra2.transaction.signAsFeePayer({
          signer: feePayer,
          transaction
      })
@@ -50,7 +50,7 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
      Puedes simular la transacción patrocinada para previsualizar el resultado antes de enviarla de la siguiente manera:
 
      ```typescript filename="sponsor.ts"
-     const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+     const [userTransactionResponse] = await libra2.transaction.simulate.simple({
          signerPublicKey: sender.publicKey,
          transaction,
      });
@@ -62,7 +62,7 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
 
      ```typescript filename="sponsor.ts"
      transaction.feePayerAddress = feePayer.accountAddress;
-     const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+     const [userTransactionResponse] = await libra2.transaction.simulate.simple({
          signerPublicKey: sender.publicKey,
          feePayerPublicKey: feePayer.publicKey,
          transaction,
@@ -75,7 +75,7 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
 
      ```typescript filename="sponsor.ts"
      // 4. Enviar
-     const committedTransaction = await aptos.transaction.submit.simple({
+     const committedTransaction = await libra2.transaction.submit.simple({
          transaction,
          senderAuthenticator: senderAuthenticator,
          feePayerAuthenticator: feePayerAuthenticator,
@@ -86,7 +86,7 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
 
      ```typescript filename="sponsor.ts"
      // 5. Esperar resultados
-     const executedTransaction = await aptos.waitForTransaction({ transactionHash: committedTransaction.hash });
+     const executedTransaction = await libra2.waitForTransaction({ transactionHash: committedTransaction.hash });
      ```
 </Steps>
 
@@ -109,7 +109,7 @@ async function example() {
 
     // 0. Configura el cliente y las cuentas de prueba
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -121,15 +121,15 @@ async function example() {
     console.log(`La dirección de Carol es: ${carol.accountAddress}`);
 
     console.log("\n=== Financiando cuentas ===\n");
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: alice.accountAddress,
         amount: 500_000_000,
     });
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: bob.accountAddress,
         amount: 500_000_000,
     });
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: carol.accountAddress,
         amount: 100,
     });
@@ -137,12 +137,12 @@ async function example() {
 
     // 1. Construir
     console.log("\n=== 1. Construyendo la transacción ===\n");
-    const transaction = await aptos.transaction.build.simple({
+    const transaction = await libra2.transaction.build.simple({
         sender: alice.accountAddress,
         withFeePayer: true,
         data: {
             // Todas las transacciones en Libra se implementan vía contratos inteligentes.
-            function: "0x1::aptos_account::transfer",
+            function: "0x1::libra2_account::transfer",
             functionArguments: [carol.accountAddress, 100],
         },
     });
@@ -150,11 +150,11 @@ async function example() {
 
     // 2. Firmar
     console.log("\n=== 2. Firmando transacción ===\n");
-    const aliceSenderAuthenticator = aptos.transaction.sign({
+    const aliceSenderAuthenticator = libra2.transaction.sign({
         signer: alice,
         transaction,
     });
-    const bobSenderAuthenticator = aptos.transaction.signAsFeePayer({
+    const bobSenderAuthenticator = libra2.transaction.signAsFeePayer({
         signer: bob,
         transaction
     })
@@ -162,7 +162,7 @@ async function example() {
 
     // 3. Simular (Opcional)
     console.log("\n === 3. Simulando Respuesta (Opcional) === \n")
-    const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+    const [userTransactionResponse] = await libra2.transaction.simulate.simple({
         signerPublicKey: alice.publicKey,
         feePayerPublicKey: bob.publicKey,
         transaction,
@@ -171,7 +171,7 @@ async function example() {
 
     // 4. Enviar
     console.log("\n=== 4. Enviando transacción ===\n");
-    const committedTransaction = await aptos.transaction.submit.simple({
+    const committedTransaction = await libra2.transaction.submit.simple({
         transaction,
         senderAuthenticator: aliceSenderAuthenticator,
         feePayerAuthenticator: bobSenderAuthenticator,
@@ -180,7 +180,7 @@ async function example() {
 
     // 5. Esperar resultados
     console.log("\n=== 5. Esperando resultado de la transacción ===\n");
-    const executedTransaction = await aptos.waitForTransaction({ transactionHash: committedTransaction.hash });
+    const executedTransaction = await libra2.waitForTransaction({ transactionHash: committedTransaction.hash });
     console.log(executedTransaction)
 };
 

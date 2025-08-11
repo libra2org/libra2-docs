@@ -28,7 +28,7 @@ dark: '~/images/fa-diagram-dark.png',
 }}
 />
 
-[Esta implementación](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) es una mejora sobre el estándar `coin` porque los Objetos Move son más personalizables y extensibles via contrato inteligente. Ve las guías avanzadas sobre escribir [Objetos Move](/build/smart-contracts/objects) para más detalles.
+[Esta implementación](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move) es una mejora sobre el estándar `coin` porque los Objetos Move son más personalizables y extensibles via contrato inteligente. Ve las guías avanzadas sobre escribir [Objetos Move](/build/smart-contracts/objects) para más detalles.
 El estándar FA también maneja automáticamente el rastreo de cuánto de un activo fungible posee una cuenta, en lugar de requerir que el destinatario registre un recurso `CoinStore` separado de la transferencia.
 
 ## Crear un nuevo Activo Fungible (FA)
@@ -86,9 +86,9 @@ Para generar un Objeto con todos los permisos FA, podrías desplegar un contrato
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
-    use aptos_framework::object::{Self, Object};
-    use aptos_framework::primary_fungible_store;
+    use libra2_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleAsset};
+    use libra2_framework::object::{Self, Object};
+    use libra2_framework::primary_fungible_store;
     use std::error;
     use std::signer;
     use std::string::utf8;
@@ -133,8 +133,8 @@ module my_addr::my_fungible_asset_example {
 ```
 
 <Aside type="note">
-  Para un ejemplo completo de cómo crear tu propio módulo de Activo Fungible, por favor ve [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
-  Alternativamente, puedes explorar la colección de [código de ejemplo FA aquí](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/fungible_asset).
+  Para un ejemplo completo de cómo crear tu propio módulo de Activo Fungible, por favor ve [fa\_coin.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/move-examples/fungible_asset/fa_coin/sources/FACoin.move).
+  Alternativamente, puedes explorar la colección de [código de ejemplo FA aquí](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/fungible_asset).
 </Aside>
 
 Ahora puedes usar el `MintRef` para acuñar via:
@@ -153,7 +153,7 @@ En este punto, puedes acuñar, transferir y quemar Activos Fungibles usando los 
 
 ## Documentación de Referencia
 
-Puedes encontrar el conjunto completo de funciones que el Estándar de Activo Fungible proporciona [aquí](https://aptos.dev/reference/move/?branch=mainnet\&page=aptos-framework/doc/fungible_asset.md). {/* TODO: Update the Move Reference link once we migrate that page */}
+Puedes encontrar el conjunto completo de funciones que el Estándar de Activo Fungible proporciona [aquí](https://docs.libra2.org/reference/move/?branch=mainnet\&page=libra2-framework/doc/fungible_asset.md). {/* TODO: Update the Move Reference link once we migrate that page */}
 
 Las características básicas que los propietarios de Activos Fungibles pueden usar incluyen lo siguiente.
 
@@ -236,7 +236,7 @@ struct Frozen has drop, store {
 
 ## Activo Fungible Despachable (Avanzado)
 
-Aparte de la funcionalidad de activo fungible gestionado por defecto proporcionada por el Framework de Libra, los emisores de activos fungibles pueden implementar su propia lógica de depósito/retiro usando el estándar de activo fungible despachable. Esto se hace registrando funciones hook personalizadas para ser invocadas en tiempo de retiro/depósito. Estas funciones hook están almacenadas en los metadatos de una clase de activo fungible, y el Framework de Libra las invocará automáticamente en lugar de la lógica por defecto. Esto permite a los emisores implementar lógica compleja, como control de acceso personalizado. Para más detalles, refiere al [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md) correspondiente.
+Aparte de la funcionalidad de activo fungible gestionado por defecto proporcionada por el Framework de Libra, los emisores de activos fungibles pueden implementar su propia lógica de depósito/retiro usando el estándar de activo fungible despachable. Esto se hace registrando funciones hook personalizadas para ser invocadas en tiempo de retiro/depósito. Estas funciones hook están almacenadas en los metadatos de una clase de activo fungible, y el Framework de Libra las invocará automáticamente en lugar de la lógica por defecto. Esto permite a los emisores implementar lógica compleja, como control de acceso personalizado. Para más detalles, refiere al [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md) correspondiente.
 
 ### Implementar la Función Hook
 
@@ -272,7 +272,7 @@ module my_addr::my_fungible_asset_example {
 - Evita llamar funciones definidas en `dispatchable_fungible_asset` y `primary_fungible_store`, _excepto_ para funciones inline, para prevenir errores durante transferencias.
 - Nota que llamar `fungible_asset::withdraw` y `fungible_asset::deposit` NO funcionará para activos con hooks registrados. Ve más información en Interactuar con activo fungible despachable.
 
-Para más detalles sobre estas limitaciones, refiere al [AIP](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-73.md).
+Para más detalles sobre estas limitaciones, refiere al [AIP](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-73.md).
 
 ### Registrar la Función Hook
 
@@ -309,11 +309,11 @@ El registro puede verse así:
 
 ```move filename="example.move"
 module my_addr::my_fungible_asset_example {
-    use aptos_framework::string;
-    use aptos_framework::object;
-    use aptos_framework::primary_fungible_store;
-    use aptos_framework::dispatchable_fungible_asset;
-    use aptos_framework::function_info;
+    use libra2_framework::string;
+    use libra2_framework::object;
+    use libra2_framework::primary_fungible_store;
+    use libra2_framework::dispatchable_fungible_asset;
+    use libra2_framework::function_info;
 
     fun create_fungible_asset(module_signer: &signer, /* ... */) {
         // Hacer la información de función de override de depósito
@@ -422,14 +422,14 @@ Hay dos cambios necesarios para servicios fuera de la cadena:
 
 Ya que un usuario puede poseer **tanto** un balance `coin` como un balance FA emparejado, las aplicaciones fuera de la cadena deberían ser actualizadas para reflejar la **suma** de tanto el balance `coin` como su balance FA emparejado.
 
-- Para usuarios del Indexador de Libra, puedes utilizar la tabla llamada `current_fungible_asset_balances` para obtener la suma más reciente del balance de coin y balance FA representando el mismo tipo de activo. Si el FA tiene un tipo de coin emparejado, el tipo de activo sería establecido al tipo de coin, como `0x1::aptos_coin::LibraCoin`. De lo contrario, para FA no emparejado de un coin, el tipo de activo sería la dirección de metadatos. Los usuarios podrían filtrar por este campo para obtener el balance FA de su interés.
+- Para usuarios del Indexador de Libra, puedes utilizar la tabla llamada `current_fungible_asset_balances` para obtener la suma más reciente del balance de coin y balance FA representando el mismo tipo de activo. Si el FA tiene un tipo de coin emparejado, el tipo de activo sería establecido al tipo de coin, como `0x1::libra2_coin::LibraCoin`. De lo contrario, para FA no emparejado de un coin, el tipo de activo sería la dirección de metadatos. Los usuarios podrían filtrar por este campo para obtener el balance FA de su interés.
 - Para usuarios empleando Node API u otra indexación personalizada, deberían agregar el balance del FA emparejado en los `FungibleStore` de usuarios y `ConcurrentFungibleBalance` si alguno de ellos existe al balance de coin.
 
 Para recuperar el balance del `PrimaryFungibleStore` para un FA emparejado a un `coin` existente de tipo `CoinType`:
 
 1. Llama `paired_metadata<CoinType>()` para obtener la dirección del objeto de metadatos FA emparejado (la dirección es inmutable).
 2. Recupera el balance del FA emparejado:
-   - Llama [getCurrentFungibleAssetBalances](https://github.com/libra2org/aptos-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
+   - Llama [getCurrentFungibleAssetBalances](https://github.com/libra2org/libra2-ts-sdk/blob/c01a26ff899235fac1c31c6cc3fe504b764e5b91/src/api/fungibleAsset.ts#L115).
    - Alternativamente, determina la dirección del `FungibleStore` primario, que puede ser calculada determinísticamente con la siguiente fórmula:
      - `sha3_256(32-byte account address | 32-byte metadata object address | 0xFC)`
    - Luego usa esa dirección para obtener el recurso `FungibleStore` para obtener el balance.
@@ -445,7 +445,7 @@ Para recuperar el balance del `PrimaryFungibleStore` para un FA emparejado a un 
   <summary><span className="font-bold">¿Qué es el estándar de Activo Fungible (FA) de Libra?</span></summary>
 
   <div className="p-8">
-    El estándar FA introduce una nueva forma de representar tokens fungibles como [objetos Move](https://aptos.dev/en/build/smart-contracts/objects), reemplazando el modelo de recurso Coin legacy. Los Activos Fungibles son más componibles y amigables para desarrolladores comparados con Coins legacy.
+    El estándar FA introduce una nueva forma de representar tokens fungibles como [objetos Move](https://docs.libra2.org/en/build/smart-contracts/objects), reemplazando el modelo de recurso Coin legacy. Los Activos Fungibles son más componibles y amigables para desarrolladores comparados con Coins legacy.
 
     APT será migrado comenzando el 30 de junio de 2025.
   </div>
@@ -529,9 +529,9 @@ Para recuperar el balance del `PrimaryFungibleStore` para un FA emparejado a un 
   <summary><span className="font-bold">Sabemos que siempre hay un FA emparejado de un tipo de coin. ¿Cómo podemos consultar la oferta y balance de este activo después de la migración?</span></summary>
 
   <div className="p-8">
-    Después de la migración, consultar el recurso `0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>` en la dirección de cuenta no estará disponible. En su lugar, puedes consultar el balance de cuenta por las siguientes tres formas:
+    Después de la migración, consultar el recurso `0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>` en la dirección de cuenta no estará disponible. En su lugar, puedes consultar el balance de cuenta por las siguientes tres formas:
 
-    1. [Balance Node API](https://aptos.dev/en/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), el asset\_type puede ser tanto coin\_type, como 0x1::aptos\_coin::LibraCoin o dirección de metadatos FA como 0xa, de cualquier manera debería devolver el mismo valor.
+    1. [Balance Node API](https://docs.libra2.org/en/build/apis/fullnode-rest-api#tag/accounts/GET/accounts/%7Baddress%7D/balance/%7Basset_type%7D), el asset\_type puede ser tanto coin\_type, como 0x1::libra2\_coin::LibraCoin o dirección de metadatos FA como 0xa, de cualquier manera debería devolver el mismo valor.
 
     2. `#[view] function primary_fungible_store::balance<T: key>(account: address, metadata: Object<T>): u64`
 
@@ -543,7 +543,7 @@ Para recuperar el balance del `PrimaryFungibleStore` para un FA emparejado a un 
   <summary><span className="font-bold">Antes de la migración, podía consultar todos los activos que un usuario tiene obteniendo todos los recursos en su dirección usando API. ¿Cómo lo hago después de la migración?</span></summary>
 
   <div className="p-8">
-    Puedes [usar la API del Indexador](https://aptos.dev/en/build/indexer/indexer-api/indexer-reference#current_fungible_asset_balances) para consultar todos los activos fungibles que el usuario posee.
+    Puedes [usar la API del Indexador](https://docs.libra2.org/en/build/indexer/indexer-api/indexer-reference#current_fungible_asset_balances) para consultar todos los activos fungibles que el usuario posee.
 
     Consultar recursos raw para obtener el balance y tipos de activos no es recomendado y no será bien soportado por la API de fullnode.
   </div>
@@ -553,6 +553,6 @@ Para recuperar el balance del `PrimaryFungibleStore` para un FA emparejado a un 
   <summary><span className="font-bold">¿Qué si tengo más preguntas?</span></summary>
 
   <div className="p-8">
-    ¡Únete al [Discord de Libra](https://discord.com/invite/aptosnetwork)! Los ingenieros de Libra Labs estarán disponibles durante toda la semana de migración para responder preguntas y ofrecer soporte.
+    ¡Únete al [Discord de Libra](https://discord.com/invite/libra2network)! Los ingenieros de Libra Labs estarán disponibles durante toda la semana de migración para responder preguntas y ofrecer soporte.
   </div>
 </details>

@@ -47,13 +47,13 @@ está identificada por una dirección de cuenta de 32 bytes y es un contenedor p
 En Libra, las cuentas deben ser creadas en la cadena de bloques antes de cualquier
 operación de blockchain que involucre esa cuenta. El framework de Libra soporta
 la creación implícita de cuentas cuando se transfiere la moneda de Libra a través de
-[`aptos_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/aptos-move/framework/aptos-framework/sources/aptos_account.move#L18)
+[`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
 o explícitamente a través de
-[`aptos_account::create_account`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/aptos-move/framework/aptos-framework/sources/aptos_account.move#L13).
+[`libra2_account::create_account`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L13).
 
-Al crearse, una [cuenta de Libra](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/aptos-move/framework/aptos-framework/sources/account.move#L23) contiene:
+Al crearse, una [cuenta de Libra](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/account.move#L23) contiene:
 
-- Un [recurso que contiene la moneda de Libra](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/aptos-move/framework/aptos-framework/sources/coin.move#L50)
+- Un [recurso que contiene la moneda de Libra](https://github.com/libra2org/libra2-core/blob/60751b5ed44984178c7163933da3d1b18ad80388/libra2-move/framework/libra2-framework/sources/coin.move#L50)
   y el depósito y retiro de monedas de ese recurso.
 - Una clave de autenticación asociada con su clave pública actual, privada(s).
 - Un estrictamente
@@ -94,10 +94,10 @@ confiar en el fullnode para generar la transacción correctamente.
 #### Transacciones codificadas en BCS
 
 Las transacciones codificadas en BCS pueden ser enviadas al endpoint `/transactions` pero
-deben especificar `Content-Type: application/x.aptos.signed_transaction+bcs` en los
+deben especificar `Content-Type: application/x.libra2.signed_transaction+bcs` en los
 encabezados HTTP. Esto devolverá un resultado de envío de transacción que, si
 es exitoso, contiene un hash de transacción en
-el campo `hash` [field](https://github.com/libra2org/libra2-core/blob/9b85d41ed8ef4a61a9cd64f9de511654fcc02024/ecosystem/python/sdk/aptos_sdk/client.py#L138).
+el campo `hash` [field](https://github.com/libra2org/libra2-core/blob/9b85d41ed8ef4a61a9cd64f9de511654fcc02024/ecosystem/python/sdk/libra2_sdk/client.py#L138).
 
 ### Tipos de transacciones
 
@@ -106,13 +106,13 @@ Dentro de una transacción dada, el objetivo de ejecución puede ser uno de dos 
 - Una función de entrada
 - Un script Move
 
-Todos los SDK oficiales soportan la generación de transacciones que apuntan a funciones de entrada. Esta guía destaca muchas de esas funciones de entrada, como `aptos_account::transfer` y `aptos_account::create_account`.
+Todos los SDK oficiales soportan la generación de transacciones que apuntan a funciones de entrada. Esta guía destaca muchas de esas funciones de entrada, como `libra2_account::transfer` y `libra2_account::create_account`.
 
-La mayoría de las operaciones básicas en la blockchain de Libra deberían estar disponibles a través de llamadas de punto de entrada. Mientras uno podría enviar múltiples transacciones llamando a puntos de entrada en serie, tales operaciones se benefician de ser llamadas atómicamente desde una sola transacción. Un script de carga útil de transacción puede llamar a cualquier función pública (entrada) definida dentro de cualquier módulo. Aquí está un ejemplo [script Move](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/scripts/two_by_two_transfer) que usa una transacción MultiAgent para extraer fondos de dos cuentas y depositarlos en dos otras cuentas. Esto es un [ejemplo de Python](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/transfer_two_by_two.py) que usa el código generado por compilar ese script.
+La mayoría de las operaciones básicas en la blockchain de Libra deberían estar disponibles a través de llamadas de punto de entrada. Mientras uno podría enviar múltiples transacciones llamando a puntos de entrada en serie, tales operaciones se benefician de ser llamadas atómicamente desde una sola transacción. Un script de carga útil de transacción puede llamar a cualquier función pública (entrada) definida dentro de cualquier módulo. Aquí está un ejemplo [script Move](https://github.com/libra2org/libra2-core/tree/main/libra2-move/move-examples/scripts/two_by_two_transfer) que usa una transacción MultiAgent para extraer fondos de dos cuentas y depositarlos en dos otras cuentas. Esto es un [ejemplo de Python](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/transfer_two_by_two.py) que usa el código generado por compilar ese script.
 
 ### Estado de una transacción
 
-Obtener el estado de la transacción consultando la API [`/transactions/by_hash/{hash}`](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_transaction_by_hash) con el hash devuelto durante el envío de la transacción.
+Obtener el estado de la transacción consultando la API [`/transactions/by_hash/{hash}`](https://api.devnet.libra2labs.com/v1/spec#/operations/get_transaction_by_hash) con el hash devuelto durante el envío de la transacción.
 
 Una estrategia razonable para enviar transacciones es limitar su vida útil a 30 a 60 segundos, y consultar esa API en intervalos regulares hasta que sea exitoso o algunos segundos después de que haya transcurrido el tiempo. Si no hay compromiso en la cadena, la transacción fue probablemente descartada.
 
@@ -122,9 +122,9 @@ Todos los SDKs soportan esto automáticamente para esperar transacciones.
 
 Para facilitar la evaluación de transacciones así como la estimación de gas, Libra soporta una API de simulación que no requiere y no debe contener firmas válidas en las transacciones.
 
-La API de simulación es una API sincrónica que ejecuta una transacción y devuelve la salida inclusive de uso de gas. La API de simulación puede ser accedida enviando una transacción a [`/transactions/simulate`](https://api.devnet.aptoslabs.com/v1/spec#/operations/simulate_transaction).
+La API de simulación es una API sincrónica que ejecuta una transacción y devuelve la salida inclusive de uso de gas. La API de simulación puede ser accedida enviando una transacción a [`/transactions/simulate`](https://api.devnet.libra2labs.com/v1/spec#/operations/simulate_transaction).
 
-Ambos el [SDK de Typescript](https://github.com/libra2org/aptos-ts-sdk/blob/main/src/api/transactionSubmission/simulate.ts) y [SDK de Python](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/simulate_transfer_coin.py) soportan la API de simulación. Tenga en cuenta que la salida y el gas utilizado pueden cambiar basado en el estado de la cuenta. Para las estimaciones de gas, recomendamos que el monto máximo de gas sea mayor que el monto citado por esta API.
+Ambos el [SDK de Typescript](https://github.com/libra2org/libra2-ts-sdk/blob/main/src/api/transactionSubmission/simulate.ts) y [SDK de Python](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/simulate_transfer_coin.py) soportan la API de simulación. Tenga en cuenta que la salida y el gas utilizado pueden cambiar basado en el estado de la cuenta. Para las estimaciones de gas, recomendamos que el monto máximo de gas sea mayor que el monto citado por esta API.
 
 ## Ver estado actual y histórico
 
@@ -156,14 +156,14 @@ a `false`. Este es el comportamiento por defecto en Mainnet. En el futuro cercan
 
 La API REST ofrece consultas de transacciones y eventos de estas formas:
 
-- [Transacciones para una cuenta](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_account_transactions)
-- [Transacción por versión](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_transaction_by_version)
-- [Eventos por manejador de eventos](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_events_by_event_handle)
+- [Transacciones para una cuenta](https://api.devnet.libra2labs.com/v1/spec#/operations/get_account_transactions)
+- [Transacción por versión](https://api.devnet.libra2labs.com/v1/spec#/operations/get_transaction_by_version)
+- [Eventos por manejador de eventos](https://api.devnet.libra2labs.com/v1/spec#/operations/get_events_by_event_handle)
 
 ## Intercambiar y rastrear activos fungibles
 
 Libra tiene una
-estándar [Activo Fungible](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move).
+estándar [Activo Fungible](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move).
 Diferentes tipos de activo fungible (FA) pueden ser representados en este estándar
 a través del uso de un objeto de metadatos distinto.
 
@@ -176,10 +176,10 @@ es determinista basado en las direcciones de cuenta de usuario y el objeto de me
 ### Transferir FAs entre usuarios
 
 FAs, incluyendo APT, pueden ser transferidas entre los almacenes principales de los usuarios a través de
-la función [`primary_fungible_store::transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/primary_fungible_store.move#L142)
+la función [`primary_fungible_store::transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/primary_fungible_store.move#L142)
 .
 Para cualquier `FungibleStore`
-s, [`fungible_asset::transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move#L347)
+s, [`fungible_asset::transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/fungible_asset.move#L347)
 sería invocado con las direcciones de objetos `FungibleStore`.
 
 Se observa en la fase de migración de moneda a FA, retirar/depositar/transferir FA emparejado de moneda debería
@@ -223,19 +223,19 @@ Por lo tanto, para obtener el balance total de un activo fungible, es el balance
 ## Intercambiar y rastrear monedas
 
 Libra tiene una estándar
-[Tipo de moneda](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move).
+[Tipo de moneda](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move).
 Diferentes tipos de monedas pueden ser representados en este tipo a través del
 uso de estructuras distintas que representan el parámetro de tipo o genérico para `Coin<T>`.
 
-Las monedas se almacenan dentro de una cuenta bajo el recurso `CoinStore<T>`. Al crearse una cuenta, cada usuario tiene el recurso `CoinStore<0x1::aptos_coin::LibraCoin>`
+Las monedas se almacenan dentro de una cuenta bajo el recurso `CoinStore<T>`. Al crearse una cuenta, cada usuario tiene el recurso `CoinStore<0x1::libra2_coin::LibraCoin>`
 o `CoinStore<LibraCoin>`, por breve. Dentro de este recurso está la moneda de Libra: `Coin<LibraCoin>`.
 
 ### Transferir monedas entre usuarios
 
 Las monedas, incluyendo APT, pueden ser transferidas entre usuarios a través de
-la función [`aptos_account::transfer_coins`](https://github.com/libra2org/libra2-core/blob/d1610e1bb5214689a37a9cab59cf9254e8eb2be1/aptos-move/framework/aptos-framework/sources/aptos_account.move#L92)
+la función [`libra2_account::transfer_coins`](https://github.com/libra2org/libra2-core/blob/d1610e1bb5214689a37a9cab59cf9254e8eb2be1/libra2-move/framework/libra2-framework/sources/libra2_account.move#L92)
 para todas las monedas
-y [`aptos_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/aptos-move/framework/aptos-framework/sources/aptos_account.move#L18)
+y [`libra2_account::transfer`](https://github.com/libra2org/libra2-core/blob/88c9aab3982c246f8aa75eb2caf8c8ab1dcab491/libra2-move/framework/libra2-framework/sources/libra2_account.move#L18)
 para monedas de Libra.
 
 <Aside type="caution">
@@ -253,11 +253,11 @@ la función de vista `0x1::coin::balance<CoinType>(dirección de cuenta)` . Esto
 import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const config = new LibraConfig({ network: Network.DEVNET });
-const aptos = new Libra(config);
+const libra2 = new Libra(config);
 
-const coinType = "0x1::aptos_coin::LibraCoin";
+const coinType = "0x1::libra2_coin::LibraCoin";
 const account = "0x00000000000000000000000000000001";
-const [balanceStr] = await aptos.view<[string]>({
+const [balanceStr] = await libra2.view<[string]>({
   payload: {
     function: "0x1::coin::balance",
     typeArguments: [coinType],
@@ -290,7 +290,7 @@ Una transacción de transferencia aparecería así:
     {
       "address": "0xb258b91eee04111039320a85b0c24a2dd433909e14a6b5c32ee722e0fdecfddc",
       "data": {
-        "type": "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
+        "type": "0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>",
         "data": {
           "coin": {
             "value": "1000"
@@ -317,7 +317,7 @@ Una transacción de transferencia aparecería así:
   "gas_unit_price": "1",
   "expiration_timestamp_secs": "1660616127",
   "payload": {
-    "function": "0x1::aptos_account::transfer",
+    "function": "0x1::libra2_account::transfer",
     "arguments": [
       "0x5098df8e7969b58ab3bd2d440c6203f64c60a1fd5c08b9d4abe6ae4216246c3e",
       "1000"
@@ -407,7 +407,7 @@ de monedas. Esto puede ser utilizado en coordinación con las transacciones asoc
 presentar al usuario el cambio de su saldo de cuenta a lo largo del tiempo, cuando sucedió, y lo que lo causó. Con un poco de análisis adicional, metadatos como el tipo de transacción y las otras partes involucradas también pueden ser compartidos.
 
 Consultar eventos por manejador
-URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>/withdraw_events`
+URL: `https://{rest_api_server}/accounts/{address}/events/0x1::coin::CoinStore<0x1::libra2_coin::LibraCoin>/withdraw_events`
 
 ```json
 [
@@ -434,7 +434,7 @@ donde `{version}` es el mismo valor que el `{version}` en la consulta de eventos
 
 <Aside type="note">
   Cuando se rastrean movimientos completos de monedas, normalmente los eventos son
-  suficientes. `0x1::aptos_coin::LibraCoin`, sin embargo, requiere
+  suficientes. `0x1::libra2_coin::LibraCoin`, sin embargo, requiere
   considerar `gas_used` para cada transacción enviada desde la cuenta dada
   ya que representa gas en Libra. Para reducir la sobrecarga innecesaria, extraer
   las tarifas de gas debido a las transacciones no emite un evento. Todas las transacciones para una
@@ -483,7 +483,7 @@ Considere la transacción de la sección anterior, pero ahora con una moneda arb
   "gas_unit_price": "110",
   "expiration_timestamp_secs": "1660616127",
   "payload": {
-    "function": "0x1::aptos_account::transfer_coins",
+    "function": "0x1::libra2_account::transfer_coins",
     "type_arguments": [
       "0x1337::my_coin::MyCoin"
     ],
@@ -532,7 +532,7 @@ Hay tres cambios de balance en esta transacción:
 
 1. Una retirada de `1000` de `0x1337::my_coin::MyCoin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 2. Un depósito de `1000` de `0x1337::my_coin::MyCoin` a la cuenta receptora `0x5098df8e7969b58ab3bd2d440c6203f64c60a1fd5c08b9d4abe6ae4216246c3e`
-3. Una tarifa de gas `2200` de `0x1::aptos_coin::LibraCoin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
+3. Una tarifa de gas `2200` de `0x1::libra2_coin::LibraCoin` de la cuenta de transacción enviada `0x810026ca8291dd88b5b30a1d3ca2edd683d33d06c4a7f7c451d96f6d47bc5e8b`
 
 Para obtener la información de retirada:
 

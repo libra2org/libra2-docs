@@ -42,7 +42,7 @@ and VFN will be deployed on separate machines.
    the following command with the Libra CLI:
 
    ```shellscript filename="Terminal"
-   aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+   libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
    ```
 
    This will create 4 key files under `~/$WORKSPACE/keys` directory:
@@ -75,7 +75,7 @@ and VFN will be deployed on separate machines.
    # with the appropriate IP or DNS address for your nodes.
 
    cd ~/$WORKSPACE
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -85,7 +85,7 @@ and VFN will be deployed on separate machines.
 
    # For example, if you are using IP addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -95,12 +95,12 @@ and VFN will be deployed on separate machines.
 
    # Otherwise, if you are using DNS addresses:
 
-   aptos genesis set-validator-configuration \
+   libra2 genesis set-validator-configuration \
        --local-repository-dir ~/$WORKSPACE \
        --username $USERNAME \
        --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
-       --validator-host bot.aptosdev.com:6180 \
-       --full-node-host fn.bot.aptosdev.com:6182 \
+       --validator-host bot.libra2dev.com:6180 \
+       --full-node-host fn.bot.libra2dev.com:6182 \
        --stake-amount 100000000000000
    ```
 

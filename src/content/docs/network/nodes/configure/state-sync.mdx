@@ -5,7 +5,7 @@ title: "State Synchronization"
 import { Aside } from '@astrojs/starlight/components';
 
 Nodes in an Libra network (e.g., validators, VFNs and PFNs) must always be synchronized to the latest blockchain state.
-The [state synchronization](https://medium.com/aptoslabs/the-evolution-of-state-sync-the-path-to-100k-transactions-per-second-with-sub-second-latency-at-52e25a2c6f10) (state sync) component that runs on each node is responsible for this. State sync
+The [state synchronization](https://medium.com/libra2labs/the-evolution-of-state-sync-the-path-to-100k-transactions-per-second-with-sub-second-latency-at-52e25a2c6f10) (state sync) component that runs on each node is responsible for this. State sync
 identifies and fetches new blockchain data from the peers, validates the data and persists it to local storage. This
 document explains how state sync works and how to configure it.
 
@@ -27,8 +27,8 @@ by continuously syncing (in the **continuous syncing phase**). Each of these pha
   If you need to start a node quickly, here's what we recommend by network and use case:
 
   - **Devnet**: To sync the entire blockchain history, use [intelligent syncing](/network/nodes/configure/state-sync#intelligent-syncing). Otherwise, use [fast sync](/network/nodes/configure/state-sync#fast-syncing).
-  - **Testnet**: To sync the entire blockchain history, restore from a [backup](/network/nodes/bootstrap-fullnode/aptos-db-restore). Otherwise, download [a snapshot](/network/nodes/bootstrap-fullnode/bootstrap-fullnode) or use [fast sync](/network/nodes/configure/state-sync#fast-syncing).
-  - **Mainnet**: To sync the entire blockchain history, restore from a [backup](/network/nodes/bootstrap-fullnode/aptos-db-restore). Otherwise, use [fast sync](/network/nodes/configure/state-sync#fast-syncing).
+  - **Testnet**: To sync the entire blockchain history, restore from a [backup](/network/nodes/bootstrap-fullnode/libra2-db-restore). Otherwise, download [a snapshot](/network/nodes/bootstrap-fullnode/bootstrap-fullnode) or use [fast sync](/network/nodes/configure/state-sync#fast-syncing).
+  - **Mainnet**: To sync the entire blockchain history, restore from a [backup](/network/nodes/bootstrap-fullnode/libra2-db-restore). Otherwise, use [fast sync](/network/nodes/configure/state-sync#fast-syncing).
 </Aside>
 
 ### Bootstrapping phase
@@ -106,7 +106,7 @@ state_sync:
 <Aside type="caution">
   **Verify node syncing**<br />
   While your node is syncing, you'll be able to see the
-  [`aptos_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
+  [`libra2_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
 </Aside>
 
 ### Applying all transaction outputs
@@ -125,7 +125,7 @@ state_sync:
 <Aside type="note">
   **Verify node syncing**<br />
   While your node is syncing, you'll be able to see the
-  [`aptos_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
+  [`libra2_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
 </Aside>
 
 ### Intelligent syncing
@@ -144,7 +144,7 @@ state_sync:
 <Aside type="note">
   **Verify node syncing**<br />
   While your node is syncing, you'll be able to see the
-  [`aptos_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
+  [`libra2_state_sync_version{type="synced"}`](/network/nodes/full-node/verify-pfn) metric gradually increase.
 </Aside>
 
 ### Fast syncing
@@ -171,12 +171,12 @@ state_sync:
 <Aside type="caution">
   **Verify node syncing**<br />
   While your node is syncing, you'll be able to see the
-  `aptos_state_sync_version{type="synced_states"}` metric gradually increase.
-  However, `aptos_state_sync_version{type="synced"}` will only increase once
+  `libra2_state_sync_version{type="synced_states"}` metric gradually increase.
+  However, `libra2_state_sync_version{type="synced"}` will only increase once
   the node has bootstrapped. This may take several hours depending on the
   amount of data, network bandwidth and node resources available.
 
-  **Note:** If `aptos_state_sync_version{type="synced_states"}` does not
+  **Note:** If `libra2_state_sync_version{type="synced_states"}` does not
   increase then do the following:
 
   1. Double-check the node configuration file has correctly been updated.
@@ -234,4 +234,4 @@ each syncing mode:
 
 All the syncing modes get their root of trust from the validator set
 and cryptographic signatures from those validators over the blockchain data.
-For more information about how this works, see the [state synchronization blog post](https://medium.com/aptoslabs/the-evolution-of-state-sync-the-path-to-100k-transactions-per-second-with-sub-second-latency-at-52e25a2c6f10).
+For more information about how this works, see the [state synchronization blog post](https://medium.com/libra2labs/the-evolution-of-state-sync-the-path-to-100k-transactions-per-second-with-sub-second-latency-at-52e25a2c6f10).

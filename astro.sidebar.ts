@@ -257,7 +257,7 @@ export const sidebar = [
             label: "For iOS Developers",
             collapsed: true,
             items: [
-              "build/sdks/community-sdks/kotlin-sdk/for-ios-devs/aptos-kit",
+              "build/sdks/community-sdks/kotlin-sdk/for-ios-devs/libra2-kit",
               "build/sdks/community-sdks/kotlin-sdk/for-ios-devs/getting-started",
             ],
           },
@@ -353,7 +353,7 @@ export const sidebar = [
             collapsed: true,
             items: [
               "build/indexer/txn-stream",
-              "build/indexer/txn-stream/aptos-hosted-txn-stream",
+              "build/indexer/txn-stream/libra2-hosted-txn-stream",
               "build/indexer/txn-stream/local-development",
               "build/indexer/txn-stream/self-hosted",
             ],
@@ -428,7 +428,7 @@ export const sidebar = [
       {
         label: "Create Libra2 DApp",
         collapsed: true,
-        items: ["build/create-aptos-dapp", "build/create-aptos-dapp/faq"],
+        items: ["build/create-libra2-dapp", "build/create-libra2-dapp/faq"],
       },
       "network/faucet",
     ],
@@ -505,11 +505,11 @@ export const sidebar = [
           "build/smart-contracts/objects",
           "build/smart-contracts/object/creating-objects",
           "build/smart-contracts/object/using-objects",
-          "build/smart-contracts/aptos-standards",
+          "build/smart-contracts/libra2-standards",
           "build/smart-contracts/digital-asset",
           "build/smart-contracts/fungible-asset",
-          "build/smart-contracts/aptos-coin",
-          "build/smart-contracts/aptos-token",
+          "build/smart-contracts/libra2-coin",
+          "build/smart-contracts/libra2-token",
           "build/smart-contracts/randomness",
           "build/smart-contracts/cryptography",
           "build/smart-contracts/resource-accounts",
@@ -521,7 +521,7 @@ export const sidebar = [
           "build/smart-contracts/vector",
           "build/smart-contracts/tokens",
           "build/smart-contracts/confidential-asset",
-          "build/smart-contracts/modules-on-aptos",
+          "build/smart-contracts/modules-on-libra2",
         ],
       },
 
@@ -545,11 +545,11 @@ export const sidebar = [
         collapsed: true,
         items: [
           { label: "Framework Reference", link: "move-reference" },
-          { label: "Libra2 Framework", link: "move-reference/mainnet/aptos-framework" },
-          { label: "Libra2 Standard Library", link: "move-reference/mainnet/aptos-stdlib" },
+          { label: "Libra2 Framework", link: "move-reference/mainnet/libra2-framework" },
+          { label: "Libra2 Standard Library", link: "move-reference/mainnet/libra2-stdlib" },
           { label: "Move Standard Library", link: "move-reference/mainnet/move-stdlib" },
-          { label: "Libra2 Token Objects", link: "move-reference/mainnet/aptos-token-objects" },
-          { label: "Libra2 Token (Legacy)", link: "move-reference/mainnet/aptos-token" },
+          { label: "Libra2 Token Objects", link: "move-reference/mainnet/libra2-token-objects" },
+          { label: "Libra2 Token (Legacy)", link: "move-reference/mainnet/libra2-token" },
           "build/smart-contracts/error-codes",
         ],
       },
@@ -603,7 +603,7 @@ export const sidebar = [
                 collapsed: true,
                 items: [
                   "network/nodes/validator-node/connect-nodes",
-                  "network/nodes/validator-node/connect-nodes/connect-to-aptos-network",
+                  "network/nodes/validator-node/connect-nodes/connect-to-libra2-network",
                 ],
               },
               {
@@ -679,7 +679,7 @@ export const sidebar = [
             items: [
               "network/nodes/bootstrap-fullnode",
               "network/nodes/bootstrap-fullnode/bootstrap-fullnode",
-              "network/nodes/bootstrap-fullnode/aptos-db-restore",
+              "network/nodes/bootstrap-fullnode/libra2-db-restore",
             ],
           },
         ],
@@ -749,7 +749,7 @@ export const sidebar = [
         collapsed: true,
         items: [
           "network/blockchain",
-          "network/blockchain/aptos-white-paper",
+          "network/blockchain/libra2-white-paper",
           "network/blockchain/blockchain-deep-dive",
           "network/blockchain/blocks",
           "network/blockchain/move",
@@ -820,11 +820,11 @@ export const sidebar = [
     items: [
       {
         label: "Libra2 MCP",
-        link: "build/ai/aptos-mcp",
+        link: "build/ai/libra2-mcp",
         badge: { text: "NEW", variant: "tip" },
       },
-      "build/ai/aptos-mcp/claude",
-      "build/ai/aptos-mcp/cursor",
+      "build/ai/libra2-mcp/claude",
+      "build/ai/libra2-mcp/cursor",
       {
         label: "LLMs Txt",
         link: "llms-txt",

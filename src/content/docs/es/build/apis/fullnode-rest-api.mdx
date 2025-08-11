@@ -10,16 +10,16 @@ Para consultas más avanzadas, recomendamos usar la [API GraphQL del Indexador](
 ## Explorador de API REST del Nodo Completo
 
 <CardGrid>
-  <LinkCard href="https://fullnode.mainnet.aptoslabs.com/v1/spec#/" title="API REST del Nodo Completo de Mainnet" description="Explorador de API REST para Mainnet" target="_blank" />
+  <LinkCard href="https://fullnode.mainnet.libra2labs.com/v1/spec#/" title="API REST del Nodo Completo de Mainnet" description="Explorador de API REST para Mainnet" target="_blank" />
 
-  <LinkCard href="https://fullnode.testnet.aptoslabs.com/v1/spec#/" title="API REST del Nodo Completo de Testnet" description="Explorador de API REST para Testnet" target="_blank" />
+  <LinkCard href="https://fullnode.testnet.libra2labs.com/v1/spec#/" title="API REST del Nodo Completo de Testnet" description="Explorador de API REST para Testnet" target="_blank" />
 
-  <LinkCard href="https://fullnode.devnet.aptoslabs.com/v1/spec#/" title="API REST del Nodo Completo de Devnet" description="Explorador de API REST para Devnet" target="_blank" />
+  <LinkCard href="https://fullnode.devnet.libra2labs.com/v1/spec#/" title="API REST del Nodo Completo de Devnet" description="Explorador de API REST para Devnet" target="_blank" />
 </CardGrid>
 
 ## Entendiendo los límites de tasa
 
-Como con el [Indexador de Libra](/build/indexer/indexer-api), la API REST de Libra tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Libra Build](https://build.aptoslabs.com/docs/start/billing).
+Como con el [Indexador de Libra](/build/indexer/indexer-api), la API REST de Libra tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Libra Build](https://build.libra2labs.com/docs/start/billing).
 
 ## Viendo estado actual e histórico
 
@@ -54,9 +54,9 @@ que mitiguen la necesidad de consultar directamente desde un nodo.
 
 La API REST ofrece consultar transacciones y eventos de estas maneras:
 
-- [Transacciones para una cuenta](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_account_transactions)
-- [Transacciones por versión](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_transaction_by_version)
-- [Eventos por manejador de eventos](https://api.devnet.aptoslabs.com/v1/spec#/operations/get_events_by_event_handle)
+- [Transacciones para una cuenta](https://api.devnet.libra2labs.com/v1/spec#/operations/get_account_transactions)
+- [Transacciones por versión](https://api.devnet.libra2labs.com/v1/spec#/operations/get_transaction_by_version)
+- [Eventos por manejador de eventos](https://api.devnet.libra2labs.com/v1/spec#/operations/get_events_by_event_handle)
 
 ## Leyendo estado con la función View
 
@@ -66,7 +66,7 @@ estado potencialmente complejo de la cadena usando Move. Por ejemplo, puedes eva
 de subasta. Aquí están los archivos relacionados:
 
 - [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) para un ejemplo
-- código [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) relacionado
+- código [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/libra2-move/framework/libra2-framework/sources/coin.move#L226) relacionado
 - [especificación](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
 
 La función view opera como la API de simulación de Libra,
@@ -83,7 +83,7 @@ a través de la [CLI de Libra](/build/cli).
 En la CLI de Libra, una solicitud de función view se vería así:
 
 ```shellscript filename="Terminal"
-aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
+libra2 move view --function-id devnet::message::get_message --profile devnet --args address:devnet
 {
   "Result": [
     "View functions rock!"
@@ -96,10 +96,10 @@ En el SDK de TypeScript, una solicitud de función view se vería así:
 ```typescript filename="index.ts"
 import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Libra();
-const [balance] = aptos.view<[string]>({
+const libra2 = new Libra();
+const [balance] = libra2.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::LibraCoin"],
+  typeArguments: ["0x1::libra2_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

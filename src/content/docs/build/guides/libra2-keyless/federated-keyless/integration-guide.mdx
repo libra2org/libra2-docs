@@ -34,17 +34,17 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      ```tsx
      import {Libra} from '@libra2-core/ts-sdk'; // Requires version v1.29.1 or later
 
-     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
+     const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
      const alice = // Derive your Libra account here
-     const jwkTxn = await aptos.updateFederatedKeylessJwkSetTransaction({ sender: alice, iss });
-     await aptos.signAndSubmitTransaction({ signer: alice, transaction: jwkTxn });
+     const jwkTxn = await libra2.updateFederatedKeylessJwkSetTransaction({ sender: alice, iss });
+     await libra2.signAndSubmitTransaction({ signer: alice, transaction: jwkTxn });
      ```
 
      You can use the interactive example provided by the SDK to easily register the JWKS for your IAM provider in devnet or testnet.  This will setup the JWK owner account with a Google Keyless account.
 
      ```shellscript
-     git clone https://github.com/libra2org/aptos-ts-sdk
-     cd aptos-ts-sdk
+     git clone https://github.com/libra2org/libra2-ts-sdk
+     cd libra2-ts-sdk
      pnpm install && pnpm build
      cd examples/typescript
      pnpm install
@@ -55,7 +55,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      Save the address of the account you used to register the JWKS as you will need it for the next step.
 
-     To learn more about the `0x1::jwks::update_federated_jwk_set` entry function, see the [reference documentation](/move-reference/mainnet/aptos-framework/jwks#jwks_update_federated_jwk_set).
+     To learn more about the `0x1::jwks::update_federated_jwk_set` entry function, see the [reference documentation](/move-reference/mainnet/libra2-framework/jwks#jwks_update_federated_jwk_set).
 
      <Aside type="caution">
        **Handling key rotations**
@@ -67,5 +67,5 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
      Now that you have registered the JWKS, you can follow the Libra Keyless integration guide starting from step 2.  Be sure to set the `jwkAddress` to the address of the account you used to register the JWKS when deriving the `KeylessAccount`.
 
-     [Libra Keyless Integration Guide - Step 2](/build/guides/libra2-keyless/integration-guide#step-2-install-the-aptos-typescript-sdk)
+     [Libra Keyless Integration Guide - Step 2](/build/guides/libra2-keyless/integration-guide#step-2-install-the-libra2-typescript-sdk)
 </Steps>

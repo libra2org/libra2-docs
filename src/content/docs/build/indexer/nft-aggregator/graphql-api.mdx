@@ -12,9 +12,9 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Endpoints
 
-- **Hasura Console:** [API Explorer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/nft-aggregator/v1/graphql)
+- **Hasura Console:** [API Explorer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.libra2labs.com/nft-aggregator/v1/graphql)
 - **Mainnet Endpoint:**\
-  `https://api.mainnet.aptoslabs.com/nft-aggregator/v1/graphql`
+  `https://api.mainnet.libra2labs.com/nft-aggregator/v1/graphql`
 
 ## Schema
 
@@ -67,7 +67,7 @@ Retrieve **active NFT listings** enriched with token metadata.
     }
   }
 }`}
-  endpoint="https://api.mainnet.aptoslabs.com/nft-aggregator-staging/v1/graphql"
+  endpoint="https://api.mainnet.libra2labs.com/nft-aggregator-staging/v1/graphql"
 />
 
 _No variables are required for this query by default, but you can adjust the `where` filter directly inside the editor._
@@ -109,7 +109,7 @@ Retrieve **active collection-level offers** along with detailed collection metad
   variables={`{
   "marketplace": "wapal"
 }`}
-  endpoint="https://api.mainnet.aptoslabs.com/nft-aggregator-staging/v1/graphql"
+  endpoint="https://api.mainnet.libra2labs.com/nft-aggregator-staging/v1/graphql"
 />
 
 ### Get Token Offers with Token Metadata
@@ -147,5 +147,5 @@ Retrieve **active token-specific offers** along with detailed token metadata.
   variables={`{
   "token_data_id": "0x8142a7fde5039839509e81615e456413bac1c53a1d6c6447f2daf64e84665948"
 }`}
-  endpoint="https://api.mainnet.aptoslabs.com/nft-aggregator-staging/v1/graphql"
+  endpoint="https://api.mainnet.libra2labs.com/nft-aggregator-staging/v1/graphql"
 />

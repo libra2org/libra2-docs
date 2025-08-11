@@ -11,24 +11,24 @@ By the end of the guide, you should have a basic understanding of how a processo
 ## Get started
 
 To get started, clone
-the [aptos-indexer-processor-sdk](https://github.com/libra2org/aptos-indexer-processor-sdk) repo.
+the [libra2-indexer-processor-sdk](https://github.com/libra2org/libra2-indexer-processor-sdk) repo.
 
 ```text
 # HTTPS
-https://github.com/libra2org/aptos-indexer-processor-sdk.git
+https://github.com/libra2org/libra2-indexer-processor-sdk.git
 
 # SSH
-git@github.com:libra2-core/aptos-indexer-processor-sdk.git
+git@github.com:libra2-core/libra2-indexer-processor-sdk.git
 ```
 
 Processors consume transactions from the Transaction Stream Service. In order to use the Labs-Hosted Transaction Stream
 Service you need an authorization token.
-Follow [this guide](/build/indexer/txn-stream/aptos-hosted-txn-stream#authorization-via-api-key)
+Follow [this guide](/build/indexer/txn-stream/libra2-hosted-txn-stream#authorization-via-api-key)
 to guide to get a token from the Developer Portal. Create an API Key for `Testnet`, as this tutorial is for `Testnet`.
 Once you’re done, you should have a token that looks like this:
 
 ```text
-aptoslabs_yj4bocpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx
+libra2labs_yj4bocpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx
 ```
 
 You also need the following tools:
@@ -92,7 +92,7 @@ In the example folder, there is a sample config.yaml file that should look somet
 health_check_port: 8085
 server_config:
   transaction_stream_config:
-    indexer_grpc_data_service_address: "https://grpc.mainnet.aptoslabs.com:443"
+    indexer_grpc_data_service_address: "https://grpc.mainnet.libra2labs.com:443"
     auth_token: "AUTH_TOKEN"
     request_name_header: "events-processor"
     starting_version: 0
@@ -126,16 +126,16 @@ desired value:
 
 ```yaml
 # Devnet
-indexer_grpc_data_service_address: grpc.devnet.aptoslabs.com:443
+indexer_grpc_data_service_address: grpc.devnet.libra2labs.com:443
 
 # Testnet
-indexer_grpc_data_service_address: grpc.testnet.aptoslabs.com:443
+indexer_grpc_data_service_address: grpc.testnet.libra2labs.com:443
 
 # Mainnet
-indexer_grpc_data_service_address: grpc.mainnet.aptoslabs.com:443
+indexer_grpc_data_service_address: grpc.mainnet.libra2labs.com:443
 ```
 
-In this tutorial, we are using `testnet` so update the `indexer_grpc_data_service_address` to `grpc.testnet.aptoslabs.com:443`.
+In this tutorial, we are using `testnet` so update the `indexer_grpc_data_service_address` to `grpc.testnet.libra2labs.com:443`.
 
 ## Create the events processor
 
@@ -230,7 +230,7 @@ cargo run --release -- -c config.yaml
 You should see the processor start to index Libra blockchain events!
 
 ```text
-{"timestamp":"2024-08-15T01:06:35.169217Z","level":"INFO","message":"[Transaction Stream] Received transactions from GRPC.","stream_address":"https://grpc.testnet.aptoslabs.com/","connection_id":"5575cb8c-61fb-498f-aaae-868d1e8773ac","start_version":0,"end_version":4999,"start_txn_timestamp_iso":"1970-01-01T00:00:00.000000000Z","end_txn_timestamp_iso":"2022-09-09T01:49:02.023089000Z","num_of_transactions":5000,"size_in_bytes":5708539,"duration_in_secs":0.310734,"tps":16078,"bytes_per_sec":18371143.80788713,"filename":"/Users/reneetso/.cargo/git/checkouts/aptos-indexer-processor-sdk-2f3940a333c8389d/e1e1bdd/rust/transaction-stream/src/transaction_stream.rs","line_number":400,"threadName":"tokio-runtime-worker","threadId":"ThreadId(6)"}
+{"timestamp":"2024-08-15T01:06:35.169217Z","level":"INFO","message":"[Transaction Stream] Received transactions from GRPC.","stream_address":"https://grpc.testnet.libra2labs.com/","connection_id":"5575cb8c-61fb-498f-aaae-868d1e8773ac","start_version":0,"end_version":4999,"start_txn_timestamp_iso":"1970-01-01T00:00:00.000000000Z","end_txn_timestamp_iso":"2022-09-09T01:49:02.023089000Z","num_of_transactions":5000,"size_in_bytes":5708539,"duration_in_secs":0.310734,"tps":16078,"bytes_per_sec":18371143.80788713,"filename":"/Users/reneetso/.cargo/git/checkouts/libra2-indexer-processor-sdk-2f3940a333c8389d/e1e1bdd/rust/transaction-stream/src/transaction_stream.rs","line_number":400,"threadName":"tokio-runtime-worker","threadId":"ThreadId(6)"}
 {"timestamp":"2024-08-15T01:06:35.257756Z","level":"INFO","message":"Events version [0, 4999] stored successfully","filename":"src/processors/events/events_storer.rs","line_number":75,"threadName":"tokio-runtime-worker","threadId":"ThreadId(10)"}
 {"timestamp":"2024-08-15T01:06:35.257801Z","level":"INFO","message":"Finished processing events from versions [0, 4999]","filename":"src/processors/events/events_processor.rs","line_number":90,"threadName":"tokio-runtime-worker","threadId":"ThreadId(17)"}
 ```

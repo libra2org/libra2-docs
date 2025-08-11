@@ -23,8 +23,8 @@ data in remote storage, such as Amazon S3 or Google Cloud Storage. The links to 
 
 |         | AWS Backup Data                                                                       | Google Cloud Backup Data                                                        |
 | ------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Testnet | Discontinued                                                                          | https://github.com/libra2org/aptos-networks/blob/main/testnet/backups/gcs.yaml |
-| Mainnet | https://github.com/libra2org/aptos-networks/blob/main/mainnet/backups/s3-public.yaml | https://github.com/libra2org/aptos-networks/blob/main/mainnet/backups/gcs.yaml |
+| Testnet | Discontinued                                                                          | https://github.com/libra2org/libra2-networks/blob/main/testnet/backups/gcs.yaml |
+| Mainnet | https://github.com/libra2org/libra2-networks/blob/main/mainnet/backups/s3-public.yaml | https://github.com/libra2org/libra2-networks/blob/main/mainnet/backups/gcs.yaml |
 
 <Aside type="note">
   Backups are only created for `testnet` and `mainnet`. Given that `devnet` is wiped frequently, it is not useful to maintain backups for it.
@@ -43,7 +43,7 @@ Each type of data in the backup storage is organized as follows:
 
 See the diagram below for a visual representation of the backup data structure:
 
-![aptos-db-restore.png](~/images/aptos-db-restore.png)
+![libra2-db-restore.png](~/images/libra2-db-restore.png)
 
 ## Restore an Libra DB
 
@@ -63,7 +63,7 @@ The sections below provide examples of how to use the Libra CLI to restore a dat
 
 ### Bootstrap to the latest version
 
-The `aptos node bootstrap-db` command can quickly restore a database from the latest snapshot back to a target version,
+The `libra2 node bootstrap-db` command can quickly restore a database from the latest snapshot back to a target version,
 but it does not restore the transaction history prior to the target version.
 
 Use the following options to run the command:
@@ -76,7 +76,7 @@ Use the following options to run the command:
 Example command:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
     --target-version 500000000 \
     --command-adapter-config /path/to/s3-public.yaml \
     --target-db-dir /path/to/local/db
@@ -84,7 +84,7 @@ aptos node bootstrap-db \
 
 ### Restore over a specific time period
 
-The `aptos node bootstrap-db` command can restore the transaction history within a specified period, along with the state Merkle tree at the target version.
+The `libra2 node bootstrap-db` command can restore the transaction history within a specified period, along with the state Merkle tree at the target version.
 
 Use the following options to run the command:
 
@@ -96,7 +96,7 @@ Use the following options to run the command:
 Example command:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
     --ledger-history-start-version 150000000 \
     --target-version 155000000
     --command-adapter-config /path/to/s3-public.yaml \
@@ -122,7 +122,7 @@ If you are restoring a node, you will need the following resources:
 Example command:
 
 ```shellscript filename="Terminal"
-aptos node bootstrap-db \
+libra2 node bootstrap-db \
   --ledger-history-start-version 0 \
   --target-version use_the_largest_version_in_backup \
   --command-adapter-config /path/to/s3-public.yaml \

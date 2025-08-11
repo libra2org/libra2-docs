@@ -9,7 +9,7 @@ Libra 节点健康检查器(NHC, Libra Node Health Checker)服务能够检测任
 本文档描述了当你操作节点时如何本地运行 NHC.
 
 <Aside type="note">
-  如果你不想自己运行 NHC 服务,你可以使用由 Libra Foundation 运行的[公用 NHC 服务](https://nodetools.aptosfoundation.org/#/node_checker).
+  如果你不想自己运行 NHC 服务,你可以使用由 Libra Foundation 运行的[公用 NHC 服务](https://nodetools.libra2foundation.org/#/node_checker).
 </Aside>
 
 ## 快速开始
@@ -34,7 +34,7 @@ Libra 节点健康检查器(NHC, Libra Node Health Checker)服务能够检测任
      通过提供上述下载的 `devnet_fullnode.yaml` 基础配置 YAML 文件来启动 NHC 服务:
 
      ```shellscript filename="Terminal"
-     docker run -v /tmp/nhc:/nhc -p 20121:20121 -t aptoslabs/node-checker:nightly /usr/local/bin/aptos-node-checker server run --baseline-config-paths /nhc/devnet_fullnode.yaml
+     docker run -v /tmp/nhc:/nhc -p 20121:20121 -t libra2labs/node-checker:nightly /usr/local/bin/libra2-node-checker server run --baseline-config-paths /nhc/devnet_fullnode.yaml
      ```
 
   3. 向 NHC 服务发送请求
@@ -97,7 +97,7 @@ NHC 作为一个服务运行.当你想要运行你的节点的健康检查时,�
 当你向 NHC 服务发送请求时,你必须包括一个基础配置.例如,一个请求 NHC 使用 `devnet_fullnode` 作为基础配置的请求将如下所示:
 
 ```shellscript filename="Terminal"
-curl 'http://nhc.aptoslabs.com/check?node_url=http://myfullnode.mysite.com&baseline_configuration_id=devnet_fullnode'
+curl 'http://nhc.libra2labs.com/check?node_url=http://myfullnode.mysite.com&baseline_configuration_id=devnet_fullnode'
 ```
 
 ### 准备基础配置
@@ -131,7 +131,7 @@ configs=(devnet_fullnode testnet_fullnode mainnet_fullnode); for c in ${configs[
 准备好基线配置的 YAML 文件及必需的文件之后,你就可以通过以下的命令运行 NHC 服务器,例如使用 Docker:
 
 ```shellscript filename="Terminal"
-docker run -v /etc/nhc:/etc/nhc -p 20121:20121 -t aptoslabs/node-checker:nightly /usr/local/bin/aptos-node-checker server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml /tmp/nhc/testnet_fullnode.yaml /tmp/nhc/mainnet/fullnode.yaml
+docker run -v /etc/nhc:/etc/nhc -p 20121:20121 -t libra2labs/node-checker:nightly /usr/local/bin/libra2-node-checker server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml /tmp/nhc/testnet_fullnode.yaml /tmp/nhc/mainnet/fullnode.yaml
 ```
 
 <Aside type="note">
@@ -152,7 +152,7 @@ cd libra2-core
 运行 NHC:
 
 ```shellscript filename="Terminal"
-cargo run -p aptos-node-checker --release -- server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml
+cargo run -p libra2-node-checker --release -- server run --baseline-config-paths /tmp/nhc/devnet_fullnode.yaml
 ```
 
 ## 生成 OpenAPI 规范

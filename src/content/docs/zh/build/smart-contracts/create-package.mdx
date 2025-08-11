@@ -12,12 +12,12 @@ import { RemoteCodeblock } from '~/components/RemoteCodeblock';
 </Aside>
 
 <Steps>
-  1. aptos move init
+  1. libra2 move init
 
      在一个新的项目目录中,通过运行以下命令初始化一个 Move 包:
 
      ```shellscript filename="Terminal"
-     aptos move init --name <PROJECT_NAME>
+     libra2 move init --name <PROJECT_NAME>
      ```
 
      现在,您应该有一个 Move 项目,如下所示:
@@ -53,14 +53,14 @@ import { RemoteCodeblock } from '~/components/RemoteCodeblock';
      hello_blockchain = "_"
 
      [dependencies.LibraFramework]
-     git = "https://github.com/libra2org/aptos-framework.git"
+     git = "https://github.com/libra2org/libra2-framework.git"
      rev = "mainnet"
-     subdir = "aptos-framework"
+     subdir = "libra2-framework"
      ```
 
   3. 添加到 sources 目录
 
      将您的代码添加到 `sources` 目录.这里我们有一个 `hello_blockchain.move` 示例.
 
-     <RemoteCodeblock permalink="https://github.com/libra2org/libra2-core/blob/afd3706c17bcccfb39a9d6059aecbfa648ed295d/aptos-move/move-examples/hello_blockchain/sources/hello_blockchain.move#L1-L64" />
+     <RemoteCodeblock permalink="https://github.com/libra2org/libra2-core/blob/afd3706c17bcccfb39a9d6059aecbfa648ed295d/libra2-move/move-examples/hello_blockchain/sources/hello_blockchain.move#L1-L64" />
 </Steps>

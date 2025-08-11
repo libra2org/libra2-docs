@@ -23,7 +23,7 @@ When you leave the validator set, your node will be marked as "inactive" in the 
 run the following command using the Libra CLI. You will need to set the `profile` and `owner-address` flags.
 
 ```shellscript filename="Terminal"
-aptos node leave-validator-set --profile <operator-profile> --pool-address <owner-address>
+libra2 node leave-validator-set --profile <operator-profile> --pool-address <owner-address>
 ```
 
 <Aside type="caution">
@@ -41,7 +41,7 @@ nodes depends on how you deployed them. Choose the appropriate section below to 
 
 ## Using Source Code
 
-1. Stop your node by killing the `aptos-node` process. This is sufficient to shut down your node.
+1. Stop your node by killing the `libra2-node` process. This is sufficient to shut down your node.
 2. (Optional) If you wish to free up space, remove the data directory, e.g., `rm -r <your-data-directory>`.
 3. (Optional) If you wish to reuse your node identity, you should keep the configuration files:
    - `public-keys.yaml`

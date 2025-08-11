@@ -21,25 +21,25 @@ async function example() {
 
     // 0. Configura el cliente y las cuentas de prueba
     const config = new LibraConfig({ network: Network.DEVNET });
-    const aptos = new Libra(config);
+    const libra2 = new Libra(config);
 
-    await aptos.fundAccount({
+    await libra2.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
     });
 
     // 1. Construye la transacción para previsualizar su impacto
-    const transaction = await aptos.transaction.build.simple({
+    const transaction = await libra2.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
         // Todas las transacciones en Libra se implementan vía contratos inteligentes.
-        function: "0x1::aptos_account::transfer",
+        function: "0x1::libra2_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },
     });
 
     // 2. Simula para ver qué pasaría si ejecutamos esta transacción
-    const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+    const [userTransactionResponse] = await libra2.transaction.simulate.simple({
         signerPublicKey: sender.publicKey,
         transaction,
     });
@@ -54,11 +54,11 @@ example();
 
 Esto producirá la misma salida que si la transacción fuera enviada.
 
-El parámetro `signerPublicKey` en `aptos.transaction.simulate.simple` se usa para verificar la clave de autenticación del firmante durante la simulación de la transacción. Este parámetro es opcional, y la simulación omitirá la verificación de la clave de autenticación si se omite. Por ejemplo, abajo:
+El parámetro `signerPublicKey` en `libra2.transaction.simulate.simple` se usa para verificar la clave de autenticación del firmante durante la simulación de la transacción. Este parámetro es opcional, y la simulación omitirá la verificación de la clave de autenticación si se omite. Por ejemplo, abajo:
 
 ```typescript
 // 2. Simula para ver qué pasaría si ejecutamos esta transacción, omitiendo la verificación de la clave de autenticación
-const [userTransactionResponse] = await aptos.transaction.simulate.simple({
+const [userTransactionResponse] = await libra2.transaction.simulate.simple({
     transaction,
 });
 ```
@@ -111,7 +111,7 @@ const [userTransactionResponse] = await aptos.transaction.simulate.simple({
     gas_unit_price: '100',
     expiration_timestamp_secs: '1718983701',
     payload: {
-      function: '0x1::aptos_account::transfer',
+      function: '0x1::libra2_account::transfer',
       type_arguments: [],
       arguments: [
         '0xf40c314051890d16ba0a2ba427e003a83e730956fdeccf6c8eebc893a229ddc1',
@@ -183,17 +183,17 @@ Para realizar el primer tipo, puedes simular el objetivo de la carga como una tr
 ```typescript
 // Genera una transacción bruta con la dirección multisig como remitente,
 // la carga de función proporcionada, y 0x0 como la dirección del pagador de tarifas.
-const transactionToSimulate = await aptos.transaction.build.simple({
+const transactionToSimulate = await libra2.transaction.build.simple({
   sender: multisigAddress,
   data: {
-    function: "0x1::aptos_account::transfer",
+    function: "0x1::libra2_account::transfer",
     functionArguments: [recipient.accountAddress, 1_000_000],
   },
   withFeePayer: true,
 });
 
 // Simula la transacción, omitiendo la verificación de la clave pública/autenticación tanto para el remitente como para el pagador de tarifas.
-const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
+const [simulateMultisigTx] = await libra2.transaction.simulate.simple({
   transaction: transactionToSimulate,
 });
 ```
@@ -205,18 +205,18 @@ Para la segunda simulación de tipo, donde la transacción de carga multisig en 
 ```typescript
 const transactionPayload: TransactionPayloadMultiSig = await generateTransactionPayload({
   multisigAddress,
-  function: "0x1::aptos_account::transfer",
+  function: "0x1::libra2_account::transfer",
   functionArguments: [recipient.accountAddress, 1_000_000],
-  aptosConfig: config,
+  libra2Config: config,
 });
 
 const rawTransaction = await generateRawTransaction({
-  aptosConfig: config,
+  libra2Config: config,
   sender: owner.accountAddress,
   payload: transactionPayload,
 });
 
-const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
+const [simulateMultisigTx] = await libra2.transaction.simulate.simple({
   signerPublicKey: owner.publicKey,
   transaction: new SimpleTransaction(rawTransaction),
 });
@@ -224,4 +224,4 @@ const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
 
 Nota: `signerPublicKey` es opcional y se puede omitir si deseas omitir la verificación de la clave de autenticación para el remitente durante la simulación.
 
-Para el código fuente completo, consulta el [Ejemplo Multisig V2](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).
+Para el código fuente completo, consulta el [Ejemplo Multisig V2](https://github.com/libra2org/libra2-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).

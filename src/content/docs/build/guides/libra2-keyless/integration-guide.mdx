@@ -73,14 +73,14 @@ You can find an example app demonstrating basic Keyless integration with Google 
         * Store the ephemeral key pair in localStorage.
         */
        export const storeEphemeralKeyPair = (ekp: EphemeralKeyPair): void =>
-         localStorage.setItem("@aptos/ekp", encodeEphemeralKeyPair(ekp));
+         localStorage.setItem("@libra2/ekp", encodeEphemeralKeyPair(ekp));
 
        /**
         * Retrieve the ephemeral key pair from localStorage if it exists.
         */
        export const getLocalEphemeralKeyPair = (): EphemeralKeyPair | undefined => {
          try {
-           const encodedEkp = localStorage.getItem("@aptos/ekp");
+           const encodedEkp = localStorage.getItem("@libra2/ekp");
            return encodedEkp ? decodeEphemeralKeyPair(encodedEkp) : undefined;
          } catch (error) {
            console.warn(
@@ -180,8 +180,8 @@ You can find an example app demonstrating basic Keyless integration with Google 
         ```tsx
         import {Libra, LibraConfig, Network} from '@libra2-core/ts-sdk';
 
-        const aptos = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
-        const keylessAccount = await aptos.deriveKeylessAccount({
+        const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
+        const keylessAccount = await libra2.deriveKeylessAccount({
             jwt,
             ephemeralKeyPair,
         });
@@ -192,8 +192,8 @@ You can find an example app demonstrating basic Keyless integration with Google 
         ```tsx
         import {Libra, LibraConfig, Network} from '@libra2-core/ts-sdk';
 
-        const aptos = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
-        const keylessAccount = await aptos.deriveKeylessAccount({
+        const libra2 = new Libra(new LibraConfig({ network: Network.DEVNET })); // Configure your network here
+        const keylessAccount = await libra2.deriveKeylessAccount({
             jwt,
             ephemeralKeyPair,
             jwkAddress: jwkOwner.accountAddress
@@ -206,7 +206,7 @@ You can find an example app demonstrating basic Keyless integration with Google 
 
         ```typescript filename="keyless.ts"
         export const storeKeylessAccount = (account: KeylessAccount): void =>
-          localStorage.setItem("@aptos/account", encodeKeylessAccount(account));
+          localStorage.setItem("@libra2/account", encodeKeylessAccount(account));
 
         export const encodeKeylessAccount = (account: KeylessAccount): string =>
           JSON.stringify(account, (_, e) => {
@@ -224,7 +224,7 @@ You can find an example app demonstrating basic Keyless integration with Google 
         ```typescript filename="keyless.ts"
         export const getLocalKeylessAccount = (): KeylessAccount | undefined => {
           try {
-            const encodedAccount = localStorage.getItem("@aptos/account");
+            const encodedAccount = localStorage.getItem("@libra2/account");
             return encodedAccount ? decodeKeylessAccount(encodedAccount) : undefined;
           } catch (error) {
             console.warn(
@@ -253,7 +253,7 @@ You can find an example app demonstrating basic Keyless integration with Google 
         import {Account} from '@libra2-core/ts-sdk';
 
         const bob = Account.generate();
-        const transaction = await aptos.transferCoinTransaction({
+        const transaction = await libra2.transferCoinTransaction({
             sender: keylessAccount.accountAddress,
             recipient: bob.accountAddress,
             amount: 100,
@@ -263,12 +263,12 @@ You can find an example app demonstrating basic Keyless integration with Google 
      2. Sign and submit the transaction to the chain.
 
         ```tsx
-        const committedTxn = await aptos.signAndSubmitTransaction({ signer: keylessAccount, transaction });
+        const committedTxn = await libra2.signAndSubmitTransaction({ signer: keylessAccount, transaction });
         ```
 
      3. Wait for the transaction to be processed on-chain
 
         ```tsx
-        const committedTransactionResponse = await aptos.waitForTransaction({ transactionHash: committedTxn.hash });
+        const committedTransactionResponse = await libra2.waitForTransaction({ transactionHash: committedTxn.hash });
         ```
 </Steps>

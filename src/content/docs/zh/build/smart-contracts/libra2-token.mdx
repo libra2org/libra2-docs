@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## NFT概述
 
-[NFT](https://en.wikipedia.org/wiki/Non-fungible_token)是一种存储在区块链上的非同质化[代币](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move),它唯一地定义了资产的归属权.NFT最初在[EIP-721](https://eips.ethereum.org/EIPS/eip-721)中定义,后来在[EIP-1155](https://eips.ethereum.org/EIPS/eip-1155)中进行了扩展.NFT通常通过以下属性定义:
+[NFT](https://en.wikipedia.org/wiki/Non-fungible_token)是一种存储在区块链上的非同质化[代币](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move),它唯一地定义了资产的归属权.NFT最初在[EIP-721](https://eips.ethereum.org/EIPS/eip-721)中定义,后来在[EIP-1155](https://eips.ethereum.org/EIPS/eip-1155)中进行了扩展.NFT通常通过以下属性定义:
 
 - `name`:资产名称.在同一个集合内必须唯一.
 - `description`:资产描述.
@@ -25,7 +25,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 设计原则
 
-[Libra代币标准](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)基于以下原则开发:
+[Libra代币标准](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move)基于以下原则开发:
 
 - **互操作性**:通过标准实现提升生态系统项目间的互操作性.由于Move是静态语言且不支持动态分发,这一原则尤为重要.
 - **流动性**:通过在同一合约中定义NFT,同质化(非小数)和半同质化代币,实现最大流动性.这些不同类型的代币可以相同方式存储,转移和交易,从而更容易在各类市场,交易所和其他交易方式间实现互操作.
@@ -39,11 +39,11 @@ import { Aside } from '@astrojs/starlight/components';
 
 ### 在链上存储自定义代币属性
 
-Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/property_map.move)模块来存储代币的链上属性.`PropertyMap`将字符串键映射到链上的属性值,该值以二进制规范序列化(BCS)格式及其类型存储.当前`PropertyMap`仅支持原始类型(bool, u8, u64, u128, address和String).诸如[Libra Names](https://www.aptosnames.com/)等应用程序会定义特定于应用的属性,这些属性由应用程序智能合约读写.
+Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move)模块来存储代币的链上属性.`PropertyMap`将字符串键映射到链上的属性值,该值以二进制规范序列化(BCS)格式及其类型存储.当前`PropertyMap`仅支持原始类型(bool, u8, u64, u128, address和String).诸如[Libra Names](https://www.libra2names.com/)等应用程序会定义特定于应用的属性,这些属性由应用程序智能合约读写.
 
 #### 默认属性
 
-您可以将属性添加到TokenData中的[`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/aptos-move/framework/aptos-token/sources/token.move#L98).此处定义的属性默认由所有代币共享.
+您可以将属性添加到TokenData中的[`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/libra2-move/framework/libra2-token/sources/token.move#L98).此处定义的属性默认由所有代币共享.
 
 `default_properties`字段是一个带有类型信息的键值存储.它利用PropertyMap模块,该模块包含将不同原始类型序列化和反序列化为属性值的函数.
 
@@ -58,11 +58,11 @@ Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/
 同质化代币共享相同的默认属性值.但这些属性值会随时间演变而变得互不相同.为了支持此类代币属性的演变,Libra代币标准提供了`property_version`字段.其工作原理如下:
 
 - 在代币创建(铸造)期间,所有代币初始时`property_version`设为`0`,这些代币可以堆叠在一起作为同质化代币.
-- 当创建者变更代币的默认属性时,被变更的代币将被分配一个唯一的`property_version`以创建新的[`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L288),从而与其他同质化代币区分.这个唯一的`token_id`允许代币拥有自己的属性值,且该代币的所有进一步变更**不会**再次改变`property_version`.此时该代币本质上已成为NFT.
+- 当创建者变更代币的默认属性时,被变更的代币将被分配一个唯一的`property_version`以创建新的[`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L288),从而与其他同质化代币区分.这个唯一的`token_id`允许代币拥有自己的属性值,且该代币的所有进一步变更**不会**再次改变`property_version`.此时该代币本质上已成为NFT.
 
 #### 配置可变性
 
-为了使可变性对创建者和所有者都明确可见,Libra代币标准在集合级别和代币级别都提供了[`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L100)来控制哪些字段是可变的.这里的"可配置"意味着创建者可以在创建时将该字段配置为可变或不可变.
+为了使可变性对创建者和所有者都明确可见,Libra代币标准在集合级别和代币级别都提供了[`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)来控制哪些字段是可变的.这里的"可配置"意味着创建者可以在创建时将该字段配置为可变或不可变.
 
 ### 链下存储元数据
 
@@ -140,13 +140,13 @@ Libra代币标准使用[`PropertyMap`](https://github.com/libra2org/libra2-core/
 
 ## 代币数据模型
 
-[以下流程图](/zh/docs/aptos-token-standard-flow.svg)展示了代币数据在Libra中的流转过程.
+[以下流程图](/zh/docs/libra2-token-standard-flow.svg)展示了代币数据在Libra中的流转过程.
 
 <ThemedImage
   alt="Signed Transaction Flow"
   sources={{
-light: '~/images/aptos-token-standard-flow.svg',
-dark: '~/images/aptos-token-standard-flow-dark.svg',
+light: '~/images/libra2-token-standard-flow.svg',
+dark: '~/images/libra2-token-standard-flow-dark.svg',
 }}
 />
 
@@ -156,30 +156,30 @@ dark: '~/images/aptos-token-standard-flow-dark.svg',
 
 ### 结构体级资源
 
-以下表格描述了结构体级别的字段.完整列表请参阅[Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/overview.md).
+以下表格描述了结构体级别的字段.完整列表请参阅[Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 #### 存储在创建者地址的资源
 
 | 字段                                                                                                                                                                    | 描述                                                                                              |   |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | - |
-| [`Collections`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#resource-collections)                                | 维护一个名为`collection_data`的表格,将集合名称映射到`CollectionData`.同时存储该创建者创建的所有`TokenData`.                   |   |
-| [`CollectionData`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#struct-collectiondata)                            | 存储集合元数据.supply表示当前集合中已创建的代币数量,maximum是该集合中代币数量的上限.                                              |   |
-| [`CollectionMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_CollectionMutabilityConfig) | 指定哪些字段是可变的.                                                                                     |   |
-| [`TokenData`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenData)                                   | 作为存储代币元数据的主要结构体.Properties字段允许用户添加未在代币数据中定义的自定义属性.用户可以根据`TokenData`铸造更多代币,这些代币共享相同的`TokenData`. |   |
-| [`TokenMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenMutabilityConfig)           | 控制哪些字段是可变的.                                                                                     |   |
-| [`TokenDataId`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenDataId)                               | 用于表示和查询链上`TokenData`的ID.该ID主要包含三个字段:创建者地址,集合名称和代币名称.                                            |   |
-| [`Royalty`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_Royalty)                                       | 指定计算版税的分母和分子,并包含用于存放版税的收款人账户地址.                                                                 |   |
+| [`Collections`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#resource-collections)                                | 维护一个名为`collection_data`的表格,将集合名称映射到`CollectionData`.同时存储该创建者创建的所有`TokenData`.                   |   |
+| [`CollectionData`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#struct-collectiondata)                            | 存储集合元数据.supply表示当前集合中已创建的代币数量,maximum是该集合中代币数量的上限.                                              |   |
+| [`CollectionMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_CollectionMutabilityConfig) | 指定哪些字段是可变的.                                                                                     |   |
+| [`TokenData`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenData)                                   | 作为存储代币元数据的主要结构体.Properties字段允许用户添加未在代币数据中定义的自定义属性.用户可以根据`TokenData`铸造更多代币,这些代币共享相同的`TokenData`. |   |
+| [`TokenMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenMutabilityConfig)           | 控制哪些字段是可变的.                                                                                     |   |
+| [`TokenDataId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenDataId)                               | 用于表示和查询链上`TokenData`的ID.该ID主要包含三个字段:创建者地址,集合名称和代币名称.                                            |   |
+| [`Royalty`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Royalty)                                       | 指定计算版税的分母和分子,并包含用于存放版税的收款人账户地址.                                                                 |   |
 | `PropertyValue`                                                                                                                                                       | 包含属性的值和类型.                                                                                      |   |
 
 #### 存储在所有者地址的资源
 
 | 字段                                                                                                                                    | 描述                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| [`TokenStore`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenStore) | 存储该地址所拥有代币的主要结构体.它将 `TokenId` 映射到实际代币.                                                              |
-| [`Token`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_Token)           | 数量字段表示代币的个数.                                                                                        |
-| [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` 指向该代币的元数据.`property_version` 表示该代币的属性相对于 `TokenData` 中 `default_properties` 发生了变异的版本. |
+| [`TokenStore`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenStore) | 存储该地址所拥有代币的主要结构体.它将 `TokenId` 映射到实际代币.                                                              |
+| [`Token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Token)           | 数量字段表示代币的个数.                                                                                        |
+| [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` 指向该代币的元数据.`property_version` 表示该代币的属性相对于 `TokenData` 中 `default_properties` 发生了变异的版本. |
 
-更详细描述请参阅 [Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/overview.md).
+更详细描述请参阅 [Libra代币框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 ## 代币生命周期
 
@@ -230,14 +230,14 @@ Libra还对输入大小实施简单验证并防止重复:
 <Aside type="note">
   **代币转账模块**<br />
   代币转账功能实现在
-  [`token_transfers`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
+  [`token_transfers`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token_transfers.move)
   模块中.
 </Aside>
 
 #### 选择性转账
 
-如果用户希望直接接收 NFT 转账,跳过初始的报价和申领步骤,可以调用 [`opt_in_direct_transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_opt_in_direct_transfer)
-来允许他人直接将 NFT 转入该用户的代币存储库.选择启用直接转账后,用户可以调用 [`transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_transfer)
+如果用户希望直接接收 NFT 转账,跳过初始的报价和申领步骤,可以调用 [`opt_in_direct_transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_opt_in_direct_transfer)
+来允许他人直接将 NFT 转入该用户的代币存储库.选择启用直接转账后,用户可以调用 [`transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_transfer)
 直接转账代币.例如,一旦 Bob 选择启用,Alice 或任何人都可以直接将代币发送到 Bob 的代币存储库.
 
 <Aside type="note">
@@ -247,4 +247,4 @@ Libra还对输入大小实施简单验证并防止重复:
 
 #### 多代理转账
 
-发送方和接收方可以共同签署一笔转账交易,直接将代币从发送方转移到接收方 [`direct_transfer_script`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#function-direct_transfer_script).例如,当 Alice 和 Bob 都签署了转账交易后,代币将直接从 Alice 的账户转移到 Bob 的账户.
+发送方和接收方可以共同签署一笔转账交易,直接将代币从发送方转移到接收方 [`direct_transfer_script`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#function-direct_transfer_script).例如,当 Alice 和 Bob 都签署了转账交易后,代币将直接从 Alice 的账户转移到 Bob 的账户.

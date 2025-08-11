@@ -22,9 +22,9 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 ```toml filename="Move.toml"
   [dependencies.LibraFramework]
-  git = "<https://github.com/libra2org/aptos-framework.git>"
+  git = "<https://github.com/libra2org/libra2-framework.git>"
   rev = "mainnet"
-  subdir = "aptos-framework"
+  subdir = "libra2-framework"
 ```
 
 当运行 Libra CLI 命令时,依赖会自动更新并编译.
@@ -47,10 +47,10 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 ### 反编译代码
 
-可以使用 [Revela Compiler](https://aptoslabs.medium.com/move-revealed-the-revela-decompiler-b206eaf48b45#27ad) 对包的字节码进行反编译,重建 Move 代码:
+可以使用 [Revela Compiler](https://libra2labs.medium.com/move-revealed-the-revela-decompiler-b206eaf48b45#27ad) 对包的字节码进行反编译,重建 Move 代码:
 
 ```shellscript filename="Terminal"
-aptos move decompile --package-path ./bytecode_modules
+libra2 move decompile --package-path ./bytecode_modules
 ```
 
 对应的 `{ModuleName}.mv.move` 文件会生成在 `bytecode_modules` 目录下.
@@ -81,7 +81,7 @@ aptos move decompile --package-path ./bytecode_modules
 Libra CLI 支持下载 [包](/zh/build/smart-contracts/book/packages) 的字节码.
 
 ```shellscript filename="Terminal"
-aptos move download --account {account_addr} --bytecode --package {package_name}
+libra2 move download --account {account_addr} --bytecode --package {package_name}
 ```
 
 每个字节码依赖都需要独立的包,结构如下:
@@ -95,64 +95,64 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
 <details>
   <summary>Libra Token 示例</summary>
 
-  受控的 `invoking_code.move` 模块与外部 `aptos_token` 模块交互:
+  受控的 `invoking_code.move` 模块与外部 `libra2_token` 模块交互:
 
   ```move filename="invoking_code.move"
   module invoker::invoking_code {
-      use aptos_token_objects_addr::aptos_token;
+      use libra2_token_objects_addr::libra2_token;
 
       public entry fun wrapper_add_property(): u64 {
-          aptos_token::add_property(...);
+          libra2_token::add_property(...);
       }
   }
   ```
 
-  以下命令可从主网获取所需的 [LibraTokenObjects 包](https://explorer.aptoslabs.com/account/0x4/modules/code/aptos_token/mint?network=mainnet) 字节码.
+  以下命令可从主网获取所需的 [LibraTokenObjects 包](https://explorer.libra2labs.com/account/0x4/modules/code/libra2_token/mint?network=mainnet) 字节码.
 
   ```shellscript filename="Terminal"
-  aptos move download --account 0x4 \
+  libra2 move download --account 0x4 \
   --bytecode --package LibraTokenObjects \
-  --output-dir ./aptos_token_bytecode_output/
+  --output-dir ./libra2_token_bytecode_output/
   ```
 
   <FileTree>
     - invoking\_code/
-      - aptos\_token\_bytecode\_output/
+      - libra2\_token\_bytecode\_output/
         - byte\_modules/
-          - aptos\_token.mv
+          - libra2\_token.mv
       - sources/
         - invoking\_code.move
       - Move.toml
   </FileTree>
 
-  创建的 `aptos_token` 依赖包结构如下:
+  创建的 `libra2_token` 依赖包结构如下:
 
   <FileTree>
-    - aptos\_token\_objects\_addr/
+    - libra2\_token\_objects\_addr/
       - build/
-        - aptos\_token/
+        - libra2\_token/
           - bytecode\_modules/
-            - aptos\_token.mv
+            - libra2\_token.mv
       - sources/
         - ...
       - Move.toml
     - invoking\_code/
-      - aptos\_token\_bytecode\_output/
+      - libra2\_token\_bytecode\_output/
         - byte\_modules/
-          - aptos\_token.mv
-          - aptos\_token.mv.move
+          - libra2\_token.mv
+          - libra2\_token.mv.move
           - ...
       - sources/
         - invoking\_code.move
       - Move.toml
   </FileTree>
 
-  ```toml filename="aptos_token_objects_addr/Move.toml"
+  ```toml filename="libra2_token_objects_addr/Move.toml"
   [package]
-  name = "aptos_token"
+  name = "libra2_token"
   version = "0.0.0"
   [addresses]
-  aptos_token_module_addr = "0x4"
+  libra2_token_module_addr = "0x4"
   ```
 
   受控 `invoking_code.move` 模块的依赖列表会包含对字节码包的本地引用,从而支持编译.
@@ -163,7 +163,7 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
   [addresses]
   invoker = "_"
   [dependencies]
-  aptos_token = { local = "../aptos_token_objects_addr" }
+  libra2_token = { local = "../libra2_token_objects_addr" }
   ```
 </details>
 
@@ -180,12 +180,12 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
 <details>
   <summary>Libra Token 示例</summary>
 
-  以下是从 [Libra Explorer](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/aptos_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `LibraTokenObjects` ABI:
+  以下是从 [Libra Explorer](https://explorer.libra2labs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/libra2_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `LibraTokenObjects` ABI:
 
   ```json
   {
   "address": "0x4",
-  "name": "aptos_token",
+  "name": "libra2_token",
   "friends": [],
   "exposed_functions": [
       {
@@ -217,7 +217,7 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
   可以手工编写接口 Move 文件,作为源文件使用.类似如下:
 
   ```move
-  module 0x4::aptos_token {
+  module 0x4::libra2_token {
       // ...
       public entry fun add_property<T: key>(
           creator: &signer,
@@ -235,7 +235,7 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
     - third\_party\_dependency\_project/
       - source/
         - `{ControlledCode}.move`
-        - aptos\_token.move
+        - libra2\_token.move
       - Move.toml
   </FileTree>
 </details>

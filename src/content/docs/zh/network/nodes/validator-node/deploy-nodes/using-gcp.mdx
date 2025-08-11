@@ -38,7 +38,7 @@ import { Aside } from '@astrojs/starlight/components';
    gsutil mb gs://BUCKET_NAME
 
    # 以下是创建存储桶的示例
-   gsutil mb gs://<project-name>-aptos-terraform-dev
+   gsutil mb gs://<project-name>-libra2-terraform-dev
    ```
 
 3. 在您的工作目录中创建一个名为 `main.tf` 的 Terraform 文件:
@@ -55,13 +55,13 @@ import { Aside } from '@astrojs/starlight/components';
      required_version = "~> 1.3.6"
      backend "gcs" {
        bucket = "BUCKET_NAME" # 上面创建的存储桶名称
-       prefix = "state/aptos-node"
+       prefix = "state/libra2-node"
      }
    }
 
-   module "aptos-node" {
+   module "libra2-node" {
      # 从 libra2-core 仓库下载 Terraform 模块。
-     source        = "github.com/libra2org/libra2-core.git//terraform/aptos-node/gcp"
+     source        = "github.com/libra2org/libra2-core.git//terraform/libra2-node/gcp"
      region        = "us-central1"  # 指定 GCP 区域
      zone          = "c"            # 指定区域后缀
      project       = "<GCP Project ID>" # 指定您的 GCP 项目 ID
@@ -74,8 +74,8 @@ import { Aside } from '@astrojs/starlight/components';
 
    有关所有自定义选项,请参见:
 
-   - Terraform 变量:[https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/aws/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/aws/variables.tf)
-   - Helm 值:[https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml).
+   - Terraform 变量:[https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/aws/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/libra2-node/aws/variables.tf)
+   - Helm 值:[https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/libra2-node/values.yaml).
 
 5. 在您创建了 `main.tf` 文件的 `$WORKSPACE` 目录中初始化 Terraform.
 
@@ -104,22 +104,22 @@ import { Aside } from '@astrojs/starlight/components';
 
 8. `terraform apply` 完成后,您可以通过运行以下命令来检查资源是否已正确创建:
 
-   - `gcloud container clusters get-credentials aptos-$WORKSPACE --zone <region/zone> --project <project>`:此命令将为您的 k8s 集群配置访问权限.
+   - `gcloud container clusters get-credentials libra2-$WORKSPACE --zone <region/zone> --project <project>`:此命令将为您的 k8s 集群配置访问权限.
    - `kubectl get pods`:此命令将输出集群中的所有 pod.您应该看到 haproxy,验证器和 VFN(由于后续步骤中的进一步操作,验证器和 VFN pod `pending`).
    - `kubectl get svc`:此命令将输出集群中的所有服务.您应该看到 `validator-lb` 和 `fullnode-lb`,以及用于网络连接的外部 IP.
 
 9. 接下来,我们需要将节点的 IP 信息注入到您的环境.您可以通过运行以下命令来执行此操作:
 
    ```shellscript filename="Terminal"
-   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export VALIDATOR_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-validator-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
-   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+   export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-libra2-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
    ```
 
 10. 现在,在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
     ```shellscript filename="Terminal"
-    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
+    libra2 genesis generate-keys --output-dir ~/$WORKSPACE/keys
     ```
 
     这将在 `~/$WORKSPACE/keys` 目录下创建 4 个密钥文件:
@@ -137,7 +137,7 @@ import { Aside } from '@astrojs/starlight/components';
 11. 接下来,您需要设置验证器的配置.这包括设置验证器和 VFN 的主机名,这些可能是 IP 地址或 DNS 地址.您可以通过运行以下命令来完成此操作:
 
     ```shellscript filename="Terminal"
-    aptos genesis set-validator-configuration \
+    libra2 genesis set-validator-configuration \
       --local-repository-dir ~/$WORKSPACE \
       --username $USERNAME \
       --owner-public-identity-file ~/$WORKSPACE/keys/public-keys.yaml \
@@ -156,7 +156,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 13. 总之,您的工作目录(`~/$WORKSPACE`)中应该有以下文件列表:
 
-    - `main.tf`:安装 `aptos-node` 模块的 Terraform 文件.
+    - `main.tf`:安装 `libra2-node` 模块的 Terraform 文件.
     - `keys` 文件夹包含:
       - `public-keys.yaml`:两个节点的公钥.
       - `private-keys.yaml`:两个节点的私钥.
@@ -171,7 +171,7 @@ import { Aside } from '@astrojs/starlight/components';
 14. 最后,通过运行以下命令,将 `genesis.blob`,`waypoint.txt` 和身份文件作为密钥插入到 k8s 集群中:
 
     ```shellscript filename="Terminal"
-    kubectl create secret generic ${WORKSPACE}-aptos-node-0-genesis-e1 \
+    kubectl create secret generic ${WORKSPACE}-libra2-node-0-genesis-e1 \
         --from-file=genesis.blob=genesis.blob \
         --from-file=waypoint.txt=waypoint.txt \
         --from-file=validator-identity.yaml=keys/validator-identity.yaml \
@@ -192,9 +192,9 @@ import { Aside } from '@astrojs/starlight/components';
 
     # 示例输出
     NAME                                        READY   STATUS    RESTARTS   AGE
-    node1-aptos-node-0-fullnode-e9-0              1/1     Running   0          4h31m
-    node1-aptos-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
-    node1-aptos-node-0-validator-0                1/1     Running   0          4h30m
+    node1-libra2-node-0-fullnode-e9-0              1/1     Running   0          4h31m
+    node1-libra2-node-0-haproxy-7cc4c5f74c-l4l6n   1/1     Running   0          4h40m
+    node1-libra2-node-0-validator-0                1/1     Running   0          4h30m
     ```
 
 <Aside type="caution">

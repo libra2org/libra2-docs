@@ -18,7 +18,7 @@ Anyone can participate in the Libra consensus process, if they stake sufficient 
   Currently, slashing is not implemented.
 </Aside>
 
-The current on-chain data can be found in [`staking_config::StakingConfig`](https://api.mainnet.aptoslabs.com/v1/accounts/0x1/resource/0x1::staking_config::StakingConfig). The configuration set is defined in [`staking_config.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/configs/staking_config.move).
+The current on-chain data can be found in [`staking_config::StakingConfig`](https://api.mainnet.libra2labs.com/v1/accounts/0x1/resource/0x1::staking_config::StakingConfig). The configuration set is defined in [`staking_config.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/configs/staking_config.move).
 
 The rest of this document presents how staking works on the Libra blockchain. See [Supporting documentation](#supporting-documentation) at the bottom for related resources.
 
@@ -37,7 +37,7 @@ dark: '~/images/staking-dark.svg',
 The Libra staking module defines a capability that represents ownership.
 
 <Aside type="note">
-  See the `OwnerCapability` defined in [stake.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/stake.move).
+  See the `OwnerCapability` defined in [stake.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/stake.move).
 </Aside>
 
 The `OwnerCapability` resource can be used to control the stake pool. Three personas are supported:
@@ -152,16 +152,16 @@ The below rules is applicable during the changes of state:
   See [Staking pool operations](/network/nodes/validator-node/connect-nodes/staking-pool-operations) for the correct sequence of commands to run for the below flow.
 </Aside>
 
-1. Owner initializes the stake pool with `aptos stake create-staking-contract`.
-2. When the owner is ready to deposit the stake (or have funds assigned by a staking service in exchange for ownership capability), owner calls `aptos stake add-stake`.
-3. When the validator node is ready, the operator can call `aptos node join-validator-set` to join the active validator set. Changes will be effective in the next epoch.
+1. Owner initializes the stake pool with `libra2 stake create-staking-contract`.
+2. When the owner is ready to deposit the stake (or have funds assigned by a staking service in exchange for ownership capability), owner calls `libra2 stake add-stake`.
+3. When the validator node is ready, the operator can call `libra2 node join-validator-set` to join the active validator set. Changes will be effective in the next epoch.
 4. Validator validates (proposes blocks as a leader-validator) and gains rewards. The stake will automatically be locked up for a fixed duration (set by governance) and automatically renewed at expiration.
-5. At any point, if the operator wants to update the consensus key or validator network addresses, they can call `aptos node update-consensus-key` or `aptos node update-validator-network-addresses`. Similar to changes to stake, the changes to consensus key or validator network addresses are only effective in the next epoch.
+5. At any point, if the operator wants to update the consensus key or validator network addresses, they can call `libra2 node update-consensus-key` or `libra2 node update-validator-network-addresses`. Similar to changes to stake, the changes to consensus key or validator network addresses are only effective in the next epoch.
 6. Validator can request to unlock their stake at any time. However, their stake will only become withdrawable when their current lockup expires. This can be at most as long as the fixed lockup duration.
-7. After exiting, the validator can either explicitly leave the validator set by calling `aptos node leave-validator-set` or if their stake drops below the min required, they would get removed at the end of the epoch.
+7. After exiting, the validator can either explicitly leave the validator set by calling `libra2 node leave-validator-set` or if their stake drops below the min required, they would get removed at the end of the epoch.
 8. Validator can always rejoin the validator set by going through steps 2-3 again.
-9. An owner can always switch operators by calling `aptos stake set-operator`.
-10. An owner can always switch designated voter by calling `aptos stake set-delegated-voter`.
+9. An owner can always switch operators by calling `libra2 stake set-operator`.
+10. An owner can always switch designated voter by calling `libra2 stake set-delegated-voter`.
 
 ## Joining the validator set
 
@@ -171,11 +171,11 @@ Participating as a validator node on the Libra network works like this:
 2. Owner deposits her Libra coins funds as stake, or have funds assigned by a staking service. The stake must be at least the minimum amount required.
 3. **The validator node cannot sync until the stake pool becomes active.**
 4. Operator validates and gains rewards.
-5. The staked pool is automatically be locked up for a fixed duration (set by the Libra governance) and will be automatically renewed at expiration. You cannot withdraw any of your staked amount until your lockup period expires. See [stake.move#L728](https://github.com/libra2org/libra2-core/blob/00a234cc233b01f1a7e1680f81b72214a7af91a9/aptos-move/framework/aptos-framework/sources/stake.move#L728).
+5. The staked pool is automatically be locked up for a fixed duration (set by the Libra governance) and will be automatically renewed at expiration. You cannot withdraw any of your staked amount until your lockup period expires. See [stake.move#L728](https://github.com/libra2org/libra2-core/blob/00a234cc233b01f1a7e1680f81b72214a7af91a9/libra2-move/framework/libra2-framework/sources/stake.move#L728).
 6. Operator must wait until the new epoch starts before their validator becomes active.
 
 <Aside type="note">
-  For step-by-step instructions on how to join the validator set, see: [Joining Validator Set](/network/nodes/validator-node/connect-nodes/connect-to-aptos-network#join-the-validator-set).
+  For step-by-step instructions on how to join the validator set, see: [Joining Validator Set](/network/nodes/validator-node/connect-nodes/connect-to-libra2-network#join-the-validator-set).
 </Aside>
 
 ### Minimum and maximum stake
@@ -225,7 +225,7 @@ An epoch in the Libra blockchain is defined as a duration of time, in seconds, d
 ### Triggers at the epoch start
 
 <Aside type="note">
-  See the [Triggers at epoch boundary section of `stake.move`](https://github.com/libra2org/libra2-core/blob/256618470f2ad7d89757263fbdbae38ac7085317/aptos-move/framework/aptos-framework/sources/stake.move#L1036) for the full code.
+  See the [Triggers at epoch boundary section of `stake.move`](https://github.com/libra2org/libra2-core/blob/256618470f2ad7d89757263fbdbae38ac7085317/libra2-move/framework/libra2-framework/sources/stake.move#L1036) for the full code.
 </Aside>
 
 At the start of each epoch, the following key events are triggered:
@@ -246,7 +246,7 @@ Rewards for staking are calculated by using:
 3. Your proposer performance in the Libra governance.
 
 <Aside type="note">
-  The `rewards_rate` is set by the Libra governance. Also see [Validation on the Libra blockchain](#validation-on-the-aptos-blockchain).
+  The `rewards_rate` is set by the Libra governance. Also see [Validation on the Libra blockchain](#validation-on-the-libra2-blockchain).
 </Aside>
 
 ### Rewards formula
@@ -265,7 +265,7 @@ Rewards are paid every epoch. Any reward you (i.e., validator) earned at the end
 
 The validator rewards calculation uses the validator's proposer performance. Once you are in the validator set, you can propose in every epoch. The more successfully you propose, i.e., your proposals pass, the more rewards you will receive.
 
-Note that rewards are given only to the **leader-validators**, i.e., validators who propose the new block, and not to the **voter-validators** who vote on the leader's proposal for the new block. See [Validation on the Libra blockchain](#validation-on-the-aptos-blockchain).
+Note that rewards are given only to the **leader-validators**, i.e., validators who propose the new block, and not to the **voter-validators** who vote on the leader's proposal for the new block. See [Validation on the Libra blockchain](#validation-on-the-libra2-blockchain).
 
 <Aside type="note">
   All the validator rewards are also subject to lockup period as they are added to the original staked amount.
@@ -274,7 +274,7 @@ Note that rewards are given only to the **leader-validators**, i.e., validators 
 ## Leaving the validator set
 
 <Aside type="note">
-  See the Libra Stake module in the Move language at [stake.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/stake.move).
+  See the Libra Stake module in the Move language at [stake.move](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/stake.move).
 </Aside>
 
 - At any time you can call the following sequence of functions to leave the validator set:
@@ -287,9 +287,9 @@ When you leave a validator set, you can rejoin by depositing the minimum require
 
 ## Supporting documentation
 
-- [Current on-chain data](https://api.mainnet.aptoslabs.com/v1/accounts/0x1/resource/0x1::staking_config::StakingConfig)
+- [Current on-chain data](https://api.mainnet.libra2labs.com/v1/accounts/0x1/resource/0x1::staking_config::StakingConfig)
 - [Staking Pool Operations](/network/nodes/validator-node/connect-nodes/staking-pool-operations)
 - [Delegation Pool Operations](/network/nodes/validator-node/connect-nodes/delegation-pool-operations)
-- [Configuration file `staking_config.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/configs/staking_config.move)
-- [Contract file `staking_contract.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/staking_contract.move) covering requesting commissions
-- [All staking-related \`.move files](https://github.com/libra2org/libra2-core/tree/main/aptos-move/framework/aptos-framework/sources)
+- [Configuration file `staking_config.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/configs/staking_config.move)
+- [Contract file `staking_contract.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/staking_contract.move) covering requesting commissions
+- [All staking-related \`.move files](https://github.com/libra2org/libra2-core/tree/main/libra2-move/framework/libra2-framework/sources)

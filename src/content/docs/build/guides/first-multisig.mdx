@@ -135,14 +135,14 @@ First, let's prepare our development environment. We'll create an isolated works
      Install the required SDK:
 
      ```shellscript filename="Terminal"
-     pip install aptos-sdk
+     pip install libra2-sdk
      ```
 
      This command:
 
      - Downloads the Libra SDK package from PyPI (Python Package Index)
      - Installs it inside your `venv` folder
-     - Creates files in `venv/lib/python3.x/site-packages/aptos_sdk`
+     - Creates files in `venv/lib/python3.x/site-packages/libra2_sdk`
      - You can view these files by navigating to that directory
 </Steps>
 
@@ -181,13 +181,13 @@ Let's start building our multisig implementation. First, we'll set up our import
      import subprocess
      import time
 
-     from aptos_sdk.account import Account, RotationProofChallenge
-     from aptos_sdk.account_address import AccountAddress
-     from aptos_sdk.async_client import FaucetClient, RestClient
-     from aptos_sdk.authenticator import Authenticator, MultiEd25519Authenticator
-     from aptos_sdk.bcs import Serializer
-     from aptos_sdk.ed25519 import MultiPublicKey, MultiSignature
-     from aptos_sdk.transactions import (
+     from libra2_sdk.account import Account, RotationProofChallenge
+     from libra2_sdk.account_address import AccountAddress
+     from libra2_sdk.async_client import FaucetClient, RestClient
+     from libra2_sdk.authenticator import Authenticator, MultiEd25519Authenticator
+     from libra2_sdk.bcs import Serializer
+     from libra2_sdk.ed25519 import MultiPublicKey, MultiSignature
+     from libra2_sdk.transactions import (
          EntryFunction,
          RawTransaction,
          Script,
@@ -196,12 +196,12 @@ Let's start building our multisig implementation. First, we'll set up our import
          TransactionArgument,
          TransactionPayload,
      )
-     from aptos_sdk.type_tag import StructTag, TypeTag
+     from libra2_sdk.type_tag import StructTag, TypeTag
 
      # Network configuration - using devnet for testing. Check current urls at:
-     # https://github.com/libra2org/aptos-python-sdk/blob/main/examples/common.py
-     NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1"
-     FAUCET_URL = "https://faucet.devnet.aptoslabs.com"
+     # https://github.com/libra2org/libra2-python-sdk/blob/main/examples/common.py
+     NODE_URL = "https://fullnode.devnet.libra2labs.com/v1"
+     FAUCET_URL = "https://faucet.devnet.libra2labs.com"
 
      should_wait = True
 
@@ -231,7 +231,7 @@ Let's start building our multisig implementation. First, we'll set up our import
          asyncio.run(main())
      ```
 
-     This code imports all the necessary modules from the Libra SDK. The `aptos_sdk.account` module provides essential functionality for managing accounts and signatures, while `aptos_sdk.transactions` gives us the tools to create and submit blockchain transactions.
+     This code imports all the necessary modules from the Libra SDK. The `libra2_sdk.account` module provides essential functionality for managing accounts and signatures, while `libra2_sdk.transactions` gives us the tools to create and submit blockchain transactions.
 
      <Aside type="note">
        You can get free test tokens on Libra Devnet or Testnet by using the `FaucetClient`.
@@ -498,7 +498,7 @@ Now let's create a transaction that requires multiple signatures. We'll transfer
      entry_function = EntryFunction.natural(
          module="0x1::coin",
          function="transfer",
-         ty_args=[TypeTag(StructTag.from_str("0x1::aptos_coin::LibraCoin"))],
+         ty_args=[TypeTag(StructTag.from_str("0x1::libra2_coin::LibraCoin"))],
          args=[
              TransactionArgument(chad.address(), Serializer.struct),
              TransactionArgument(100, Serializer.u64),
@@ -678,7 +678,7 @@ Now we'll combine the signatures and submit the transaction. This is similar to 
      <Aside type="note">
        You can verify transaction on Libra Explorer:
 
-       - Go to [Libra Explorer](https://explorer.aptoslabs.com/)
+       - Go to [Libra Explorer](https://explorer.libra2labs.com/)
        - Make sure Explorer is set to Devnet (check the top right corner)
          ![Switching to Devnet network in Libra Explorer](~/images/screenshots/explorer_devnet.png)
        - Search for your multisig address or transaction hash
@@ -712,7 +712,7 @@ Just as banks have complex approval systems for large corporate accounts, Libra 
 
 ## Next Steps
 
-1. Review the [complete code example](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/multisig.py) which include all the Advanced Features (see above).
+1. Review the [complete code example](https://github.com/libra2org/libra2-python-sdk/blob/main/examples/multisig.py) which include all the Advanced Features (see above).
 2. Learn about [multisig governance in this tutorial](/build/cli/working-with-move-contracts/multi-signature-tutorial).
 3. Explore [account abstraction in Libra](/network/blockchain/accounts).
-4. Join the [Libra Discord](https://discord.gg/aptoslabs) for developer support.
+4. Join the [Libra Discord](https://discord.gg/libra2labs) for developer support.

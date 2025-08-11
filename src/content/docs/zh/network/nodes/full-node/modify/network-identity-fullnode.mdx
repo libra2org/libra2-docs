@@ -32,10 +32,10 @@ import { Aside } from '@astrojs/starlight/components';
 
 1. **生成私钥**
 
-首先,使用 [Libra CLI](/zh/build/cli) (`aptos`) 生成一个十六进制编码的静态 x25519 私钥.这将是您网络身份的私钥.运行以下 `aptos` CLI 命令:
+首先,使用 [Libra CLI](/zh/build/cli) (`libra2`) 生成一个十六进制编码的静态 x25519 私钥.这将是您网络身份的私钥.运行以下 `libra2` CLI 命令:
 
 ```shellscript filename="Terminal"
-aptos key generate --key-type x25519 --output-file /path/to/private-key.txt
+libra2 key generate --key-type x25519 --output-file /path/to/private-key.txt
 ```
 
 此命令将创建一个包含私钥的 `private-key.txt` 文件,以及一个包含公钥的相应 `private-key.txt.pub` 文件.下面展示了一个示例 `private-key.txt` 文件和 `private-key.txt.pub` 文件:
@@ -50,10 +50,10 @@ B881EA2C174D8211C123E5A91D86227DB116A44BB345A6E66874F83D8993F813%
 
 2. **检索对等(peer)身份**
 
-接下来,请使用 `aptos CLI` 通过公钥获取对应的对等(peer)身份.在命令中加入 `--host` 参数,指定您的主机信息,这样才能生成并输出您 PFN 的网络地址.请按照下面的格式执行命令(记得将 `--host` 后的内容替换成您真实的主机信息):
+接下来,请使用 `libra2 CLI` 通过公钥获取对应的对等(peer)身份.在命令中加入 `--host` 参数,指定您的主机信息,这样才能生成并输出您 PFN 的网络地址.请按照下面的格式执行命令(记得将 `--host` 后的内容替换成您真实的主机信息):
 
 ```shellscript filename="Terminal"
-aptos key extract-peer --host example.com:6180 \
+libra2 key extract-peer --host example.com:6180 \
     --public-network-key-file private-key.txt.pub \
     --output-file peer-info.yaml
 ```
@@ -116,27 +116,27 @@ full_node_networks:
 
 ```shellscript filename="Terminal"
 cd ~/my-full-node
-docker run -it aptoslabs/tools:devnet /bin/bash
+docker run -it libra2labs/tools:devnet /bin/bash
 ```
 
 2. **生成私钥**
 
-接下来,按照在`aptoslabs/tools` Docker 容器内的剩余步骤进行操作.
+接下来,按照在`libra2labs/tools` Docker 容器内的剩余步骤进行操作.
 
 打开一个新的终端窗口并 `cd` 进入您启动 PFN 的 Docker 容器的目录.确保提供您希望私钥文件存储的**完整路径**,运行命令:
 
 ```shellscript filename="Terminal"
-aptos key generate \
+libra2 key generate \
     --key-type x25519 \
     --output-file /path/to/private-key.txt
 ```
 
 3. **检索对等(peer)身份**
 
-接下来,请使用 `aptos CLI` 通过公钥获取对应的对等(peer)身份.在命令中加入 `--host` 参数,指定您的主机信息,这样才能生成并输出您 PFN 的网络地址.请按照下面的格式执行命令(记得将 `--host` 后的内容替换成您真实的主机信息):
+接下来,请使用 `libra2 CLI` 通过公钥获取对应的对等(peer)身份.在命令中加入 `--host` 参数,指定您的主机信息,这样才能生成并输出您 PFN 的网络地址.请按照下面的格式执行命令(记得将 `--host` 后的内容替换成您真实的主机信息):
 
 ```shellscript filename="Terminal"
-aptos key extract-peer --host example.com:6180 \
+libra2 key extract-peer --host example.com:6180 \
     --public-network-key-file private-key.txt.pub \
     --output-file peer-info.yaml
 ```

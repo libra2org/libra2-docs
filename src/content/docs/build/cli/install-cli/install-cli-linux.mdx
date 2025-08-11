@@ -12,13 +12,13 @@ For Linux, the easiest way to install the Libra CLI tool is via shell script, al
   1. In the terminal, use one of the following commands:
 
      ```shellscript filename="Terminal"
-     curl -fsSL "https://aptos.dev/scripts/install_cli.sh" | sh
+     curl -fsSL "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
      Or use the equivalent `wget` command:
 
      ```shellscript filename="Terminal"
-     wget -qO- "https://aptos.dev/scripts/install_cli.sh" | sh
+     wget -qO- "https://docs.libra2.org/scripts/install_cli.sh" | sh
      ```
 
      <Aside type="caution">
@@ -26,7 +26,7 @@ For Linux, the easiest way to install the Libra CLI tool is via shell script, al
        Specifically for older non-SIMD processors or Ubuntu x86\_64 docker containers on ARM Macs, you may need to run the following command instead to skip SIMD instructions:
 
        ```shellscript filename="Terminal"
-         curl -fsSL "https://aptos.dev/scripts/install_cli.sh" | sh -s -- --generic-linux
+         curl -fsSL "https://docs.libra2.org/scripts/install_cli.sh" | sh -s -- --generic-linux
        ```
      </Aside>
 
@@ -35,14 +35,14 @@ For Linux, the easiest way to install the Libra CLI tool is via shell script, al
      - The steps to add a folder to your PATH are shell dependent.
      - You can run `echo $SHELL` to print the default shell for your machine, then google specific steps to add a folder to your PATH for that shell.
 
-  3. Verify the script is installed by opening a new terminal and running aptos help
+  3. Verify the script is installed by opening a new terminal and running libra2 help
 
      - You should see a list of commands you can run using the CLI.
      - In the future, this is a helpful resource to learn exactly how each command works.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  If you would like to update the Libra CLI to the latest version, you can run `aptos update`.
+  If you would like to update the Libra CLI to the latest version, you can run `libra2 update`.
 </Aside>
 
 # Install via Package Manager (Optional)
@@ -56,15 +56,15 @@ For Linux, the easiest way to install the Libra CLI tool is via shell script, al
 #### Install via AUR (Arch User Repository)
 
 ```shellscript filename="Terminal"
-git clone https://aur.archlinux.org/aptos-bin.git
-cd aptos-bin
+git clone https://aur.archlinux.org/libra2-bin.git
+cd libra2-bin
 makepkg -si
 ```
 
 or use an AUR helper like `yay`:
 
 ```shellscript filename="Terminal"
-yay -S aptos-bin
+yay -S libra2-bin
 ```
 
 # Install via Pre-Compiled Binaries (Backup Method)
@@ -76,7 +76,7 @@ yay -S aptos-bin
 
   3. Download the zip file for Linux.
 
-     1. It’ll have a name like: `aptos-cli-<version>-Linux-x86_64.zip` or `aptos-cli-<version>-Linux-aarch64.zip`.
+     1. It’ll have a name like: `libra2-cli-<version>-Linux-x86_64.zip` or `libra2-cli-<version>-Linux-aarch64.zip`.
      2. Make sure you choose the right zip file for your computer architecture (x86\_64 for Intel / AMD or aarch64 for ARM).
      3. You will likely have to dismiss warnings that this is a suspicious file when downloading.
 
@@ -86,9 +86,9 @@ yay -S aptos-bin
 
   6. Open a terminal and navigate to your preferred folder.
 
-  7. Make ~/aptos an executable by running chmod +x ~/aptos.
+  7. Make ~/libra2 an executable by running chmod +x ~/libra2.
 
-  8. Verify that this installed version works by running ~/aptos help.
+  8. Verify that this installed version works by running ~/libra2 help.
 
      You should see instructions for how to use all CLI commands. These can be helpful in the future when you are trying to understand how to use specific commands.
 

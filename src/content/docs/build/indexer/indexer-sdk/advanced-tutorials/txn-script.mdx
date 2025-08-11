@@ -95,21 +95,21 @@ This section outlines how to create test transactions with Move scripts.
 
 Update the `mod.rs` file to include the generated Rust file containing the transaction constants. If `mod.rs` doesn't exist, create one in the target folder:
 
-[Reference mod.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
+[Reference mod.rs](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
 
 ### Export the `json_transactions` Folder
 
 Since the `generated_transactions.rs` relies on the `json_transactions` Ensure the `json_transactions` folder is properly exported in the library file for your tests have direct access to the transaction data.
 
-[Reference lib.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
+[Reference lib.rs](https://github.com/libra2org/libra2-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
 
 ### Integrate into Test Cases
 
 If you decided to output the rust file in a different crate, you can update you cargo.toml to import the crate containing the generated file as a dependency. Otherwise, you can simply import the generated file directly in your test file.
-[Example](https://github.com/libra2org/aptos-indexer-processors-v2/blob/main/integration-tests/Cargo.toml#L19).
+[Example](https://github.com/libra2org/libra2-indexer-processors-v2/blob/main/integration-tests/Cargo.toml#L19).
 
 ## Next Steps
 
 Once the transaction constants are integrated, you can use them in processor tests to validate functionality. For detailed instructions on writing processor tests, refer to Writing Processor Tests.
 
-[Example](https://github.com/libra2org/aptos-indexer-processors-v2/blob/main/integration-tests/src/sdk_tests/events_processor_tests.rs)
+[Example](https://github.com/libra2org/libra2-indexer-processors-v2/blob/main/integration-tests/src/sdk_tests/events_processor_tests.rs)

@@ -15,13 +15,13 @@ import { Aside } from '@astrojs/starlight/components';
 使用 CLI,您可以使用以下命令生成并为测试账户注资:
 
 ```shellscript filename="Terminal"
-aptos init --profile <您的配置文件名称>
+libra2 init --profile <您的配置文件名称>
 ```
 
 一旦您拥有了一个有资金的账户,您可以使用 `transfer` 命令在账户之间发送代币,如下所示:
 
 ```shellscript filename="Terminal"
-aptos account transfer --account superuser --amount 100
+libra2 account transfer --account superuser --amount 100
 ```
 
 您应该会看到类似这样的结果:
@@ -89,10 +89,10 @@ aptos account transfer --account superuser --amount 100
 这对于手动测试 Move 合约或仅仅尝试了解链在实践中的工作原理非常有用.
 
 <Aside type="note" emoji="ℹ️">
-  如果你希望对生成的凭证(credentials)的具体格式有更精细的控制,可以用以下命令来代替 `aptos init`:
+  如果你希望对生成的凭证(credentials)的具体格式有更精细的控制,可以用以下命令来代替 `libra2 init`:
 
-  1. `aptos key generate --vanity-prefix 0x<your-prefix>`
-  2. `aptos account fund-with-faucet --account <your-newly-generated-account-address>`
+  1. `libra2 key generate --vanity-prefix 0x<your-prefix>`
+  2. `libra2 account fund-with-faucet --account <your-newly-generated-account-address>`
 
   但请注意,地址和密钥是不同的.
 </Aside>

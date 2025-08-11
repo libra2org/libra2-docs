@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Overview of NFT
 
-An [NFT](https://en.wikipedia.org/wiki/Non-fungible_token) is a non-fungible [token](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move) or data stored on a blockchain that
+An [NFT](https://en.wikipedia.org/wiki/Non-fungible_token) is a non-fungible [token](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) or data stored on a blockchain that
 uniquely defines ownership of an asset. NFTs were first defined in [EIP-721](https://eips.ethereum.org/EIPS/eip-721)
 and later expanded upon in [EIP-1155](https://eips.ethereum.org/EIPS/eip-1155).
 NFTs are typically defined using the following properties:
@@ -35,7 +35,7 @@ has a similar set of attributes:
 
 ## Design principles
 
-The [Libra token standard](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move) is developed with the following principles:
+The [Libra token standard](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token.move) is developed with the following principles:
 
 - **Interoperability**: Provide a standard implementation to improve
   interoperability across the ecosystem projects. Moreover, Move being a static
@@ -60,17 +60,17 @@ The [Libra token standard](https://github.com/libra2org/libra2-core/blob/main/ap
 
 ### Storing customized token properties on-chain
 
-The Libra token standard uses the [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/property_map.move) module to store on-chain
+The Libra token standard uses the [`PropertyMap`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/property_map.move) module to store on-chain
 properties of tokens. `PropertyMap` maps a string key to a property value
 on-chain, which stores the value in Binary Canonical Serialization (BCS) format
 and its type. Currently, only primitive types (bool, u8, u64, u128, address and
-String) are supported in `PropertyMap`. Applications, such as [Libra Names](https://www.aptosnames.com/),
+String) are supported in `PropertyMap`. Applications, such as [Libra Names](https://www.libra2names.com/),
 define application specific properties that are read and written by the
 applications smart contract.
 
 #### Default properties
 
-You can add your properties to [`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/aptos-move/framework/aptos-token/sources/token.move#L98) in the TokenData. The
+You can add your properties to [`default_properties`](https://github.com/libra2org/libra2-core/blob/e62fd09cb1c916d857fa655b3f174991ef8698b3/libra2-move/framework/libra2-token/sources/token.move#L98) in the TokenData. The
 properties defined here are shared by all tokens by default.
 
 The `default_properties` field is a key-value store with type information. It
@@ -98,7 +98,7 @@ such evolution of token properties, the Libra token standard provides the
   `property_version` set to `0` and these tokens can be stacked together as
   fungible token.
 - When the creators mutate the default properties of a token, the mutated token
-  will be assigned a unique `property_version` to create a new [`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L288)
+  will be assigned a unique `property_version` to create a new [`token_id`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L288)
   to differentiate it from other fungible tokens. This unique `token_id` allows
   the token to have its own property values, and all further mutation of this
   token does **not** change the `property_version` again. This token essentially
@@ -107,7 +107,7 @@ such evolution of token properties, the Libra token standard provides the
 #### Configuring mutability
 
 To make mutability explicit for both the creator and owner, the Libra token
-standard provides [`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/aptos-move/framework/aptos-token/sources/token.move#L100)
+standard provides [`mutability_config`](https://github.com/libra2org/libra2-core/blob/bba1690d7268759bd86ccd7459d7967172f1da24/libra2-move/framework/libra2-token/sources/token.move#L100)
 at both the collection level and the token level to control which fields are
 mutable. Configurable here means the creator can configure this field to be
 mutable or immutable during creation.
@@ -206,14 +206,14 @@ load the file.
 
 ## Token data model
 
-The [following diagram](/docs/aptos-token-standard-flow.svg) depicts the
+The [following diagram](/docs/libra2-token-standard-flow.svg) depicts the
 flow of token data through Libra.
 
 <ThemedImage
   alt="Signed Transaction Flow"
   sources={{
-light: '~/images/aptos-token-standard-flow.svg',
-dark: '~/images/aptos-token-standard-flow-dark.svg',
+light: '~/images/libra2-token-standard-flow.svg',
+dark: '~/images/libra2-token-standard-flow-dark.svg',
 }}
 />
 
@@ -225,30 +225,30 @@ creator’s account and the owner’s account.
 ### Struct-level resources
 
 The following tables describe fields at the struct level. For the definitive
-list, see the [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/overview.md).
+list, see the [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 #### Resource stored at the creator’s address
 
 | Field                                                                                                                                                                 | Description                                                                                                                                                                                                                                                |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`Collections`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#resource-collections)                                | Maintains a table called `collection_data`, which maps the collection name to the `CollectionData`. It also stores all the `TokenData` that this creator creates.                                                                                          |
-| [`CollectionData`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#struct-collectiondata)                            | Stores the collection metadata. The supply is the number of tokens created for the current collection. The maximum is the upper bound of tokens in this collection.                                                                                        |
-| [`CollectionMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_CollectionMutabilityConfig) | Specifies which field is mutable.                                                                                                                                                                                                                          |
-| [`TokenData`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenData)                                   | Acts as the main struct for holding the token metadata. Properties is a where users can add their own properties that are not defined in the token data. Users can mint more tokens based on the `TokenData`, and those tokens share the same `TokenData`. |
-| [`TokenMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenMutabilityConfig)           | Controls which fields are mutable.                                                                                                                                                                                                                         |
-| [`TokenDataId`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenDataId)                               | An ID used for representing and querying `TokenData` on-chain. This ID mainly contains three fields including creator address, collection name and token name.                                                                                             |
-| [`Royalty`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_Royalty)                                       | Specifies the denominator and numerator for calculating the royalty fee. It also has the payee account address for depositing the royalty.                                                                                                                 |
+| [`Collections`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#resource-collections)                                | Maintains a table called `collection_data`, which maps the collection name to the `CollectionData`. It also stores all the `TokenData` that this creator creates.                                                                                          |
+| [`CollectionData`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#struct-collectiondata)                            | Stores the collection metadata. The supply is the number of tokens created for the current collection. The maximum is the upper bound of tokens in this collection.                                                                                        |
+| [`CollectionMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_CollectionMutabilityConfig) | Specifies which field is mutable.                                                                                                                                                                                                                          |
+| [`TokenData`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenData)                                   | Acts as the main struct for holding the token metadata. Properties is a where users can add their own properties that are not defined in the token data. Users can mint more tokens based on the `TokenData`, and those tokens share the same `TokenData`. |
+| [`TokenMutabilityConfig`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenMutabilityConfig)           | Controls which fields are mutable.                                                                                                                                                                                                                         |
+| [`TokenDataId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenDataId)                               | An ID used for representing and querying `TokenData` on-chain. This ID mainly contains three fields including creator address, collection name and token name.                                                                                             |
+| [`Royalty`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Royalty)                                       | Specifies the denominator and numerator for calculating the royalty fee. It also has the payee account address for depositing the royalty.                                                                                                                 |
 | `PropertyValue`                                                                                                                                                       | Contains both value of a property and type of property.                                                                                                                                                                                                    |
 
 #### Resource stored at the owner’s address
 
 | Field                                                                                                                                 | Description                                                                                                                                                            |
 | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`TokenStore`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenStore) | The main struct for storing the token owned by this address. It maps `TokenId` to the actual token.                                                                    |
-| [`Token`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_Token)           | The amount is the number of tokens.                                                                                                                                    |
-| [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` points to the metadata of this token. The `property_version` represents a token with mutated `PropertyMap` from `default_properties` in the `TokenData`. |
+| [`TokenStore`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenStore) | The main struct for storing the token owned by this address. It maps `TokenId` to the actual token.                                                                    |
+| [`Token`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_Token)           | The amount is the number of tokens.                                                                                                                                    |
+| [`TokenId`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_TokenId)       | `TokenDataId` points to the metadata of this token. The `property_version` represents a token with mutated `PropertyMap` from `default_properties` in the `TokenData`. |
 
-For more detailed descriptions, see [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/overview.md).
+For more detailed descriptions, see [Libra Token Framework](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/overview.md).
 
 ## Token lifecycle
 
@@ -335,16 +335,16 @@ example:
 <Aside type="note">
   **Token transfer module**<br />
   The token transfer is implemented in the
-  [`token_transfers`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
+  [`token_transfers`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/sources/token_transfers.move)
   module.
 </Aside>
 
 #### Transfer with opt-in
 
 If a user wants to receive direct transfer of the NFT, skipping the initial
-steps of offer and claim, then the user can call [`opt_in_direct_transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_opt_in_direct_transfer)
+steps of offer and claim, then the user can call [`opt_in_direct_transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_opt_in_direct_transfer)
 to allow other people to directly transfer the NFTs into the user's token store.
-After opting into direct transfer, the user can call [`transfer`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#0x3_token_transfer)
+After opting into direct transfer, the user can call [`transfer`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#0x3_token_transfer)
 to transfer tokens directly. For example, Alice and anyone can directly send a
 token to Bob's token store once Bob opts in.
 
@@ -357,6 +357,6 @@ token to Bob's token store once Bob opts in.
 #### Multi-agent transfer
 
 The sender and receiver can both sign a transfer transaction to directly
-transfer a token from the sender to receiver [`direct_transfer_script`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/doc/token.md#function-direct_transfer_script).
+transfer a token from the sender to receiver [`direct_transfer_script`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-token/doc/token.md#function-direct_transfer_script).
 For example, once Alice and Bob both sign the transfer transaction, the token
 will be directly transferred from Alice's account to Bob.

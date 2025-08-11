@@ -32,7 +32,7 @@ export function FaucetForm({ user }: FaucetFormProps) {
 
     try {
       const idToken = await user.getIdToken();
-      const response = await fetch("https://faucet.testnet.aptoslabs.com/fund", {
+      const response = await fetch("https://faucet.testnet.libra2labs.com/fund", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${idToken}`,
@@ -107,7 +107,7 @@ export function FaucetForm({ user }: FaucetFormProps) {
             Minted transaction {truncateHash(txnHash)}
             <Button size="sm" variant="secondary" className="text-text-success border-text-success">
               <a
-                href={`https://explorer.aptoslabs.com/txn/0x${txnHash}?network=testnet`}
+                href={`https://explorer.libra2labs.com/txn/0x${txnHash}?network=testnet`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

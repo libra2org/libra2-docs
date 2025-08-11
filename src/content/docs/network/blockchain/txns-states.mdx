@@ -62,7 +62,7 @@ Within a given transaction, the two most common types of payloads include:
 - An entry point
 - [A script (payload)](/build/smart-contracts/scripts)
 
-Currently, the SDKs [Python](/build/sdks/python-sdk) and [Typescript](/build/sdks/ts-sdk) support both. This guide points out many of those entry points, such as `coin::transfer` and `aptos_account::create_account`.
+Currently, the SDKs [Python](/build/sdks/python-sdk) and [Typescript](/build/sdks/ts-sdk) support both. This guide points out many of those entry points, such as `coin::transfer` and `libra2_account::create_account`.
 
 All operations on the Libra blockchain should be available via entry point calls. While one could submit multiple transactions calling entry points in series, many such operations may benefit from being called atomically from a single transaction. A script payload transaction can call any entry point or public function defined within any module.
 
@@ -122,7 +122,7 @@ In the figure:
 
 ## Size limits
 
-As part of the gas schedule, there are on-chain configurable limits for the sizes of [the transaction itself](https://github.com/libra2org/libra2-core/blob/8074588b5c9c4424fa247c2c9ec5572981ee31cd/aptos-move/aptos-gas-schedule/src/gas_schedule/transaction.rs#L71-L81) and [its outputs](https://github.com/libra2org/libra2-core/blob/8074588b5c9c4424fa247c2c9ec5572981ee31cd/aptos-move/aptos-gas-schedule/src/gas_schedule/transaction.rs#L152-L177).
+As part of the gas schedule, there are on-chain configurable limits for the sizes of [the transaction itself](https://github.com/libra2org/libra2-core/blob/8074588b5c9c4424fa247c2c9ec5572981ee31cd/libra2-move/libra2-gas-schedule/src/gas_schedule/transaction.rs#L71-L81) and [its outputs](https://github.com/libra2org/libra2-core/blob/8074588b5c9c4424fa247c2c9ec5572981ee31cd/libra2-move/libra2-gas-schedule/src/gas_schedule/transaction.rs#L152-L177).
 
 | Limit Type             | Current Per Transaction Limit |
 | ---------------------- | ----------------------------- |

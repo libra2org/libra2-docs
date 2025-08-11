@@ -8,7 +8,7 @@ la CLI de Libra. Para más información sobre cómo instalar y usar la CLI de Li
 Una vez que tengas la CLI de Libra instalada, puedes compilar un script ejecutando el siguiente comando desde dentro del paquete del script:
 
 ```shellscript filename="Terminal"
-aptos move compile
+libra2 move compile
 ```
 
 Entonces habrá archivos de bytecode compilados bajo `build/` con el mismo nombre que
@@ -20,8 +20,8 @@ a `build/transfer_half/bytecode_scripts/transfer_half.mv`
 ```move
 script {
   use std::signer;
-  use aptos_framework::coin;
-  use aptos_framework::aptos_account;
+  use libra2_framework::coin;
+  use libra2_framework::libra2_account;
 
   fun transfer_half<Coin>(caller: &signer, receiver_address: address) {
     // Recuperar el balance del llamador
@@ -30,7 +30,7 @@ script {
 
     // Enviar la mitad al receptor
     let half = balance / 2;
-    aptos_account::transfer_coins<Coin>(caller, receiver_address, half);
+    libra2_account::transfer_coins<Coin>(caller, receiver_address, half);
   }
 }
 ```
@@ -39,7 +39,7 @@ Además, hay una función de conveniencia para un paquete con exactamente un
 script con el comando de abajo:
 
 ```shellscript filename="Terminal"
-aptos move compile-script
+libra2 move compile-script
 ```
 
 Proporcionando salida como la de abajo devolviendo la ubicación exacta del script y un
@@ -47,7 +47,7 @@ hash por conveniencia
 
 ```shellscript filename="Terminal"
 Compiling, may take a little while to download git dependencies...
-UPDATING GIT DEPENDENCY https://github.com/libra2org/aptos-framework.git
+UPDATING GIT DEPENDENCY https://github.com/libra2org/libra2-framework.git
 INCLUDING DEPENDENCY LibraFramework
 INCLUDING DEPENDENCY LibraStdlib
 INCLUDING DEPENDENCY MoveStdlib

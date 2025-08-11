@@ -4,7 +4,7 @@ title: "Libra 代币标准 (旧版)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-[Coin](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
+[Coin](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources/coin.move)
 为简单可互换代币(或称为硬币)提供了一个类型安全的标准框架.
 
 <Aside type="note">
@@ -86,16 +86,16 @@ Coin 为创建和管理代币的用户以及使用代币的用户提供了基础
 ### Coin 模块关键结构体
 
 以下表格描述了结构体级别的字段.完整列表请参见
-[Libra 框架](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/overview.md)
-中的 [`coin`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/coin.md) 部分.
+[Libra 框架](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/overview.md)
+中的 [`coin`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/doc/coin.md) 部分.
 
-##### [`Coin`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/aptos-move/framework/aptos-framework/sources/coin.move#L68)
+##### [`Coin`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/libra2-move/framework/libra2-framework/sources/coin.move#L68)
 
 | 字段      | 类型  | 描述                 |
 | ------- | --- | ------------------ |
 | `value` | u64 | 代币数量,例如:1000000000 |
 
-##### [`CoinInfo`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/aptos-move/framework/aptos-framework/sources/coin.move#L92)
+##### [`CoinInfo`](https://github.com/libra2org/libra2-core/blob/744c2def47cddced878fda9bbd5633022fdb083a/libra2-move/framework/libra2-framework/sources/coin.move#L92)
 
 | 字段         | 类型                               | 描述                                                               |
 | ---------- | -------------------------------- | ---------------------------------------------------------------- |

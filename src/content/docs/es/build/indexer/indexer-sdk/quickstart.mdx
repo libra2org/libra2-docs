@@ -10,22 +10,22 @@ Al final de la guía, deberías tener una comprensión básica de cómo funciona
 
 ## Comenzar
 
-Para comenzar, clona el repositorio [aptos-indexer-processor-sdk](https://github.com/libra2org/aptos-indexer-processor-sdk).
+Para comenzar, clona el repositorio [libra2-indexer-processor-sdk](https://github.com/libra2org/libra2-indexer-processor-sdk).
 
 ```text
 # HTTPS
-https://github.com/libra2org/aptos-indexer-processor-sdk.git
+https://github.com/libra2org/libra2-indexer-processor-sdk.git
 
 # SSH
-git@github.com:libra2-core/aptos-indexer-processor-sdk.git
+git@github.com:libra2-core/libra2-indexer-processor-sdk.git
 ```
 
 Los procesadores consumen transacciones del Servicio de Stream de Transacciones. Para usar el Servicio de Stream de Transacciones Alojado por Labs necesitas un token de autorización.
-Sigue [esta guía](https://aptos.dev/en/build/indexer/txn-stream/aptos-hosted-txn-stream#authorization-via-api-key) para obtener un token del Portal de Desarrolladores. Crea una API Key para `Testnet`, ya que este tutorial es para `Testnet`.
+Sigue [esta guía](https://docs.libra2.org/en/build/indexer/txn-stream/libra2-hosted-txn-stream#authorization-via-api-key) para obtener un token del Portal de Desarrolladores. Crea una API Key para `Testnet`, ya que este tutorial es para `Testnet`.
 Una vez que hayas terminado, deberías tener un token que se ve así:
 
 ```text
-aptoslabs_yj4bocpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx
+libra2labs_yj4bocpaKy_Q6RBP4cdBmjA8T51hto1GcVX5ZS9S65dx
 ```
 
 También necesitas las siguientes herramientas:
@@ -87,7 +87,7 @@ En la carpeta de ejemplo, hay un archivo config.yaml de muestra que debería ver
 health_check_port: 8085
 server_config:
   transaction_stream_config:
-    indexer_grpc_data_service_address: "https://grpc.mainnet.aptoslabs.com:443"
+    indexer_grpc_data_service_address: "https://grpc.mainnet.libra2labs.com:443"
     auth_token: "AUTH_TOKEN"
     request_name_header: "events-processor"
     starting_version: 0

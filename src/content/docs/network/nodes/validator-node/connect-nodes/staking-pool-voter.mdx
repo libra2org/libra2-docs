@@ -12,7 +12,7 @@ This document describes how to perform staking voter operations while in the Lib
 
 To participate as a voter in the Libra governance, follow these steps:
 
-1. Go to the [Proposals section](https://governance.aptosfoundation.org/) of the Libra Governance page.
+1. Go to the [Proposals section](https://governance.libra2foundation.org/) of the Libra Governance page.
 2. Connect your wallet by clicking on **CONNECT WALLET** (top-right).
 3. Make sure that wallet is set to connect to Mainnet.
 4. View the proposals. When you are ready to vote on a proposal, click on the proposal and vote.
@@ -20,10 +20,10 @@ To participate as a voter in the Libra governance, follow these steps:
 
 ### Using the Libra CLI
 
-1. Get your stake pool info using: `aptos node get-stake-pool --owner-address <owner-address> --url <REST API for the network>`.
-2. To see the list of proposals, execute: `aptos governance list-proposals --url https://api.mainnet.aptoslabs.com`.
-3. To set up your voter profile, run: `aptos init`.
-4. To vote on a proposal, execute: `aptos governance vote --proposal-id <PROPOSAL_ID> --pool-address <POOL_ADDRESS> --url <URL> --profile <profile>`.
+1. Get your stake pool info using: `libra2 node get-stake-pool --owner-address <owner-address> --url <REST API for the network>`.
+2. To see the list of proposals, execute: `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com`.
+3. To set up your voter profile, run: `libra2 init`.
+4. To vote on a proposal, execute: `libra2 governance vote --proposal-id <PROPOSAL_ID> --pool-address <POOL_ADDRESS> --url <URL> --profile <profile>`.
 
 ## Delegation Pool Voter
 
@@ -33,7 +33,7 @@ If you staked to a [delegation pool](/network/blockchain/delegated-staking), you
 
 To participate as a voter, follow these steps:
 
-1. Go to the [Proposals section](https://govscan.live/aptos-proposals) on Govscan.
+1. Go to the [Proposals section](https://govscan.live/libra2-proposals) on Govscan.
 2. Connect your wallet by clicking on **CONNECT WALLET**
 3. Make sure that wallet is set to connect to Mainnet.
 4. View the proposals. When you are ready to vote on a proposal, click on the proposal and vote.
@@ -41,14 +41,14 @@ To participate as a voter, follow these steps:
 
 ### Using the Libra CLI
 
-1. Get your delegation pool address from the [Libra Explorer page](https://explorer.aptoslabs.com/validators/delegation?network=mainnet).
-2. To see the list of proposals, execute: `aptos governance list-proposals --url https://api.mainnet.aptoslabs.com`.
-3. To set up your voter profile, run: `aptos init`.
-4. To vote on a proposal, execute: `aptos move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>`.
+1. Get your delegation pool address from the [Libra Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
+2. To see the list of proposals, execute: `libra2 governance list-proposals --url https://api.mainnet.libra2labs.com`.
+3. To set up your voter profile, run: `libra2 init`.
+4. To vote on a proposal, execute: `libra2 move run --function-id 0x1::delegation_pool::vote --args address:<pool-address> u64:<proposal-id> u64:<voting-power> bool:<true or false>`.
 
 To delegate your voting power, follow these steps:
 
-1. Get your delegation pool address from the [Libra Explorer page](https://explorer.aptoslabs.com/validators/delegation?network=mainnet).
-2. To set up your voter profile, run: `aptos init`.
-3. To delegate voting power, run: `aptos move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>`.
-4. The new delegated voter will take effect in the next lockup cycle after the current lockup cycle ends. To view delegated voter, run `aptos move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.
+1. Get your delegation pool address from the [Libra Explorer page](https://explorer.libra2labs.com/validators/delegation?network=mainnet).
+2. To set up your voter profile, run: `libra2 init`.
+3. To delegate voting power, run: `libra2 move run --function-id 0x1::delegation_pool::delegate_voting_power --args address:<pool-address> address:<delegated-voter-address>`.
+4. The new delegated voter will take effect in the next lockup cycle after the current lockup cycle ends. To view delegated voter, run `libra2 move view --profile delegator --function-id 0x1::delegation_pool::calculate_and_update_delegator_voter --args address:<pool-address> address:<delegator-address>`.

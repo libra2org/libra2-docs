@@ -23,7 +23,7 @@ Hay tres tipos de Objetos que puedes crear:
 ```move filename="object_playground.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object;
+  use libra2_framework::object;
 
   entry fun create_my_object(caller: &signer) {
     let caller_address = signer::address_of(caller);
@@ -38,7 +38,7 @@ module my_addr::object_playground {
 ```move filename="object_playground.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object;
+  use libra2_framework::object;
 
   /// Semilla para mi objeto nombrado, debe ser globalmente único para la cuenta creadora
   const NAME: vector<u8> = b"MyAwesomeObject";
@@ -62,7 +62,7 @@ module my_addr::object_playground {
 ```move filename="object_playground.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object;
+  use libra2_framework::object;
 
   entry fun create_my_object(caller: &signer) {
     let caller_address = signer::address_of(caller);
@@ -91,9 +91,9 @@ Puedes usar el `ConstructorRef` con `object::generate_signer` para crear un sign
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object;
+  use libra2_framework::object;
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct MyStruct has key {
     num: u8
   }
@@ -125,24 +125,24 @@ Puedes controlar quién tiene permiso para usar el `ExtendRef` a través de la l
 module my_addr::object_playground {
   use std::signer;
   use std::string::{Self, String};
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Caller is not the owner of the object
   const E_NOT_OWNER: u64 = 1;
   /// Caller is not the publisher of the contract
   const E_NOT_PUBLISHER: u64 = 2;
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct MyStruct has key {
     num: u8
   }
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct Message has key {
     message: string::String
   }
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct ObjectController has key {
     extend_ref: object::ExtendRef,
   }
@@ -199,12 +199,12 @@ El ejemplo a continuación muestra cómo podrías generar y gestionar permisos p
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Caller is not the publisher of the contract
   const E_NOT_PUBLISHER: u64 = 1;
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct ObjectController has key {
     transfer_ref: object::TransferRef,
   }
@@ -272,12 +272,12 @@ Además, si el creador quiere controlar todas las transferencias, un `LinearTran
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Caller is not the publisher of the contract
   const E_NOT_PUBLISHER: u64 = 1;
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct ObjectController has key {
     transfer_ref: object::TransferRef,
   }
@@ -342,12 +342,12 @@ No puedes crear un `DeleteRef` para un Objeto no eliminable.
 ```move filename="Example.move"
 module my_addr::object_playground {
   use std::signer;
-  use aptos_framework::object::{Self, Object};
+  use libra2_framework::object::{Self, Object};
 
   /// Caller is not the owner of the object
   const E_NOT_OWNER: u64 = 1;
 
-  #[resource_group_member(group = aptos_framework::object::ObjectGroup)]
+  #[resource_group_member(group = libra2_framework::object::ObjectGroup)]
   struct ObjectController has key {
     delete_ref: object::DeleteRef,
   }
@@ -404,6 +404,6 @@ Un objeto puede ser hecho inmutable haciendo el contrato asociado inmutable, y e
 
 ## Lectura Adicional
 
-Puedes encontrar documentación para todos los posibles `Refs` mirando la documentación de referencia de Move para `0x1::object` [aquí](/es/move-reference/mainnet/aptos-framework/object).
+Puedes encontrar documentación para todos los posibles `Refs` mirando la documentación de referencia de Move para `0x1::object` [aquí](/es/move-reference/mainnet/libra2-framework/object).
 
 También puedes explorar cómo usar Objetos una vez que están construidos [aquí](/build/smart-contracts/object/using-objects).
