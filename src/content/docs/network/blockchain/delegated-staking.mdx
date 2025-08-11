@@ -4,7 +4,7 @@ title: "Delegated Staking"
 
 import { Aside } from '@astrojs/starlight/components';
 
-## Delegated Staking on the Aptos Blockchain
+## Delegated Staking on the Libra Blockchain
 
 <Aside type="note">
   We strongly recommend that you read about [Staking](/network/blockchain/staking) first.
@@ -19,7 +19,7 @@ Delegated staking is an extension of the staking protocol. A delegation pool abs
   of the stake pool, see [Staking](/network/blockchain/staking)
 </Aside>
 
-For the full delegation pool smart contract, see [delegation\_pool.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/delegation_pool.move)
+For the full delegation pool smart contract, see [delegation\_pool.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/delegation_pool.move)
 
 Unlike a stake pool, a delegation pool can be initialized with zero stake. When initialized, the delegated stake pool is owned indirectly via a resource account. This account will manage the stake of the underlying stake pool on behalf of the delegators by forwarding their stake-management operations to it (add, unlock, reactivate, withdraw) while the resource account cannot be directly accessed nor externally owned.
 
@@ -35,9 +35,9 @@ There are five entity types:
 - Delegator
 - Beneficiary
 
-Using this model, the owner does not have to stake on the Aptos blockchain in order to run a validator.
+Using this model, the owner does not have to stake on the Libra blockchain in order to run a validator.
 
-[How Validation on the Aptos blockchain works](/network/blockchain/staking#validation-on-the-aptos-blockchain)
+[How Validation on the Libra blockchain works](/network/blockchain/staking#validation-on-the-aptos-blockchain)
 
 ### Owner
 
@@ -64,7 +64,7 @@ An owner can designate a voter. This enables the voter to participate in governa
 
 <Aside type="note">
   This document describes staking. See [Governance](/network/blockchain/governance) for how to
-  participate in the Aptos on-chain governance using the owner-voter model.
+  participate in the Libra on-chain governance using the owner-voter model.
 </Aside>
 
 ### Delegator
@@ -106,13 +106,13 @@ A beneficiary is an address designated by the operator to receive operator commi
 
 ## Joining the validator set
 
-Participating as a delegation validator node on the Aptos network works like this:
+Participating as a delegation validator node on the Libra network works like this:
 
 1. Operator runs a validator node and configures the on-chain validator network addresses and rotates the consensus key.
 2. Owner initializes the delegation pool.
 3. The validator node cannot sync until the delegation pool becomes active. The delegation pool becomes active when it reaches 1M APT.
 4. Operator validates and gains rewards.
-5. The stake pool is automatically locked up for a fixed duration (set by the Aptos governance) and will be automatically renewed at expiration. Commissions are automatically distributed to the operator as rewards. The operator can unlock stake at any time, but cannot withdraw until the delegation pool’s lockup period expires.
+5. The stake pool is automatically locked up for a fixed duration (set by the Libra governance) and will be automatically renewed at expiration. Commissions are automatically distributed to the operator as rewards. The operator can unlock stake at any time, but cannot withdraw until the delegation pool’s lockup period expires.
 6. Operator must wait until the new epoch starts before their validator becomes active.
 
 <Aside type="note">
@@ -123,7 +123,7 @@ Participating as a delegation validator node on the Aptos network works like thi
 
 ### Automatic lockup duration
 
-When the operator joins the validator set, the delegation pool's stake will automatically be locked up for a fixed duration that is set by the Aptos governance. Delegators will follow the delegation pool's lockup cycle.
+When the operator joins the validator set, the delegation pool's stake will automatically be locked up for a fixed duration that is set by the Libra governance. Delegators will follow the delegation pool's lockup cycle.
 
 ### Automatic lockup renewal
 

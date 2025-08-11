@@ -5,7 +5,7 @@ title: "Kotlin SDK Quickstart"
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 This guide will walk you through the process of setting up Kaptos,
-fetching data, and sending a transaction on the Aptos blockchain.
+fetching data, and sending a transaction on the Libra blockchain.
 
 <Steps>
   1. Install the SDK
@@ -48,24 +48,24 @@ fetching data, and sending a transaction on the Aptos blockchain.
      }
      ```
 
-  2. Set up the Aptos client
+  2. Set up the Libra client
 
-     You can use the `Aptos` object to handle everything that requires a connection
-     to the Aptos network.
+     You can use the `Libra` object to handle everything that requires a connection
+     to the Libra network.
 
      ```kotlin
-     val aptos = Aptos()
+     val aptos = Libra()
      ```
 
      If you want to pass in a custom configuration, you can do so by passing in a
-     AptosConfig object that takes in an AptosSettings object. The AptosSettings object
+     LibraConfig object that takes in an LibraSettings object. The LibraSettings object
      allows you to specify the network you want to connect to, the fullnode URL, and
      other settings.
 
      ```kotlin
-     val settings = AptosSettings(network = Network.MAINNET, clientConfig = ClientConfig(maxRetries = 10))
-     val aptosConfig = AptosConfig(settings = settings)
-     val aptos = Aptos(aptosConfig)
+     val settings = LibraSettings(network = Network.MAINNET, clientConfig = ClientConfig(maxRetries = 10))
+     val aptosConfig = LibraConfig(settings = settings)
+     val aptos = Libra(aptosConfig)
      ```
 
      <Aside type="note" emoji="ℹ️">
@@ -76,7 +76,7 @@ fetching data, and sending a transaction on the Aptos blockchain.
 
   3. Fetch data from on-chain
 
-     Once you have an `Aptos` object, you can use it to fetch data from the Aptos blockchain.
+     Once you have an `Libra` object, you can use it to fetch data from the Libra blockchain.
      For example, you can fetch the ledger information like so:
 
      ```kotlin
@@ -115,7 +115,7 @@ fetching data, and sending a transaction on the Aptos blockchain.
               data = entryFunctionData {
                   function = "0x1::coin::transfer"
                   typeArguments = typeArguments {
-                      +TypeTagStruct("0x1::aptos_coin::AptosCoin")
+                      +TypeTagStruct("0x1::aptos_coin::LibraCoin")
                   }
                   functionArguments = functionArguments {
                       +bobAccount.accountAddress

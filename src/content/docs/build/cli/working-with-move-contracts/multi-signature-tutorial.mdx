@@ -8,13 +8,13 @@ import { Aside } from '@astrojs/starlight/components';
 
 This section builds upon the [Arguments in JSON tutorial](/build/cli/working-with-move-contracts/arguments-in-json-tutorial). If you have not done that, please complete that tutorial first.
 
-This tutorial likewise references the [`CliArgs` example package](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args).
+This tutorial likewise references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
 
 <Aside type="note" emoji="ℹ️">
   If you would like to follow along, start by completing the [Arguments in JSON](/build/cli/working-with-move-contracts/arguments-in-json-tutorial) tutorial steps!
 </Aside>
 
-For this example, Ace and Bee will conduct governance operations from a 2-of-2 "multisig v2" account (an on-chain multisig account per [`multisig_account.move`](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move))
+For this example, Ace and Bee will conduct governance operations from a 2-of-2 "multisig v2" account (an on-chain multisig account per [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move))
 
 ## Account creation
 
@@ -107,7 +107,7 @@ multisig_addr=0x57478da34604655c68b1dcb89e4f4a9124b6c0ecc1c59a0931d58cc4e60ac5c5
 
 ## Inspect the multisig
 
-Use the assorted [`multisig_account.move` view functions](https://github.com/aptos-labs/aptos-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237) to inspect the multisig:
+Use the assorted [`multisig_account.move` view functions](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237) to inspect the multisig:
 
 ```shellscript filename="Number of signatures required"
 aptos move view \
@@ -190,7 +190,7 @@ aptos move view \
 
 ## Enqueue a publication transaction
 
-The first multisig transaction enqueued will be a transaction for publication of the [`CliArgs` example package](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args).
+The first multisig transaction enqueued will be a transaction for publication of the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
 First, generate a publication payload entry function JSON file:
 
 ```shellscript filename="Command"
@@ -577,13 +577,13 @@ aptos multisig execute-with-payload \
 ```
 
 <Aside type="note" emoji="ℹ️">
-  Pending the resolution of [#8304](https://github.com/aptos-labs/aptos-core/issues/8304), the transaction simulator (which is used to estimate gas costs) is broken for multisig transactions, so you will have to manually specify a max gas amount.
+  Pending the resolution of [#8304](https://github.com/libra2org/libra2-core/issues/8304), the transaction simulator (which is used to estimate gas costs) is broken for multisig transactions, so you will have to manually specify a max gas amount.
 </Aside>
 
 <details>
   <summary>Output</summary>
 
-  Also pending the resolution of [#8304](https://github.com/aptos-labs/aptos-core/issues/8304), the CLI output for a successful multisig publication transaction execution results in an API error if only the payload hash has been stored on-chain, but the transaction can be manually verified using an explorer.
+  Also pending the resolution of [#8304](https://github.com/libra2org/libra2-core/issues/8304), the CLI output for a successful multisig publication transaction execution results in an API error if only the payload hash has been stored on-chain, but the transaction can be manually verified using an explorer.
 </details>
 
 ## Execute the governance parameter transaction

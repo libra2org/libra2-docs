@@ -4,8 +4,8 @@ title: "SDK de Go - Obtener Datos"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Puedes usar el cliente `Aptos` para obtener datos de la cadena usando una variedad de funciones
-de ayuda. Específicamente, muchas de las funciones listadas en la [documentación de referencia](https://pkg.go.dev/github.com/aptos-labs/aptos-go-sdk)
+Puedes usar el cliente `Libra` para obtener datos de la cadena usando una variedad de funciones
+de ayuda. Específicamente, muchas de las funciones listadas en la [documentación de referencia](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk)
 recuperarán datos de la cadena, por ejemplo `Account`, `AccountResources`, `Transactions`.
 
 Aquí hay un ejemplo mostrando cómo obtener datos comunes que puedes necesitar en tu aplicación:
@@ -32,7 +32,7 @@ transactions, err := client.Transactions()
   del ledger consultar el estado.
 </Aside>
 
-El cliente `Aptos` puede por defecto consultar tanto datos de red desde
+El cliente `Libra` puede por defecto consultar tanto datos de red desde
 [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) como la
 [API del Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql)
 que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada

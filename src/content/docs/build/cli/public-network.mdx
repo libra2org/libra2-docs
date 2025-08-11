@@ -15,29 +15,29 @@ The `aptos` tool supports bootstrapping new blockchains through what is known as
 - A set of validators and their configuration
 - The initial set of Move modules, known as a framework
 - A unique `ChainId` (u8) that distinguishes this from other networks
-- For test chains, there also exists an account that manages the minting of AptosCoin
+- For test chains, there also exists an account that manages the minting of LibraCoin
 
 ## Generating genesis
 
 - The genesis organizer constructs a `Layout` and distributes it.
-- The genesis organizer prepares the Aptos framework's bytecode and distributes it.
+- The genesis organizer prepares the Libra framework's bytecode and distributes it.
 - Each participant generates their `ValidatorConfiguration` and distributes it.
 - Each participant generates a `genesis.blob` from the resulting contributions.
 - The genesis organizer executes the `genesis.blob` to derive the initial waypoint and distributes it.
 - Each participant begins their `aptos-node`. The `aptos-node` verifies upon startup that the `genesis.blob` with the waypoint provided by the genesis organizer.
 - The blockchain will begin consensus after a quorum of stake is available.
 
-### Prepare aptos-core
+### Prepare libra2-core
 
-The following sections rely on tools from the Aptos source. See [Building Aptos From Source](/network/nodes/building-from-source) for setup.
+The following sections rely on tools from the Libra source. See [Building Libra From Source](/network/nodes/building-from-source) for setup.
 
 ### The `layout` file
 
 The layout file contains:
 
-- `root_key`: an Ed25519 public key for AptosCoin management.
+- `root_key`: an Ed25519 public key for LibraCoin management.
 - `users`: the set of participants
-- `chain_id`: the `ChainId` or a unique integer that distinguishes this deployment from other Aptos networks
+- `chain_id`: the `ChainId` or a unique integer that distinguishes this deployment from other Libra networks
 
 An example:
 
@@ -49,9 +49,9 @@ users:
 chain_id: 8
 ```
 
-### Building the Aptos Framework
+### Building the Libra Framework
 
-From your Aptos-core repository, build the framework and package it:
+From your Libra-core repository, build the framework and package it:
 
 ```shellscript filename="Terminal"
 cargo run --package framework

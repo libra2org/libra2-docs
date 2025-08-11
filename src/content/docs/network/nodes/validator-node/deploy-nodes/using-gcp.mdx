@@ -4,13 +4,13 @@ title: "Using GCP"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This is a step-by-step guide to deploy an Aptos validator and validator fullnode (VFN) using Google Cloud Platform Services (GCP).
+This is a step-by-step guide to deploy an Libra validator and validator fullnode (VFN) using Google Cloud Platform Services (GCP).
 Using this guide, the validator and VFN will be deployed on separate machines.
 
 <Aside type="caution">
   **Prerequisites** <br />
   Before you begin, make sure to read and understand the [Node Requirements](/network/nodes/validator-node/node-requirements). Similarly, make sure you have
-  installed the [Aptos CLI](/build/cli),
+  installed the [Libra CLI](/build/cli),
   [Terraform](https://www.terraform.io/downloads.html),
   [Kubernetes CLI](https://kubernetes.io/docs/tasks/tools/),
   and [Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk). This guide assumes that you already have a GCP
@@ -19,7 +19,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
 ## Deployment steps
 
-1. Create a working directory for your Aptos nodes, and pick a username for your nodes, e.g.,
+1. Create a working directory for your Libra nodes, and pick a username for your nodes, e.g.,
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -64,8 +64,8 @@ Using this guide, the validator and VFN will be deployed on separate machines.
    }
 
    module "aptos-node" {
-     # Download the Terraform module from the aptos-core repository.
-     source        = "github.com/aptos-labs/aptos-core.git//terraform/aptos-node/gcp"
+     # Download the Terraform module from the libra2-core repository.
+     source        = "github.com/libra2org/libra2-core.git//terraform/aptos-node/gcp"
      region        = "us-central1"  # Specify the GCP region
      zone          = "c"            # Specify the zone suffix
      project       = "<GCP Project ID>" # Specify your GCP project ID
@@ -78,8 +78,8 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 
    For all customization options, see:
 
-   - The Terraform variables: [https://github.com/aptos-labs/aptos-core/blob/main/terraform/aptos-node/gcp/variables.tf](https://github.com/aptos-labs/aptos-core/blob/main/terraform/aptos-node/gcp/variables.tf)
-   - The Helm values: [https://github.com/aptos-labs/aptos-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/aptos-labs/aptos-core/blob/main/terraform/helm/aptos-node/values.yaml).
+   - The Terraform variables: [https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/gcp/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/gcp/variables.tf)
+   - The Helm values: [https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml).
 
 5. Initialize Terraform in the `$WORKSPACE` directory where you created the `main.tf` file.
 
@@ -123,7 +123,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
    ```
 
 10. Now, generate the key pairs for your nodes in your working directory. You can do this by running
-    the following command with the Aptos CLI:
+    the following command with the Libra CLI:
 
     ```shellscript filename="Terminal"
     aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -157,7 +157,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
     ```
 
     Configuring the validator will create two YAML files in the `~/$WORKSPACE/$USERNAME` directory: `owner.yaml` and
-    `operator.yaml`. These will be useful for connecting your nodes to the Aptos network (later).
+    `operator.yaml`. These will be useful for connecting your nodes to the Libra network (later).
 
 12. Download the following files by following the instructions on the [Node Files](/network/nodes/configure/node-files-all-networks) pages.
     You will need to select the appropriate network (e.g., `mainnet`, `testnet`, `devnet`) and download the following files:
@@ -195,7 +195,7 @@ Using this guide, the validator and VFN will be deployed on separate machines.
       The `-e1` suffix in the command above refers to the era number. If you changed the `era` number, make sure it matches
       when creating the secrets.
 
-      The `era` is a concept relevant only to Kubernetes deployments of an Aptos node.
+      The `era` is a concept relevant only to Kubernetes deployments of an Libra node.
       Changing the `era` provides an easy way to wipe your deployment's state (e.g., blockchain data). However, this may
       lead to dangling persistent volumes. Confirm the existence of any dangling volumes with `kubectl get pvc`
       and delete any dangling volumes manually to minimize costs.
@@ -217,9 +217,9 @@ Using this guide, the validator and VFN will be deployed on separate machines.
 <Aside type="caution">
   **Next steps** <br />
   You have now completed setting up your validator and VFN using GCP. However, your nodes will not be able to connect
-  to the Aptos network just yet.
+  to the Libra network just yet.
 </Aside>
 
-## Connecting to the Aptos Network
+## Connecting to the Libra Network
 
 You have now completed setting up your validator and VFN using GCP. Proceed to [Connect Nodes](/network/nodes/validator-node/connect-nodes) for the next steps.

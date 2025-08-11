@@ -15,29 +15,29 @@ import { Aside } from '@astrojs/starlight/components';
 - 一组验证者及其配置
 - 初始的 Move 模块集合,称为框架
 - 一个独特的 `ChainId`(u8),用于区分此网络与其他网络
-- 对于测试链,还存在一个管理 AptosCoin 铸造的账户
+- 对于测试链,还存在一个管理 LibraCoin 铸造的账户
 
 ## 生成创世
 
 - 创世组织者构建一个 `Layout` 并分发它.
-- 创世组织者准备 Aptos 框架的字节码并分发它.
+- 创世组织者准备 Libra 框架的字节码并分发它.
 - 每个参与者生成他们的 `ValidatorConfiguration` 并分发它.
 - 每个参与者从结果贡献中生成一个 `genesis.blob`.
 - 创世组织者执行 `genesis.blob` 以获得初始检查点并分发它.
 - 每个参与者启动他们的 `aptos-node`.`aptos-node` 在启动时验证创世组织者提供的带有检查点的 `genesis.blob`.
 - 当有足够的质押达到法定人数时,区块链将开始共识.
 
-### 准备 aptos-core
+### 准备 libra2-core
 
-以下部分依赖于 Aptos 源代码中的工具.请参阅[从源代码构建 Aptos](/zh/network/nodes/building-from-source)进行设置.
+以下部分依赖于 Libra 源代码中的工具.请参阅[从源代码构建 Libra](/zh/network/nodes/building-from-source)进行设置.
 
 ### `layout` 文件
 
 layout 文件包含:
 
-- `root_key`:用于 AptosCoin 管理的 Ed25519 公钥.
+- `root_key`:用于 LibraCoin 管理的 Ed25519 公钥.
 - `users`:参与者集合
-- `chain_id`:`ChainId` 或一个独特的整数,用于区分此部署与其他 Aptos 网络
+- `chain_id`:`ChainId` 或一个独特的整数,用于区分此部署与其他 Libra 网络
 
 示例:
 
@@ -49,9 +49,9 @@ users:
 chain_id: 8
 ```
 
-### 构建 Aptos 框架
+### 构建 Libra 框架
 
-从你的 Aptos-core 仓库,构建框架并打包:
+从你的 Libra-core 仓库,构建框架并打包:
 
 ```shellscript filename="Terminal"
 cargo run --package framework

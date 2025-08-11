@@ -2,13 +2,13 @@
 title: "3. Fetch Data from Chain"
 ---
 
-In the third chapter of the tutorial on [building an end-to-end dapp on Aptos](/build/guides/build-e2e-dapp), you will be learning to fetch data from chain.
+In the third chapter of the tutorial on [building an end-to-end dapp on Libra](/build/guides/build-e2e-dapp), you will be learning to fetch data from chain.
 
 Our UI logic relies on whether the connected account has created a todo list. If the account has created a todo list, our app should display that list; if not, the app should display a button offering the option to create a new list.
 
 For that, we first need to check if the connected account has a `TodoList` resource. In our smart contract, whenever someone creates a todo list we create and assign a `TodoList` resource to their account.
 
-To fetch data from chain, we can use the [Aptos TypeScript SDK](/build/sdks/ts-sdk). The SDK provides classes and functions for us to easily interact and query the Aptos chain.
+To fetch data from chain, we can use the [Libra TypeScript SDK](/build/sdks/ts-sdk). The SDK provides classes and functions for us to easily interact and query the Libra chain.
 
 To get started:
 
@@ -16,7 +16,7 @@ To get started:
 2. Import wallet from the wallet adapter React provider:
 
 ```tsx filename="App.tsx"
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@libra2-core/wallet-adapter-react";
 ```
 
 2. Extract the account object from the wallet adapter:

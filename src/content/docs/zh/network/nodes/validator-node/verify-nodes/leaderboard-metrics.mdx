@@ -4,7 +4,7 @@ title: "验证者排行榜"
 
 import { Aside } from '@astrojs/starlight/components';
 
-本文档解释了验证者节点的奖励绩效(performance)是如何计算的,以及如何在 [Aptos 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上显示.
+本文档解释了验证者节点的奖励绩效(performance)是如何计算的,以及如何在 [Libra 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上显示.
 
 ## 计算验证者奖励
 
@@ -31,12 +31,12 @@ import { Aside } from '@astrojs/starlight/components';
 
 ### 奖励绩效
 
-[Aptos 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上的 **REWARDS PERFORMANCE** 列显示了验证者的奖励绩效.它是按验证者获得的奖励占最大奖励赚取机会的百分比来计算的.这是一个跨越所有纪元的累积指标,即 `(所有纪元中获得的奖励) / (所有纪元中的最大奖励机会)`
+[Libra 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上的 **REWARDS PERFORMANCE** 列显示了验证者的奖励绩效.它是按验证者获得的奖励占最大奖励赚取机会的百分比来计算的.这是一个跨越所有纪元的累积指标,即 `(所有纪元中获得的奖励) / (所有纪元中的最大奖励机会)`
 
 验证者可以通过提高他们的提案成功率来提高他们的奖励绩效.
 
 ### 上一个纪元的表現
 
-[Aptos 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上的 **LAST EPOCH PERFORMANCE** 列显示了验证者在上一个纪元中的奖励绩效.它是按验证者在上一个纪元中获得的奖励占上一个纪元中最大奖励获取机会的百分比来计算的,即 `(上一个纪元中获得的奖励)/(上一个纪元中的最大奖励机会)`.
+[Libra 验证者排行榜](https://explorer.aptoslabs.com/validators/all?network=mainnet) 上的 **LAST EPOCH PERFORMANCE** 列显示了验证者在上一个纪元中的奖励绩效.它是按验证者在上一个纪元中获得的奖励占上一个纪元中最大奖励获取机会的百分比来计算的,即 `(上一个纪元中获得的奖励)/(上一个纪元中的最大奖励机会)`.
 
 此指标是一个重要信号,用于判断验证器是否正在提高他们的奖励绩效.

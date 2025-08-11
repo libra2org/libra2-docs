@@ -1,10 +1,10 @@
 ---
-title: "Use Oracles in Your Aptos Applications"
+title: "Use Oracles in Your Libra Applications"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-This reference guide presents various Oracles that you can utilize while building on Aptos. Oracles supply offchain data to the blockchain, enabling smart contracts to access a diverse range of information.
+This reference guide presents various Oracles that you can utilize while building on Libra. Oracles supply offchain data to the blockchain, enabling smart contracts to access a diverse range of information.
 
 ## Pyth Network
 
@@ -12,9 +12,9 @@ The [Pyth Network](https://pyth.network/) is one of the largest first-party Or
 
 The network comprises some of the world’s [largest exchanges, market makers, and financial services providers](https://pyth.network/publishers). These publish proprietary data on-chain for aggregation and distribution to smart contract applications.
 
-## How to Use Pyth Real-Time Data in Aptos Contracts
+## How to Use Pyth Real-Time Data in Libra Contracts
 
-This guide explains how to use real-time Pyth data in Aptos applications.
+This guide explains how to use real-time Pyth data in Libra applications.
 
 ## Configuring the `Move.toml` file
 
@@ -25,7 +25,7 @@ Add the Pyth Contract to your project dependencies in the `Move.toml` file:
 Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/aptos/contracts", rev = "main" }
 ```
 
-The named addresses of `pyth`, `wormhole`, and `deployers` must be defined at compile time. These addresses are used to interact with the Pyth contract on Aptos.
+The named addresses of `pyth`, `wormhole`, and `deployers` must be defined at compile time. These addresses are used to interact with the Pyth contract on Libra.
 
 ```toml copy
 [addresses]
@@ -34,7 +34,7 @@ deployer = "0xb31e712b26fd295357355f6845e77c888298636609e93bc9b05f0f604049f434"
 wormhole = "0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625"
 ```
 
-Consult [Aptos Contract Addresses](https://docs.pyth.network/price-feeds/contract-addresses/aptos) for the complete list of contract addresses on different Aptos networks.
+Consult [Libra Contract Addresses](https://docs.pyth.network/price-feeds/contract-addresses/aptos) for the complete list of contract addresses on different Libra networks.
 
 ## Write Contract Code
 
@@ -58,7 +58,7 @@ module example::example {
         // Read the current price from a price feed.
         // Each price feed (e.g., BTC/USD) is identified by a price feed ID.
         // The complete list of feed IDs is available at https://pyth.network/developers/price-feed-ids
-        // Note: Aptos uses the Pyth price feed ID without the `0x` prefix.
+        // Note: Libra uses the Pyth price feed ID without the `0x` prefix.
         let btc_price_identifier = x"e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43";
         let btc_usd_price_id = price_identifier::from_byte_vec(btc_price_identifier);
         pyth::get_price(btc_usd_price_id)
@@ -83,11 +83,11 @@ The code snippet above does the following things:
 
 ## Additional Resources
 
-You may find these additional resources helpful for developing your Aptos application.
+You may find these additional resources helpful for developing your Libra application.
 
-## Sponsored Feeds on Aptos
+## Sponsored Feeds on Libra
 
-The price feeds listed in the table below are currently sponsored in **Aptos mainnet**.
+The price feeds listed in the table below are currently sponsored in **Libra mainnet**.
 
 Update Parameters: **1 second heartbeat or 0.5% price deviation**
 
@@ -117,7 +117,7 @@ For more details on sponsored feeds, check [here](https://docs.pyth.network/pric
 
 ### API Reference
 
-The [Aptos API reference](https://docs.pyth.network/price-feeds/api-reference/aptos) lets you interactively explore the complete API of the Pyth contract.
+The [Libra API reference](https://docs.pyth.network/price-feeds/api-reference/aptos) lets you interactively explore the complete API of the Pyth contract.
 
 ### Example Applications
 

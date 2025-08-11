@@ -126,7 +126,7 @@ module 0x42::example {
 遵循最小权限原则:
 
 - 始终以私有函数为起点,按业务需求逐步提升可见性.
-- 仅为 Aptos CLI 或 SDK 使用的函数加 `entry`.
+- 仅为 Libra CLI 或 SDK 使用的函数加 `entry`.
 - 仅允许特定模块访问的函数使用 `friend`.
 - 仅读取存储,不修改状态的函数使用 `#[view]` 装饰器.注意,`#[view]` 函数可被间接调用,此时可能会修改存储.
 
@@ -177,7 +177,7 @@ module 0x42::example {
 
 总结如下:
 
-|                | 模块自身 | 其他模块                         | Aptos CLI/SDK |
+|                | 模块自身 | 其他模块                         | Libra CLI/SDK |
 | -------------- | ---- | ---------------------------- | ------------- |
 | private        | ✅    | ⛔                            | ⛔             |
 | public(friend) | ✅    | ✅ if friend<br />⛔ otherwise | ⛔             |
@@ -194,7 +194,7 @@ module 0x42::example {
 }
 ```
 
-此时 `sample_function` 可被 Aptos CLI/SDK 及所有声明为 friend 的模块调用.
+此时 `sample_function` 可被 Libra CLI/SDK 及所有声明为 friend 的模块调用.
 
 #### 影响
 
@@ -241,7 +241,7 @@ module 0x42::example {
 
 #### 安全示例代码
 
-Aptos Framework 示例中,创建了由泛型 `K` 和 `V` 组成的键值表.相关 `add` 函数参数为 `Table<K, V>`,`key` 和 `value`,类型分别为 `K` 和 `V`.`phantom` 语法确保 key 和 value 类型与表一致,防止类型不匹配.[详细了解](/zh/build/smart-contracts/book/generics#phantom-type-parameters) `phantom` 泛型参数.
+Libra Framework 示例中,创建了由泛型 `K` 和 `V` 组成的键值表.相关 `add` 函数参数为 `Table<K, V>`,`key` 和 `value`,类型分别为 `K` 和 `V`.`phantom` 语法确保 key 和 value 类型与表一致,防止类型不匹配.[详细了解](/zh/build/smart-contracts/book/generics#phantom-type-parameters) `phantom` 泛型参数.
 
 ```move
 module 0x42::example {
@@ -429,7 +429,7 @@ Move 中,整数运算具备安全性,防止溢出和下溢,避免异常行为或
 
 不当运算可能导致合约执行异常或数据错误.
 
-## Aptos Objects
+## Libra Objects
 
 ***
 
@@ -482,13 +482,13 @@ module 0x42::example {
 
 ### Object 账户
 
-在 Aptos Framework 中,多个具备 `key` 能力的资源可存储于同一 object 账户.
+在 Libra Framework 中,多个具备 `key` 能力的资源可存储于同一 object 账户.
 
 但对象应隔离存储于不同账户,否则对一个对象的修改会影响整个集合.
 
 例如,转移一个资源会导致所有组成员一同转移,因为 transfer 操作针对 `ObjectCore`,即账户下所有资源的通用标签.
 
-[详细了解](/zh/build/smart-contracts/objects) Aptos Objects.
+[详细了解](/zh/build/smart-contracts/objects) Libra Objects.
 
 #### 不安全示例代码
 
@@ -719,7 +719,7 @@ module 0x42::example {
 
 ### 随机性 - test-and-abort
 
-> Aptos 始终以安全为先.编译时会确保无 randomness API 被 public 函数调用.但用户可通过 `#[lint::allow_unsafe_randomness]` 允许 public 函数调用.
+> Libra 始终以安全为先.编译时会确保无 randomness API 被 public 函数调用.但用户可通过 `#[lint::allow_unsafe_randomness]` 允许 public 函数调用.
 
 若 `public` 函数直接或间接调用 randomness API,恶意用户可利用函数可组合性,在结果不理想时中止交易,反复尝试直至获利,破坏随机性.
 

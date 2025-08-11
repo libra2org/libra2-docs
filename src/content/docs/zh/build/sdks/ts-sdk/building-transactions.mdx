@@ -7,7 +7,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 交易允许你更改链上数据或触发事件.通常,交易从构建到链上执行会经历5个步骤:构建,模拟,签名,提交和等待.
 
 <Aside type="note">
-  在这些示例中,`aptos` 是 [`Aptos`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html) 客户端对象的实例.
+  在这些示例中,`aptos` 是 [`Libra`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) 客户端对象的实例.
 </Aside>
 
 <Steps>
@@ -25,7 +25,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      const transaction = await aptos.transaction.build.simple({
        sender: sender.accountAddress,
        data: {
-     	  // Aptos 上的所有交易都是通过智能合约实现的。
+     	  // Libra 上的所有交易都是通过智能合约实现的。
      	  function: "0x1::aptos_account::transfer",
      	  functionArguments: [destination.accountAddress, 100],
        },
@@ -33,7 +33,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      ```
 
      <Aside type="note">
-       还有一种更高级的 `functionArguments` 传递格式叫做[二进制规范序列化 (BCS)](/zh/build/sdks/ts-sdk/building-transactions/bcs-format) 格式,这是 Aptos 链解析函数参数的方式.SDK 在后台通过 API 调用将 TypeScript 原始类型转换为 BCS 格式.
+       还有一种更高级的 `functionArguments` 传递格式叫做[二进制规范序列化 (BCS)](/zh/build/sdks/ts-sdk/building-transactions/bcs-format) 格式,这是 Libra 链解析函数参数的方式.SDK 在后台通过 API 调用将 TypeScript 原始类型转换为 BCS 格式.
      </Aside>
 
      #### 构建选项
@@ -41,14 +41,14 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      构建时可以通过传入 `options: {...}` 来自定义交易的执行方式.一些最常用的选项包括:
 
      1. `maxGasAmount` - 设置你愿意为执行该交易支付的 gas 上限.
-     2. `gasUnitPrice` - 可以指定高于最低价的 gas 单价,Aptos 网络会优先执行这类交易.
+     2. `gasUnitPrice` - 可以指定高于最低价的 gas 单价,Libra 网络会优先执行这类交易.
      3. `expireTimestamp` - 设置交易必须执行的具体时间,否则将被取消.
 
      如果未明确指定这些值,SDK 会提供合理的默认值.
 
   2. 模拟(可选)
 
-     Aptos 链上的每笔交易都有与其执行时网络机器工作量相关的 gas 费用.为了估算相关成本,你可以在提交前模拟交易.
+     Libra 链上的每笔交易都有与其执行时网络机器工作量相关的 gas 费用.为了估算相关成本,你可以在提交前模拟交易.
 
      <Aside type="note">
        此模拟只需要账户的 `publicKey`,因为它不会影响账本的实际状态.
@@ -88,7 +88,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
   4. 等待
 
-     最后,可以通过 [`aptos.waitForTransaction`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html#waitForTransaction) 等待交易结果,指定刚提交的交易哈希:
+     最后,可以通过 [`aptos.waitForTransaction`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#waitForTransaction) 等待交易结果,指定刚提交的交易哈希:
 
      ```typescript filename="build-a-transaction.ts"
      // 5. 等待
@@ -100,23 +100,23 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 ```typescript filename="build-a-transaction.ts"
 /**
- * 此示例展示如何使用 Aptos SDK 发送交易。
- * 运行此示例前请确保已安装 @aptos-labs/ts-sdk！
+ * 此示例展示如何使用 Libra SDK 发送交易。
+ * 运行此示例前请确保已安装 @libra2-core/ts-sdk！
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("本示例将创建两个账户（Alice 和 Bob）并发送一笔将 APT 转账给 Bob 账户的交易。");
 
     // 0. 设置客户端和测试账户
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -141,7 +141,7 @@ async function example() {
     const transaction = await aptos.transaction.build.simple({
         sender: alice.accountAddress,
         data: {
-        // Aptos 上所有交易都通过智能合约实现
+        // Libra 上所有交易都通过智能合约实现
         function: "0x1::aptos_account::transfer",
         functionArguments: [bob.accountAddress, 100],
         },
@@ -197,5 +197,5 @@ example();
 交易还具备一些额外的特性,可以根据您的需求进行调整,您可以在这里了解更多:1. [多代理签名](/zh/build/sdks/ts-sdk/building-transactions/multi-agent-transactions) - 允许多个账户共同作用于单个合约.
 2\. [交易赞助](/zh/build/sdks/ts-sdk/building-transactions/sponsoring-transactions) - 由其他账户代为支付该交易的 gas 费用.
 3\. [批量提交交易](/zh/build/sdks/ts-sdk/building-transactions/batching-transactions) - 如何从单个账户快速发送多笔交易.
-4\. [二进制规范序列化 (BCS)](/zh/build/sdks/ts-sdk/building-transactions/bcs-format) - Aptos 交易使用的数据序列化格式.
+4\. [二进制规范序列化 (BCS)](/zh/build/sdks/ts-sdk/building-transactions/bcs-format) - Libra 交易使用的数据序列化格式.
 5\. [使用 ScriptComposer 组合多个 Move 调用](/zh/build/sdks/ts-sdk/building-transactions/script-composer) - (实验性功能) 构建更复杂的交易负载以动态调用多个 Move 函数.

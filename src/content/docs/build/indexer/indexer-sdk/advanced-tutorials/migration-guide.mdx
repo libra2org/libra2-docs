@@ -2,14 +2,14 @@
 title: "Migrate to Indexer SDK"
 ---
 
-This guide contains instructions on how to migrate your legacy custom processor (that's written in the [old way](https://github.com/aptos-labs/aptos-indexer-processors/blob/aptos-indexer-processors-v1.20.0/rust/processor/src/processors/events_processor.rs)) to Indexer SDK.
+This guide contains instructions on how to migrate your legacy custom processor (that's written in the [old way](https://github.com/libra2org/aptos-indexer-processors/blob/aptos-indexer-processors-v1.20.0/rust/processor/src/processors/events_processor.rs)) to Indexer SDK.
 
 ## 1. Clone the example repo
 
 We use example events processor in `aptos-indexer-processor-example` as a starting point for the migration.
 
 ```shellscript
-git clone https://github.com/aptos-labs/aptos-indexer-processor-example.git
+git clone https://github.com/libra2org/aptos-indexer-processor-example.git
 ```
 
 ## 2. Migrate your processor config
@@ -24,8 +24,8 @@ The `ProcessorConfig` is an enum that contains all the individual processor conf
 
 Update the following files in your project:
 
-- [`ProcessorConfig`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/processor_config.rs): Replace `EventsProcessor` with your processor.
-- [`IndexerProcessorConfig`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/indexer_processor_config.rs): Update the `.run()` method to include your processor.
+- [`ProcessorConfig`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/processor_config.rs): Replace `EventsProcessor` with your processor.
+- [`IndexerProcessorConfig`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/indexer_processor_config.rs): Update the `.run()` method to include your processor.
 
 If you'd like to read more about configuration in the SDK, take a look at the [Create a Processor](/build/indexer/indexer-sdk/documentation/create-processor) guide.
 
@@ -90,7 +90,7 @@ In the `EventsProcessor` example, the extraction of events and storing them in t
 To migrate your processor to the SDK, you'll need to define these steps in your processor.
 You can use the `EventsExtractor` and `EventsStorer` steps in the example as a starting point for defining your own steps.
 
-Make the following changes to [`events_extractor.rs`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_extractor.rs).
+Make the following changes to [`events_extractor.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_extractor.rs).
 
 ```rust
 // TODO: Update the step name
@@ -129,7 +129,7 @@ impl Processable for EventsExtractor {
 }
 ```
 
-Make the following changes to [`events_storer.rs`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs).
+Make the following changes to [`events_storer.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs).
 
 ```rust
 pub struct EventsStorer
@@ -201,7 +201,7 @@ impl NamedStep for EventsStorer {
 ## 4. Migrate your processor
 
 Now that we've migrated the processing logic to steps, we need to also migrate the processor to instantiate the steps and connect them together.
-In [`events_processor.rs`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs), make the following changes:
+In [`events_processor.rs`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/processors/events/events_processor.rs), make the following changes:
 
 ```rust
 // TODO: Update processor name
@@ -252,7 +252,7 @@ pub async fn run_processor(self) -> Result<()> {
 ## 5. Update your `config.yaml`
 
 `IndexerProcessorConfig` reworks the format of the `config.yaml` file.
-Use the example [`config.yaml`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/config.yaml).
+Use the example [`config.yaml`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/config.yaml).
 
 ```yaml
 health_check_port: 8085

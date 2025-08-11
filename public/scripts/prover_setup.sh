@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © Aptos Foundation
+# Copyright © Libra2 Foundation
 # Parts of the project are originally copyright © Meta Platforms, Inc.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -205,10 +205,10 @@ function install_pkg {
 
 function welcome_message {
 cat <<EOF
-Welcome to Aptos!
+Welcome to Libra2!
 
 This script will download and install the necessary dependencies needed to
-build, test and inspect Aptos Core.
+build, test and inspect Libra2 Core.
 
 Based on your selection, these tools will be included:
 EOF

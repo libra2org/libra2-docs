@@ -30,7 +30,7 @@ regular PFNs. However, there are cases where you may want to generate and assign
 
 This is useful when:
 
-- You wish to advertise your PFN as a seed (i.e., for other Aptos PFNs to connect to).
+- You wish to advertise your PFN as a seed (i.e., for other Libra PFNs to connect to).
 - You wish to add your PFN to an allowlist of known identities on an upstream PFN or VFN.
 - You wish to fix the identity of your PFN across restarts and releases so that telemetry and other monitoring tools can track your PFN over time.
 
@@ -45,15 +45,15 @@ need to derive the `peer_id` from the public key, and use the `peer_id` in your 
 (e.g., `fullnode.yaml`) to configure the static network identity for your PFN.
 
 The steps below will guide you through the process of generating a static identity for your PFN. The exact steps depend
-on whether you are using the `aptos-core` source code to run your PFN, or Docker.
+on whether you are using the `libra2-core` source code to run your PFN, or Docker.
 
-### Using the aptos-core source code
+### Using the libra2-core source code
 
-If you use the `aptos-core` source code to run your PFN, follow these steps:
+If you use the `libra2-core` source code to run your PFN, follow these steps:
 
 1. **Generate the private key**
 
-First, use the [Aptos CLI](/build/cli) (`aptos`) to produce a hex encoded static
+First, use the [Libra CLI](/build/cli) (`aptos`) to produce a hex encoded static
 x25519 private key. This will be the private key for your network identity. Run the following `aptos` CLI command:
 
 ```shellscript filename="Terminal"

@@ -18,7 +18,7 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
          sender: sender.accountAddress,
          withFeePayer: true,
          data: {
-             // Todas las transacciones en Aptos se implementan vía contratos inteligentes.
+             // Todas las transacciones en Libra se implementan vía contratos inteligentes.
              function: "0x1::aptos_account::transfer",
              functionArguments: [destination.accountAddress, 100],
          },
@@ -94,22 +94,22 @@ Esto puede usarse para ayudar a gestionar comisiones desde una cuenta central al
 
 ```typescript filename="sponsor.ts"
 /**
- * Este ejemplo muestra cómo usar el SDK de Aptos para enviar una transacción con patrocinador.
+ * Este ejemplo muestra cómo usar el SDK de Libra para enviar una transacción con patrocinador.
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("Este ejemplo enviará una transacción patrocinada de Alice a Carol.");
 
     // 0. Configura el cliente y las cuentas de prueba
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -141,7 +141,7 @@ async function example() {
         sender: alice.accountAddress,
         withFeePayer: true,
         data: {
-            // Todas las transacciones en Aptos se implementan vía contratos inteligentes.
+            // Todas las transacciones en Libra se implementan vía contratos inteligentes.
             function: "0x1::aptos_account::transfer",
             functionArguments: [carol.accountAddress, 100],
         },

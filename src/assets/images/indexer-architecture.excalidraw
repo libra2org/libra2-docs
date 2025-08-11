@@ -139,11 +139,11 @@
       "locked": false,
       "fontSize": 20,
       "fontFamily": 6,
-      "text": "Aptos Blockchain \nFullnode",
+      "text": "Libra Blockchain \nFullnode",
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": "aptos-blockchain-fullnode",
-      "originalText": "Aptos Blockchain Fullnode",
+      "originalText": "Libra Blockchain Fullnode",
       "autoResize": true,
       "lineHeight": 1.35
     },

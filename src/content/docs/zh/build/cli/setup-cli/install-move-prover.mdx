@@ -7,9 +7,9 @@ import { Aside } from '@astrojs/starlight/components';
 如果您想使用 [Move Prover](/zh/build/smart-contracts/prover),请在[安装 CLI 二进制文件](/zh/build/cli/setup-cli/.)后安装 Move Prover 依赖项.
 安装 Prover 依赖项有两种方式.
 
-## 通过 Aptos CLI 安装(推荐)
+## 通过 Libra CLI 安装(推荐)
 
-1. [安装最新的 Aptos CLI 二进制文件](/zh/build/cli/install-cli/install-cli-mac).
+1. [安装最新的 Libra CLI 二进制文件](/zh/build/cli/install-cli/install-cli-mac).
 
 2. 执行命令 `aptos update prover-dependencies`.
 
@@ -17,11 +17,11 @@ import { Aside } from '@astrojs/starlight/components';
   安装后环境变量 `BOOGIE_EXE` 和 `Z3_EXE` 将自动设置.请确保它们在当前环境中生效.
 </Aside>
 
-## 通过 `aptos-core` 安装(不推荐)
+## 通过 `libra2-core` 安装(不推荐)
 
-1. 参见[从源代码构建 Aptos](/zh/network/nodes/building-from-source)
+1. 参见[从源代码构建 Libra](/zh/network/nodes/building-from-source)
 
-2. 然后,在检出的 aptos-core 目录中,安装额外的 Move 工具:
+2. 然后,在检出的 libra2-core 目录中,安装额外的 Move 工具:
 
    <details>
      <summary>Linux / macOS</summary>
@@ -42,7 +42,7 @@ import { Aside } from '@astrojs/starlight/components';
      2. 运行开发设置脚本来准备您的环境:`PowerShell -ExecutionPolicy Bypass -File ./scripts/windows_dev_setup.ps1 -y`
    </details>
 
-安装后,您可以运行 Move Prover 来验证一个[示例](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/hello_prover):
+安装后,您可以运行 Move Prover 来验证一个[示例](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_prover):
 
 ```shellscript filename="Terminal"
 aptos move prove --package-dir aptos-move/move-examples/hello_prover/
@@ -50,11 +50,11 @@ aptos move prove --package-dir aptos-move/move-examples/hello_prover/
 
 ## 故障排除
 
-如果在运行命令时遇到如下错误,请检查您的 Aptos CLI 版本或验证您使用的是正确的 `aptos` 工具,特别是如果您安装了多个版本.
+如果在运行命令时遇到如下错误,请检查您的 Libra CLI 版本或验证您使用的是正确的 `aptos` 工具,特别是如果您安装了多个版本.
 
 ```shellscript filename="Terminal"
 error: unexpected token
-    ┌─ ~/.move/https___github_com_aptos-labs_aptos-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
+    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
     │
 515 │         for (i in 0..n) {
     │             -  ^ Expected ')'

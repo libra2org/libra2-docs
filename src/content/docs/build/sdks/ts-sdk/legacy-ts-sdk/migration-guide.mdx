@@ -16,21 +16,21 @@ If you are coming from an earlier version `1.x.x` of `aptos`, you will need to m
 
 ## Install the SDK
 
-The TypeScript SDK V2 is under a new [GitHub repo](https://github.com/aptos-labs/aptos-ts-sdk) and with a new package name - `@aptos-labs/ts-sdk`
+The TypeScript SDK V2 is under a new [GitHub repo](https://github.com/libra2org/aptos-ts-sdk) and with a new package name - `@libra2-core/ts-sdk`
 
 ```shellscript npm2yarn
-npm i @aptos-labs/ts-sdk
+npm i @libra2-core/ts-sdk
 ```
 
-## SDK usage and query the Aptos chain
+## SDK usage and query the Libra chain
 
-Remove all `<*>Client` modules (i.e `AptosClient`, `FaucetClient`, `CoinClient`, etc.) and replace with an `Aptos` entry point class
+Remove all `<*>Client` modules (i.e `LibraClient`, `FaucetClient`, `CoinClient`, etc.) and replace with an `Libra` entry point class
 
 **V1**
 
 ```typescript filename="v1.ts"
 const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL);
-const aptosClient = new AptosClient(NODE_URL);
+const aptosClient = new LibraClient(NODE_URL);
 const indexerClient = new IndexerClient(INDEXER_URL);
 const tokenClient = new TokenClient(aptosClient);
 ```
@@ -42,7 +42,7 @@ const tokenClient = new TokenClient(aptosClient);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Aptos();
+const aptos = new Libra();
 
 // make queries
 const fund = await aptos.fundAccount({ accountAddress: "0x123", amount: 100 });
@@ -52,11 +52,11 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
 
 ## Configuration class
 
-To configure your `Aptos` client, you can use an `AptosConfig` object.
+To configure your `Libra` client, you can use an `LibraConfig` object.
 
 ```typescript filename="v2.ts"
-const aptosConfig = new AptosConfig({ network: Network.DEVNET }); // default to devnet
-const aptos = new Aptos(config);
+const aptosConfig = new LibraConfig({ network: Network.DEVNET }); // default to devnet
+const aptos = new Libra(config);
 ```
 
 ## Transaction Builder Flow
@@ -66,7 +66,7 @@ Removed all separate transaction functions in favor of a more simplified and fri
 **V1**
 
 ```typescript filename="v1.ts"
-const aptosClient = new AptosClient(NODE_URL);
+const aptosClient = new LibraClient(NODE_URL);
 
 // bcs serialized arguments payload
 const entryFunctionPayload =
@@ -98,7 +98,7 @@ const transaction = await client.generateTransaction(
 );
 
 // sign transaction
-const signedTransaction = AptosClient.generateBCSTransaction(
+const signedTransaction = LibraClient.generateBCSTransaction(
   sender,
   transaction,
 );
@@ -113,14 +113,14 @@ const txn = await client.submitSignedBCSTransaction(signedTransaction);
 </Aside>
 
 ```typescript filename="v2.ts"
-const aptos = new Aptos();
+const aptos = new Libra();
 
 // non-serialized arguments transaction
 const transaction = await aptos.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: ["0x1::aptos_coin::AptosCoin"],
+    typeArguments: ["0x1::aptos_coin::LibraCoin"],
     functionArguments: [bobAddress, 100],
   },
 });
@@ -130,7 +130,7 @@ const transaction = await aptos.build.transaction({
   sender: alice.accountAddress,
   data: {
     function: "0x1::coin::transfer",
-    typeArguments: [parseTypeTag("0x1::aptos_coin::AptosCoin")],
+    typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
     functionArguments: [bobAddress, new U64(100)],
   },
 });
@@ -148,16 +148,16 @@ const committedTransaction = await aptos.submit.transaction({
 
 ## Account
 
-Rename `AptosAccount` to `Account` and use static methods to generate / derive an account
+Rename `LibraAccount` to `Account` and use static methods to generate / derive an account
 
 **V1**
 
 ```typescript filename="v1.ts"
 // generate a new account (or key pair) OR derive from private key OR derive from private key and address
-const account = new AptosAccount(); // supports only Legacy Ed25519
+const account = new LibraAccount(); // supports only Legacy Ed25519
 
 // derive account from derivation path
-const account = AptosAccount.fromDerivePath(..)
+const account = LibraAccount.fromDerivePath(..)
 ```
 
 **V2**

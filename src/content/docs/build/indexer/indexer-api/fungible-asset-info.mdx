@@ -27,12 +27,12 @@ By providing a list of fungible asset types, `GetFungibleAssetInfo` can fetch da
   }
 }`}
   variables={`{
-  "in": ["0x1::aptos_coin::AptosCoin", "0x1::example_coin::ExampleCoin"],
+  "in": ["0x1::aptos_coin::LibraCoin", "0x1::example_coin::ExampleCoin"],
   "offset": 0
 }`}
 />
 
 ## Variables:
 
-- `$in`: **List of String** - This variable should contain a list of fungible asset types you want to query information for. Ex. `["0x1::aptos_coin::AptosCoin"]`
+- `$in`: **List of String** - This variable should contain a list of fungible asset types you want to query information for. Ex. `["0x1::aptos_coin::LibraCoin"]`
 - `$offset`: **Integer** (Optional) - This variable can be used to paginate through results, specifying how many records to skip before starting to return results.

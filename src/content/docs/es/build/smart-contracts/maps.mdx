@@ -5,9 +5,9 @@ title: "Maps"
 Hay múltiples implementaciones diferentes de mapas clave-valor dentro del framework, adaptadas para diferentes casos de uso.
 Revisaremos sus diferencias y similitudes, y cómo elegir cuál usar.
 
-## Consideraciones de rendimiento y costo de gas de la Blockchain de Aptos
+## Consideraciones de rendimiento y costo de gas de la Blockchain de Libra
 
-El estado de la Blockchain de Aptos se mantiene en **slots de almacenamiento**.
+El estado de la Blockchain de Libra se mantiene en **slots de almacenamiento**.
 Además, el rendimiento de las transacciones y el costo de gas está fuertemente influenciado por cómo estos **slots** son leídos y escritos.
 Desglosando los costos de gas aún más, tenemos:
 
@@ -170,10 +170,10 @@ Debido a que su diseño afecta qué se puede insertar y el rendimiento, hay algu
 
 ## Código Fuente
 
-- [ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
-- [table.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [table\_with\_length.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [big\_ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
+- [ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
+- [table.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [table\_with\_length.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [big\_ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
 
 ## Detalles adicionales de (deprecado) SmartTable
 

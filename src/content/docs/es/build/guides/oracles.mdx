@@ -1,10 +1,10 @@
 ---
-title: "Usa Oráculos en tus Aplicaciones Aptos"
+title: "Usa Oráculos en tus Aplicaciones Libra"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-Esta guía de referencia presenta varios Oráculos que puedes utilizar al construir en Aptos. Los oráculos suministran datos offchain a la blockchain, permitiendo que los contratos inteligentes accedan a una amplia gama de información.
+Esta guía de referencia presenta varios Oráculos que puedes utilizar al construir en Libra. Los oráculos suministran datos offchain a la blockchain, permitiendo que los contratos inteligentes accedan a una amplia gama de información.
 
 ## Pyth Network
 
@@ -12,9 +12,9 @@ La [Pyth Network](https://pyth.network/) es una de las redes de oráculos de pri
 
 La red está compuesta por algunos de los [mayores exchanges, creadores de mercado y proveedores de servicios financieros](https://pyth.network/publishers) del mundo. Estos publican datos propietarios on-chain para su agregación y distribución a aplicaciones de contratos inteligentes.
 
-## Cómo Usar Datos en Tiempo Real de Pyth en Contratos Aptos
+## Cómo Usar Datos en Tiempo Real de Pyth en Contratos Libra
 
-Esta guía explica cómo usar datos en tiempo real de Pyth en aplicaciones Aptos.
+Esta guía explica cómo usar datos en tiempo real de Pyth en aplicaciones Libra.
 
 ## Configurando el archivo `Move.toml`
 
@@ -25,7 +25,7 @@ Agrega el contrato de Pyth a las dependencias de tu proyecto en el archivo `Move
 Pyth = { git = "https://github.com/pyth-network/pyth-crosschain.git", subdir = "target_chains/aptos/contracts", rev = "main" }
 ```
 
-Las direcciones nombradas de `pyth`, `wormhole` y `deployers` deben definirse en tiempo de compilación. Estas direcciones se usan para interactuar con el contrato de Pyth en Aptos.
+Las direcciones nombradas de `pyth`, `wormhole` y `deployers` deben definirse en tiempo de compilación. Estas direcciones se usan para interactuar con el contrato de Pyth en Libra.
 
 ```toml copy
 [addresses]
@@ -34,7 +34,7 @@ deployer = "0xb31e712b26fd295357355f6845e77c888298636609e93bc9b05f0f604049f434"
 wormhole = "0x5bc11445584a763c1fa7ed39081f1b920954da14e04b32440cba863d03e19625"
 ```
 
-Consulta [Direcciones de Contrato de Aptos](https://docs.pyth.network/price-feeds/contract-addresses/aptos) para la lista completa de direcciones de contrato en diferentes redes de Aptos.
+Consulta [Direcciones de Contrato de Libra](https://docs.pyth.network/price-feeds/contract-addresses/aptos) para la lista completa de direcciones de contrato en diferentes redes de Libra.
 
 ## Escribir Código de Contrato
 
@@ -58,7 +58,7 @@ module example::example {
         // Lee el precio actual de un feed de precios.
         // Cada feed de precios (ej., BTC/USD) se identifica por un ID de feed de precios.
         // La lista completa de IDs de feed está disponible en https://pyth.network/developers/price-feed-ids
-        // Nota: Aptos usa el ID de feed de precios de Pyth sin el prefijo `0x`.
+        // Nota: Libra usa el ID de feed de precios de Pyth sin el prefijo `0x`.
         let btc_price_identifier = x"e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43";
         let btc_usd_price_id = price_identifier::from_byte_vec(btc_price_identifier);
         pyth::get_price(btc_usd_price_id)
@@ -83,11 +83,11 @@ El fragmento de código anterior hace las siguientes cosas:
 
 ## Recursos Adicionales
 
-Puedes encontrar estos recursos adicionales útiles para desarrollar tu aplicación Aptos.
+Puedes encontrar estos recursos adicionales útiles para desarrollar tu aplicación Libra.
 
-## Feeds Patrocinados en Aptos
+## Feeds Patrocinados en Libra
 
-Los feeds de precios listados en la tabla a continuación están actualmente patrocinados en **Aptos mainnet**.
+Los feeds de precios listados en la tabla a continuación están actualmente patrocinados en **Libra mainnet**.
 
 Parámetros de Actualización: **1 segundo de heartbeat o 0.5% de desviación de precio**
 
@@ -117,7 +117,7 @@ Para más detalles sobre feeds patrocinados, consulta [aquí](https://docs.pyth.
 
 ### Referencia de API
 
-La [referencia de API de Aptos](https://docs.pyth.network/price-feeds/api-reference/aptos) te permite explorar interactivamente la API completa del contrato de Pyth.
+La [referencia de API de Libra](https://docs.pyth.network/price-feeds/api-reference/aptos) te permite explorar interactivamente la API completa del contrato de Pyth.
 
 ### Aplicaciones de Ejemplo
 

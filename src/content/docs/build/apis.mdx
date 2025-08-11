@@ -1,22 +1,22 @@
 ---
-title: "Aptos APIs"
+title: "Libra APIs"
 ---
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-The Aptos Blockchain network can be accessed by several APIs, depending on your use-case.
+The Libra Blockchain network can be accessed by several APIs, depending on your use-case.
 
-## Aptos Fullnode
+## Libra Fullnode
 
 This API - embedded into Fullnodes - provides a simple, low latency, yet low-level way of _reading_ state and
-_submitting_ transactions to the Aptos Blockchain. It also supports transaction simulation.
+_submitting_ transactions to the Libra Blockchain. It also supports transaction simulation.
 
 <CardGrid>
-  <LinkCard href="/build/apis/fullnode-rest-api?network=mainnet" title="Aptos Fullnode REST API (Mainnet)" description="Mainnet API playground for Aptos Fullnode REST API" />
+  <LinkCard href="/build/apis/fullnode-rest-api?network=mainnet" title="Libra Fullnode REST API (Mainnet)" description="Mainnet API playground for Libra Fullnode REST API" />
 
-  <LinkCard href="/build/apis/fullnode-rest-api?network=testnet" title="Aptos Fullnode REST API (Testnet)" description="Testnet API playground for Aptos Fullnode REST API" />
+  <LinkCard href="/build/apis/fullnode-rest-api?network=testnet" title="Libra Fullnode REST API (Testnet)" description="Testnet API playground for Libra Fullnode REST API" />
 
-  <LinkCard href="/build/apis/fullnode-rest-api?network=devnet" title="Aptos Fullnode REST API (Devnet)" description="Devnet API playground for Aptos Fullnode REST API" />
+  <LinkCard href="/build/apis/fullnode-rest-api?network=devnet" title="Libra Fullnode REST API (Devnet)" description="Devnet API playground for Libra Fullnode REST API" />
 </CardGrid>
 
 ## Indexer
@@ -25,8 +25,8 @@ _submitting_ transactions to the Aptos Blockchain. It also supports transaction 
   <LinkCard
     href="/build/indexer"
     title="Indexer GraphQL API"
-    description="This GraphQL API offers a high-level, opinionated GraphQL interface to read state from the Aptos Blockchain.
-It's ideal for interacting with NFTs, Aptos Objects, or custom Move contracts.
+    description="This GraphQL API offers a high-level, opinionated GraphQL interface to read state from the Libra Blockchain.
+It's ideal for interacting with NFTs, Libra Objects, or custom Move contracts.
 Learn more about the Indexer-powered GraphQL API here."
   />
 
@@ -34,7 +34,7 @@ Learn more about the Indexer-powered GraphQL API here."
     href="/build/indexer/txn-stream"
     title="Transaction Stream API"
     description="This GRPC API streams historical and real-time transaction data to an indexing processor.
-It's used by Aptos Core Indexing and can also support custom app-specific indexing processors
+It's used by Libra Core Indexing and can also support custom app-specific indexing processors
 for real-time blockchain data processing. Learn more here."
   />
 </CardGrid>
@@ -50,12 +50,12 @@ and testing of applications and Move contracts before deploying them to mainnet.
   />
 </CardGrid>
 
-The code of each of the above-mentioned APIs is open-sourced on [GitHub](https://github.com/aptos-labs/aptos-core). As
+The code of each of the above-mentioned APIs is open-sourced on [GitHub](https://github.com/libra2org/libra2-core). As
 such anyone can operate these APIs and many independent operators and builders worldwide choose to do so.
 
-### Aptos Labs operated API Deployments
+### Libra Labs operated API Deployments
 
-[Aptos Labs](https://aptoslabs.com) operates a deployment of these APIs on behalf of [Aptos Foundation](https://aptosfoundation.org/)
-for each [Aptos Network](/network/nodes/networks) and makes them available for public consumption.
+[Libra Labs](https://aptoslabs.com) operates a deployment of these APIs on behalf of [Libra Foundation](https://aptosfoundation.org/)
+for each [Libra Network](/network/nodes/networks) and makes them available for public consumption.
 
-These APIs allow for limited access on a per-IP basis without an API key (anonymous access). To get much higher rate limits you can sign up for an [Aptos Build](https://build.aptoslabs.com/) account.
+These APIs allow for limited access on a per-IP basis without an API key (anonymous access). To get much higher rate limits you can sign up for an [Libra Build](https://build.aptoslabs.com/) account.

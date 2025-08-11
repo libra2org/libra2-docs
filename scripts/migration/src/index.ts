@@ -269,7 +269,7 @@ async function getSourcePathsFromCommit(commit: string, language: string): Promi
     await fs.rm(tempDir, { recursive: true, force: true });
 
     // Download the repository zip for specific commit
-    const repoUrl = `https://api.github.com/repos/aptos-labs/developer-docs/zipball/${commit}`;
+    const repoUrl = `https://api.github.com/repos/libra2-core/developer-docs/zipball/${commit}`;
     const zipPath = path.join(tempDir, "repo.zip");
 
     // Create temp directory
@@ -293,7 +293,7 @@ async function getSourcePathsFromCommit(commit: string, language: string): Promi
 
     // Find the extracted directory
     const entries = await fs.readdir(tempDir);
-    const extractedDir = entries.find((entry) => entry.startsWith("aptos-labs-developer-docs-"));
+    const extractedDir = entries.find((entry) => entry.startsWith("libra2-core-developer-docs-"));
     if (!extractedDir) {
       throw new Error("Could not find extracted repository directory");
     }
@@ -329,14 +329,14 @@ async function getSourcePaths(): Promise<SourcePaths> {
 
   // Fall back to GitHub repository
   const tempDir = path.join(projectRoot, "temp-nextra-docs");
-  logger.log("Migration", "Cloning Aptos developer docs repository...");
+  logger.log("Migration", "Cloning Libra2 developer docs repository...");
 
   try {
     // Remove temp directory if it exists
     await fs.rm(tempDir, { recursive: true, force: true });
 
     // Download the repository zip
-    const repoUrl = "https://api.github.com/repos/aptos-labs/developer-docs/zipball";
+    const repoUrl = "https://api.github.com/repos/libra2-core/developer-docs/zipball";
     const zipPath = path.join(tempDir, "repo.zip");
 
     // Create temp directory
@@ -359,9 +359,9 @@ async function getSourcePaths(): Promise<SourcePaths> {
     // Clean up zip file
     await fs.unlink(zipPath);
 
-    // Find the extracted directory (it will have a prefix like aptos-labs-developer-docs-hash)
+    // Find the extracted directory (it will have a prefix like libra2-core-developer-docs-hash)
     const entries = await fs.readdir(tempDir);
-    const extractedDir = entries.find((entry) => entry.startsWith("aptos-labs-developer-docs-"));
+    const extractedDir = entries.find((entry) => entry.startsWith("libra2-core-developer-docs-"));
     if (!extractedDir) {
       throw new Error("Could not find extracted repository directory");
     }
@@ -504,7 +504,7 @@ async function copyImages(sourcePath: string): Promise<void> {
 
     // Find the extracted directory (same as used in getSourcePath)
     const entries = await fs.readdir(tempDir);
-    const extractedDir = entries.find((entry) => entry.startsWith("aptos-labs-developer-docs-"));
+    const extractedDir = entries.find((entry) => entry.startsWith("libra2-core-developer-docs-"));
     if (!extractedDir) {
       throw new Error("Could not find extracted repository directory");
     }

@@ -1,17 +1,17 @@
 ---
-title: "Códigos de Error de Aptos"
+title: "Códigos de Error de Libra"
 ---
 
-Esta página cataloga errores comunes encontrados en la blockchain de Aptos y explica cómo resolverlos siempre que sea posible. Como en todo software, el propio código es la fuente de verdad para el manejo de errores y siempre contendrá entradas que no se encuentran aquí. En cambio, esta matriz tiene como objetivo ayudarte a abordar esos errores más típicamente encontrados, malinterpretados o ambos.
+Esta página cataloga errores comunes encontrados en la blockchain de Libra y explica cómo resolverlos siempre que sea posible. Como en todo software, el propio código es la fuente de verdad para el manejo de errores y siempre contendrá entradas que no se encuentran aquí. En cambio, esta matriz tiene como objetivo ayudarte a abordar esos errores más típicamente encontrados, malinterpretados o ambos.
 
 Para las fuentes de estos errores, consulta:
 
-- [vm\_status.rs](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
-- [error.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
-- [account.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
-- [coin.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
-- [token.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
-- [token\_transfers.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
+- [vm\_status.rs](https://github.com/libra2org/libra2-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
+- [error.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
+- [account.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
+- [coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
+- [token.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
+- [token\_transfers.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
 
 Ayúdanos a actualizar esta lista enviando pull requests con los errores que encuentres. Si no sabes cómo resolver el error, como se describe en la columna _Acción_, simplemente déjala en blanco.
 
@@ -68,7 +68,7 @@ Esto solo ocurre en simulación, pero significa que el número de secuencia envi
 | BAD\_CHAIN\_ID                                             |                                                                                                                                                                                                                                          La cadena\_id de la transacción no coincide con la publicada en la cadena.                                                                                                                                                                                                                                         | Verifica que tu cadena\_id coincida con la cadena\_id de tu red                                                                                            |
 | SEQUENCE\_NUMBER\_TOO\_BIG                                  |                                                                                                                                                                                                                                    El número de secuencia es demasiado grande y se desbordaría si se ejecutara la transacción.                                                                                                                                                                                                                                    | N/A                                                                                                                                                        |
 | BAD\_TRANSACTION\_FEE\_CURRENCY                             |                                                                                                                                                                                                                                               La moneda de gas no está registrada como moneda de tarifa de transacción.                                                                                                                                                                                                                                              | N/A                                                                                                                                                        |
-| FEATURE\_UNDER\_GATING                                     |                                                                                                                                                                                                                                   La característica solicitada está destinada a una versión futura de Aptos en lugar de la actual.                                                                                                                                                                                                                                  | N/A                                                                                                                                                        |
+| FEATURE\_UNDER\_GATING                                     |                                                                                                                                                                                                                                   La característica solicitada está destinada a una versión futura de Libra en lugar de la actual.                                                                                                                                                                                                                                  | N/A                                                                                                                                                        |
 | SECONDARY\_KEYS\_ADDRESSES\_COUNT\_MISMATCH                  |                                                                                                                                                                                                                           El número de direcciones de firmante secundario es diferente del número de claves públicas secundarias proporcionadas.                                                                                                                                                                                                                          | Verifica las direcciones de firmante secundario multi-agente o multi-ed25519 y las claves públicas secundarias para que coincidan                                                         |
 | SIGNERS\_CONTAIN\_DUPLICATES                               |                                                                                                                                                                                                                                   Hay duplicados entre los firmantes, incluyendo el remitente y todos los firmantes secundarios.                                                                                                                                                                                                                                   | Elimina cualquier firmante duplicado                                                                                                                               |
 | SEQUENCE\_NONCE\_INVALID                                   |                                                                                                                                                                                                                                    La secuencia nonce en la transacción es inválida (demasiado nueva, demasiado antigua o ya usada).                                                                                                                                                                                                                                    | N/A                                                                                                                                                        |
@@ -109,7 +109,7 @@ Esto solo ocurre en simulación, pero significa que el número de secuencia envi
 | NOT\_IMPLEMENTED    |                               Característica no implementada (HTTP: 501).                              |
 | UNAVAILABLE        | El servicio no está disponible actualmente. Indica que un reintento podría resolver el problema (HTTP: 503). |
 
-## Cuentas de Aptos
+## Cuentas de Libra
 
 | Error                                |                                                               Significado                                                              | Posible Resolución                                                              |
 | ------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------: | -------------------------------------------------------------------------------- |
@@ -123,12 +123,12 @@ Esto solo ocurre en simulación, pero significa que el número de secuencia envi
 | EINVALID\_PROOF\_OF\_KNOWLEDGE          |                        La prueba de conocimiento especificada requerida para probar la propiedad de una clave pública es inválida.                        | Verifica tu prueba de conocimiento en la rotación de claves para asegurar que tiene firmas apropiadas |
 | ENO\_CAPABILITY                       |                        El llamador no tiene una capacidad basada en firma digital para llamar a esta función.                        | Confirma que tienes la capacidad para las funciones llamadas                         |
 | EINVALID\_ACCEPT\_ROTATION\_CAPABILITY  |                         El llamador no tiene una oferta de capacidad de rotación válida de la otra cuenta.                         | Confirma que la cuenta que se está rotando es correcta                                     |
-| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                               La dirección a crear no es una dirección reservada válida para el framework de Aptos.                               | N/A                                                                              |
+| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                               La dirección a crear no es una dirección reservada válida para el framework de Libra.                               | N/A                                                                              |
 | EINVALID\_SCHEME                      | Esquema especificado requerido para proceder con la operación del contrato inteligente - solo puede ser ED25519\_SCHEME(0) O MULTI\_ED25519\_SCHEME(1). | Confirma que la transacción fue firmada correctamente al crear la cuenta           |
 | EINVALID\_ORIGINATING\_ADDRESS         |            Aborta la transacción si la dirección de origen esperada es diferente de la dirección de origen en la cadena.           | Confirma que estás rotando la clave de la cuenta correcta                          |
 | ENO\_SUCH\_SIGNER\_CAPABILITY           |                                   La capacidad de firmante no existe en la dirección dada.                                   | Confirma que la dirección es correcta                                                   |
 
-## Monedas de Aptos
+## Monedas de Libra
 
 | Error                              |                                                   Significado                                                   | Posible Resolución                                                       |
 | ---------------------------------- | :---------------------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------- |
@@ -145,7 +145,7 @@ Esto solo ocurre en simulación, pero significa que el número de secuencia envi
 | ECOIN\_NAME\_TOO\_LONG                |                                        El nombre de la moneda es demasiado largo.                                        | El nombre de la moneda debe ser menor o igual a 32 caracteres                     |
 | ECOIN\_SYMBOL\_TOO\_LONG              |                                       El símbolo de la moneda es demasiado largo.                                       | El símbolo de la moneda debe ser menor o igual a 10 caracteres                   |
 
-## Tokens de Aptos
+## Tokens de Libra
 
 | Error                                        |                             Significado                            |
 | -------------------------------------------- | :------------------------------------------------------------: |

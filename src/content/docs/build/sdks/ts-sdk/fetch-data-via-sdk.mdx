@@ -4,13 +4,13 @@ title: "Fetch Data via SDK"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use the `Aptos` client to get on-chain data using a variety of helper functions. Specifically, many of the functions listed in the reference docs [here](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html) that start with `get...` will retrieve data from on-chain.
+You can use the `Libra` client to get on-chain data using a variety of helper functions. Specifically, many of the functions listed in the reference docs [here](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) that start with `get...` will retrieve data from on-chain.
 
 Here’s an example showing how to fetch common data you may need in your application:
 
 ```typescript filename="fetch-data.ts"
-const aptosConfig = new AptosConfig({ network: Network.DEVNET });
-const aptos = new Aptos(aptosConfig);
+const aptosConfig = new LibraConfig({ network: Network.DEVNET });
+const aptos = new Libra(aptosConfig);
 
 const fund = await aptos.getAccountInfo({ accountAddress: "0x123" });
 const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
@@ -21,7 +21,7 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
   Many queries have a parameter named `options` to customize the results, use it to get specifically what you are looking for.
 </Aside>
 
-The `Aptos` client can out of the box query both network data from [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) and the [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) API which contains aggregated and enriched data. If you want to use a custom query for Indexer API data, you can use `aptos.queryIndexer` like so:
+The `Libra` client can out of the box query both network data from [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) and the [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) API which contains aggregated and enriched data. If you want to use a custom query for Indexer API data, you can use `aptos.queryIndexer` like so:
 
 ```typescript filename="fetch-data.ts"
   const ledgerInfo = await aptos.queryIndexer({
@@ -46,7 +46,7 @@ type Coin = { coin: { value: string } };
 
 const resource = await aptos.getAccountResource<Coin>({
   accountAddress: testAccount.accountAddress,
-  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
 });
 
 // Now you have access to the response type property

@@ -9,21 +9,21 @@ import { Aside } from '@astrojs/starlight/components';
   Docker 部署仅在 Linux,Windows 和 Intel macOS 上进行了测试.如果您使用的是 M1+ macOS,您将需要使用 [源代码](/zh/network/nodes/full-node/deployments/using-source-code) 进行部署.
 </Aside>
 
-这是一份分步指南,用于使用 Docker 部署 Aptos 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
+这是一份分步指南,用于使用 Docker 部署 Libra 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
 
 <Aside type="caution">
   **先决条件** <br />
-  在开始之前,请确保阅读并理解 [节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Aptos CLI](/zh/build/cli),以及 [Docker 与 Docker Compose](https://docs.docker.com/engine/install/).
+  在开始之前,请确保阅读并理解 [节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Libra CLI](/zh/build/cli),以及 [Docker 与 Docker Compose](https://docs.docker.com/engine/install/).
 </Aside>
 
 ## 部署步骤
 
 <Aside type="note">
   **默认连接到主网**<br />
-  遵循本文档的默认配置,你的验证节点和全节点后端(VFN)将会接入 Aptos 主网.如果想接入到 Aptos 的其他网络,如测试网,你需要确保下载了目标网络相应的创世数据块和路标文件.此外,根据所选网络,需调整 docker compose 文件,以确保使用到相匹配的 docker 镜像.
+  遵循本文档的默认配置,你的验证节点和全节点后端(VFN)将会接入 Libra 主网.如果想接入到 Libra 的其他网络,如测试网,你需要确保下载了目标网络相应的创世数据块和路标文件.此外,根据所选网络,需调整 docker compose 文件,以确保使用到相匹配的 docker 镜像.
 </Aside>
 
-1. 为您的 Aptos 节点创建一个工作目录,并为您的节点选择一个用户名,例如:
+1. 为您的 Libra 节点创建一个工作目录,并为您的节点选择一个用户名,例如:
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -32,7 +32,7 @@ import { Aside } from '@astrojs/starlight/components';
    cd ~/$WORKSPACE
    ```
 
-2. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Aptos CLI 来执行此操作:
+2. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
    ```shellscript filename="Terminal"
    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -57,7 +57,7 @@ import { Aside } from '@astrojs/starlight/components';
      相比于使用 IP 地址,推荐使用 DNS,因为这样能够更便捷地进行节点迁移,并且当主机发生变化时,系统的适应性更强.
    </Aside>
 
-   您可以通过运行以下命令并使用 Aptos CLI 来设置验证器配置:
+   您可以通过运行以下命令并使用 Libra CLI 来设置验证器配置:
 
    ```shellscript filename="Terminal"
    # 使用适当的 IP 或 DNS 地址替换下面的 <validator node IP / DNS address> 和 <Full Node IP / DNS address>。
@@ -92,7 +92,7 @@ import { Aside } from '@astrojs/starlight/components';
       --stake-amount 100000000000000
    ```
 
-   配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些(稍后)将有助于将您的节点连接到 Aptos 网络.
+   配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些(稍后)将有助于将您的节点连接到 Libra 网络.
 
 4. 按照 [查找节点文件](/zh/network/nodes/configure/node-files-all-networks) 页面上的说明下载以下文件.
    您需要选择适当的网络(例如,`mainnet`,`testnet`,`devnet`)并下载以下文件:
@@ -163,9 +163,9 @@ import { Aside } from '@astrojs/starlight/components';
 
    <Aside type="caution">
      **下一步**<br />
-     您现在已经使用 Docker 完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Aptos 网络.
+     您现在已经使用 Docker 完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Libra 网络.
    </Aside>
 
-## 连接到 Aptos 网络
+## 连接到 Libra 网络
 
 您现在已经使用 Docker 完成了验证器和 VFN 的设置.请继续进行 [连接节点](/zh/network/nodes/validator-node/connect-nodes) 的操作.

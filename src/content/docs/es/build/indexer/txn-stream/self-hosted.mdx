@@ -6,11 +6,11 @@ title: "Servicio de Stream de Transacciones Auto-Alojado"
 
 Para ejecutar el Servicio de Stream de Transacciones Auto-Alojado, necesitarás ejecutar los siguientes componentes.
 
-Indexer FN \[https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-fullnode]: Un FN con funcionalidad de indexer grpc habilitada. Típicamente tu servicio de datos necesitará acceder a todos los datos históricos, por lo tanto tu FN necesita sincronizar desde génesis para arrancar toda la pila. El pruner puede ser eliminado (a través del pruner) más tarde una vez que los datos estén persistidos en el file store.
+Indexer FN \[https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-fullnode]: Un FN con funcionalidad de indexer grpc habilitada. Típicamente tu servicio de datos necesitará acceder a todos los datos históricos, por lo tanto tu FN necesita sincronizar desde génesis para arrancar toda la pila. El pruner puede ser eliminado (a través del pruner) más tarde una vez que los datos estén persistidos en el file store.
 
-GrpcManager \[https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-manager]: Un componente centralizado que maneja todos los componentes en la pila. Puede ejecutarse en dos modos (master y no-master), solo se permite 1 master. Cuando está ejecutándose en modo master, también extraerá datos del FN upstream, y persistirá los datos en el file store (que puede ser un sistema de archivos local o Google Cloud Storage).
+GrpcManager \[https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-manager]: Un componente centralizado que maneja todos los componentes en la pila. Puede ejecutarse en dos modos (master y no-master), solo se permite 1 master. Cuando está ejecutándose en modo master, también extraerá datos del FN upstream, y persistirá los datos en el file store (que puede ser un sistema de archivos local o Google Cloud Storage).
 
-DataService \[https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-data-service-v2]: Proporciona el servicio de streaming Grpc orientado al cliente. Puede ejecutarse en 2 modos. El modo live sirve datos desde su caché local, el modo histórico sirve datos desde el file store.
+DataService \[https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-data-service-v2]: Proporciona el servicio de streaming Grpc orientado al cliente. Puede ejecutarse en 2 modos. El modo live sirve datos desde su caché local, el modo histórico sirve datos desde el file store.
 
 ## Configuraciones de Ejemplo
 

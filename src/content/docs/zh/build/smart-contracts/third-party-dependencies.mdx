@@ -18,16 +18,16 @@ import { Aside, FileTree } from '@astrojs/starlight/components';
 
 ### Git 仓库
 
-默认的 `Move.toml` 通过 git 仓库依赖包含了 `AptosFramework`:
+默认的 `Move.toml` 通过 git 仓库依赖包含了 `LibraFramework`:
 
 ```toml filename="Move.toml"
-  [dependencies.AptosFramework]
-  git = "<https://github.com/aptos-labs/aptos-framework.git>"
+  [dependencies.LibraFramework]
+  git = "<https://github.com/libra2org/aptos-framework.git>"
   rev = "mainnet"
   subdir = "aptos-framework"
 ```
 
-当运行 Aptos CLI 命令时,依赖会自动更新并编译.
+当运行 Libra CLI 命令时,依赖会自动更新并编译.
 
 ### 本地源代码
 
@@ -78,7 +78,7 @@ aptos move decompile --package-path ./bytecode_modules
 
 ### 字节码
 
-Aptos CLI 支持下载 [包](/zh/build/smart-contracts/book/packages) 的字节码.
+Libra CLI 支持下载 [包](/zh/build/smart-contracts/book/packages) 的字节码.
 
 ```shellscript filename="Terminal"
 aptos move download --account {account_addr} --bytecode --package {package_name}
@@ -93,7 +93,7 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
 受控模块在其 `Move.toml` 中引用该依赖包后,即可使用.
 
 <details>
-  <summary>Aptos Token 示例</summary>
+  <summary>Libra Token 示例</summary>
 
   受控的 `invoking_code.move` 模块与外部 `aptos_token` 模块交互:
 
@@ -107,11 +107,11 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
   }
   ```
 
-  以下命令可从主网获取所需的 [AptosTokenObjects 包](https://explorer.aptoslabs.com/account/0x4/modules/code/aptos_token/mint?network=mainnet) 字节码.
+  以下命令可从主网获取所需的 [LibraTokenObjects 包](https://explorer.aptoslabs.com/account/0x4/modules/code/aptos_token/mint?network=mainnet) 字节码.
 
   ```shellscript filename="Terminal"
   aptos move download --account 0x4 \
-  --bytecode --package AptosTokenObjects \
+  --bytecode --package LibraTokenObjects \
   --output-dir ./aptos_token_bytecode_output/
   ```
 
@@ -178,9 +178,9 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
 之后,接口代码与本地源代码同等对待.
 
 <details>
-  <summary>Aptos Token 示例</summary>
+  <summary>Libra Token 示例</summary>
 
-  以下是从 [Aptos Explorer](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/aptos_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `AptosTokenObjects` ABI:
+  以下是从 [Libra Explorer](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/aptos_token?network=mainnet#:~:text=1114-,ABI,-%7B) 获取的部分 `LibraTokenObjects` ABI:
 
   ```json
   {
@@ -225,7 +225,7 @@ aptos move download --account {account_addr} --bytecode --package {package_name}
           key: String,
           type: String,
           value: vector<u8>,
-      ) acquires AptosCollection, AptosToken {
+      ) acquires LibraCollection, LibraToken {
           abort 0
       }
   }

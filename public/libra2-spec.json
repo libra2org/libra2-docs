@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Aptos Node API",
-    "description": "The Aptos Node API is a RESTful API for client applications to interact with the Aptos blockchain.",
+    "title": "Libra2 Node API",
+    "description": "The Libra2 Node API is a RESTful API for client applications to interact with the Libra2 blockchain.",
     "version": "1.2.0",
     "contact": {
-      "name": "Aptos Labs",
-      "url": "https://github.com/aptos-labs/aptos-core"
+      "name": "Libra2 Labs",
+      "url": "https://github.com/libra2org/libra2-core"
     },
     "license": {
       "name": "Apache 2.0",
@@ -187,7 +187,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -263,7 +263,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -339,7 +339,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -415,7 +415,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -491,7 +491,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -567,7 +567,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -646,7 +646,7 @@
       "get": {
         "tags": ["Accounts"],
         "summary": "Get account resources",
-        "description": "Retrieves all account resources for a given account and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Retrieves all account resources for a given account and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "address",
@@ -676,7 +676,7 @@
               "$ref": "#/components/schemas/StateKeyWrapper"
             },
             "in": "query",
-            "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Aptos-Cursor header in the\nresponse.",
+            "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Libra2-Cursor header in the\nresponse.",
             "required": false,
             "deprecated": false,
             "explode": true
@@ -802,7 +802,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -878,7 +878,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -954,7 +954,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1030,7 +1030,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1106,7 +1106,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1182,7 +1182,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1261,7 +1261,7 @@
       "get": {
         "tags": ["Accounts"],
         "summary": "Get account resources",
-        "description": "Retrieves all account resources for a given account and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Retrieves all account resources for a given account and a specific ledger version.  If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "address",
@@ -1402,7 +1402,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1478,7 +1478,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1554,7 +1554,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1630,7 +1630,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1706,7 +1706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1782,7 +1782,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -1861,7 +1861,7 @@
       "get": {
         "tags": ["Accounts"],
         "summary": "Get account modules",
-        "description": "Retrieves all account modules' bytecode for a given account at a specific ledger version.\nIf the ledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Retrieves all account modules' bytecode for a given account at a specific ledger version.\nIf the ledger version is not specified in the request, the latest ledger version is used.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "address",
@@ -1891,7 +1891,7 @@
               "$ref": "#/components/schemas/StateKeyWrapper"
             },
             "in": "query",
-            "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Aptos-Cursor header in the\nresponse.",
+            "description": "Cursor specifying where to start for pagination\n\nThis cursor cannot be derived manually client-side. Instead, you must\ncall this endpoint once without this query parameter specified, and\nthen use the cursor returned in the X-Libra2-Cursor header in the\nresponse.",
             "required": false,
             "deprecated": false,
             "explode": true
@@ -2017,7 +2017,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2093,7 +2093,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2169,7 +2169,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2245,7 +2245,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2321,7 +2321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2397,7 +2397,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2636,7 +2636,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2712,7 +2712,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2922,7 +2922,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -2998,7 +2998,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3074,7 +3074,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3150,7 +3150,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3226,7 +3226,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3302,7 +3302,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3512,7 +3512,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3588,7 +3588,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3664,7 +3664,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3740,7 +3740,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3816,7 +3816,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3892,7 +3892,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -3979,7 +3979,7 @@
               "$ref": "#/components/schemas/Address"
             },
             "in": "path",
-            "description": "Hex-encoded 32 byte Aptos account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type.",
+            "description": "Hex-encoded 32 byte Libra2 account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type.",
             "required": true,
             "deprecated": false,
             "explode": true
@@ -4127,7 +4127,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4203,7 +4203,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4279,7 +4279,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4355,7 +4355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4431,7 +4431,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4507,7 +4507,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4594,7 +4594,7 @@
               "$ref": "#/components/schemas/Address"
             },
             "in": "path",
-            "description": "Hex-encoded 32 byte Aptos account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type.",
+            "description": "Hex-encoded 32 byte Libra2 account, with or without a `0x` prefix, for\nwhich events are queried. This refers to the account that events were\nemitted to, not the account hosting the move module that emits that\nevent type.",
             "required": true,
             "deprecated": false,
             "explode": true
@@ -4753,7 +4753,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4829,7 +4829,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4905,7 +4905,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -4981,7 +4981,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5057,7 +5057,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5133,7 +5133,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5318,7 +5318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5394,7 +5394,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5470,7 +5470,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5546,7 +5546,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5625,7 +5625,7 @@
       "get": {
         "tags": ["Accounts"],
         "summary": "Get account resource",
-        "description": "Retrieves an individual resource from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Retrieves an individual resource from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "address",
@@ -5766,7 +5766,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5842,7 +5842,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5918,7 +5918,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -5994,7 +5994,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6070,7 +6070,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6146,7 +6146,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6225,7 +6225,7 @@
       "get": {
         "tags": ["Accounts"],
         "summary": "Get account module",
-        "description": "Retrieves an individual module from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Retrieves an individual module from a given account and at a specific ledger version. If the\nledger version is not specified in the request, the latest ledger version is used.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "address",
@@ -6366,7 +6366,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6442,7 +6442,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6518,7 +6518,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6594,7 +6594,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6670,7 +6670,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6746,7 +6746,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -6825,7 +6825,7 @@
       "post": {
         "tags": ["Tables"],
         "summary": "Get table item",
-        "description": "Get a table item at a specific ledger version from the table identified by {table_handle}\nin the path and the \"key\" (TableItemRequest) provided in the request body.\n\nThis is a POST endpoint because the \"key\" for requesting a specific\ntable item (TableItemRequest) could be quite complex, as each of its\nfields could themselves be composed of other structs. This makes it\nimpractical to express using query params, meaning GET isn't an option.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Get a table item at a specific ledger version from the table identified by {table_handle}\nin the path and the \"key\" (TableItemRequest) provided in the request body.\n\nThis is a POST endpoint because the \"key\" for requesting a specific\ntable item (TableItemRequest) could be quite complex, as each of its\nfields could themselves be composed of other structs. This makes it\nimpractical to express using query params, meaning GET isn't an option.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "table_handle",
@@ -6965,7 +6965,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7041,7 +7041,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7117,7 +7117,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7193,7 +7193,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7269,7 +7269,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7345,7 +7345,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7424,7 +7424,7 @@
       "post": {
         "tags": ["Tables"],
         "summary": "Get raw table item",
-        "description": "Get a table item at a specific ledger version from the table identified by {table_handle}\nin the path and the \"key\" (RawTableItemRequest) provided in the request body.\n\nThe `get_raw_table_item` requires only a serialized key comparing to the full move type information\ncomparing to the `get_table_item` api, and can only return the query in the bcs format.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Get a table item at a specific ledger version from the table identified by {table_handle}\nin the path and the \"key\" (RawTableItemRequest) provided in the request body.\n\nThe `get_raw_table_item` requires only a serialized key comparing to the full move type information\ncomparing to the `get_table_item` api, and can only return the query in the bcs format.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "table_handle",
@@ -7564,7 +7564,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7640,7 +7640,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7716,7 +7716,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7792,7 +7792,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7868,7 +7868,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -7944,7 +7944,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8157,7 +8157,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8233,7 +8233,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8309,7 +8309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8385,7 +8385,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8461,7 +8461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8537,7 +8537,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8739,7 +8739,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8815,7 +8815,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8891,7 +8891,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -8967,7 +8967,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9043,7 +9043,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9119,7 +9119,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9195,7 +9195,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9274,7 +9274,7 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Get transaction by hash",
-        "description": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transaction](https://aptos-labs.github.io/aptos-core/aptos_types/transaction/enum.Transaction.html).\n2. Apply hash algorithm `SHA3-256` to the hash message bytes.\n3. Hex-encode the hash bytes with `0x` prefix.",
+        "description": "Look up a transaction by its hash. This is the same hash that is returned\nby the API when submitting a transaction (see PendingTransaction).\n\nWhen given a transaction hash, the server first looks for the transaction\nin storage (on-chain, committed). If no on-chain transaction is found, it\nlooks the transaction up by hash in the mempool (pending, not yet committed).\n\nTo create a transaction hash by yourself, do the following:\n1. Hash message bytes: \"RawTransaction\" bytes + BCS bytes of [Transaction](https://libra2-core.github.io/libra2-core/aptos_types/transaction/enum.Transaction.html).\n2. Apply hash algorithm `SHA3-256` to the hash message bytes.\n3. Hex-encode the hash bytes with `0x` prefix.",
         "parameters": [
           {
             "name": "txn_hash",
@@ -9393,7 +9393,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9469,7 +9469,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9545,7 +9545,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9621,7 +9621,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9697,7 +9697,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9773,7 +9773,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -9971,7 +9971,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10047,7 +10047,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10123,7 +10123,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10199,7 +10199,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10275,7 +10275,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10351,7 +10351,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10549,7 +10549,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10625,7 +10625,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10701,7 +10701,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10777,7 +10777,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10853,7 +10853,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -10929,7 +10929,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11153,7 +11153,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11229,7 +11229,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11305,7 +11305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11381,7 +11381,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11457,7 +11457,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11533,7 +11533,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11839,7 +11839,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11915,7 +11915,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -11991,7 +11991,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12067,7 +12067,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12143,7 +12143,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12219,7 +12219,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12295,7 +12295,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12537,7 +12537,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12613,7 +12613,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12689,7 +12689,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12765,7 +12765,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12841,7 +12841,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12917,7 +12917,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -12993,7 +12993,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13188,7 +13188,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13264,7 +13264,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13340,7 +13340,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13416,7 +13416,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13601,7 +13601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13677,7 +13677,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13753,7 +13753,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13829,7 +13829,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -13908,7 +13908,7 @@
       "post": {
         "tags": ["View"],
         "summary": "Execute view function of a module",
-        "description": "Execute the Move function with the given parameters and return its execution result.\n\nThe Aptos nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
+        "description": "Execute the Move function with the given parameters and return its execution result.\n\nThe Libra2 nodes prune account state history, via a configurable time window.\nIf the requested ledger version has been pruned, the server responds with a 410.",
         "parameters": [
           {
             "name": "ledger_version",
@@ -14049,7 +14049,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14125,7 +14125,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14201,7 +14201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14277,7 +14277,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14353,7 +14353,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14429,7 +14429,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AptosError"
+                  "$ref": "#/components/schemas/Libra2Error"
                 }
               }
             },
@@ -14678,20 +14678,28 @@
       "Address": {
         "type": "string",
         "format": "hex",
-        "description": "A hex encoded 32 byte Aptos account address.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x.\n\nFor example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.\n",
+        "description": "A hex encoded 32 byte Libra2 account address.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x.\n\nFor example, address 0x0000000000000000000000000000000000000000000000000000000000000001 is represented as 0x1.\n",
         "example": "0x88fbd33f54e1126269769780feb24480428179f552e2313fbe571b72e62a1ca1 "
       },
-      "AptosError": {
+      "Libra2Error": {
         "type": "object",
+<<<<<<< HEAD
         "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Aptos API specific error code.",
         "required": ["message", "error_code"],
+=======
+        "description": "This is the generic struct we use for all API errors, it contains a string\nmessage and an Libra2 API specific error code.",
+        "required": [
+          "message",
+          "error_code"
+        ],
+>>>>>>> 625be94 (migrate to libra2)
         "properties": {
           "message": {
             "type": "string",
             "description": "A message describing the error"
           },
           "error_code": {
-            "$ref": "#/components/schemas/AptosErrorCode"
+            "$ref": "#/components/schemas/Libra2ErrorCode"
           },
           "vm_error_code": {
             "type": "integer",
@@ -14700,7 +14708,7 @@
           }
         }
       },
-      "AptosErrorCode": {
+      "Libra2ErrorCode": {
         "type": "string",
         "description": "These codes provide more granular error information beyond just the HTTP\nstatus code of the response.",
         "enum": [
@@ -14730,8 +14738,8 @@
       "AssetType": {
         "type": "string",
         "format": "hex",
-        "description": "A hex encoded 32 byte Aptos account address or a struct tag.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x or\nFormat: `{address}::{module name}::{struct name}`\n",
-        "example": "0x1::aptos_coin::AptosCoin"
+        "description": "A hex encoded 32 byte Libra2 account address or a struct tag.\n\nThis is represented in a string as a 64 character hex string, sometimes\nshortened by stripping leading 0s, and adding a 0x or\nFormat: `{address}::{module name}::{struct name}`\n",
+        "example": "0x1::aptos_coin::Libra2Coin"
       },
       "Block": {
         "type": "object",
@@ -15954,13 +15962,13 @@
       },
       "MoveStructTag": {
         "type": "string",
-        "description": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n",
-        "example": "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+        "description": "String representation of a MoveStructTag (on-chain Move struct type). This exists so you\ncan specify MoveStructTags as path / query parameters, e.g. for get_events_by_event_handle.\n\nIt is a combination of:\n  1. `move_module_address`, `module_name` and `struct_name`, all joined by `::`\n  2. `struct generic type parameters` joined by `, `\n\nExamples:\n  * `0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>`\n  * `0x1::account::Account`\n\nNote:\n  1. Empty chars should be ignored when comparing 2 struct tag ids.\n  2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n\nSee [doc](https://aptos.dev/concepts/accounts) for more details.\n",
+        "example": "0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>",
         "pattern": "^0x[0-9a-zA-Z:_<>]+$"
       },
       "MoveStructValue": {
         "type": "object",
-        "description": "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16` and `u32` type value is serialized into `integer`.\n\nMove `u64`, `u128` and `u256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Aptos account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/aptos-labs/aptos-core/blob/main/language/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n",
+        "description": "This is a JSON representation of some data within an account resource. More specifically,\nit is a map of strings to arbitrary JSON values / objects, where the keys are top level\nfields within the given resource.\n\nTo clarify, you might query for 0x1::account::Account and see the example data.\n\nMove `bool` type value is serialized into `boolean`.\n\nMove `u8`, `u16` and `u32` type value is serialized into `integer`.\n\nMove `u64`, `u128` and `u256` type value is serialized into `string`.\n\nMove `address` type value (32 byte Libra2 account address) is serialized into a HexEncodedBytes string.\nFor example:\n  - `0x1`\n  - `0x1668f6be25668c1a17cd8caf6b8d2f25`\n\nMove `vector` type value is serialized into `array`, except `vector<u8>` which is serialized into a\nHexEncodedBytes string with `0x` prefix.\nFor example:\n  - `vector<u64>{255, 255}` => `[\"255\", \"255\"]`\n  - `vector<u8>{255, 255}` => `0xffff`\n\nMove `struct` type value is serialized into `object` that looks like this (except some Move stdlib types, see the following section):\n  ```json\n  {\n    field1_name: field1_value,\n    field2_name: field2_value,\n    ......\n  }\n  ```\n\nFor example:\n  `{ \"created\": \"0xa550c18\", \"role_id\": \"0\" }`\n\n**Special serialization for Move stdlib types**:\n  - [0x1::string::String](https://github.com/libra2org/libra2-core/blob/main/language/move-stdlib/docs/ascii.md)\n    is serialized into `string`. For example, struct value `0x1::string::String{bytes: b\"Hello World!\"}`\n    is serialized as `\"Hello World!\"` in JSON.\n",
         "example": {
           "authentication_key": "0x0000000000000000000000000000000000000000000000000000000000000001",
           "coin_register_events": {
@@ -15978,7 +15986,7 @@
       },
       "MoveType": {
         "type": "string",
-        "description": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n",
+        "description": "String representation of an on-chain Move type tag that is exposed in transaction payload.\n    Values:\n      - bool\n      - u8\n      - u16\n      - u32\n      - u64\n      - u128\n      - u256\n      - address\n      - signer\n      - vector: `vector<{non-reference MoveTypeId}>`\n      - struct: `{address}::{module_name}::{struct_name}::<{generic types}>`\n\n    Vector type value examples:\n      - `vector<u8>`\n      - `vector<vector<u64>>`\n      - `vector<0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>>`\n\n    Struct type value examples:\n      - `0x1::coin::CoinStore<0x1::aptos_coin::Libra2Coin>\n      - `0x1::account::Account`\n\n    Note:\n      1. Empty chars should be ignored when comparing 2 struct tag ids.\n      2. When used in an URL path, should be encoded by url-encoding (AKA percent-encoding).\n",
         "pattern": "^(bool|u8|u64|u128|address|signer|vector<.+>|0x[0-9a-zA-Z:_<, >]+)$"
       },
       "MoveValue": {
@@ -16622,7 +16630,7 @@
       },
       "Transaction": {
         "type": "object",
-        "description": "Enum of the different types of transactions in Aptos",
+        "description": "Enum of the different types of transactions in Libra2",
         "oneOf": [
           {
             "$ref": "#/components/schemas/Transaction_PendingTransaction"
@@ -17033,7 +17041,7 @@
         "required": ["error", "transaction_index"],
         "properties": {
           "error": {
-            "$ref": "#/components/schemas/AptosError"
+            "$ref": "#/components/schemas/Libra2Error"
           },
           "transaction_index": {
             "type": "integer",
@@ -17561,6 +17569,6 @@
     }
   },
   "externalDocs": {
-    "url": "https://github.com/aptos-labs/aptos-core"
+    "url": "https://github.com/libra2org/libra2-core"
   }
 }

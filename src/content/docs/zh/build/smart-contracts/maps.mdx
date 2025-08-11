@@ -5,9 +5,9 @@ title: "概述"
 框架内有多种不同的键值对映射(Map)实现,适用于不同的使用场景.
 我们将介绍它们的异同,以及如何选择合适的实现.
 
-## Aptos 区块链性能与 gas 成本考量
+## Libra 区块链性能与 gas 成本考量
 
-Aptos 区块链的状态保存在 **storage slots**(存储槽)中.
+Libra 区块链的状态保存在 **storage slots**(存储槽)中.
 此外,交易的性能和 gas 成本在很大程度上受这些 **slots** 的读写影响.
 进一步细分 gas 成本,我们有:
 
@@ -169,10 +169,10 @@ module 0x42::map_usage {
 
 ## 源码链接
 
-- [ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
-- [table.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [table\_with\_length.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [big\_ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
+- [ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
+- [table.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [table\_with\_length.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [big\_ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
 
 ## (已弃用)SmartTable 额外细节
 

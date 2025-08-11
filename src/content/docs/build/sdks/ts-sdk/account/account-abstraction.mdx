@@ -4,7 +4,7 @@ title: "Account Abstraction"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Account Abstraction (AA) on Aptos **enables custom transaction authentication logic through Move modules**, allowing accounts to define their own rules beyond native cryptographic schemes. **Note:** This is currently only live on testnet as of July 17, 2025.
+Account Abstraction (AA) on Libra **enables custom transaction authentication logic through Move modules**, allowing accounts to define their own rules beyond native cryptographic schemes. **Note:** This is currently only live on testnet as of July 17, 2025.
 
 ## Core Concepts
 
@@ -56,7 +56,7 @@ An enum variant defining the authentication data to be passed to the authenticat
 
 ```move
 enum AbstractionAuthData has copy, drop {
-    V1 { 
+    V1 {
         digest: vector<u8>,       // SHA3-256 hash of the signing message
         authenticator: vector<u8> // Custom auth data (e.g., signatures)
     },
@@ -129,7 +129,7 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     To deploy the module, you can use the following commands from the [Aptos CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
+     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
      declared the named addresses in your `Move.toml` file.
 
      ```shellscript
@@ -143,7 +143,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<hello_world_authenticator_deployer>"
 
-     const aptos = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
 
@@ -203,7 +203,7 @@ const abstractedAccount = new AbstractedAccount({
            enableAbstraction: async () => {
              if (!account) return;
 
-             // Note: The Aptos client must be defined somewhere in the application.
+             // Note: The Libra client must be defined somewhere in the application.
              const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
                accountAddress: account.address,
                authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
@@ -246,7 +246,7 @@ const abstractedAccount = new AbstractedAccount({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::AptosCoin"],
+         typeArguments: ["0x1::aptos_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
@@ -264,7 +264,7 @@ const abstractedAccount = new AbstractedAccount({
   7. 7. Conclusion
 
      To verify that you have successfully sign and submitted the transaction using the abstracted account, you can use the explorer to check the transaction. If the
-     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts).
+     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts).
 
      ![Transaction Signature](https://i.imgur.com/HZylFnc.png)
 </Steps>
@@ -348,7 +348,7 @@ In this example, we will create an authenticator that allows users to permit cer
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
              assert!(std::vector::length(&public_key) == 32, EINVALID_PUBLIC_KEY);
-             
+
              if (!exists<PublicKeyPermissions>(account_addr)) {
                  move_to(signer, PublicKeyPermissions {
                      public_key_table: smart_table::new(),
@@ -357,12 +357,12 @@ In this example, we will create an authenticator that allows users to permit cer
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
              assert!(
-                 !smart_table::contains(&permissions.public_key_table, public_key), 
+                 !smart_table::contains(&permissions.public_key_table, public_key),
                  EENTRY_ALREADY_EXISTS
              );
 
              smart_table::add(&mut permissions.public_key_table, public_key, true);
-         
+
          }
 
          public entry fun revoke_public_key(
@@ -370,7 +370,7 @@ In this example, we will create an authenticator that allows users to permit cer
              public_key: vector<u8>
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
-             
+
              assert!(exists<PublicKeyPermissions>(account_addr), ENO_PERMISSIONS);
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
@@ -390,11 +390,11 @@ In this example, we will create an authenticator that allows users to permit cer
      ```move
      module deployer::public_key_authenticator {
        // ...
-      
+
        struct PublicKeyPermissions has key {
            public_key_table: SmartTable<vector<u8>, bool>,
-       } 
-       
+       }
+
      }
      ```
 
@@ -412,7 +412,7 @@ In this example, we will create an authenticator that allows users to permit cer
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
              assert!(std::vector::length(&public_key) == 32, EINVALID_PUBLIC_KEY);
-             
+
              if (!exists<PublicKeyPermissions>(account_addr)) {
                  move_to(signer, PublicKeyPermissions {
                      public_key_table: smart_table::new(),
@@ -421,12 +421,12 @@ In this example, we will create an authenticator that allows users to permit cer
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
              assert!(
-                 !smart_table::contains(&permissions.public_key_table, public_key), 
+                 !smart_table::contains(&permissions.public_key_table, public_key),
                  EENTRY_ALREADY_EXISTS
              );
 
              smart_table::add(&mut permissions.public_key_table, public_key, true);
-         
+
          }
 
          public entry fun revoke_public_key(
@@ -434,7 +434,7 @@ In this example, we will create an authenticator that allows users to permit cer
              public_key: vector<u8>
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
-             
+
              assert!(exists<PublicKeyPermissions>(account_addr), ENO_PERMISSIONS);
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
@@ -485,7 +485,7 @@ In this example, we will create an authenticator that allows users to permit cer
      }
      ```
 
-     To deploy the module, you can use the following commands from the [Aptos CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
+     To deploy the module, you can use the following commands from the [Libra CLI](/build/cli). We assume that you already have set up a workspace with `aptos init` and
      declared the named addresses in your `Move.toml` file.
 
      ```shellscript
@@ -500,7 +500,7 @@ In this example, we will create an authenticator that allows users to permit cer
      ```typescript
      const DEPLOYER = "0x<public_key_authenticator_deployer>"
 
-     const aptos = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
      const bob = Account.generate();
@@ -596,7 +596,7 @@ In this example, we will create an authenticator that allows users to permit cer
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::AptosCoin"],
+         typeArguments: ["0x1::aptos_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
@@ -614,7 +614,7 @@ In this example, we will create an authenticator that allows users to permit cer
   8. 8. Conclusion
 
      To verify that you have successfully sign and submitted the transaction using the abstracted account, you can use the explorer to check the transaction. If the
-     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
+     transaction signature contains a `function_info` and `auth_data` field, it means you successfully used account abstraction! The full E2E demo can be found [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
 
      ![Transaction Signature](https://i.imgur.com/3U40YSb.png)
 </Steps>

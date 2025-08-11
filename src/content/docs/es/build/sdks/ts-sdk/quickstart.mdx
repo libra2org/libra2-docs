@@ -60,37 +60,37 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
   3. Instalar el SDK de TypeScript usando el gestor de paquetes de tu elección:
 
      ```shellscript npm2yarn
-     npm i @aptos-labs/ts-sdk
+     npm i @libra2-core/ts-sdk
      ```
 
-  4. Configurar el cliente de Aptos
+  4. Configurar el cliente de Libra
 
-     Puedes usar el objeto `Aptos` para manejar todo lo que requiere una conexión a la red de Aptos. Una conexión se establece tan pronto como creas el objeto.
+     Puedes usar el objeto `Libra` para manejar todo lo que requiere una conexión a la red de Libra. Una conexión se establece tan pronto como creas el objeto.
 
      ```typescript filename="quickstart.ts"
-     import { Account, Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+     import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-     // Especificar a qué red conectarse via AptosConfig
+     // Especificar a qué red conectarse via LibraConfig
      async function example() {
        console.log(
          "Este ejemplo creará dos cuentas (Alice y Bob), las financiará y transferirá entre ellas.",
        );
 
        // Configurar el cliente
-       const config = new AptosConfig({ network: Network.DEVNET });
-       const aptos = new Aptos(config);
+       const config = new LibraConfig({ network: Network.DEVNET });
+       const aptos = new Libra(config);
      }
 
      example()
      ```
 
      <Aside type="note">
-       (Avanzado) Si necesitas conectarte a un nodo específico, puedes establecerlo en el `AptosConfig` especificando la url del `fullnode`. Ej. `fullnode: http://localhost:8080/v1`.
+       (Avanzado) Si necesitas conectarte a un nodo específico, puedes establecerlo en el `LibraConfig` especificando la url del `fullnode`. Ej. `fullnode: http://localhost:8080/v1`.
      </Aside>
 
   5. Obtener datos de la cadena
 
-     Puedes usar el cliente `Aptos` para obtener todo tipo de datos de la cadena como información sobre la red misma o información específica de la cuenta.
+     Puedes usar el cliente `Libra` para obtener todo tipo de datos de la cadena como información sobre la red misma o información específica de la cuenta.
 
      ```typescript filename="quickstart.ts"
      ...
@@ -137,7 +137,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      Puedes construir transacciones con `aptos.transaction.build.simple({...})` especificando:
 
      1. `sender` - La cuenta que está enviando la transacción. Esta cuenta pagará las tarifas de gas.
-     2. `data` - La información necesaria para que Aptos identifique qué transacción ejecutar.
+     2. `data` - La información necesaria para que Libra identifique qué transacción ejecutar.
         1. `function` - Qué contrato inteligente en la cadena llamar. Esto tiene el formato `<address_account>::<module_move>::<function>`.
         2. `functionArguments` - Estos son específicos para la función que se está llamando. Puedes buscar qué parámetros necesita una función buscando la cuenta y el módulo en la cadena con un explorador [como este](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
 
@@ -217,12 +217,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ```typescript filename="quickstart.ts"
 /**
- * Este ejemplo muestra cómo usar el cliente de Aptos para crear cuentas, financiarlas y transferir entre ellas.
+ * Este ejemplo muestra cómo usar el cliente de Libra para crear cuentas, financiarlas y transferir entre ellas.
  */
 
-import { Account, Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
+const APTOS_COIN = "0x1::aptos_coin::LibraCoin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -234,8 +234,8 @@ async function example() {
   );
 
   // Configurar el cliente
-  const config = new AptosConfig({ network: Network.DEVNET });
-  const aptos = new Aptos(config);
+  const config = new LibraConfig({ network: Network.DEVNET });
+  const aptos = new Libra(config);
 
   // Generar credenciales de dos cuentas
   // Cada cuenta tiene una clave privada, una clave pública y una dirección
@@ -280,7 +280,7 @@ async function example() {
   const txn = await aptos.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
-      // Todas las transacciones en Aptos se implementan a través de contratos inteligentes.
+      // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
       function: "0x1::aptos_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
@@ -292,7 +292,7 @@ async function example() {
     signer: alice,
     transaction: txn,
   });
-  // Espera a que Aptos verifique y ejecute la transacción
+  // Espera a que Libra verifique y ejecute la transacción
   const executedTransaction = await aptos.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
@@ -329,16 +329,16 @@ example();
 
 En resumen, acabas de aprender a transferir APT a través de una transacción enviando:
 
-1. Conectándote a la red usando el cliente de `Aptos`.
+1. Conectándote a la red usando el cliente de `Libra`.
 2. Creando una cuenta.
-3. Buscando datos de la cadena usando funciones de ayuda del cliente como [`aptos.getAccountModules`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html#getAccountModules).
+3. Buscando datos de la cadena usando funciones de ayuda del cliente como [`aptos.getAccountModules`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
 4. Firmando y enviando una transacción a la red.
-5. Esperando que Aptos ejecute la transacción.
+5. Esperando que Libra ejecute la transacción.
 
 Para ver todo esto en acción, puedes copiar y ejecutar el fragmento de código de inicio rápido completo de arriba.
 
 <Aside type="note">
-  Para el desarrollo futuro, asegúrate de marcar la [documentación de referencia](https://aptos-labs.github.io/aptos-ts-sdk/) para buscar las firmas de funciones específicas.
+  Para el desarrollo futuro, asegúrate de marcar la [documentación de referencia](https://libra2-core.github.io/aptos-ts-sdk/) para buscar las firmas de funciones específicas.
 
-  Ten en cuenta que la mayoría de las funciones de ayuda están listadas en el objeto [`Aptos` cliente](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html).
+  Ten en cuenta que la mayoría de las funciones de ayuda están listadas en el objeto [`Libra` cliente](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
 </Aside>

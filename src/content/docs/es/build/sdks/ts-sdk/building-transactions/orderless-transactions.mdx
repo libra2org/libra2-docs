@@ -29,7 +29,7 @@ especifica el `nonce` en el método `build.simple` así:
 const transaction = await aptos.transaction.build.simple({
   sender: sender.accountAddress,
   data: {
-	  // Todas las transacciones en Aptos se implementan a través de contratos inteligentes.
+	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -47,7 +47,7 @@ const transaction = await aptos.transaction.build.multiAgent({
   sender: sender.accountAddress,
   secondarySignerAddresses: [bob.accountAddress], // Lista de firmantes secundarios
   data: {
-	  // Todas las transacciones en Aptos se implementan a través de contratos inteligentes.
+	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -65,7 +65,7 @@ const transaction = await aptos.transaction.build.multiAgent({
   sender: sender.accountAddress,
   withFeePayer: true, // Esto indica que la transacción será patrocinada.
   data: {
-	  // Todas las transacciones en Aptos se implementan a través de contratos inteligentes.
+	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -92,4 +92,4 @@ Después de eso, simplemente sigue los mismos pasos que harías para una transac
 
 ### Ejemplos
 
-- [Ejemplo del SDK de TS](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)
+- [Ejemplo del SDK de TS](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)

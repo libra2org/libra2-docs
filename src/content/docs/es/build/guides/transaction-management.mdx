@@ -2,11 +2,11 @@
 title: "Gestión de Transacciones"
 ---
 
-Esta guía explica cómo construir un sistema de gestión de transacciones que pueda escalar en la blockchain de Aptos.
+Esta guía explica cómo construir un sistema de gestión de transacciones que pueda escalar en la blockchain de Libra.
 
 ## Antecedentes
 
-En Aptos, las transacciones se asignan a una cuenta en términos de la entidad que firma o autoriza esa transacción y proporciona un número de secuencia basado en la cuenta. Cuando la red de Aptos recibe una nueva transacción, se siguen varias reglas respecto a esto:
+En Libra, las transacciones se asignan a una cuenta en términos de la entidad que firma o autoriza esa transacción y proporciona un número de secuencia basado en la cuenta. Cuando la red de Libra recibe una nueva transacción, se siguen varias reglas respecto a esto:
 
 - La transacción enviada desde una cuenta debe estar autorizada correctamente por esa cuenta.
 - El tiempo actual, según lo definido por la actualización más reciente del ledger, debe ser anterior a la marca de tiempo de expiración de la transacción.
@@ -48,9 +48,9 @@ Nota: una cuenta debe ser gestionada por una sola instancia del gestor de transa
 ### Implementaciones
 
 - Python
-  - [Gestor de números de secuencia](https://github.com/aptos-labs/aptos-core/pull/7987)
-  - [Gestor de transacciones](https://github.com/aptos-labs/aptos-core/pull/7987)
-- [Contrato inteligente worker-líder](https://github.com/aptos-labs/aptos-core/pull/7986)
+  - [Gestor de números de secuencia](https://github.com/libra2org/libra2-core/pull/7987)
+  - [Gestor de transacciones](https://github.com/libra2org/libra2-core/pull/7987)
+- [Contrato inteligente worker-líder](https://github.com/libra2org/libra2-core/pull/7986)
 
 ### Gestión de Números de Secuencia
 
@@ -101,7 +101,7 @@ Hay muchos posibles casos de fallo que deben considerarse:
 
 Usando el framework anterior, una sola cuenta puede enviar hasta 100 transacciones desde el inicio de un bloque hasta el final de un bloque. Suponiendo que las 100 transacciones se consumen dentro de 1 bloque, tomará un poco de tiempo para que los siguientes 100 espacios estén disponibles. Esto se debe a los retrasos de la red y al pipeline de validadores en varias etapas.
 
-Para aprovechar completamente la blockchain para un rendimiento masivo, usar una sola cuenta de usuario no es suficiente. En su lugar, Aptos soporta el concepto de cuentas worker que pueden compartir la responsabilidad de enviar trabajo a través de una cuenta compartida, también conocida como cuenta de recurso.
+Para aprovechar completamente la blockchain para un rendimiento masivo, usar una sola cuenta de usuario no es suficiente. En su lugar, Libra soporta el concepto de cuentas worker que pueden compartir la responsabilidad de enviar trabajo a través de una cuenta compartida, también conocida como cuenta de recurso.
 
 En este modelo, cada worker tiene acceso al `SignerCap` de la cuenta compartida, lo que les permite suplantar la cuenta compartida o generar el `signer` para la cuenta compartida. Al obtener el `signer`, la transacción puede ejecutar la lógica que está restringida por el firmante de la cuenta compartida.
 

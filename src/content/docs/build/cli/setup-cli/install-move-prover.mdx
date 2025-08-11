@@ -7,9 +7,9 @@ import { Aside } from '@astrojs/starlight/components';
 If you want to use the [Move Prover](/build/smart-contracts/prover), install the Move Prover dependencies after [installing the CLI binary](/build/cli/setup-cli/.).
 There are two ways to install Prover dependencies.
 
-## Installation through Aptos CLI (Recommended)
+## Installation through Libra CLI (Recommended)
 
-1. [Install the latest Aptos CLI binary](/build/cli/install-cli/install-cli-mac).
+1. [Install the latest Libra CLI binary](/build/cli/install-cli/install-cli-mac).
 
 2. Execute the command `aptos update prover-dependencies`.
 
@@ -18,11 +18,11 @@ There are two ways to install Prover dependencies.
   they are in effect in the current environment.
 </Aside>
 
-## Installation through `aptos-core` (Not Recommended)
+## Installation through `libra2-core` (Not Recommended)
 
-1. See [Building Aptos From Source](/network/nodes/building-from-source)
+1. See [Building Libra From Source](/network/nodes/building-from-source)
 
-2. Then, in the checked out aptos-core directory, install additional Move tools:
+2. Then, in the checked out libra2-core directory, install additional Move tools:
 
    <details>
      <summary>Linux / macOS</summary>
@@ -43,7 +43,7 @@ There are two ways to install Prover dependencies.
      2. Run the dev setup script to prepare your environment: `PowerShell -ExecutionPolicy Bypass -File ./scripts/windows_dev_setup.ps1 -y`
    </details>
 
-After installation, you can run the Move Prover to prove an [example](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/hello_prover):
+After installation, you can run the Move Prover to prove an [example](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_prover):
 
 ```shellscript filename="Terminal"
 aptos move prove --package-dir aptos-move/move-examples/hello_prover/
@@ -51,11 +51,11 @@ aptos move prove --package-dir aptos-move/move-examples/hello_prover/
 
 ## Troubleshooting
 
-If you encounter errors like the one below when running the command, double-check your Aptos CLI version or verify that you're using the correct `aptos` tool, especially if you have multiple versions installed.
+If you encounter errors like the one below when running the command, double-check your Libra CLI version or verify that you're using the correct `aptos` tool, especially if you have multiple versions installed.
 
 ```shellscript filename="Terminal
 error: unexpected token
-    ┌─ ~/.move/https___github_com_aptos-labs_aptos-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
+    ┌─ ~/.move/https___github_com_libra2-core_libra2-core_git_main/aptos-move/framework/aptos-framework/sources/randomness.move:515:16
     │
 515 │         for (i in 0..n) {
     │             -  ^ Expected ')'

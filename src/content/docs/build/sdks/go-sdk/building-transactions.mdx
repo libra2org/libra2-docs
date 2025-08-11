@@ -10,7 +10,7 @@ simulating, signing, submitting, and waiting.
 
 <Aside type="note">
   For these examples, `client` is an instance of the
-  [`Client`](https://pkg.go.dev/github.com/aptos-labs/aptos-go-sdk#Client)
+  [`Client`](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk#Client)
   object.
 </Aside>
 
@@ -70,7 +70,7 @@ simulating, signing, submitting, and waiting.
      1. `MaxGasAmount` - This caps the amount of gas you are willing to pay for to
         execute this transaction.
      2. `GasUnitPrice` - You can specify a higher than minimum price per gas to be
-        executed with higher priority by the Aptos network.
+        executed with higher priority by the Libra network.
      3. `ExpirationSeconds` - This gives a concrete time the transaction must execute
         by or it will be canceled.
 
@@ -79,7 +79,7 @@ simulating, signing, submitting, and waiting.
 
   2. Simulate (Optional)
 
-     Every transaction on the Aptos chain has a gas fee associated with how much
+     Every transaction on the Libra chain has a gas fee associated with how much
      work the network machines have to do when executing the transaction. In order
      to estimate the cost associated with that, you can simulate transactions
      before committing them.
@@ -145,8 +145,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/aptos-labs/aptos-go-sdk"
-	"github.com/aptos-labs/aptos-go-sdk/bcs"
+	"github.com/libra2org/aptos-go-sdk"
+	"github.com/libra2org/aptos-go-sdk/bcs"
 )
 
 const FundAmount = 100_000_000
@@ -154,7 +154,7 @@ const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
 func example(networkConfig aptos.NetworkConfig) {
-	// Create a client for Aptos
+	// Create a client for Libra
 	client, err := aptos.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
@@ -326,4 +326,4 @@ Transactions have a couple of additional features which let them adapt to your n
 1. [Multi-Agent Signatures](/build/sdks/go-sdk/building-transactions/multi-agent-transactions) - Allowing multiple accounts to be used for a single contract.
 2. [Sponsoring Transactions](/build/sdks/go-sdk/building-transactions/sponsoring-transactions) - Have another account pay gas fees for this transaction.
 3. [Batch Submit Transactions](/build/sdks/go-sdk/building-transactions/batching-transactions) - How to send multiple transactions quickly from a single account.
-4. [Binary Canonical Serialization (BCS)](/build/sdks/go-sdk/building-transactions/bcs-format) - The format used to serialize data for Aptos transactions.
+4. [Binary Canonical Serialization (BCS)](/build/sdks/go-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra transactions.

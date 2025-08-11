@@ -4,9 +4,9 @@ title: "使用源码"
 
 import { Aside } from '@astrojs/starlight/components';
 
-要使用 `aptos-core` 源代码部署 PFN,请先查看[从源代码构建 Aptos](/zh/network/nodes/building-from-source) 中的说明,了解如何下载 `aptos-core` 仓库并构建二进制文件.然后,按照下面的步骤操作:
+要使用 `libra2-core` 源代码部署 PFN,请先查看[从源代码构建 Libra](/zh/network/nodes/building-from-source) 中的说明,了解如何下载 `libra2-core` 仓库并构建二进制文件.然后,按照下面的步骤操作:
 
-1. 确保您当前的工作目录是 `aptos-core`.
+1. 确保您当前的工作目录是 `libra2-core`.
 
 2. 使用 `git checkout --track origin/mainnet` 检出 `mainnet` 分支;记住,如果您希望在不同的网络上运行您的 PFN,您也可以使用 `devnet` 或 `testnet`.
 
@@ -15,17 +15,17 @@ import { Aside } from '@astrojs/starlight/components';
    - 运行此命令下载创世区块(genesis blob)文件(对于主网):
 
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/aptos-labs/aptos-networks/main/mainnet/genesis.blob
+     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/genesis.blob
      ```
 
    - 运行此命令下载路标(waypoint)文件(对于主网):
      ```shellscript filename="Terminal"
-     curl -O https://raw.githubusercontent.com/aptos-labs/aptos-networks/main/mainnet/waypoint.txt
+     curl -O https://raw.githubusercontent.com/libra2-core/aptos-networks/main/mainnet/waypoint.txt
      ```
 
    <Aside type="caution">
      **不想连接到主网?**<br />
-     要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在这里找到创世区块和路标文件 ➜ https://github.com/aptos-labs/aptos-networks
+     要连接到其他网络(例如 `devnet` 和 `testnet`),您可以在这里找到创世区块和路标文件 ➜ https://github.com/libra2org/aptos-networks
      请确保下载这些网络的 `genesis.blob` 和 `waypoint.txt`,而不是使用上面`curl`命令直接下载的创世区块和路标文件.
    </Aside>
 
@@ -66,11 +66,11 @@ cargo run -p aptos-node --release -- -f ./fullnode.yaml
 
 <Aside type="note">
   **调试?**<br />
-  上面的命令将在:`aptos-core/target/release/aptos-node` 构建 `aptos-node` 的二进制发行文件.二进制发行文件通常比二进制调试文件快得多,但缺乏对开发有用的调试信息.
+  上面的命令将在:`libra2-core/target/release/aptos-node` 构建 `aptos-node` 的二进制发行文件.二进制发行文件通常比二进制调试文件快得多,但缺乏对开发有用的调试信息.
   要构建二进制调试文件,请省略上面的命令中的 `--release` 标志.
 </Aside>
 
-您现在已经成功配置并在 Aptos 主网上开始运行 PFN.
+您现在已经成功配置并在 Libra 主网上开始运行 PFN.
 
 <Aside type="note">
   **验证您的PFN**<br />

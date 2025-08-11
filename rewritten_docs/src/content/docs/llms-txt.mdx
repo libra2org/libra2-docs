@@ -1,0 +1,47 @@
+---
+title: LLMs.txt
+description: How to get tools like Cursor, GitHub Copilot, ChatGPT, and Claude to understand Libra2 documentation.
+---
+
+## What is LLMs.txt?
+
+We support [LLMs.txt](https://llmstxt.org/) files for making the Libra2 documentation available to large language models
+(LLMs). This feature helps AI tools better understand the Libra2 blockchain, its Move language, SDKs, and development patterns.
+
+## Available Routes
+
+We provide the following LLMs.txt routes to help AI tools access our documentation:
+
+- [llms.txt](/llms.txt) - Contains a structured overview of Libra2 LLMs.txt files
+- [llms-small.txt](/llms-small.txt) - Provides a condensed version of the documentation, optimized for smaller context windows
+- [llms-full.txt](/llms-full.txt) - Provides the full comprehensive documentation for all Libra2 concepts
+
+## Usage with AI Tools
+
+### Cursor
+
+Use the `@Docs` feature in Cursor to include the LLMs.txt files in your project. This helps Cursor provide more accurate
+code suggestions and documentation for Libra2 development.
+
+[Read more about @Docs in Cursor](https://docs.cursor.com/context/@-symbols/@-docs)
+
+### GitHub Copilot
+
+GitHub Copilot can leverage the information in these LLMs.txt files to provide better assistance when developing Libra2 applications. You can reference these files in your GitHub Copilot Chat by using the following URLs:
+
+```
+https://libra2.dev/llms.txt
+https://libra2.dev/llms-small.txt
+https://libra2.dev/llms-full.txt
+```
+
+### Windsurf
+
+Reference the LLMs.txt files using `@` or in your `.windsurfrules` files to enhance Windsurf's understanding of Libra2 development.
+
+[Read more about Windsurf Memories](https://docs.codeium.com/windsurf/memories#memories-and-rules)
+
+### Other AI Tools
+
+Any AI tool that supports LLMs.txt can use these routes to better understand Libra2. Simply point your tool to any of
+the routes above.

@@ -1,4 +1,4 @@
-# This script installs the Aptos CLI on Windows.
+# This script installs the Libra2 CLI on Windows.
 # It will perform the following steps:
 # - Determine the system architecture
 # - Download the CLI
@@ -47,7 +47,7 @@ function Test-CommandExists {
 # Get the latest version from GitHub API
 function Get-LatestVersion {
     try {
-        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/aptos-labs/aptos-core/releases?per_page=100"
+        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100"
         $latestRelease = $response | Where-Object { $_.tag_name -match 'aptos-cli-v' } | Select-Object -First 1
         return $latestRelease.tag_name -replace 'aptos-cli-v', ''
     }
@@ -72,18 +72,18 @@ function Install-CLI {
         [string]$Version,
         [string]$Target
     )
-    
-    Write-ColorMessage -Color $CYAN -Message "Downloading Aptos CLI version $Version for $Target..."
-    
+
+    Write-ColorMessage -Color $CYAN -Message "Downloading Libra2 CLI version $Version for $Target..."
+
     # Create bin directory if it doesn't exist
     if (-not (Test-Path $BIN_DIR)) {
         New-Item -ItemType Directory -Path $BIN_DIR -Force | Out-Null
     }
-    
+
     # Download URL
-    $url = "https://github.com/aptos-labs/aptos-core/releases/download/aptos-cli-v$Version/aptos-cli-$Version-$Target.zip"
+    $url = "https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v$Version/aptos-cli-$Version-$Target.zip"
     $zipPath = Join-Path $env:TEMP "aptos-cli.zip"
-    
+
     try {
         # Download the file
         # Check if curl is installed
@@ -93,18 +93,18 @@ function Install-CLI {
             # Use curl to download the file
             curl.exe -L $url -o $zipPath
         }
-        
+
         # Extract the zip file
         Expand-Archive -Path $zipPath -DestinationPath $BIN_DIR -Force
-        
+
         # Clean up
         Remove-Item $zipPath -Force
     }
     catch {
         Die "Failed to download or extract CLI: $_"
     }
-    
-    Write-ColorMessage -Color $GREEN -Message "Aptos CLI installed successfully!"
+
+    Write-ColorMessage -Color $GREEN -Message "Libra2 CLI installed successfully!"
 }
 
 # Main installation process
@@ -139,28 +139,28 @@ function Main {
             }
         }
     }
-    
+
     # Get version if not specified
     if (-not $VERSION) {
         $VERSION = Get-LatestVersion
     }
-    
+
     # Get target platform
     $target = Get-Target
-    
+
     # Check if CLI is already installed
     $cliPath = Join-Path $BIN_DIR $SCRIPT
     if ((Test-Path $cliPath) -and (-not $FORCE)) {
         $currentVersion = (& $cliPath --version | Select-String -Pattern '\d+\.\d+\.\d+').Matches.Value
         if ($currentVersion -eq $VERSION) {
-            Write-ColorMessage -Color $YELLOW -Message "Aptos CLI version $VERSION is already installed."
+            Write-ColorMessage -Color $YELLOW -Message "Libra2 CLI version $VERSION is already installed."
             return
         }
     }
-    
+
     # Install the CLI
     Install-CLI -Version $VERSION -Target $target
-    
+
     # Add to PATH if not already there
     $currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
     if (-not $currentPath.Contains($BIN_DIR)) {
@@ -168,11 +168,11 @@ function Main {
         [Environment]::SetEnvironmentVariable('Path', "$currentPath;$BIN_DIR", 'User')
         Write-ColorMessage -Color $GREEN -Message "Please restart your terminal to update your PATH."
     }
-    
+
     # Test the installation
     Write-ColorMessage -Color $CYAN -Message "Testing the installation..."
     if (& $cliPath --version) {
-        Write-ColorMessage -Color $GREEN -Message "Aptos CLI is working correctly!"
+        Write-ColorMessage -Color $GREEN -Message "Libra2 CLI is working correctly!"
     }
     else {
         Write-ColorMessage -Color $RED -Message "There was a problem with the installation."
@@ -181,4 +181,4 @@ function Main {
 }
 
 # Run the main function
-Main $args 
+Main $args

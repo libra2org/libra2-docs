@@ -1,13 +1,13 @@
 ---
 hide_table_of_contents: true
 toc: false
-title: "Aptos Networks"
+title: "Libra Networks"
 ---
 
 ## Network Overview
 
 1. [Localnet](http://127.0.0.1:8080) -- our standalone tool for local development against a known version of the codebase with no external network.
-2. [Devnet](https://api.devnet.aptoslabs.com/v1/spec#/) -- a shared resource for the community, data resets weekly, weekly update from aptos-core main branch.
+2. [Devnet](https://api.devnet.aptoslabs.com/v1/spec#/) -- a shared resource for the community, data resets weekly, weekly update from libra2-core main branch.
 3. [Testnet](https://api.testnet.aptoslabs.com/v1/spec#/) -- a shared resource for the community, data will be preserved, network configuration will mimic Mainnet.
 4. [Mainnet](https://api.mainnet.aptoslabs.com/v1/spec#/) -- a production network with real assets.
 
@@ -17,13 +17,13 @@ title: "Aptos Networks"
 
 | Network Name | Chain ID                                                                                              | Genesis & Waypoint                                                       | Faucet                                                                | Epoch Duration | Network Provider                                    | Release Cadence | Wipe Cadence |
 | ------------ | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------- | --------------------------------------------------- | --------------- | ------------ |
-| Mainnet      | 1                                                                                                     | [Files Here](https://github.com/aptos-labs/aptos-networks/tree/main/mainnet) | N/A                                                                   | 2 hours        | Fully Decentralized                                 | Monthly, varies | Never        |
-| Testnet      | 2                                                                                                     | [Files Here](https://github.com/aptos-labs/aptos-networks/tree/main/testnet) | No programmatic access, you must use the [mint page](/network/faucet) | 2 hours        | Managed by Aptos Labs on behalf of Aptos Foundation | Monthly, varies | Never        |
-| Devnet       | [On Aptos Explorer **select Devnet from top right**](https://explorer.aptoslabs.com/?network=Devnet). | [Files Here](https://github.com/aptos-labs/aptos-networks/tree/main/devnet)  | Accessible programmatically via the API                               | 2 hours        | Managed by Aptos Labs on behalf of Aptos Foundation | Weekly          | On update    |
+| Mainnet      | 1                                                                                                     | [Files Here](https://github.com/libra2org/aptos-networks/tree/main/mainnet) | N/A                                                                   | 2 hours        | Fully Decentralized                                 | Monthly, varies | Never        |
+| Testnet      | 2                                                                                                     | [Files Here](https://github.com/libra2org/aptos-networks/tree/main/testnet) | No programmatic access, you must use the [mint page](/network/faucet) | 2 hours        | Managed by Libra Labs on behalf of Libra Foundation | Monthly, varies | Never        |
+| Devnet       | [On Libra Explorer **select Devnet from top right**](https://explorer.aptoslabs.com/?network=Devnet). | [Files Here](https://github.com/libra2org/aptos-networks/tree/main/devnet)  | Accessible programmatically via the API                               | 2 hours        | Managed by Libra Labs on behalf of Libra Foundation | Weekly          | On update    |
 
 ### Network URLs
 
-The below URLs are provided by Aptos Labs.
+The below URLs are provided by Libra Labs.
 
 | Network Name | REST API                                         | REST API Spec                                                | Indexer GraphQL API                                         | Indexer GraphQL API Spec                                                                                          | Indexer GRPC                               | Faucet                                         | Current Token Supply API                                |
 | ------------ | ------------------------------------------------ | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------- | ------------------------------------------------------- |
@@ -33,5 +33,5 @@ The below URLs are provided by Aptos Labs.
 
 <details>
   <summary>Token Supply API Update</summary>
-  On December 12, 2024, the Aptos Foundation updated its current token supply API. This updated version of the API more accurately reflects the current circulating supply of mainnet by updating the circulating supply number as of the beginning of the current monthly period. The previous version of the API reported the circulating supply as of the prior monthly period. There have been no changes to the network’s circulating supply schedule and the network’s circulating supply remains consistent with the original tokenomics as published [here](https://aptosfoundation.org/currents/aptos-tokenomics-overview).
+  On December 12, 2024, the Libra Foundation updated its current token supply API. This updated version of the API more accurately reflects the current circulating supply of mainnet by updating the circulating supply number as of the beginning of the current monthly period. The previous version of the API reported the circulating supply as of the prior monthly period. There have been no changes to the network’s circulating supply schedule and the network’s circulating supply remains consistent with the original tokenomics as published [here](https://aptosfoundation.org/currents/aptos-tokenomics-overview).
 </details>

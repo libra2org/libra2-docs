@@ -18,7 +18,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
          sender: sender.accountAddress,
          withFeePayer: true,
          data: {
-             // Aptos 上的所有交易都是通过智能合约实现的
+             // Libra 上的所有交易都是通过智能合约实现的
              function: "0x1::aptos_account::transfer",
              functionArguments: [destination.accountAddress, 100],
          },
@@ -94,22 +94,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
 ```typescript filename="sponsor.ts"
 /**
- * 此示例展示如何使用 Aptos SDK 发送由赞助者支付的交易。
+ * 此示例展示如何使用 Libra SDK 发送由赞助者支付的交易。
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("本示例将展示 Alice 通过赞助者向 Carol 发送交易的过程。");
 
     // 0. 初始化客户端和测试账户
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -141,7 +141,7 @@ async function example() {
         sender: alice.accountAddress,
         withFeePayer: true,
         data: {
-            // Aptos 上的所有交易都是通过智能合约实现的
+            // Libra 上的所有交易都是通过智能合约实现的
             function: "0x1::aptos_account::transfer",
             functionArguments: [carol.accountAddress, 100],
         },

@@ -27,7 +27,7 @@ val txn = aptos.buildTransaction.simple(
       data =
         entryFunctionData {
           function = "0x1::coin::transfer"
-          typeArguments = typeArguments { +TypeTagStruct("0x1::aptos_coin::AptosCoin") }
+          typeArguments = typeArguments { +TypeTagStruct("0x1::aptos_coin::LibraCoin") }
           functionArguments = functionArguments {
             +bob.accountAddress
             +U64(SEND_AMOUNT_UNITS.toULong())

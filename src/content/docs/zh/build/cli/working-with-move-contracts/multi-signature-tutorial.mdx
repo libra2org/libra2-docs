@@ -8,13 +8,13 @@ import { Aside } from '@astrojs/starlight/components';
 
 这部分内容是以[JSON 中的参数教程](/zh/build/cli/working-with-move-contracts/arguments-in-json-tutorial)为基础展开的.如果你尚未完成那个教程,请先行阅读并实践它.
 
-此外,这个教程也会用到 [`CliArgs` 示例包](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args).
+此外,这个教程也会用到 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args).
 
 <Aside type="note" emoji="ℹ️">
   如果你准备学习这一部分,那么请确保你已经按照[JSON 中的参数教程](/zh/build/cli/working-with-move-contracts/arguments-in-json-tutorial)的步骤进行了学习.
 </Aside>
 
-在本例中,Ace 和 Bee 将通过一个 2-of-2 形式的“多签版本 2 (multisig v2)”账户来执行治理操作.所谓 “2-of-2”,意味着需要至少两个账户的签名才能完成操作,这一账户类型是按照 [`multisig_account.move`](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move) 文件中定义的.
+在本例中,Ace 和 Bee 将通过一个 2-of-2 形式的“多签版本 2 (multisig v2)”账户来执行治理操作.所谓 “2-of-2”,意味着需要至少两个账户的签名才能完成操作,这一账户类型是按照 [`multisig_account.move`](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/multisig_account.move) 文件中定义的.
 
 ## 创建账户
 
@@ -108,7 +108,7 @@ multisig_addr=0x57478da34604655c68b1dcb89e4f4a9124b6c0ecc1c59a0931d58cc4e60ac5c5
 
 ## 检查多重签名账户
 
-利用 [`multisig_account.move` view 函数](https://github.com/aptos-labs/aptos-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237)来详细了解这个多重签名账户的情况:
+利用 [`multisig_account.move` view 函数](https://github.com/libra2org/libra2-core/blob/9fa0102c3e474d99ea35a0a85c6893604be41611/aptos-move/framework/aptos-framework/sources/multisig_account.move#L237)来详细了解这个多重签名账户的情况:
 
 ```shellscript filename="需要提供的签名数"
 aptos move view \
@@ -191,7 +191,7 @@ aptos move view \
 
 ## 提交一个发布交易的队列(enqueued)
 
-第一个排队的多签交易将是一个为了发布 [`CliArgs` 示例包](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args) 的交易.
+第一个排队的多签交易将是一个为了发布 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args) 的交易.
 
 首先创建一个包含发布信息的 JSON 文件:
 
@@ -579,13 +579,13 @@ aptos multisig execute-with-payload \
 ```
 
 <Aside type="note" emoji="ℹ️">
-  由于[#8304](https://github.com/aptos-labs/aptos-core/issues/8304)问题尚未解决,导致用于估算 Gas 费用的交易模拟器(transaction simulator)目前无法使用,所以执行交易时你需要手动设置一个最大的 Gas 使用量.
+  由于[#8304](https://github.com/libra2org/libra2-core/issues/8304)问题尚未解决,导致用于估算 Gas 费用的交易模拟器(transaction simulator)目前无法使用,所以执行交易时你需要手动设置一个最大的 Gas 使用量.
 </Aside>
 
 <details>
   <summary>Output</summary>
 
-  此外,受同一问题[#8304](https://github.com/aptos-labs/aptos-core/issues/8304)影响,使用命令行界面(CLI)成功执行多签的包发布交易后,如果链上只有哈希值而没有详细信息,则会显示一个 API 错误,不过你可以用区块链浏览器来手动检查交易情况.
+  此外,受同一问题[#8304](https://github.com/libra2org/libra2-core/issues/8304)影响,使用命令行界面(CLI)成功执行多签的包发布交易后,如果链上只有哈希值而没有详细信息,则会显示一个 API 错误,不过你可以用区块链浏览器来手动检查交易情况.
 </details>
 
 ## 执行治理参数的交易

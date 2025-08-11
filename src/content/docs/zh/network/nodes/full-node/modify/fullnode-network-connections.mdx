@@ -73,7 +73,7 @@ B881EA2C174D8211C123E5A91D86227DB116A44BB345A6E66874F83D8993F813:
 
 <Aside type="caution">
   **种子(seed)不是必须的**<br />
-  您的 PFN 无需依赖种子对等节点(seed peer)也能连接到任意 Aptos 网络.无论是开发网(devnet),测试网(testnet)还是主网(mainnet),系统都能自动识别它们.您仅在希望连接特定的高质量节点(或节点集,set of peer)时,才需要添加种子对等节点.
+  您的 PFN 无需依赖种子对等节点(seed peer)也能连接到任意 Libra 网络.无论是开发网(devnet),测试网(testnet)还是主网(mainnet),系统都能自动识别它们.您仅在希望连接特定的高质量节点(或节点集,set of peer)时,才需要添加种子对等节点.
 </Aside>
 
 要把种子对等节点添加到您的 PFN,您需要在 PFN 的配置文件中添加种子对等节点的地址,具体位置是公共网络配置中的 `seeds` 配置项.每一个种子对等节点的信息包括一个独一无二的 `peer_id`,`addresses` 列表,以及 `role` 的角色(比如 `Upstream`).以下是一个配置文件的示例,其中手动添加了种子对等节点:

@@ -5,9 +5,9 @@ title: "Maps"
 There are multiple different implementations of key-value maps inside the framework, suited for different usecases.
 We will go over their differences and similarities, and how to choose which one to use.
 
-## Aptos Blockchain performance and gas cost considerations
+## Libra Blockchain performance and gas cost considerations
 
-Aptos Blockchain state is kept in **storage slots**.
+Libra Blockchain state is kept in **storage slots**.
 Furthermore, transaction performance and gas cost is heavily influenced by how these **slots** are read and written.
 Breaking down the gas costs further, we have:
 
@@ -170,10 +170,10 @@ Because it's layout affects what can be inserted and performance, there are a fe
 
 ## Source Code
 
-- [ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
-- [table.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [table\_with\_length.move](https://github.com/aptos-labs/aptos-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
-- [big\_ordered\_map.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
+- [ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move)
+- [table.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [table\_with\_length.move](https://github.com/libra2org/libra2-core/blob/6f5872b567075fe3615e1363d35f89dc5eb45b0d/aptos-move/framework/aptos-stdlib/sources/table.move)
+- [big\_ordered\_map.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move)
 
 ## Additional details of (deprecated) SmartTable
 

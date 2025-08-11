@@ -4,7 +4,7 @@ title: "Bootstrap from a Snapshot"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This document describes how to bootstrap an Aptos node quickly using a snapshot. This can be done on all node types,
+This document describes how to bootstrap an Libra node quickly using a snapshot. This can be done on all node types,
 including validators, VFNs and PFNs.
 
 <Aside type="caution">
@@ -21,7 +21,7 @@ existing snapshot, which is simply a copy of the storage data of an existing nod
 <Aside type="caution">
   **Mainnet snapshots**<br />
   It is not recommended to use snapshots for bootstrapping nodes in **mainnet**. This is because snapshots
-  are not verified by the Aptos software. As a result, the snapshot may be invalid or contain incorrect data. To prevent
+  are not verified by the Libra software. As a result, the snapshot may be invalid or contain incorrect data. To prevent
   security concerns, we recommend using snapshots only in test environments, e.g., **devnet** and **testnet**.
 
   If you must bootstrap a node using a **mainnet** snapshot, you should either generate the snapshot yourself
@@ -31,15 +31,15 @@ existing snapshot, which is simply a copy of the storage data of an existing nod
 
 ## Find an existing snapshot
 
-There are a number of snapshots that can be downloaded from different Aptos community members. These include:
+There are a number of snapshots that can be downloaded from different Libra community members. These include:
 
-- BWareLabs (Testnet and Mainnet): [BWareLabs Aptos Node Snapshots](https://bwarelabs.com/snapshots/aptos)
+- BWareLabs (Testnet and Mainnet): [BWareLabs Libra Node Snapshots](https://bwarelabs.com/snapshots/aptos)
 
 <Aside type="note">
   **Questions about snapshot data** <br />
   Depending on how the snapshot is constructed and compressed, the snapshot files may be different sizes. If you have any
-  questions about the snapshot data, or run into any issues, please reach out to the Aptos community members directly
-  via the [#node-support](https://discord.com/channels/945856774056083548/953421979136962560) channel in [Aptos Discord](https://discord.gg/aptosnetwork).
+  questions about the snapshot data, or run into any issues, please reach out to the Libra community members directly
+  via the [#node-support](https://discord.com/channels/945856774056083548/953421979136962560) channel in [Libra Discord](https://discord.gg/aptosnetwork).
 </Aside>
 
 ## Use a snapshot

@@ -1,0 +1,35 @@
+---
+title: "Swift SDK"
+---
+
+import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+**LibraKit** is a Swift SDK for interacting with the Libra blockchain.
+It provides a simple and easy-to-use interface for interacting with the Libra
+blockchain.
+
+The SDK is a Swift package export for [Kaptos](/build/sdks/community-sdks/kotlin-sdk), a Kotlin SDK for
+the Libra blockchain. It is build by making its iOS binary available as a
+dependency to iOS developers working on native Swift projects.
+
+<Aside type="note">
+  **LibraKit** is currently under development, please give feedback [here](https://github.com/mcxross/swift-aptos/issues)
+</Aside>
+
+## Installation
+
+To install **LibraKit**, add the following to your `Package.swift` file:
+
+```swift filename="Package.swift"
+dependencies: [
+    .package(url: "https://github.com/mcxross/swift-aptos.git", .upToNextMajor(from: <version>))
+]
+```
+
+## Example
+
+<CardGrid>
+  <LinkCard href="/build/sdks/community-sdks/kotlin-sdk/for-ios-devs/getting-started" title="Quickstart" description="Integrate Libra in < 5 minutes" />
+
+  <LinkCard href="https://github.com/mcxross/swift-aptos/tree/main/iOSDemo/iOSDemo" title="iOS Demo" description="Sample iOS app using LibraKit" target="_blank" />
+</CardGrid>

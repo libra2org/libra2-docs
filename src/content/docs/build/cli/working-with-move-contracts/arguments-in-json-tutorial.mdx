@@ -6,7 +6,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## Package info
 
-This section references the [`CliArgs` example package](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args), which contains the following manifest:
+This section references the [`CliArgs` example package](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args), which contains the following manifest:
 
 ```toml filename="move.toml"
 [package]
@@ -18,16 +18,16 @@ upgrade_policy = "compatible"
 test_account = "_"
 
 [dependencies]
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
+LibraFramework = { git = "https://github.com/libra2org/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
 ```
 
 Here, the package is deployed under the named address `test_account`.
 
 <Aside type="note" emoji="ℹ️">
-  Set your working directory to [`aptos-move/move-examples/cli_args`](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args) to follow along:
+  Set your working directory to [`aptos-move/move-examples/cli_args`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args) to follow along:
 
   ```shellscript filename="Terminal"
-  cd <aptos-core-parent-directory>/aptos-core/aptos-move/move-examples/cli_args
+  cd <libra2-core-parent-directory>/libra2-core/aptos-move/move-examples/cli_args
   ```
 </Aside>
 

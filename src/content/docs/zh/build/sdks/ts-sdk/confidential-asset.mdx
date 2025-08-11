@@ -4,7 +4,7 @@ title: "机密资产(CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-你可以使用`Aptos`客户端的`confidentialCoin`属性来与`CA`进行交互
+你可以使用`Libra`客户端的`confidentialCoin`属性来与`CA`进行交互
 
 ### 初始化
 
@@ -20,16 +20,16 @@ import initWasm, {
   batch_verify_proof as batchVerifyProof,
   range_proof as rangeProof,
   verify_proof as verifyProof,
-} from '@aptos-labs/confidential-asset-wasm-bindings/range-proofs'
+} from '@libra2-core/confidential-asset-wasm-bindings/range-proofs'
 import {
   BatchRangeProofInputs,
   BatchVerifyRangeProofInputs,
   RangeProofInputs,
   VerifyRangeProofInputs,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 
 const RANGE_PROOF_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
 
 export async function genBatchRangeZKP(
   opts: BatchRangeProofInputs,
@@ -68,7 +68,7 @@ export async function verifyBatchRangeZKP(
 然后,只需将其放在应用的最顶部:
 
 ```typescript
-import { RangeProofExecutor } from '@aptos-labs/ts-sdk'
+import { RangeProofExecutor } from '@libra2-core/ts-sdk'
 
 RangeProofExecutor.setGenBatchRangeZKP(genBatchRangeZKP);
 RangeProofExecutor.setVerifyBatchRangeZKP(verifyBatchRangeZKP);
@@ -78,7 +78,7 @@ RangeProofExecutor.setVerifyRangeZKP(verifyRangeZKP);
 
 对于原生应用:
 
-从[这里](https://github.com/aptos-labs/confidential-asset-wasm-bindings)生成`android`和`ios`绑定,并按需集成到你的应用中.
+从[这里](https://github.com/libra2org/confidential-asset-wasm-bindings)生成`android`和`ios`绑定,并按需集成到你的应用中.
 
 最后但同样重要的是:
 
@@ -89,23 +89,23 @@ CA实现了Pollard's Kangaroo方法来解决Ristretto曲线上的DLP.
 因此我们还需要初始化解密函数:
 
 ```typescript
-// Copyright © Aptos Foundation
+// Copyright © Libra Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
   create_kangaroo,
   WASMKangaroo,
-} from '@aptos-labs/confidential-asset-wasm-bindings/pollard-kangaroo'
+} from '@libra2-core/confidential-asset-wasm-bindings/pollard-kangaroo'
 import {
   ConfidentialAmount,
   TwistedEd25519PrivateKey,
   TwistedElGamal,
   TwistedElGamalCiphertext,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 import { bytesToNumberLE } from '@noble/curves/abstract/utils'
 
 const POLLARD_KANGAROO_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
 
 export async function createKangaroo(secret_size: number) {
   await initWasm({ module_or_path: POLLARD_KANGAROO_WASM_URL })
@@ -148,16 +148,16 @@ const init = async () => {
 }
 ```
 
-对于原生应用,你可以[在此](https://github.com/aptos-labs/confidential-asset-wasm-bindings)生成`android`和`ios`绑定来代替WASM使用.
+对于原生应用,你可以[在此](https://github.com/libra2org/confidential-asset-wasm-bindings)生成`android`和`ios`绑定来代替WASM使用.
 
 ***
 
-现在我们准备就绪.让我们定义Aptos客户端:
+现在我们准备就绪.让我们定义Libra客户端:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new AptosConfig({ network: APTOS_NETWORK });
-export const aptos = new Aptos(config);
+const config = new LibraConfig({ network: APTOS_NETWORK });
+export const aptos = new Libra(config);
 ```
 
 ### 创建解密密钥(DK)
@@ -186,7 +186,7 @@ const signature = user.sign(TwistedEd25519PrivateKey.decryptionKeyDerivationMess
 const dk = TwistedEd25519PrivateKey.fromSignature(signature);
 ```
 
-或者使用[无密钥账户](/zh/build/guides/aptos-keyless)中的[pepper](/zh/build/guides/aptos-keyless/how-keyless-works)
+或者使用[无密钥账户](/zh/build/guides/libra2-keyless)中的[pepper](/zh/build/guides/libra2-keyless/how-keyless-works)
 
 ### 注册
 

@@ -85,7 +85,7 @@ specified_address = "0xB0B"
 # 本地依赖
 LocalDep = { local = "projects/move-awesomeness", addr_subst = { "std" = "0x1" } }
 # Git依赖
-MoveStdlib = { git = "https://github.com/aptos-labs/aptos-framework", subdir="move-stdlib", rev = "mainnet" }
+MoveStdlib = { git = "https://github.com/libra2org/aptos-framework", subdir="move-stdlib", rev = "mainnet" }
 
 [dev-addresses] # 用于开发时使用
 address_to_be_filled_in = "0x101010101"
@@ -316,7 +316,7 @@ Foo = { local = "../C" }
 
 ## 覆盖标准库
 
-在使用第三方包时,可能会遇到引用了不同版本的 Move 和 Aptos 标准库包的问题.
+在使用第三方包时,可能会遇到引用了不同版本的 Move 和 Libra 标准库包的问题.
 
 这可能导致包解析失败.
 
@@ -325,9 +325,9 @@ Foo = { local = "../C" }
   无法解析包 'C' 的依赖:
     在解析包 'C' 的依赖 'B' 时:
       无法解析包依赖 'B':
-        在解析包 'B' 的依赖 'AptosFramework' 时:
-          无法解析包依赖 'AptosFramework':
-            发现冲突依赖: 包 'AptosFramework' 与 'AptosFramework' 冲突
+        在解析包 'B' 的依赖 'LibraFramework' 时:
+          无法解析包依赖 'LibraFramework':
+            发现冲突依赖: 包 'LibraFramework' 与 'LibraFramework' 冲突
 ```
 
 要解决此问题,您可以通过命令行选项覆盖标准库包.这允许您在整个依赖关系树中强制执行特定版本的标准库.您可以将覆盖应用于诸如 `aptos move compile`,`aptos move run` 等命令.语法如下:

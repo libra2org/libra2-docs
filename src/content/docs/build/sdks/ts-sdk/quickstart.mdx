@@ -60,37 +60,37 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
   3. Install the TypeScript SDK using the package manager of your choice:
 
      ```shellscript npm2yarn
-     npm i @aptos-labs/ts-sdk
+     npm i @libra2-core/ts-sdk
      ```
 
-  4. Set up the Aptos client
+  4. Set up the Libra client
 
-     You can use the `Aptos` object to handle everything that requires a connection to the Aptos network. A connection is established as soon as you create the object.
+     You can use the `Libra` object to handle everything that requires a connection to the Libra network. A connection is established as soon as you create the object.
 
      ```typescript filename="quickstart.ts"
-     import { Account, Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+     import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-     // Specify which network to connect to via AptosConfig
+     // Specify which network to connect to via LibraConfig
      async function example() {
        console.log(
          "This example will create two accounts (Alice and Bob), fund them, and transfer between them.",
        );
 
        // Setup the client
-       const config = new AptosConfig({ network: Network.DEVNET });
-       const aptos = new Aptos(config);
+       const config = new LibraConfig({ network: Network.DEVNET });
+       const aptos = new Libra(config);
      }
 
      example()
      ```
 
      <Aside type="note">
-       (Advanced) If you need to connect to a specific node, you can set that in the `AptosConfig` by specifying the `fullnode` url. Ex. `fullnode: http://localhost:8080/v1`.
+       (Advanced) If you need to connect to a specific node, you can set that in the `LibraConfig` by specifying the `fullnode` url. Ex. `fullnode: http://localhost:8080/v1`.
      </Aside>
 
   5. Fetch data from on-chain
 
-     You can use the `Aptos` client to fetch all sorts of data from on-chain such as information about the network itself or account-specific information.
+     You can use the `Libra` client to fetch all sorts of data from on-chain such as information about the network itself or account-specific information.
 
      ```typescript filename="quickstart.ts"
      ...
@@ -137,7 +137,7 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
      You can build transactions with `aptos.transaction.build.simple({...})` by specifying:
 
      1. `sender` - The account that’s sending the transaction. This account will pay the gas fees.
-     2. `data` - The information needed for Aptos to identify what transaction to execute.
+     2. `data` - The information needed for Libra to identify what transaction to execute.
         1. `function` - Which smart contract on chain to call. This has the format `<account_address>::<move_module>::<function>`.
         2. `functionArguments` - These are specific to the function being called. You can look up what parameters a function needs by searching for the account and module on chain with an explorer [like this](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000001/modules/code/aptos_account?network=mainnet).
 
@@ -217,12 +217,12 @@ import { Aside, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ```typescript filename="quickstart.ts"
 /**
- * This example shows how to use the Aptos client to create accounts, fund them, and transfer between them.
+ * This example shows how to use the Libra client to create accounts, fund them, and transfer between them.
  */
 
-import { Account, Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
-const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
+const APTOS_COIN = "0x1::aptos_coin::LibraCoin";
 const COIN_STORE = `0x1::coin::CoinStore<${APTOS_COIN}>`;
 const ALICE_INITIAL_BALANCE = 100_000_000;
 const BOB_INITIAL_BALANCE = 100;
@@ -234,8 +234,8 @@ async function example() {
   );
 
   // Setup the client
-  const config = new AptosConfig({ network: Network.DEVNET });
-  const aptos = new Aptos(config);
+  const config = new LibraConfig({ network: Network.DEVNET });
+  const aptos = new Libra(config);
 
   // Generate two account credentials
   // Each account has a private key, a public key, and an address
@@ -280,7 +280,7 @@ async function example() {
   const txn = await aptos.transaction.build.simple({
     sender: alice.accountAddress,
     data: {
-      // All transactions on Aptos are implemented via smart contracts.
+      // All transactions on Libra are implemented via smart contracts.
       function: "0x1::aptos_account::transfer",
       functionArguments: [bob.accountAddress, 100],
     },
@@ -292,7 +292,7 @@ async function example() {
     signer: alice,
     transaction: txn,
   });
-  // Waits for Aptos to verify and execute the transaction
+  // Waits for Libra to verify and execute the transaction
   const executedTransaction = await aptos.waitForTransaction({
     transactionHash: committedTxn.hash,
   });
@@ -329,16 +329,16 @@ example();
 
 All told, you just learned how to transfer APT via a transaction by:
 
-1. Connecting to the network using the `Aptos` client.
+1. Connecting to the network using the `Libra` client.
 2. Creating an account.
-3. Looking up data from on-chain using client helper functions like [`aptos.getAccountModules`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html#getAccountModules).
+3. Looking up data from on-chain using client helper functions like [`aptos.getAccountModules`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#getAccountModules).
 4. Signing and submitting a transaction to the network.
-5. Waiting for Aptos to execute the transaction.
+5. Waiting for Libra to execute the transaction.
 
 To see all this in action, you can copy and run the full working code snippet for this quickstart above.
 
 <Aside type="note">
-  For future development, make sure to bookmark the [reference docs](https://aptos-labs.github.io/aptos-ts-sdk/) to look up specific function signatures.
+  For future development, make sure to bookmark the [reference docs](https://libra2-core.github.io/aptos-ts-sdk/) to look up specific function signatures.
 
-  Note that most helper functions are listed on the [`Aptos` client object](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html).
+  Note that most helper functions are listed on the [`Libra` client object](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
 </Aside>

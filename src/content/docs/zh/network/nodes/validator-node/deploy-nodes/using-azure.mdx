@@ -4,11 +4,11 @@ title: "使用 Azure"
 
 import { Aside } from '@astrojs/starlight/components';
 
-这是一份分步指南,用于使用 Microsoft Azure 部署 Aptos 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
+这是一份分步指南,用于使用 Microsoft Azure 部署 Libra 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
 
 <Aside type="caution">
   **先决条件** <br />
-  在开始之前,请确保阅读并理解[节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Aptos CLI](/zh/build/cli),
+  在开始之前,请确保阅读并理解[节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Libra CLI](/zh/build/cli),
   [Terraform](https://www.terraform.io/downloads.html),
   [Kubernetes CLI](https://kubernetes.io/docs/tasks/tools/),
   和 [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli). 本指南假设您已经设置了 Azure 账户.
@@ -18,11 +18,11 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note">
   **默认连接到主网**<br />
-  如果您按照本文档中的默认设置操作,那么您的验证器和 VFN 将连接到 Aptos 主网.
-  要连接到不同的 Aptos 网络,例如测试网,请确保您下载了您想要连接的网络的正确创世区块和路标文件.同样,您需要修改 Terraform 文件以使用正确的配置(例如,`source`,`image_tag` 和 `chain_id`).
+  如果您按照本文档中的默认设置操作,那么您的验证器和 VFN 将连接到 Libra 主网.
+  要连接到不同的 Libra 网络,例如测试网,请确保您下载了您想要连接的网络的正确创世区块和路标文件.同样,您需要修改 Terraform 文件以使用正确的配置(例如,`source`,`image_tag` 和 `chain_id`).
 </Aside>
 
-1. 为您的 Aptos 节点创建一个工作目录,并为您的节点选择一个用户名,例如:
+1. 为您的 Libra 节点创建一个工作目录,并为您的节点选择一个用户名,例如:
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -60,8 +60,8 @@ import { Aside } from '@astrojs/starlight/components';
    }
 
    module "aptos-node" {
-     # 从 aptos-core 仓库下载 Terraform 模块。
-     source        = "github.com/aptos-labs/aptos-core.git//terraform/aptos-node/azure"
+     # 从 libra2-core 仓库下载 Terraform 模块。
+     source        = "github.com/libra2org/libra2-core.git//terraform/aptos-node/azure"
      region        = <azure region>  # 指定 Azure 区域
      era           = 1  # 提高时代编号以清除链数据
      chain_id      = 1  # 对于主网使用 1，或对于其他网络使用不同的值。
@@ -72,8 +72,8 @@ import { Aside } from '@astrojs/starlight/components';
 
    有关所有自定义选项,请参见:
 
-   - Terraform 变量 [https://github.com/aptos-labs/aptos-core/blob/main/terraform/aptos-node/azure/variables.tf](https://github.com/aptos-labs/aptos-core/blob/main/terraform/aptos-node/azure/variables.tf)
-   - Helm 值:[https://github.com/aptos-labs/aptos-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/aptos-labs/aptos-core/blob/main/terraform/helm/aptos-node/values.yaml).
+   - Terraform 变量 [https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/azure/variables.tf](https://github.com/libra2org/libra2-core/blob/main/terraform/aptos-node/azure/variables.tf)
+   - Helm 值:[https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml](https://github.com/libra2org/libra2-core/blob/main/terraform/helm/aptos-node/values.yaml).
 
 5. 在您创建了 `main.tf` 文件的 `$WORKSPACE` 目录中初始化 Terraform.
 
@@ -114,7 +114,7 @@ import { Aside } from '@astrojs/starlight/components';
    export FULLNODE_ADDRESS="$(kubectl get svc ${WORKSPACE}-aptos-node-0-fullnode-lb --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
    ```
 
-10. 现在,在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Aptos CLI 来执行此操作:
+10. 现在,在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
     ```shellscript filename="Terminal"
     aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -144,7 +144,7 @@ import { Aside } from '@astrojs/starlight/components';
       --stake-amount 100000000000000
     ```
 
-    配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些将有助于(稍后)将您的节点连接到 Aptos 网络.
+    配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些将有助于(稍后)将您的节点连接到 Libra 网络.
 
 12. 按照 [查找节点文件](/zh/network/nodes/configure/node-files-all-networks) 页面上的说明下载以下文件.
     您需要选择适当的网络(例如,`mainnet`,`testnet`,`devnet`)并下载以下文件:
@@ -180,7 +180,7 @@ import { Aside } from '@astrojs/starlight/components';
       **era 编号和 dangling 卷**<br />
       上面命令中的 `-e1` 后缀代表 era 编号.如果你修改了 `ear` 编号,在创建密钥时务必保证它们相匹配.
 
-      在 Aptos 节点的 Kubernetes 部署过程中,`era` 是一个特定的概念.更换 era 可以轻松地重置你的部署状态,比如清空区块链数据.但是,这个操作可能会留下 dabgling 的持久化数据卷.通过运行 `kubectl get pvc` 来检查是否有 dangling 数据卷,并手动删除它们来降低成本.
+      在 Libra 节点的 Kubernetes 部署过程中,`era` 是一个特定的概念.更换 era 可以轻松地重置你的部署状态,比如清空区块链数据.但是,这个操作可能会留下 dabgling 的持久化数据卷.通过运行 `kubectl get pvc` 来检查是否有 dangling 数据卷,并手动删除它们来降低成本.
     </Aside>
 
 15. 现在,我们应该能够看到所有 pod 都在运行,包括验证器和 VFN.您可以通过执行以下命令来检查这一点:
@@ -197,9 +197,9 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="caution">
   **下一步** <br />
-  您现在已经使用 Azure 完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Aptos 网络.
+  您现在已经使用 Azure 完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Libra 网络.
 </Aside>
 
-## 连接到 Aptos 网络
+## 连接到 Libra 网络
 
 您现在已经使用 Azure 完成了验证器和 VFN 的设置.请继续进行 [连接节点](/zh/network/nodes/validator-node/connect-nodes) 的操作.

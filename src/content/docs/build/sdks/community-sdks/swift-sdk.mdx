@@ -2,7 +2,7 @@
 title: "Swift SDK"
 ---
 
-There is a Swift SDK for Aptos, built by Alcove [here](https://github.com/ALCOVE-LAB/aptos-swift-sdk)
+There is a Swift SDK for Libra, built by Alcove [here](https://github.com/ALCOVE-LAB/aptos-swift-sdk)
 
 ## Installing the Swift SDk
 
@@ -17,13 +17,13 @@ There is a Swift SDK for Aptos, built by Alcove [here](https://github.com/ALCOVE
 You can create a client by importing the aptos-swift-sdk, and createing a `Client`
 
 ```swift
-import Aptos
+import Libra
 
-let client = Aptos(aptosConfig: .devnet)
+let client = Libra(aptosConfig: .devnet)
 
 ```
 
-You can configure the network with the AptosConfig.Network, or use a preexisting AptosConfig.devnet, AptosConfig.testnet, or AptosConfig.mainnet
+You can configure the network with the LibraConfig.Network, or use a preexisting LibraConfig.devnet, LibraConfig.testnet, or LibraConfig.mainnet
 
 ### Creating a private key
 
@@ -66,7 +66,7 @@ On testnet you can mint at the [mint page](/network/faucet).
 
 ### Sending a transaction
 
-You can send a AptosCoin via a transaction
+You can send a LibraCoin via a transaction
 
 ```swift
 let txn: TransactionResponse

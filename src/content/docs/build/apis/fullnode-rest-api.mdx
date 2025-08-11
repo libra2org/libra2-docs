@@ -4,7 +4,7 @@ title: "Fullnode Rest API"
 
 import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-This API - embedded into Fullnodes - provides a simple, low latency, yet low-level way of reading state and submitting transactions to the Aptos Blockchain. It also supports transaction simulation.
+This API - embedded into Fullnodes - provides a simple, low latency, yet low-level way of reading state and submitting transactions to the Libra Blockchain. It also supports transaction simulation.
 For more advanced queries, we recommend using the [Indexer GraphQL API](/build/indexer).
 
 ## Fullnode REST API Explorer
@@ -19,12 +19,12 @@ For more advanced queries, we recommend using the [Indexer GraphQL API](/build/i
 
 ## Understanding rate limits
 
-As with the [Aptos Indexer](/build/indexer/indexer-api), the Aptos REST API has rate limits based on compute units. You can learn more about how the ratelimiting works by reading the [Aptos Build docs](https://build.aptoslabs.com/docs/start/billing).
+As with the [Libra Indexer](/build/indexer/indexer-api), the Libra REST API has rate limits based on compute units. You can learn more about how the ratelimiting works by reading the [Libra Build docs](https://build.aptoslabs.com/docs/start/billing).
 
 ## Viewing current and historical state
 
-Most integrations into the Aptos blockchain benefit from a holistic and comprehensive overview of the current and
-historical state of the blockchain. Aptos provides historical transactions, state, and events, all the result of
+Most integrations into the Libra blockchain benefit from a holistic and comprehensive overview of the current and
+historical state of the blockchain. Libra provides historical transactions, state, and events, all the result of
 transaction execution.
 
 - Historical transactions specify the execution status, output, and tie to related events. Each transaction has a unique
@@ -48,8 +48,8 @@ The storage service on a node employs two forms of pruning that erase data from 
 
 While either of these may be disabled, storing the state versions is not particularly sustainable.
 
-Events and transactions pruning can be disabled via setting the [`enable_ledger_pruner`](https://github.com/aptos-labs/aptos-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
-to `false` in `storage_config.rs`. This is default behavior in Mainnet. In the near future, Aptos will provide indexers
+Events and transactions pruning can be disabled via setting the [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
+to `false` in `storage_config.rs`. This is default behavior in Mainnet. In the near future, Libra will provide indexers
 that mitigate the need to directly query from a node.
 
 The REST API offers querying transactions and events in these ways:
@@ -60,16 +60,16 @@ The REST API offers querying transactions and events in these ways:
 
 ## Reading state with the View function
 
-View functions do not modify blockchain state when called from the API. A [View function](https://github.com/aptos-labs/aptos-core/blob/main/api/src/view_function.rs)
-and its [input](https://github.com/aptos-labs/aptos-core/blob/main/api/types/src/view.rs) can be used to read
+View functions do not modify blockchain state when called from the API. A [View function](https://github.com/libra2org/libra2-core/blob/main/api/src/view_function.rs)
+and its [input](https://github.com/libra2org/libra2-core/blob/main/api/types/src/view.rs) can be used to read
 potentially complex on-chain state using Move. For example, you can evaluate who has the highest bid in an auction
 contract. Here are related files:
 
-- [`view_function.rs`](https://github.com/aptos-labs/aptos-core/blob/main/api/src/tests/view_function.rs) for an example
-- related [Move](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) code
-- [specification](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
+- [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) for an example
+- related [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) code
+- [specification](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
 
-The view function operates like the Aptos simulation API,
+The view function operates like the Libra simulation API,
 though with no side effects and an accessible output path. View functions can be called via the `/view` endpoint. Calls
 to view functions require the module and function names along with input type parameters and values.
 
@@ -78,9 +78,9 @@ state mutation when called from the API. If you want to tag a mutable function a
 so that it cannot be maliciously called during runtime.
 
 In order to use the View functions, you need to [publish the module](/build/cli/working-with-move-contracts)
-through the [Aptos CLI](/build/cli).
+through the [Libra CLI](/build/cli).
 
-In the Aptos CLI, a view function request would look like this:
+In the Libra CLI, a view function request would look like this:
 
 ```shellscript filename="Terminal"
 aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
@@ -94,12 +94,12 @@ aptos move view --function-id devnet::message::get_message --profile devnet --ar
 In the TypeScript SDK, a view function request would look like this:
 
 ```typescript filename="index.ts"
-import { Aptos } from "@aptos-labs/ts-sdk";
+import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Aptos();
+const aptos = new Libra();
 const [balance] = aptos.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::AptosCoin"],
+  typeArguments: ["0x1::aptos_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

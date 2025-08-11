@@ -4,13 +4,13 @@ title: "Obtener Datos via SDK"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Puedes usar el cliente `Aptos` para obtener datos de la cadena usando una variedad de funciones de ayuda. Específicamente, muchas de las funciones listadas en la documentación de referencia [aquí](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html) que comienzan con `get...` recuperarán datos de la cadena.
+Puedes usar el cliente `Libra` para obtener datos de la cadena usando una variedad de funciones de ayuda. Específicamente, muchas de las funciones listadas en la documentación de referencia [aquí](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html) que comienzan con `get...` recuperarán datos de la cadena.
 
 Aquí hay un ejemplo mostrando cómo obtener datos comunes que puedes necesitar en tu aplicación:
 
 ```typescript filename="fetch-data.ts"
-const aptosConfig = new AptosConfig({ network: Network.DEVNET });
-const aptos = new Aptos(aptosConfig);
+const aptosConfig = new LibraConfig({ network: Network.DEVNET });
+const aptos = new Libra(aptosConfig);
 
 const fund = await aptos.getAccountInfo({ accountAddress: "0x123" });
 const modules = await aptos.getAccountModules({ accountAddress: "0x123" });
@@ -21,7 +21,7 @@ const tokens = await aptos.getAccountOwnedTokens({ accountAddress: "0x123" });
   Muchas consultas tienen un parámetro llamado `options` para personalizar los resultados, úsalo para obtener específicamente lo que estás buscando.
 </Aside>
 
-El cliente `Aptos` puede por defecto consultar tanto datos de red desde [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) como la API del [Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada para datos de la API del Indexador, puedes usar `aptos.queryIndexer` así:
+El cliente `Libra` puede por defecto consultar tanto datos de red desde [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) como la API del [Indexador](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql) que contiene datos agregados y enriquecidos. Si quieres usar una consulta personalizada para datos de la API del Indexador, puedes usar `aptos.queryIndexer` así:
 
 ```typescript filename="fetch-data.ts"
   const ledgerInfo = await aptos.queryIndexer({
@@ -46,7 +46,7 @@ type Coin = { coin: { value: string } };
 
 const resource = await aptos.getAccountResource<Coin>({
   accountAddress: testAccount.accountAddress,
-  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>",
+  resourceType: "0x1::coin::CoinStore<0x1::aptos_coin::LibraCoin>",
 });
 
 // Ahora tienes acceso a la propiedad del tipo de respuesta

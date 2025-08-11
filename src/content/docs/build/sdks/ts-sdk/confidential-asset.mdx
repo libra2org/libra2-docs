@@ -4,7 +4,7 @@ title: "Confidential Asset (CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use `confidentialCoin` property of `Aptos` client to interact with `CA`
+You can use `confidentialCoin` property of `Libra` client to interact with `CA`
 
 ### Initialization
 
@@ -20,16 +20,16 @@ import initWasm, {
   batch_verify_proof as batchVerifyProof,
   range_proof as rangeProof,
   verify_proof as verifyProof,
-} from '@aptos-labs/confidential-asset-wasm-bindings/range-proofs'
+} from '@libra2-core/confidential-asset-wasm-bindings/range-proofs'
 import {
   BatchRangeProofInputs,
   BatchVerifyRangeProofInputs,
   RangeProofInputs,
   VerifyRangeProofInputs,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 
 const RANGE_PROOF_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
 
 export async function genBatchRangeZKP(
   opts: BatchRangeProofInputs,
@@ -68,7 +68,7 @@ export async function verifyBatchRangeZKP(
 And then, just place this at the very top of your app:
 
 ```typescript
-import { RangeProofExecutor } from '@aptos-labs/ts-sdk'
+import { RangeProofExecutor } from '@libra2-core/ts-sdk'
 
 RangeProofExecutor.setGenBatchRangeZKP(genBatchRangeZKP);
 RangeProofExecutor.setVerifyBatchRangeZKP(verifyBatchRangeZKP);
@@ -78,7 +78,7 @@ RangeProofExecutor.setVerifyRangeZKP(verifyRangeZKP);
 
 For the native apps:
 
-Generate `android` and `ios` bindings [here](https://github.com/aptos-labs/confidential-asset-wasm-bindings) and integrate in your app as you please.
+Generate `android` and `ios` bindings [here](https://github.com/libra2org/confidential-asset-wasm-bindings) and integrate in your app as you please.
 
 And the last, but not the least important part:
 
@@ -89,23 +89,23 @@ CA implements the Pollard's Kangaroo method for solving DLPs on the Ristretto cu
 So we also need to initialize a decryption function for that:
 
 ```typescript
-// Copyright © Aptos Foundation
+// Copyright © Libra Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
   create_kangaroo,
   WASMKangaroo,
-} from '@aptos-labs/confidential-asset-wasm-bindings/pollard-kangaroo'
+} from '@libra2-core/confidential-asset-wasm-bindings/pollard-kangaroo'
 import {
   ConfidentialAmount,
   TwistedEd25519PrivateKey,
   TwistedElGamal,
   TwistedElGamalCiphertext,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 import { bytesToNumberLE } from '@noble/curves/abstract/utils'
 
 const POLLARD_KANGAROO_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
 
 export async function createKangaroo(secret_size: number) {
   await initWasm({ module_or_path: POLLARD_KANGAROO_WASM_URL })
@@ -148,16 +148,16 @@ const init = async () => {
 }
 ```
 
-For the native apps, you could generate `android` and `ios` bindings [here](https://github.com/aptos-labs/confidential-asset-wasm-bindings) to use instead of WASM.
+For the native apps, you could generate `android` and `ios` bindings [here](https://github.com/libra2org/confidential-asset-wasm-bindings) to use instead of WASM.
 
 ***
 
-Now we are ready to go. Let's define Aptos client:
+Now we are ready to go. Let's define Libra client:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new AptosConfig({ network: APTOS_NETWORK });
-export const aptos = new Aptos(config);
+const config = new LibraConfig({ network: APTOS_NETWORK });
+export const aptos = new Libra(config);
 ```
 
 ### Create Decryption Key (DK)
@@ -186,7 +186,7 @@ const signature = user.sign(TwistedEd25519PrivateKey.decryptionKeyDerivationMess
 const dk = TwistedEd25519PrivateKey.fromSignature(signature);
 ```
 
-Or use [`pepper`](/build/guides/aptos-keyless/how-keyless-works) from [Keyless Account](/build/guides/aptos-keyless)
+Or use [`pepper`](/build/guides/libra2-keyless/how-keyless-works) from [Keyless Account](/build/guides/libra2-keyless)
 
 ### Register
 

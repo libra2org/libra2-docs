@@ -6,7 +6,7 @@ import { Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 
 ## What is Surf
 
-Surf is a TypeScript library built on top of the Aptos TypeScript SDK and the wallet adapter that provides static type safety for your Move contracts by inferring type from contract ABI (Application Binary Interface). It allows you to catch type errors at compile time rather than at runtime. Most existing TypeScript IDEs will automatically provide warnings if you try to access fields that don't exist, or provide wrong input types.
+Surf is a TypeScript library built on top of the Libra TypeScript SDK and the wallet adapter that provides static type safety for your Move contracts by inferring type from contract ABI (Application Binary Interface). It allows you to catch type errors at compile time rather than at runtime. Most existing TypeScript IDEs will automatically provide warnings if you try to access fields that don't exist, or provide wrong input types.
 
 ## Usage
 
@@ -52,29 +52,29 @@ Surf is a TypeScript library built on top of the Aptos TypeScript SDK and the wa
 
   2. Step 2
 
-     With the ABI, you can use Surf as a layer on top of the Aptos TypeScript SDK client `Aptos`, when interacting with Move contracts. For non-contract related operations, the `Aptos` will still need to be used.
+     With the ABI, you can use Surf as a layer on top of the Libra TypeScript SDK client `Libra`, when interacting with Move contracts. For non-contract related operations, the `Libra` will still need to be used.
 
      ```typescript filename="src/utils/aptos.ts"
      import { createSurfClient } from '@thalalabs/surf';
-     import { Aptos, AptosConfig, NETWORK } from "@aptos-labs/ts-sdk";
+     import { Libra, LibraConfig, NETWORK } from "@libra2-core/ts-sdk";
      import { ABI } from "./abi";
 
-     // First, create an Aptos client, make sure the network is the one that contract lives on
-     export const aptos = new Aptos(new AptosConfig({ network: Network.DEVNET }));
-     // Second, create a SurfClient with the Aptos client and the ABI
+     // First, create an Libra client, make sure the network is the one that contract lives on
+     export const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
+     // Second, create a SurfClient with the Libra client and the ABI
      export const surfClient = createSurfClient(aptos).useABI(ABI);
 
      // Use Surf to executes an entry function
      const result = await surfClient.entry.transfer({
        functionArguments: ['0x1', 1],
-       typeArguments: ['0x1::aptos_coin::AptosCoin'],
+       typeArguments: ['0x1::aptos_coin::LibraCoin'],
        account: Account.fromPrivateKey(...),
      });
 
      // Use Surf to query a view function
      const [balance] = await surfClient.view.balance({
        functionArguments: ['0x1'],
-       typeArguments: ['0x1::aptos_coin::AptosCoin'],
+       typeArguments: ['0x1::aptos_coin::LibraCoin'],
      });
      ```
 </Steps>
@@ -83,11 +83,11 @@ Surf is a TypeScript library built on top of the Aptos TypeScript SDK and the wa
 
 - [Surf GitHub](https://github.com/ThalaLabs/surf)
 - [A simple Next.js example demonstrating Surf](https://github.com/ThalaLabs/surf/tree/main/example)
-- [An example of a fungible asset launchpad using Surf](https://github.com/aptos-labs/move-by-examples/tree/main/fungible-asset-launchpad): This example is part of the Solana to Aptos guide on Aptos Learn, you can try it [here](https://fungible-asset-launchpad.vercel.app/) and read the complete tutorial [here](https://learn.aptoslabs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-aptos).
+- [An example of a fungible asset launchpad using Surf](https://github.com/libra2org/move-by-examples/tree/main/fungible-asset-launchpad): This example is part of the Solana to Libra guide on Libra Learn, you can try it [here](https://fungible-asset-launchpad.vercel.app/) and read the complete tutorial [here](https://learn.aptoslabs.com/en/tutorials/aptogotchi-intermediate/fungible-assets?workshop=solana-to-aptos).
 
 ## Credits
 
-Surf is built by [Thala Labs](https://thala.fi/), an Aptos ecosystem project, and maintained together by the Aptos community.
+Surf is built by [Thala Labs](https://thala.fi/), an Libra ecosystem project, and maintained together by the Libra community.
 
 ## Feedback
 

@@ -12,7 +12,7 @@ Below is the step-by-step guide of performing a consensus key rotation with deta
 
 ## New key generation
 
-Using the following [Aptos CLI](/build/cli) command to generate a new consensus identity.
+Using the following [Libra CLI](/build/cli) command to generate a new consensus identity.
 In this example, identity files are saved to directory `/new/key/root`.
 
 ```shellscript filename="Terminal"
@@ -48,7 +48,7 @@ It should load the new key but continue using the old key for consensus.
 
 ## Add new public key on chain
 
-Aptos CLI is needed again, and your operator account is assumed to have been set up as a CLI profile `profile1`.
+Libra CLI is needed again, and your operator account is assumed to have been set up as a CLI profile `profile1`.
 
 Find your pool address (denoted by `$POOL_ADDR`).
 

@@ -24,12 +24,12 @@ export default navDictionary({
   "build.group.indexer": "索引器", // Indexer
   "build.group.cli": "命令行工具", // CLI
   "build.group.aips": "AIP", // AIPs
-  "build.group.createAptosDapp": "创建 Aptos 应用", // Create Aptos DApp
+  "build.group.createLibraDapp": "创建 Libra 应用", // Create Libra DApp
 
   // Smart Contracts & Move Sub-Groups
   "smartContracts.group.moveBook": "Move 语言概念", // Move Language Concepts
   "smartContracts.group.development": "开发", // Development
-  "smartContracts.group.aptosFeatures": "Aptos Move 功能", // Aptos Move Features
+  "smartContracts.group.aptosFeatures": "Libra Move 功能", // Libra Move Features
   "smartContracts.group.tooling": "工具", // Tooling
   "smartContracts.group.reference": "Move 参考", // Move Reference
 

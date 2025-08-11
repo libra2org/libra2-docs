@@ -13,7 +13,7 @@ export class CustomComponentTransformer extends BaseTransformer {
   protected componentNames = [
     "permalinkFetch",
     "IndexerBetaNotice",
-    "AptosFrameworkReference",
+    "Libra2FrameworkReference",
     "MoveReference",
     "DynamicApiReference",
     "fetchApiReference",

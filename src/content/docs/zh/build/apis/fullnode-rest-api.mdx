@@ -1,10 +1,10 @@
 ---
-title: "Aptos 全节点 REST API"
+title: "Libra 全节点 REST API"
 ---
 
 import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-该 API 内置于全节点中,提供了一种简单,低延迟但底层的方式来读取状态和向 Aptos 区块链提交交易.它还支持交易模拟功能.
+该 API 内置于全节点中,提供了一种简单,低延迟但底层的方式来读取状态和向 Libra 区块链提交交易.它还支持交易模拟功能.
 如需进行更高级的查询,我们推荐使用 [索引器 GraphQL API](/zh/build/indexer).
 
 ## 全节点 REST API 浏览器
@@ -19,11 +19,11 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 ## 理解速率限制
 
-与 [Aptos 索引器](/zh/build/indexer/indexer-api) 类似,Aptos REST API 也基于计算单元设有速率限制.您可以通过阅读 [Aptos Build 文档](https://build.aptoslabs.com/docs/start/billing) 了解更多关于速率限制的工作原理.
+与 [Libra 索引器](/zh/build/indexer/indexer-api) 类似,Libra REST API 也基于计算单元设有速率限制.您可以通过阅读 [Libra Build 文档](https://build.aptoslabs.com/docs/start/billing) 了解更多关于速率限制的工作原理.
 
 ## 查看当前和历史状态
 
-大多数与 Aptos 区块链的集成都需要全面了解区块链当前和历史状态.Aptos 提供了历史交易,状态和事件,这些都是交易执行的结果.
+大多数与 Libra 区块链的集成都需要全面了解区块链当前和历史状态.Libra 提供了历史交易,状态和事件,这些都是交易执行的结果.
 
 - 历史交易包含执行状态,输出以及与相关事件的关联.每笔交易都有一个唯一的版本号,用于确定其在区块链账本历史中的全局顺序.
 - 状态表示截至特定版本的所有交易输出.换句话说,状态版本是包含该交易版本之前所有交易的累积结果.
@@ -38,7 +38,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 - 状态数据
 - 事件,交易等其他所有数据虽然可以禁用其中任一功能,但存储状态版本并不是特别可持续的做法.
 
-可以通过在 `storage_config.rs` 中将 [`enable_ledger_pruner`](https://github.com/aptos-labs/aptos-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141) 设置为 `false` 来禁用事件和交易剪枝功能.这在 Mainnet 中是默认行为.在不久的将来,Aptos 将提供索引器来减少直接从节点查询的需求.
+可以通过在 `storage_config.rs` 中将 [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141) 设置为 `false` 来禁用事件和交易剪枝功能.这在 Mainnet 中是默认行为.在不久的将来,Libra 将提供索引器来减少直接从节点查询的需求.
 
 REST API 提供以下方式查询交易和事件:
 
@@ -48,19 +48,19 @@ REST API 提供以下方式查询交易和事件:
 
 ## 使用 View 函数读取状态
 
-通过 API 调用时,View 函数不会修改区块链状态.[View 函数](https://github.com/aptos-labs/aptos-core/blob/main/api/src/view_function.rs) 及其 [输入参数](https://github.com/aptos-labs/aptos-core/blob/main/api/types/src/view.rs) 可用于通过 Move 读取潜在的复杂链上状态.例如,您可以评估拍卖合约中的最高出价者.以下是相关文件:
+通过 API 调用时,View 函数不会修改区块链状态.[View 函数](https://github.com/libra2org/libra2-core/blob/main/api/src/view_function.rs) 及其 [输入参数](https://github.com/libra2org/libra2-core/blob/main/api/types/src/view.rs) 可用于通过 Move 读取潜在的复杂链上状态.例如,您可以评估拍卖合约中的最高出价者.以下是相关文件:
 
-- [`view_function.rs`](https://github.com/aptos-labs/aptos-core/blob/main/api/src/tests/view_function.rs) 示例
-- 相关 [Move](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) 代码
-- [规范说明](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513)
+- [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) 示例
+- 相关 [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) 代码
+- [规范说明](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513)
 
-View 函数的运行方式类似于 Aptos 模拟 API,但没有副作用且具有可访问的输出路径.可以通过 `/view` 端点调用 View 函数.调用 View 函数需要提供模块名,函数名以及输入类型参数和值.
+View 函数的运行方式类似于 Libra 模拟 API,但没有副作用且具有可访问的输出路径.可以通过 `/view` 端点调用 View 函数.调用 View 函数需要提供模块名,函数名以及输入类型参数和值.
 
 函数不必是不可变的才能标记为 `#[view]`,但如果函数是可变的,通过 API 调用时不会导致状态变更.如果要标记可变函数为 `#[view]`,建议将其设为私有,以防止在运行时被恶意调用.
 
-要使用 View 函数,需要通过 [Aptos CLI](/zh/build/cli) [发布模块](/zh/build/cli/working-with-move-contracts).
+要使用 View 函数,需要通过 [Libra CLI](/zh/build/cli) [发布模块](/zh/build/cli/working-with-move-contracts).
 
-在 Aptos CLI 中,View 函数请求示例如下:
+在 Libra CLI 中,View 函数请求示例如下:
 
 ```shellscript filename="终端"
 aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
@@ -74,12 +74,12 @@ aptos move view --function-id devnet::message::get_message --profile devnet --ar
 在 TypeScript SDK 中,View 函数请求示例如下:
 
 ```typescript filename="index.ts"
-import { Aptos } from "@aptos-labs/ts-sdk";
+import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Aptos();
+const aptos = new Libra();
 const [balance] = aptos.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::AptosCoin"],
+  typeArguments: ["0x1::aptos_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

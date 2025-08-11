@@ -59,25 +59,25 @@ export const sidebar = [
         items: [
           "build/guides/multisig-managed-fungible-asset",
           {
-            label: "Aptos Keyless",
+            label: "Libra2 Keyless",
             collapsed: true,
             items: [
-              "build/guides/aptos-keyless",
-              "build/guides/aptos-keyless/introduction",
-              "build/guides/aptos-keyless/how-keyless-works",
-              "build/guides/aptos-keyless/integration-guide",
-              "build/guides/aptos-keyless/simple-example",
-              "build/guides/aptos-keyless/oidc-support",
-              "build/guides/aptos-keyless/other",
+              "build/guides/libra2-keyless",
+              "build/guides/libra2-keyless/introduction",
+              "build/guides/libra2-keyless/how-keyless-works",
+              "build/guides/libra2-keyless/integration-guide",
+              "build/guides/libra2-keyless/simple-example",
+              "build/guides/libra2-keyless/oidc-support",
+              "build/guides/libra2-keyless/other",
               {
                 label: "Federated Keyless",
                 collapsed: true,
                 items: [
-                  "build/guides/aptos-keyless/federated-keyless",
-                  "build/guides/aptos-keyless/federated-keyless/integration-guide",
-                  "build/guides/aptos-keyless/federated-keyless/key-considerations",
-                  "build/guides/aptos-keyless/federated-keyless/simple-example",
-                  "build/guides/aptos-keyless/federated-keyless/other",
+                  "build/guides/libra2-keyless/federated-keyless",
+                  "build/guides/libra2-keyless/federated-keyless/integration-guide",
+                  "build/guides/libra2-keyless/federated-keyless/key-considerations",
+                  "build/guides/libra2-keyless/federated-keyless/simple-example",
+                  "build/guides/libra2-keyless/federated-keyless/other",
                 ],
               },
             ],
@@ -424,9 +424,9 @@ export const sidebar = [
         ],
       },
 
-      // Create Aptos DApp
+      // Create Libra2 DApp
       {
-        label: "Create Aptos DApp",
+        label: "Create Libra2 DApp",
         collapsed: true,
         items: ["build/create-aptos-dapp", "build/create-aptos-dapp/faq"],
       },
@@ -497,9 +497,9 @@ export const sidebar = [
         ],
       },
 
-      // Aptos Features
+      // Libra2 Features
       {
-        label: "Aptos Features",
+        label: "Libra2 Features",
         collapsed: true,
         items: [
           "build/smart-contracts/objects",
@@ -545,11 +545,11 @@ export const sidebar = [
         collapsed: true,
         items: [
           { label: "Framework Reference", link: "move-reference" },
-          { label: "Aptos Framework", link: "move-reference/mainnet/aptos-framework" },
-          { label: "Aptos Standard Library", link: "move-reference/mainnet/aptos-stdlib" },
+          { label: "Libra2 Framework", link: "move-reference/mainnet/aptos-framework" },
+          { label: "Libra2 Standard Library", link: "move-reference/mainnet/aptos-stdlib" },
           { label: "Move Standard Library", link: "move-reference/mainnet/move-stdlib" },
-          { label: "Aptos Token Objects", link: "move-reference/mainnet/aptos-token-objects" },
-          { label: "Aptos Token (Legacy)", link: "move-reference/mainnet/aptos-token" },
+          { label: "Libra2 Token Objects", link: "move-reference/mainnet/aptos-token-objects" },
+          { label: "Libra2 Token (Legacy)", link: "move-reference/mainnet/aptos-token" },
           "build/smart-contracts/error-codes",
         ],
       },
@@ -819,7 +819,7 @@ export const sidebar = [
   group("ai", {
     items: [
       {
-        label: "Aptos MCP",
+        label: "Libra2 MCP",
         link: "build/ai/aptos-mcp",
         badge: { text: "NEW", variant: "tip" },
       },

@@ -1,5 +1,5 @@
 #!/bin/sh
-# This script installs the Aptos CLI.
+# This script installs the Libra2 CLI.
 # It will perform the following steps:
 # - Determine what platform (OS + arch) the script is being invoked from
 # - Download the CLI
@@ -66,12 +66,12 @@ install_required_packages() {
 # Get the latest version from GitHub API
 get_latest_version() {
     if command_exists curl; then
-        curl -s "https://api.github.com/repos/aptos-labs/aptos-core/releases?per_page=100" | \
+        curl -s "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100" | \
         grep -m 1 '"tag_name": "aptos-cli-v' | \
         cut -d'"' -f4 | \
         sed 's/aptos-cli-v//'
     elif command_exists wget; then
-        wget -qO- "https://api.github.com/repos/aptos-labs/aptos-core/releases?per_page=100" | \
+        wget -qO- "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100" | \
         grep -m 1 '"tag_name": "aptos-cli-v' | \
         cut -d'"' -f4 | \
         sed 's/aptos-cli-v//'
@@ -138,19 +138,19 @@ get_target() {
 install_cli() {
     version=$1
     target=$2
-    
-    print_message "$CYAN" "Downloading Aptos CLI version $version for $target..."
-    
+
+    print_message "$CYAN" "Downloading Libra2 CLI version $version for $target..."
+
     # Create bin directory if it doesn't exist
     mkdir -p "$BIN_DIR"
-    
+
     # Download URL
-    url="https://github.com/aptos-labs/aptos-core/releases/download/aptos-cli-v$version/aptos-cli-$version-$target.zip"
-    
+    url="https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v$version/aptos-cli-$version-$target.zip"
+
     # Create temporary directory
     tmp_dir=$(mktemp -d)
     trap 'rm -rf "$tmp_dir"' EXIT
-    
+
     # Download and extract
     if command_exists curl; then
         curl -L "$url" -o "$tmp_dir/aptos-cli.zip"
@@ -159,19 +159,19 @@ install_cli() {
     else
         die "Neither curl nor wget is installed. Please install one of them."
     fi
-    
+
     # Extract the zip file
     if command_exists unzip; then
         unzip -q "$tmp_dir/aptos-cli.zip" -d "$tmp_dir"
     else
         die "unzip is not installed. Please install it."
     fi
-    
+
     # Move the binary to the bin directory
     mv "$tmp_dir/aptos" "$BIN_DIR/"
     chmod +x "$BIN_DIR/aptos"
-    
-    print_message "$GREEN" "Aptos CLI installed successfully!"
+
+    print_message "$GREEN" "Libra2 CLI installed successfully!"
 }
 
 # Main installation process
@@ -207,27 +207,27 @@ main() {
                 ;;
         esac
     done
-    
+
     # Get version if not specified
     if [ -z "$VERSION" ]; then
         VERSION=$(get_latest_version)
     fi
-    
+
     # Get target platform
     target=$(get_target)
-    
+
     # Check if CLI is already installed
     if [ -x "$BIN_DIR/aptos" ] && [ "$FORCE" = false ]; then
         current_version=$("$BIN_DIR/aptos" --version | awk '{print $NF}')
         if [ "$current_version" = "$VERSION" ]; then
-            print_message "$YELLOW" "Aptos CLI version $VERSION is already installed."
+            print_message "$YELLOW" "Libra2 CLI version $VERSION is already installed."
             exit 0
         fi
     fi
-    
+
     # Install the CLI
     install_cli "$VERSION" "$target"
-    
+
     # Add to PATH if not already there
     if ! echo "$PATH" | grep -q "$BIN_DIR"; then
         print_message "$YELLOW" "Adding $BIN_DIR to PATH..."
@@ -241,11 +241,11 @@ main() {
         esac
         print_message "$GREEN" "Please restart your terminal or run 'source ~/.profile' to update your PATH."
     fi
-    
+
     # Test the installation
     print_message "$CYAN" "Testing the installation..."
     if "$BIN_DIR/aptos" --version >/dev/null 2>&1; then
-        print_message "$GREEN" "Aptos CLI is working correctly!"
+        print_message "$GREEN" "Libra2 CLI is working correctly!"
     else
         print_message "$RED" "There was a problem with the installation."
         exit 1
@@ -253,4 +253,4 @@ main() {
 }
 
 # Run the main function
-main "$@" 
+main "$@"

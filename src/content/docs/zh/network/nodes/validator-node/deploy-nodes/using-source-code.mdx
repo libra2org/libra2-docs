@@ -4,26 +4,26 @@ title: "使用源代码"
 
 import { Aside } from '@astrojs/starlight/components';
 
-这是一份分步指南,用于使用源代码部署 Aptos 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
+这是一份分步指南,用于使用源代码部署 Libra 验证器和验证器全节点(VFN).按照本指南,验证器和 VFN 将部署在不同的机器上.
 
 <Aside type="caution">
   **先决条件**<br />
-  在开始之前,请确保阅读并理解了 [节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Aptos CLI](/zh/build/cli),因为您将需要它来设置您的节点.
+  在开始之前,请确保阅读并理解了 [节点要求](/zh/network/nodes/validator-node/node-requirements).同样,请确保您已经安装了 [Libra CLI](/zh/build/cli),因为您将需要它来设置您的节点.
 </Aside>
 
 ## 部署步骤
 
 <Aside type="note">
   **默认连接到主网**<br />
-  如果您按照本文档中的默认设置操作,那么您的验证器和 VFN 将连接到 Aptos 主网.
-  要连接到不同的 Aptos 网络,例如测试网,请确保在构建二进制文件时选择适当的源代码分支,并下载您想要连接的网络的正确创世区块和路标文件.
+  如果您按照本文档中的默认设置操作,那么您的验证器和 VFN 将连接到 Libra 主网.
+  要连接到不同的 Libra 网络,例如测试网,请确保在构建二进制文件时选择适当的源代码分支,并下载您想要连接的网络的正确创世区块和路标文件.
 </Aside>
 
-1. 按照 [从源代码构建 Aptos](/zh/network/nodes/building-from-source) 中的步骤下载 `aptos-core` 存储库和源代码.
+1. 按照 [从源代码构建 Libra](/zh/network/nodes/building-from-source) 中的步骤下载 `libra2-core` 存储库和源代码.
 
 2. 使用 `git checkout --track origin/mainnet` 检出 `mainnet` 分支.注意:如果您想在另一个网络上部署验证器和 VFN,请使用适当的分支名称(例如,`testnet`).
 
-3. 为您的 Aptos 节点创建一个工作目录,并为您的节点选择一个用户名,例如,
+3. 为您的 Libra 节点创建一个工作目录,并为您的节点选择一个用户名,例如,
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -31,7 +31,7 @@ import { Aside } from '@astrojs/starlight/components';
    mkdir ~/$WORKSPACE
    ```
 
-4. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Aptos CLI 来执行此操作:
+4. 在您的工作目录中为您的节点生成密钥对.您可以通过运行以下命令并使用 Libra CLI 来执行此操作:
 
    ```shellscript filename="Terminal"
    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -56,7 +56,7 @@ import { Aside } from '@astrojs/starlight/components';
      相比于使用 IP 地址,推荐使用 DNS,因为这样能够更便捷地进行节点迁移,并且当主机发生变化时,系统的适应性更强.
    </Aside>
 
-   您可以通过运行以下命令并使用 Aptos CLI 来设置验证器配置:
+   您可以通过运行以下命令并使用 Libra CLI 来设置验证器配置:
 
    ```shellscript filename="Terminal"
 
@@ -93,7 +93,7 @@ import { Aside } from '@astrojs/starlight/components';
        --stake-amount 100000000000000
    ```
 
-   配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些将有助于将您的节点连接到 Aptos 网络(稍后).
+   配置验证器将在 `~/$WORKSPACE/$USERNAME` 目录中创建两个 YAML 文件:`owner.yaml` 和 `operator.yaml`.这些将有助于将您的节点连接到 Libra 网络(稍后).
 
 6. 按照[查找节点文件](/zh/network/nodes/configure/node-files-all-networks) 页面上的说明下载以下文件.
    您需要选择适当的网络(例如,`mainnet`,`testnet`,`devnet`)并下载以下文件:
@@ -161,7 +161,7 @@ import { Aside } from '@astrojs/starlight/components';
    - `waypoint.txt`:您连接的网络上创世交易的路标文件.
    - `genesis.blob`:您连接的网络的创世区块(genesis blob).
 
-10. 现在您已经设置好了配置文件,可以启动您的验证器和 VFN 了.要启动您的验证器,请在 `aptos-core` 目录根目录下运行以下命令:
+10. 现在您已经设置好了配置文件,可以启动您的验证器和 VFN 了.要启动您的验证器,请在 `libra2-core` 目录根目录下运行以下命令:
 
     ```shellscript filename="Terminal"
     cargo clean
@@ -170,14 +170,14 @@ import { Aside } from '@astrojs/starlight/components';
     aptos-node -f ~/$WORKSPACE/config/validator.yaml
     ```
 
-    要在单独的专用 VFN 机器上启动您的 VFN,请在该机器上下载 `aptos-core` 源代码并构建二进制文件.同样,您需要从验证器机器复制密钥和配置文件.
+    要在单独的专用 VFN 机器上启动您的 VFN,请在该机器上下载 `libra2-core` 源代码并构建二进制文件.同样,您需要从验证器机器复制密钥和配置文件.
 
     <Aside type="caution">
       **VFN 身份** <br />
       你应该将密钥和配置文件从它们初始生成的位置复制到 VFN 服务器的相应目录中.不要为 VFN 重新生成一套新的密钥或配置文件,否则网络将无法识别它们.
     </Aside>
 
-    通过在 `aptos-core` 目录的根目录下运行以下命令来启动您的 VFN:
+    通过在 `libra2-core` 目录的根目录下运行以下命令来启动您的 VFN:
 
     ```shellscript filename="Terminal"
     cargo clean
@@ -188,7 +188,7 @@ import { Aside } from '@astrojs/starlight/components';
 
     <Aside type="caution">
       **下一步** <br />
-      您现在已经使用源代码完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Aptos 网络.
+      您现在已经使用源代码完成了验证器和 VFN 的设置.然而,您的节点还不能连接到 Libra 网络.
     </Aside>
 
 ### (可选)作为服务运行
@@ -197,7 +197,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ```shellscript filename="/etc/systemd/system/aptos-node.service"
 [Unit]
-Description=Aptos Node 服务
+Description=Libra Node 服务
 
 [Service]
 User=nodeuser
@@ -206,7 +206,7 @@ Group=nodeuser
 LimitNOFILE=500000
 
 #Environment="RUST_LOG=error"
-WorkingDirectory=/home/nodeuser/aptos-core
+WorkingDirectory=/home/nodeuser/libra2-core
 ExecStart=/usr/local/bin/aptos-node -f /home/nodeuser/aptos-mainnet/config/validator.yaml
 
 Restart=on-failure
@@ -220,6 +220,6 @@ SyslogIdentifier=aptos-node
 WantedBy=multi-user.target
 ```
 
-## 连接到 Aptos 网络
+## 连接到 Libra 网络
 
 您现在已经使用源代码完成了验证器和 VFN 的设置.请继续进行 [连接节点](/zh/network/nodes/validator-node/connect-nodes) 的操作.

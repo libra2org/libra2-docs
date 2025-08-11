@@ -4,7 +4,7 @@ title: "API REST del Nodo Completo"
 
 import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Esta API - integrada en Nodos Completos - proporciona una forma simple, de baja latencia, pero de bajo nivel de leer estado y enviar transacciones a la Blockchain de Aptos. También soporta simulación de transacciones.
+Esta API - integrada en Nodos Completos - proporciona una forma simple, de baja latencia, pero de bajo nivel de leer estado y enviar transacciones a la Blockchain de Libra. También soporta simulación de transacciones.
 Para consultas más avanzadas, recomendamos usar la [API GraphQL del Indexador](/build/indexer).
 
 ## Explorador de API REST del Nodo Completo
@@ -19,12 +19,12 @@ Para consultas más avanzadas, recomendamos usar la [API GraphQL del Indexador](
 
 ## Entendiendo los límites de tasa
 
-Como con el [Indexador de Aptos](/build/indexer/indexer-api), la API REST de Aptos tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Aptos Build](https://build.aptoslabs.com/docs/start/billing).
+Como con el [Indexador de Libra](/build/indexer/indexer-api), la API REST de Libra tiene límites de tasa basados en unidades de cómputo. Puedes aprender más sobre cómo funciona el límite de tasa leyendo la [documentación de Libra Build](https://build.aptoslabs.com/docs/start/billing).
 
 ## Viendo estado actual e histórico
 
-La mayoría de las integraciones en la blockchain de Aptos se benefician de una visión holística y comprensiva del estado actual e
-histórico de la blockchain. Aptos proporciona transacciones históricas, estado y eventos, todo el resultado de
+La mayoría de las integraciones en la blockchain de Libra se benefician de una visión holística y comprensiva del estado actual e
+histórico de la blockchain. Libra proporciona transacciones históricas, estado y eventos, todo el resultado de
 la ejecución de transacciones.
 
 - Las transacciones históricas especifican el estado de ejecución, salida y vinculación a eventos relacionados. Cada transacción tiene un número de
@@ -48,8 +48,8 @@ El servicio de almacenamiento en un nodo emplea dos formas de poda que borran da
 
 Mientras que cualquiera de estos puede ser deshabilitado, almacenar las versiones de estado no es particularmente sostenible.
 
-La poda de eventos y transacciones puede ser deshabilitada configurando [`enable_ledger_pruner`](https://github.com/aptos-labs/aptos-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
-a `false` en `storage_config.rs`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Aptos proporcionará indexadores
+La poda de eventos y transacciones puede ser deshabilitada configurando [`enable_ledger_pruner`](https://github.com/libra2org/libra2-core/blob/cf0bc2e4031a843cdc0c04e70b3f7cd92666afcf/config/src/config/storage_config.rs#L141)
+a `false` en `storage_config.rs`. Este es el comportamiento por defecto en Mainnet. En el futuro cercano, Libra proporcionará indexadores
 que mitiguen la necesidad de consultar directamente desde un nodo.
 
 La API REST ofrece consultar transacciones y eventos de estas maneras:
@@ -60,16 +60,16 @@ La API REST ofrece consultar transacciones y eventos de estas maneras:
 
 ## Leyendo estado con la función View
 
-Las funciones View no modifican el estado de la blockchain cuando se llaman desde la API. Una [función View](https://github.com/aptos-labs/aptos-core/blob/main/api/src/view_function.rs)
-y su [entrada](https://github.com/aptos-labs/aptos-core/blob/main/api/types/src/view.rs) pueden ser usadas para leer
+Las funciones View no modifican el estado de la blockchain cuando se llaman desde la API. Una [función View](https://github.com/libra2org/libra2-core/blob/main/api/src/view_function.rs)
+y su [entrada](https://github.com/libra2org/libra2-core/blob/main/api/types/src/view.rs) pueden ser usadas para leer
 estado potencialmente complejo de la cadena usando Move. Por ejemplo, puedes evaluar quién tiene la oferta más alta en un contrato
 de subasta. Aquí están los archivos relacionados:
 
-- [`view_function.rs`](https://github.com/aptos-labs/aptos-core/blob/main/api/src/tests/view_function.rs) para un ejemplo
-- código [Move](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) relacionado
-- [especificación](https://github.com/aptos-labs/aptos-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
+- [`view_function.rs`](https://github.com/libra2org/libra2-core/blob/main/api/src/tests/view_function.rs) para un ejemplo
+- código [Move](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/aptos-move/framework/aptos-framework/sources/coin.move#L226) relacionado
+- [especificación](https://github.com/libra2org/libra2-core/blob/90c33dc7a18662839cd50f3b70baece0e2dbfc71/api/doc/spec.yaml#L8513).
 
-La función view opera como la API de simulación de Aptos,
+La función view opera como la API de simulación de Libra,
 aunque sin efectos secundarios y con una ruta de salida accesible. Las funciones view pueden ser llamadas via el endpoint `/view`. Las llamadas
 a funciones view requieren los nombres del módulo y función junto con parámetros de tipo de entrada y valores.
 
@@ -78,9 +78,9 @@ mutación de estado cuando se llame desde la API. Si quieres etiquetar una funci
 para que no pueda ser llamada maliciosamente durante el tiempo de ejecución.
 
 Para usar las funciones View, necesitas [publicar el módulo](/build/cli/working-with-move-contracts)
-a través de la [CLI de Aptos](/build/cli).
+a través de la [CLI de Libra](/build/cli).
 
-En la CLI de Aptos, una solicitud de función view se vería así:
+En la CLI de Libra, una solicitud de función view se vería así:
 
 ```shellscript filename="Terminal"
 aptos move view --function-id devnet::message::get_message --profile devnet --args address:devnet
@@ -94,12 +94,12 @@ aptos move view --function-id devnet::message::get_message --profile devnet --ar
 En el SDK de TypeScript, una solicitud de función view se vería así:
 
 ```typescript filename="index.ts"
-import { Aptos } from "@aptos-labs/ts-sdk";
+import { Libra } from "@libra2-core/ts-sdk";
 
-const aptos = new Aptos();
+const aptos = new Libra();
 const [balance] = aptos.view<[string]>({
   function: "0x1::coin::balance",
-  typeArguments: ["0x1::aptos_coin::AptosCoin"],
+  typeArguments: ["0x1::aptos_coin::LibraCoin"],
   functionArguments: [alice.accountAddress]
 });
 

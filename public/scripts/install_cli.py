@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 r"""
-This script installs the Aptos CLI.
+This script installs the Libra2 CLI.
 
 It will perform the following steps:
 - Determine what platform (OS + arch) the script is being invoked from.
@@ -213,7 +213,7 @@ class Installer:
     # The API returns the newest items first. Accordingly we expect the CLI release to
     # be in the last 100 releases (the max for a single page).
     METADATA_URL = (
-        "https://api.github.com/repos/aptos-labs/aptos-core/releases?per_page=100"
+        "https://api.github.com/repos/libra2-core/libra2-core/releases?per_page=100"
     )
 
     def __init__(
@@ -311,18 +311,18 @@ class Installer:
     def _install_comment(self, version: str, message: str):
         self._write(
             "Installing {} CLI ({}): {}".format(
-                colorize("info", "Aptos"),
+                colorize("info", "Libra2"),
                 colorize("b", version),
                 colorize("comment", message),
             )
         )
 
     def build_binary_url(self, version: str, target: str) -> str:
-        return f"https://github.com/aptos-labs/aptos-core/releases/download/aptos-cli-v{version}/aptos-cli-{version}-{target}.zip"
+        return f"https://github.com/libra2org/libra2-core/releases/download/aptos-cli-v{version}/aptos-cli-{version}-{target}.zip"
 
     def display_pre_message(self) -> None:
         kwargs = {
-            "aptos": colorize("info", "Aptos"),
+            "aptos": colorize("info", "Libra2"),
             "aptos_home_bin": colorize("comment", self.bin_dir),
         }
         self._write(PRE_MESSAGE.format(**kwargs))
@@ -354,7 +354,7 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Aptos"),
+                aptos=colorize("info", "Libra2"),
                 version=colorize("b", version),
                 aptos_home_bin=colorize("comment", self.bin_dir),
                 aptos_executable=colorize("b", self.bin_path),
@@ -376,7 +376,7 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Aptos"),
+                aptos=colorize("info", "Libra2"),
                 version=colorize("b", version),
                 aptos_home_bin=colorize("comment", self.bin_dir),
                 aptos_executable=colorize("b", self.bin_path),
@@ -396,7 +396,7 @@ class Installer:
 
         self._write(
             message.format(
-                aptos=colorize("info", "Aptos"),
+                aptos=colorize("info", "Libra2"),
                 version=colorize("b", version),
                 aptos_home_bin=colorize("comment", self.bin_dir),
                 aptos_executable=colorize("b", self.bin_path),
@@ -490,7 +490,7 @@ class Installer:
             sys.stdout.write(
                 colorize(
                     "error",
-                    "You are trying to install from macOS. Please use brew to install Aptos CLI instead - [brew install aptos]",
+                    "You are trying to install from macOS. Please use brew to install Libra2 CLI instead - [brew install aptos]",
                 )
             )
             self._write("")
@@ -583,7 +583,7 @@ class Installer:
             self._write(
                 colorize(
                     "warning",
-                    "The Aptos CLI is only supported with OpenSSL v3.0.0 or newer.  We will attempt to install the CLI, but please follow instructions to build manually or install the CLI using brew for OpenSSL v1.x.x.",
+                    "The Libra2 CLI is only supported with OpenSSL v3.0.0 or newer.  We will attempt to install the CLI, but please follow instructions to build manually or install the CLI using brew for OpenSSL v1.x.x.",
                 )
             )
             self._write(
@@ -606,14 +606,14 @@ class Installer:
             self._write(
               colorize(
                   "warning",
-                  "The Aptos CLI is officially only built for Ubuntu >= 22.04.  We will try to install, but it may not work with your setup. Please follow the instructions to build manually if it does not work.",
+                  "The Libra2 CLI is officially only built for Ubuntu >= 22.04.  We will try to install, but it may not work with your setup. Please follow the instructions to build manually if it does not work.",
               )
             )
             return "Ubuntu-22.04-x86_64"
         self._write(
           colorize(
               "warning",
-              "The Aptos CLI is officially only built for Ubuntu.  We will try to install, but it may not work with your setup. Please follow the instructions to build manually if it does not work.",
+              "The Libra2 CLI is officially only built for Ubuntu.  We will try to install, but it may not work with your setup. Please follow the instructions to build manually if it does not work.",
           )
         )
         return "Linux-x86_64"
@@ -622,7 +622,7 @@ class Installer:
         sys.stdout.write(line + "\n")
 
     def _get(self, url):
-        request = Request(url, headers={"User-Agent": "Aptos CLI Installer"})
+        request = Request(url, headers={"User-Agent": "Libra2 CLI Installer"})
 
         with closing(urlopen(request)) as r:
             return r.read()
@@ -637,7 +637,7 @@ def main():
         return 1
 
     parser = argparse.ArgumentParser(
-        description="Installs the latest version of the Aptos CLI"
+        description="Installs the latest version of the Libra2 CLI"
     )
     parser.add_argument(
         "-f",
@@ -675,7 +675,7 @@ def main():
     try:
         return installer.run()
     except InstallationError as e:
-        installer._write(colorize("error", "Aptos CLI installation failed."))
+        installer._write(colorize("error", "Libra2 CLI installation failed."))
 
         if e.log is not None:
             import traceback

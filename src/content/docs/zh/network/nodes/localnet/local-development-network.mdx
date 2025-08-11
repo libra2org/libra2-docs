@@ -1,14 +1,14 @@
 ---
-title: "通过 Aptos CLI 运行本地网络（Local Network）"
+title: "通过 Libra CLI 运行本地网络（Local Network）"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-本地网络在测试代码时非常有用.它们并不与像主网这样的 Aptos 生产网络相连,但出于三个重要原因,它们是非常实用的:
+本地网络在测试代码时非常有用.它们并不与像主网这样的 Libra 生产网络相连,但出于三个重要原因,它们是非常实用的:
 
 1. **无速率限制:** 您可以与托管服务(如节点 API,索引器 API 和水龙头)交互,没有速率限制,可以加快测试速度.
 2. **可复现性:** 您可以配置特定的链上场景,并在任何时候重新启动网络,以重置网络.
-3. **高可用性:** Aptos devnet 和 testnet 网络会定期更新,在升级期间它们可能会不可用,而本地开发网络始终是可用的,即使您无法访问互联网.
+3. **高可用性:** Libra devnet 和 testnet 网络会定期更新,在升级期间它们可能会不可用,而本地开发网络始终是可用的,即使您无法访问互联网.
 
 # 启动本地网络
 
@@ -17,7 +17,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 
   2. 确保您已安装
 
-     1. 仅当你需要通过运行索引器(Indexer) API 来创建一个仿真的生产环境时,才需要这样做.例如,Aptos SDK 等许多下游工具都依赖于 Indexer API.
+     1. 仅当你需要通过运行索引器(Indexer) API 来创建一个仿真的生产环境时,才需要这样做.例如,Libra SDK 等许多下游工具都依赖于 Indexer API.
      2. 建议您通过 [Docker Desktop](https://www.docker.com/products/docker-desktop/)安装 Docker,这样可以便捷地获得自动更新功能.
 
   3. 启动Docker
@@ -29,7 +29,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      ```
 
      <Aside type="caution">
-       注意:尽管名称为(local-testnet),但这与 Aptos 测试网(testnet)无关,它将在您的机器上运行一个完全本地的网络.
+       注意:尽管名称为(local-testnet),但这与 Libra 测试网(testnet)无关,它将在您的机器上运行一个完全本地的网络.
      </Aside>
 
      您应该期望看到类似于此的输出:
@@ -46,15 +46,15 @@ import { Aside, Steps } from '@astrojs/starlight/components';
      Completed generating configuration:
              Log file: "/Users/dport/.aptos/testnet/validator.log"
              Test dir: "/Users/dport/.aptos/testnet"
-             Aptos root key path: "/Users/dport/.aptos/testnet/mint.key"
+             Libra root key path: "/Users/dport/.aptos/testnet/mint.key"
              Waypoint: 0:397412c0f96b10fa3daa24bfda962671c3c3ae484e2d67ed60534750e2311f3d
              ChainId: 4
              REST API endpoint: http://0.0.0.0:8080
              Metrics endpoint: http://0.0.0.0:9101/metrics
-             Aptosnet fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
+             Libranet fullnode network endpoint: /ip4/0.0.0.0/tcp/6181
              Indexer gRPC node stream endpoint: 0.0.0.0:50051
 
-     Aptos is running, press ctrl-c to exit
+     Libra is running, press ctrl-c to exit
 
      Node API is ready. Endpoint: http://0.0.0.0:8080/
      Postgres is ready. Endpoint: postgres://postgres@127.0.0.1:5433/local_testnet
@@ -150,22 +150,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 aptos init --profile <your-profile-name> --network local
 ```
 
-然后,你可以将这个配置文件应用到未来所有你想使用的命令中.比如,如果你想在本地网络上发布一个 Move 模块,譬如 [`hello_blockchain`](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/hello_blockchain)) 包,你可以执行:
+然后,你可以将这个配置文件应用到未来所有你想使用的命令中.比如,如果你想在本地网络上发布一个 Move 模块,譬如 [`hello_blockchain`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/hello_blockchain)) 包,你可以执行:
 
 ```shellscript filename="Terminal"
-aptos move publish --profile <your-profile-name> --package-dir /opt/git/aptos-core/aptos-move/move-examples/hello_blockchain --named-addresses HelloBlockchain=local
+aptos move publish --profile <your-profile-name> --package-dir /opt/git/libra2-core/aptos-move/move-examples/hello_blockchain --named-addresses HelloBlockchain=local
 ```
 
 ### 配置 TypeScript SDK
 
-如果您想在本地网络中使用 TypeScript SDK,您可以在初始化客户端对象(`Aptos`)时使用本地网络 URL:
+如果您想在本地网络中使用 TypeScript SDK,您可以在初始化客户端对象(`Libra`)时使用本地网络 URL:
 
 ```tsx
-import { Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+import { Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 const network = Network.LOCAL;
-const config = new AptosConfig({ network });
-const client = new Aptos(config);
+const config = new LibraConfig({ network });
+const client = new Libra(config);
 ```
 
 ### 重置本地网络

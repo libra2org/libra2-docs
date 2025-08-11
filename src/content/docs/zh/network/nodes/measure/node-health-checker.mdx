@@ -4,19 +4,19 @@ title: "节点健康检查器"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Aptos 节点健康检查器(NHC, Aptos Node Health Checker)服务能够检测任何 Aptos 全节点(例如验证全节点 VFNs 或对等全节点 PFNs)的健康状态.作为节点运营者,您可以利用 NHC 服务来确认您的节点是否正常运作.NHC 服务通过将您节点的配置与基础配置进行对比,来判定节点健康状态,并提供评估报告.
+Libra 节点健康检查器(NHC, Libra Node Health Checker)服务能够检测任何 Libra 全节点(例如验证全节点 VFNs 或对等全节点 PFNs)的健康状态.作为节点运营者,您可以利用 NHC 服务来确认您的节点是否正常运作.NHC 服务通过将您节点的配置与基础配置进行对比,来判定节点健康状态,并提供评估报告.
 
 本文档描述了当你操作节点时如何本地运行 NHC.
 
 <Aside type="note">
-  如果你不想自己运行 NHC 服务,你可以使用由 Aptos Foundation 运行的[公用 NHC 服务](https://nodetools.aptosfoundation.org/#/node_checker).
+  如果你不想自己运行 NHC 服务,你可以使用由 Libra Foundation 运行的[公用 NHC 服务](https://nodetools.aptosfoundation.org/#/node_checker).
 </Aside>
 
 ## 快速开始
 
 在您深入探索 NHC 工作原理之前,您先可以按照以下步骤启动 NHC 服务并发起一个请求.本教程采用了一个针对开发网络(devnet)全节点的基础配置,即您的节点将与一个已按基础配置 YAML 文件设置的开发网络全节点进行比较评估.
 
-**重要**:如果你的本地节点不是 devnet 全节点,你必须使用不同的基础配置.查看 [aptos-core 中的配置示例](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/node-checker/configuration_examples) 以获取其他示例配置.
+**重要**:如果你的本地节点不是 devnet 全节点,你必须使用不同的基础配置.查看 [libra2-core 中的配置示例](https://github.com/libra2org/libra2-core/tree/main/ecosystem/node-checker/configuration_examples) 以获取其他示例配置.
 
 <Steps>
   1. 下载基础配置 YAML
@@ -26,7 +26,7 @@ Aptos 节点健康检查器(NHC, Aptos Node Health Checker)服务能够检测任
      ```shellscript filename="Terminal"
      mkdir /tmp/nhc
      cd /tmp/nhc
-     wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/ecosystem/node-checker/configuration_examples/devnet_fullnode.yaml
+     wget https://raw.githubusercontent.com/libra2-core/libra2-core/main/ecosystem/node-checker/configuration_examples/devnet_fullnode.yaml
      ```
 
   2. 启动 NHC 服务
@@ -84,15 +84,15 @@ NHC 作为一个服务运行.当你想要运行你的节点的健康检查时,�
 
 单个 NHC 实例能被配置,以检测多种不同类型的节点配置的健康,例如:
 
-- 连接到 Aptos 主网的公共全节点.
-- 连接到 Aptos 测试网的验证节点.
+- 连接到 Libra 主网的公共全节点.
+- 连接到 Libra 测试网的验证节点.
 - 在单节点测试网中运行的节点.
 
 ### 基础配置
 
-在以上所有例子中,都会使用一个基础节点作为参照,来判断您的节点健康状况.例如,对于接入Aptos开发网络(devnet)的公共全节点,基础节点可能是 Aptos 团队维护的一个节点,这个节点具有优异的性能和良好的参与度.
+在以上所有例子中,都会使用一个基础节点作为参照,来判断您的节点健康状况.例如,对于接入Libra开发网络(devnet)的公共全节点,基础节点可能是 Libra 团队维护的一个节点,这个节点具有优异的性能和良好的参与度.
 
-在启动您节点的NHC服务前,您需要先下载基础配置的 YAML 文件.这份配置 YAML 文件将指明如何找到基础节点(包含 URL 和端口号),NHC 服务需要执行哪些评价指标(比如指标检查,TPS 测试,API 验证等),针对这些指标 NHC 应使用何种参数,配置文件的名称等信息.您可以查看这些[示例基础配置 YAML 文件](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/node-checker/configuration_examples).
+在启动您节点的NHC服务前,您需要先下载基础配置的 YAML 文件.这份配置 YAML 文件将指明如何找到基础节点(包含 URL 和端口号),NHC 服务需要执行哪些评价指标(比如指标检查,TPS 测试,API 验证等),针对这些指标 NHC 应使用何种参数,配置文件的名称等信息.您可以查看这些[示例基础配置 YAML 文件](https://github.com/libra2org/libra2-core/tree/main/ecosystem/node-checker/configuration_examples).
 
 当你向 NHC 服务发送请求时,你必须包括一个基础配置.例如,一个请求 NHC 使用 `devnet_fullnode` 作为基础配置的请求将如下所示:
 
@@ -106,14 +106,14 @@ curl 'http://nhc.aptoslabs.com/check?node_url=http://myfullnode.mysite.com&basel
 
 #### 配置一个预先存在的 YAML
 
-您能找到若干适合上述场景及其他情况的[示例基础配置 YAML 文件](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/node-checker/configuration_examples).
+您能找到若干适合上述场景及其他情况的[示例基础配置 YAML 文件](https://github.com/libra2org/libra2-core/tree/main/ecosystem/node-checker/configuration_examples).
 
 接下来,将这些配置 YAML 文件下载到你的主机系统的 `/etc/nhc` 文件夹中.例如:
 
 ```shellscript filename="Terminal"
 mkdir /tmp/nhc
 cd /tmp/nhc
-configs=(devnet_fullnode testnet_fullnode mainnet_fullnode); for c in ${configs[@]}; do wget https://raw.githubusercontent.com/aptos-labs/aptos-core/main/ecosystem/node-checker/configuration_examples/$c.yaml;  done
+configs=(devnet_fullnode testnet_fullnode mainnet_fullnode); for c in ${configs[@]}; do wget https://raw.githubusercontent.com/libra2-core/libra2-core/main/ecosystem/node-checker/configuration_examples/$c.yaml;  done
 ```
 
 这些配置文件初始状态下无法直接使用.您需要更改一些特定的字段,如基础节点的地址或是评估器设置(YAML 文件中的 `evaluators` 和 `evaluator_args`).为了更好地优化这些配置,建议下载基础配置后运行 NHC 服务,并注意其启动时的提示信息.
@@ -125,7 +125,7 @@ configs=(devnet_fullnode testnet_fullnode mainnet_fullnode); for c in ${configs[
 ## 运行 NHC:Docker
 
 <Aside type="note">
-  尽管Aptos团队自行托管了这项服务的实例,但我们还是鼓励节点运营者建立并运行自己的实例.
+  尽管Libra团队自行托管了这项服务的实例,但我们还是鼓励节点运营者建立并运行自己的实例.
 </Aside>
 
 准备好基线配置的 YAML 文件及必需的文件之后,你就可以通过以下的命令运行 NHC 服务器,例如使用 Docker:
@@ -143,8 +143,8 @@ docker run -v /etc/nhc:/etc/nhc -p 20121:20121 -t aptoslabs/node-checker:nightly
 首先,切换到源代码:
 
 ```shellscript filename="Terminal"
-git clone git@github.com:aptos-labs/aptos-core.git
-cd aptos-core
+git clone git@github.com:libra2-core/libra2-core.git
+cd libra2-core
 ```
 
 根据你的设置,你可能想要切换到特定的分支,以确保 NHC 与你的节点兼容,例如 `git checkout --track devnet`.

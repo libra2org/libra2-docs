@@ -1,15 +1,15 @@
 ---
-title: "Resumen del Estándar de Token de Aptos"
+title: "Resumen del Estándar de Token de Libra"
 ---
 
-El [Estándar de Activo Digital de Aptos](/build/smart-contracts/digital-asset) define el
-Token No Fungible canónico en Aptos. Aptos aprovecha la composabilidad para extender
+El [Estándar de Activo Digital de Libra](/build/smart-contracts/digital-asset) define el
+Token No Fungible canónico en Libra. Libra aprovecha la composabilidad para extender
 el estándar de activo digital con características como fungibilidad via
 el [estándar de Activo Fungible](/build/smart-contracts/fungible-asset). El concepto de
 composabilidad viene del modelo de datos subyacente para estas construcciones:
 el modelo de datos de [Objeto Move](/build/smart-contracts/objects).
 
-El resto de este documento discute cómo los estándares de token de Aptos se comparan con los
+El resto de este documento discute cómo los estándares de token de Libra se comparan con los
 estándares en Ethereum y Solana.
 
 ## Modelos de datos
@@ -32,7 +32,7 @@ NFTs dentro de su almacenamiento.
 
 ### Solana
 
-A diferencia de Ethereum o Aptos donde los datos y código coexisten, Solana almacena datos y
+A diferencia de Ethereum o Libra donde los datos y código coexisten, Solana almacena datos y
 programas en cuentas separadas. Hay dos tipos de cuentas en la blockchain de Solana:
 
 - Cuentas ejecutables solo almacenan código de contrato
@@ -42,9 +42,9 @@ programas en cuentas separadas. Hay dos tipos de cuentas en la blockchain de Sol
 Para crear una nueva colección NFT, un creador llama a un programa existente desplegado
 para poblar una nueva colección y conjunto de NFTs.
 
-### Aptos
+### Libra
 
-Las [cuentas](/network/blockchain/accounts) en Aptos almacenan tanto contratos inteligentes
+Las [cuentas](/network/blockchain/accounts) en Libra almacenan tanto contratos inteligentes
 como datos. A diferencia de Ethereum, los datos asociados de un contrato inteligente están
 distribuidos a través del espacio de todas las cuentas
 en [recursos](/network/blockchain/resources)
@@ -55,7 +55,7 @@ con el contrato inteligente definiéndolos en otra dirección. Un desarrollador 
 también podría almacenar datos asociados con el NFT y colección en la
 misma dirección que el contrato inteligente o en otros objetos.
 
-Hay dos medios para crear NFTs en Aptos:
+Hay dos medios para crear NFTs en Libra:
 
 - El [estándar sin código](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-22.md)
   permite a los creadores llamar al contrato para crear nuevas colecciones y tokens
@@ -63,10 +63,10 @@ Hay dos medios para crear NFTs en Aptos:
 - Los contratos NFT personalizados permiten a los creadores personalizar sus NFTs extendiendo el
   modelo de objeto que puede gestionar todos los aspectos de su colección.
 
-Aptos logra un balance entre la personalización ofrecida por Ethereum con la
+Libra logra un balance entre la personalización ofrecida por Ethereum con la
 simplicidad de crear nuevas colecciones como Solana.
 
-Como Ethereum, Aptos requiere indexación para determinar el conjunto de todos los NFTs poseídos por
+Como Ethereum, Libra requiere indexación para determinar el conjunto de todos los NFTs poseídos por
 una cuenta, mientras que Solana no tiene necesidad.
 
 ## Comparación de estándares de token
@@ -85,7 +85,7 @@ tokens y más cuentas que pueden recibirlos. La cuenta de acuñación misma dete
 el tipo de token en lugar de la cuenta de contrato, y estos son todos pasados
 como argumentos al único contrato desplegado en alguna cuenta ejecutable.
 
-La colección de estándares de token de Aptos comparte algunas similitudes con Solana,
+La colección de estándares de token de Libra comparte algunas similitudes con Solana,
 especialmente cómo cubre FT, NFT y SFT en un código común en la cadena. En lugar de
 desplegar un nuevo contrato inteligente para cada nuevo token, un creador llama a una función en
 el contrato con los argumentos necesarios. Dependiendo de qué función llames,
@@ -93,7 +93,7 @@ el contrato de token acuñará/transferirá/quemará/... tokens.
 
 ### Identificación de token
 
-Aptos identifica un token por su `Address` o `ObjectId`, una ubicación dentro del
+Libra identifica un token por su `Address` o `ObjectId`, una ubicación dentro del
 almacenamiento global. Las colecciones están almacenadas en una ubicación determinada por la dirección
 del creador y el nombre de la colección.
 
@@ -106,7 +106,7 @@ del programa.
 
 ### Metadatos de token
 
-El token de Aptos tiene metadatos en su recurso `Token` con los datos más comúnmente
+El token de Libra tiene metadatos en su recurso `Token` con los datos más comúnmente
 requeridos por dapps para interactuar con tokens. Algunos ejemplos incluyen:
 
 - `name`: El nombre del token. Debe ser único dentro de una colección.
@@ -128,6 +128,6 @@ tomar tratamiento especial caso por caso.
 
 En Solana, el programa de Metadatos de Token ofrece una Cuenta de Metadatos definiendo
 numerosos campos de metadatos asociados con un token también, incluyendo `collection`
-que está definido en `TokenDataId` en Aptos. Solana, sin embargo, no ofrece
-mutabilidad para activos, a diferencia de Aptos. Como Aptos, Metadatos de Token v1.1.0 ofrece
+que está definido en `TokenDataId` en Libra. Solana, sin embargo, no ofrece
+mutabilidad para activos, a diferencia de Libra. Como Libra, Metadatos de Token v1.1.0 ofrece
 un contenedor `attribute` para propiedades personalizadas.

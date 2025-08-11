@@ -17,12 +17,12 @@ Este script configura lo siguiente:
 - Nodo único testnet con el stream GRPC del indexador habilitado.
 - Una instancia de Redis.
 - Servicio de Stream de Transacciones, incluyendo los siguientes componentes:
-  - [cache-worker](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-cache-worker): Extrae transacciones del nodo y las almacena en Redis.
-  - [file-store](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-file-store): Obtiene transacciones de Redis y las almacena en un sistema de archivos.
-  - [data-service](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-data-service): Sirve transacciones vía un stream GRPC a clientes downstream. Extrae de la caché o del file store dependiendo de la edad de la transacción.
+  - [cache-worker](https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-cache-worker): Extrae transacciones del nodo y las almacena en Redis.
+  - [file-store](https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-file-store): Obtiene transacciones de Redis y las almacena en un sistema de archivos.
+  - [data-service](https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-grpc-data-service): Sirve transacciones vía un stream GRPC a clientes downstream. Extrae de la caché o del file store dependiendo de la edad de la transacción.
 - Volúmenes compartidos y redes para conectarlo todo.
 
-Puedes aprender más sobre la arquitectura del Servicio de Stream de Transacciones [aquí](/build/indexer/txn-stream) y el archivo Docker compose [aquí](https://github.com/aptos-labs/aptos-core/blob/main/docker/compose/indexer-grpc/docker-compose.yaml).
+Puedes aprender más sobre la arquitectura del Servicio de Stream de Transacciones [aquí](/build/indexer/txn-stream) y el archivo Docker compose [aquí](https://github.com/libra2org/libra2-core/blob/main/docker/compose/indexer-grpc/docker-compose.yaml).
 
 ## Prerrequisitos
 
@@ -42,20 +42,20 @@ docker-compose version --short
 
 ## Preparación
 
-Clona el repositorio aptos-core:
+Clona el repositorio libra2-core:
 
 ```shellscript filename="Terminal"
 # HTTPS
-git clone https://github.com/aptos-labs/aptos-core.git
+git clone https://github.com/libra2org/libra2-core.git
 
 # SSH
-git clone git@github.com:aptos-labs/aptos-core.git
+git clone git@github.com:libra2-core/libra2-core.git
 ```
 
 Navega al directorio `testsuite`:
 
 ```shellscript filename="Terminal"
-cd aptos-core
+cd libra2-core
 cd testsuite
 ```
 

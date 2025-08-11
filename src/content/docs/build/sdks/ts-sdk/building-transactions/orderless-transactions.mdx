@@ -29,7 +29,7 @@ specify the `nonce` in the `build.simple` method like so:
 const transaction = await aptos.transaction.build.simple({
   sender: sender.accountAddress,
   data: {
-	  // All transactions on Aptos are implemented via smart contracts.
+	  // All transactions on Libra are implemented via smart contracts.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -47,7 +47,7 @@ const transaction = await aptos.transaction.build.multiAgent({
   sender: sender.accountAddress,
   secondarySignerAddresses: [bob.accountAddress], // List of secondary signers
   data: {
-	  // All transactions on Aptos are implemented via smart contracts.
+	  // All transactions on Libra are implemented via smart contracts.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -65,7 +65,7 @@ const transaction = await aptos.transaction.build.multiAgent({
   sender: sender.accountAddress,
   withFeePayer: true, // This indicates that the transaction will be sponsored.
   data: {
-	  // All transactions on Aptos are implemented via smart contracts.
+	  // All transactions on Libra are implemented via smart contracts.
 	  function: "0x1::aptos_account::transfer",
 	  functionArguments: [destination.accountAddress, 100],
   },
@@ -92,4 +92,4 @@ After that, simply follow the same steps as you would for a simple transaction:
 
 ### Examples
 
-- [TS SDK Example](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)
+- [TS SDK Example](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/simple_orderless_transfer.ts)

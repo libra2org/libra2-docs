@@ -6,7 +6,7 @@ import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 import { GraphQLEditor } from '~/components/react/GraphQLEditor';
 
-Tenemos varias ofertas para obtener datos indexados de la blockchain de Aptos.
+Tenemos varias ofertas para obtener datos indexados de la blockchain de Libra.
 
 1. Consulta la [API del Indexador](/build/indexer/indexer-api) para obtener datos básicos sobre transacciones, activos fungibles y tokens
 2. Indexa tu contrato personalizado con el [SDK del Indexador](/build/indexer/indexer-sdk)
@@ -14,11 +14,11 @@ Tenemos varias ofertas para obtener datos indexados de la blockchain de Aptos.
 
 ## API del Indexador
 
-El Indexador de Aptos es una API que puedes usar para obtener:
+El Indexador de Libra es una API que puedes usar para obtener:
 
 1. Datos agregados (ej. ¿Cuántos NFTs existen?)
 2. Datos históricos (ej. ¿Qué transacciones ha enviado esta cuenta?)
-3. Datos que son difíciles de obtener desde la API más simple del [Nodo de Aptos](/build/apis/fullnode-rest-api) (ej. ¿Qué cuenta posee un token llamado "ExampleToken"?).
+3. Datos que son difíciles de obtener desde la API más simple del [Nodo de Libra](/build/apis/fullnode-rest-api) (ej. ¿Qué cuenta posee un token llamado "ExampleToken"?).
 
 Por ejemplo, puedes usar la API del Indexador para buscar los balances de activos fungibles de cualquier cuenta así:
 
@@ -68,7 +68,7 @@ Para ayudarte a comenzar, aquí están las consultas más comunes para las que s
 
   <LinkCard href="/es/build/indexer/indexer-api/account-transactions" title="Obtener Transacciones de Cuenta" description="Obtén todas las transacciones que impactan una cuenta." />
 
-  <LinkCard href="/es/build/indexer/indexer-api/ans-lookup" title="Obtener Nombre de Aptos" description="Recupera el nombre de Aptos asociado con una cuenta (a través del ANS)." />
+  <LinkCard href="/es/build/indexer/indexer-api/ans-lookup" title="Obtener Nombre de Libra" description="Recupera el nombre de Libra asociado con una cuenta (a través del ANS)." />
 
   <LinkCard href="/es/build/indexer/indexer-api/fungible-asset-info" title="Obtener Información de Activo Fungible" description="Obtén información detallada sobre un activo fungible específico." />
 
@@ -97,7 +97,7 @@ El Servicio de Transmisión de Transacciones es un servicio GRPC que transmite t
 Si estás usando el SDK del Indexador, necesitarás un token de autorización para conectarte al Servicio de Transmisión de Transacciones.
 
 <CardGrid>
-  <LinkCard href="/es/build/indexer/txn-stream/aptos-hosted-txn-stream" title="Servicio de Transmisión de Transacciones Hospedado por Aptos" description="Obtén acceso al Servicio de Transmisión de Transacciones hospedado por Aptos" />
+  <LinkCard href="/es/build/indexer/txn-stream/aptos-hosted-txn-stream" title="Servicio de Transmisión de Transacciones Hospedado por Libra" description="Obtén acceso al Servicio de Transmisión de Transacciones hospedado por Libra" />
 </CardGrid>
 
 ## Indexador Legacy

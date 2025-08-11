@@ -9,7 +9,7 @@ usually provides better stability and availability compared to running it on you
 
 <Aside type="caution">
   **Don't want to connect to devnet?**<br />
-  This tutorial defaults to deploying a PFN in the Aptos `devnet` network. To connect to other networks
+  This tutorial defaults to deploying a PFN in the Libra `devnet` network. To connect to other networks
   (e.g., `mainnet` and `testnet`), replace all instances of `devnet` with the appropriate network name.
 </Aside>
 
@@ -68,10 +68,10 @@ to check out some of their [guides](https://cloud.google.com/docs/get-started/qu
 <Aside type="note">
   **Before you proceed**<br />
   From here on, this guide assumes that you have already set up your GCP account, and have created a new project for
-  deploying an Aptos PFN.
+  deploying an Libra PFN.
 </Aside>
 
-You can deploy a PFN on GCP by using the Aptos Terraform module.
+You can deploy a PFN on GCP by using the Libra Terraform module.
 
 1. Create a working directory for your configuration.
 
@@ -109,7 +109,7 @@ touch main.tf
 
 **Note:** If you are using a different version of Terraform, you will need to use the `tfenv` command to change the required version.
 
-You can find the Docker image tag for `devnet` on the [Aptos Docker Hub](https://hub.docker.com/r/aptoslabs/validator/tags?page=1\&ordering=last_updated\&name=devnet).
+You can find the Docker image tag for `devnet` on the [Libra Docker Hub](https://hub.docker.com/r/aptoslabs/validator/tags?page=1\&ordering=last_updated\&name=devnet).
 
 <Aside type="caution">
   **Want to connect to a different network?**<br />
@@ -129,8 +129,8 @@ terraform {
 }
 
 module "fullnode" {
-  # download Terraform module from aptos-labs/aptos-core repo
-  source        = "github.com/aptos-labs/aptos-core.git//terraform/fullnode/gcp?ref=main"
+  # download Terraform module from libra2-core/libra2-core repo
+  source        = "github.com/libra2org/libra2-core.git//terraform/fullnode/gcp?ref=main"
   region        = "us-central1"  # Specify the region
   zone          = "c"            # Specify the zone suffix
   project       = "gcp-fullnode" # Specify your GCP project ID
@@ -225,7 +225,7 @@ You should see this something like this:
 
 5. To verify the correctness of your PFN, you will need to:
 
-   - Set up a port-forwarding mechanism directly to the Aptos pod in one ssh terminal, and
+   - Set up a port-forwarding mechanism directly to the Libra pod in one ssh terminal, and
    - Test it in another ssh terminal.
 
    Follow the below steps:
@@ -262,8 +262,8 @@ to generate a static identity, and then follow the below instructions to configu
 
 ```terraform filename="main.tf"
 module "fullnode" {
-  # download Terraform module from aptos-labs/aptos-core repo
-  source        = "github.com/aptos-labs/aptos-core.git//terraform/fullnode/gcp?ref=main"
+  # download Terraform module from libra2-core/libra2-core repo
+  source        = "github.com/libra2org/libra2-core.git//terraform/fullnode/gcp?ref=main"
   region        = "us-central1"  # Specify the region
   zone          = "c"            # Specify the zone suffix
   project       = "gcp-fullnode" # Specify your GCP project name
@@ -301,8 +301,8 @@ You can add seed peers to allow your PFN to connect to specific nodes. See the g
 
 ```terraform filename="main.tf"
 module "fullnode" {
-  # download Terraform module from aptos-labs/aptos-core repo
-  source        = "github.com/aptos-labs/aptos-core.git//terraform/fullnode/gcp?ref=main"
+  # download Terraform module from libra2-core/libra2-core repo
+  source        = "github.com/libra2org/libra2-core.git//terraform/fullnode/gcp?ref=main"
   region        = "us-central1"  # Specify the region
   zone          = "c"            # Specify the zone suffix
   project       = "gcp-fullnode" # Specify your GCP project name

@@ -1,0 +1,69 @@
+---
+title: "Governance"
+---
+
+import { ThemedImage } from '~/components/ThemedImage';
+
+The Libra2 on-chain governance is a process by which the Libra2 community members can create and vote on proposals that minimize the cost of blockchain upgrades. The following describes the scope of these proposals for the Libra2 on-chain governance:
+
+- Changes to the blockchain parameters, for example, the epoch duration, and the minimum required and maximum allowed validator stake.
+- Changes to the core blockchain code.
+- Upgrades to the Libra2 Framework modules for fixing bugs or for adding or enhancing the Libra2 blockchain functionality.
+- Deploying new framework modules (at the address `0x1` - `0xa`).
+
+## How a proposal becomes ready to be resolved
+
+See below for a summary description of how a proposal comes to exist and when it becomes ready to be resolved:
+
+<ThemedImage
+  alt="Proposal voting flow"
+  sources={{
+light: '~/images/voting-resolution-flow.svg',
+dark: '~/images/voting-resolution-flow-dark.svg',
+}}
+/>
+
+- The Libra2 community can suggest an Libra2 Improvement Proposal (AIP) in the [Libra2 Foundation AIP GitHub](https://github.com/libra2-foundation/AIPs).
+- When appropriate, an on-chain proposal can be created for the AIP via the `libra2_governance` module.
+- Voters can then vote on this proposal on-chain via the `libra2_governance` module. If there is sufficient support for a proposal, then it can be resolved.
+- Governance requires a minimal number of votes to be cast by an expiration threshold. However, if sufficient votes, more than 50% of the total supply, are accumulated prior to that threshold, the proposal can be executed **without waiting for the full voting period**.
+
+## Who can propose
+
+- To either propose or vote, you must stake, but you are not required to run a validator node. However, we recommend that you run validator with a stake as part of the validator set to gain rewards from your stake.
+- To create a proposal, the proposer's backing stake pool must have the minimum required proposer stake. The proposer's stake must be locked up for at least as long as the proposal's voting period. This is to avoid potential spam proposals.
+- Proposers can create a proposal by calling [`libra2_governance::create_proposal`](https://github.com/libra2org/libra2-core/blob/27a255ebc662817944435349afc4ec33ea317e64/libra2-move/framework/libra2-framework/sources/libra2_governance.move#L183).
+
+## Who can vote
+
+- To vote, you must stake, though you are not required to run a validator node. Your voting power is derived from the backing stake pool.
+- Voting power is calculated based on the current epoch's active stake of the proposer or voter's backing stake pool. In addition, the stake pool's lockup must be at least as long as the proposal's duration.
+- Verify proposals before voting. Ensure each proposal is linked to its source code, and if there is a corresponding AIP, the AIP is in the title and description.
+
+If you are a [staking pool](/network/blockchain/staking) voter, follow the instructions for voting [here](/network/nodes/validator-node/connect-nodes/staking-pool-voter).
+
+If you are a [delegated staker](/network/blockchain/delegated-staking), follow the instructions for voting [here](/network/nodes/validator-node/connect-nodes/staking-pool-voter#delegation-pool-voter).
+
+## Who can resolve
+
+- Anyone can resolve an on-chain proposal that has passed voting requirements by using the `libra2 governance execute-proposal` command from Libra2 CLI.
+
+## Libra2 Improvement Proposals (AIPs)
+
+AIPs are proposals created by the Libra2 community or the Libra2 Foundation team to improve the operations and development of the Libra2 chain.
+To submit an AIP, create an issue in [`Libra2 Foundation's GitHub repository`](https://github.com/libra2-foundation/AIPs/issues) using the [template](https://github.com/libra2-foundation/AIPs/blob/main/TEMPLATE.md)
+To keep up with new AIPs, check the `#aip-announcements` channel on [Libra2' discord channel](https://discord.gg/libra2network).
+To view and vote on on-chain proposals, go to [`Libra2' Governance website`](https://governance.libra2foundation.org/).
+
+## Technical Implementation of Libra2 Governance
+
+The majority of the governance logic is in [`libra2_governance.move and voting.move`](https://github.com/libra2org/libra2-core/blob/main/libra2-move/framework/libra2-framework/sources).
+The `libra2_governance` module outlines how users can interact with Libra2 Governance. It's the external-facing module of the Libra2 on-chain governance process and contains logic and checks that are specific to Libra2 Governance.
+The `voting` module is the Libra2 governance standard that can be used by DAOs on the Libra2 chain to create their own on-chain governance process.
+
+If you are thinking about creating a DAO on Libra2, you can refer to `libra2_governance`'s usage of the `voting` module as an example.
+In `libra2_governance`, we rely on the `voting` module to create, vote on, and resolve a proposal.
+
+- `libra2_governance::create_proposal` calls `voting::create_proposal` to create a proposal on-chain, when an off-chain AIP acquires sufficient importance.
+- `libra2_governance::vote` calls `voting::vote` to record the vote on a proposal on-chain;
+- `libra2_governance::resolve` can be called by anyone. It calls `voting::resolve` to resolve the proposal on-chain.

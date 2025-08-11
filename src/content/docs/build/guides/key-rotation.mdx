@@ -9,22 +9,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   Most users will never need to use this feature.
 </Aside>
 
-Aptos Move accounts have a public address, an authentication key, a public key,
+Libra Move accounts have a public address, an authentication key, a public key,
 and a private key. The public address is permanent, always matching the
 account's initial authentication key, which is derived from the original private
 key.
 
-The Aptos account model facilitates the unique ability to rotate an account's
+The Libra account model facilitates the unique ability to rotate an account's
 private key. Since an account's address is the _initial_ authentication key, the
 ability to sign for an account can be transferred to another private key without
 changing its public address.
 
 In this guide, we show examples of how to rotate an account's authentication key
-using the CLI and few of the various Aptos SDKs.
+using the CLI and few of the various Libra SDKs.
 
 Here are the installation links for the SDKs we will cover in this example:
 
-- [Aptos CLI](/build/cli)
+- [Libra CLI](/build/cli)
 - [Typescript SDK](/build/sdks/ts-sdk)
 - [Python SDK](/build/sdks/python-sdk)
 
@@ -114,7 +114,7 @@ If you execute an unproven key rotation, it is suggested that you follow up with
 authentication key to account address for ease of originating address lookup
 (see below CLI tutorial).
 
-## Key rotation with the Aptos CLI
+## Key rotation with the Libra CLI
 
 <Steps>
   1. Start a localnet
@@ -226,7 +226,7 @@ authentication key to account address for ease of originating address lookup
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Aptos CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
+       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -686,7 +686,7 @@ authentication key to account address for ease of originating address lookup
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Aptos CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
+        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
         {
           "Result": "Success"
         }
@@ -820,7 +820,7 @@ This program creates two accounts on devnet, Alice and Bob, funds them, then
 rotates the Alice's authentication key to that of Bob's.
 
 View the full example for this code
-[here](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
+[here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
 
 The function to rotate is very simple:
 
@@ -833,7 +833,7 @@ Commands to run the example script:
 rotate\_key.ts
 
 ```shellscript filename="Terminal"
-cd ~/aptos-core/ecosystem/typescript/sdk/examples/typescript-esm
+cd ~/libra2-core/ecosystem/typescript/sdk/examples/typescript-esm
 pnpm install && pnpm rotate_key
 ```
 
@@ -857,7 +857,7 @@ This program creates two accounts on devnet, Alice and Bob, funds them, then
 rotates the Alice's authentication key to that of Bob's.
 
 View the full example for this code
-[here](https://github.com/aptos-labs/aptos-python-sdk/blob/main/examples/rotate_key.py).
+[here](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/rotate_key.py).
 
 Here's the relevant code that rotates Alice's keys to Bob's:
 
@@ -870,7 +870,7 @@ Commands to run the example script:
 rotate\_key.ts
 
 ```shellscript filename="Terminal"
-cd aptos-core/ecosystem/python/sdk
+cd libra2-core/ecosystem/python/sdk
 poetry install && poetry run python -m examples.rotate-key
 ```
 
@@ -888,12 +888,12 @@ Alice 0x213d...031013 '0x1c06...ac3bb3' '0xf2be...9486aa' '0xbbc1...abb808'
 Bob 0x1c06...ac3bb3 0x1c06...ac3bb3 0xf2be...9486aa 0xbbc1...abb808
 ```
 
-[`account::rotate_authentication_key`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
+[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
 
-[`account::rotate_authentication_key_call`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
+[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
 
-[`account::RotationProofChallenge`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L79
+[`account::RotationProofChallenge`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L79
 
-[`account::OriginatingAddress`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L70
+[`account::OriginatingAddress`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L70
 
-[`account::set_originating_address`]: https://github.com/alnoki/aptos-core/blob/5ba4a8d1344b0bb6e22665525a96e787b9a44e55/aptos-move/framework/aptos-framework/sources/account.move#L528
+[`account::set_originating_address`]: https://github.com/alnoki/libra2-core/blob/5ba4a8d1344b0bb6e22665525a96e787b9a44e55/aptos-move/framework/aptos-framework/sources/account.move#L528

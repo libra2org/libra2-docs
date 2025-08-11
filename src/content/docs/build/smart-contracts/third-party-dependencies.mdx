@@ -18,16 +18,16 @@ Source code that is verified against the on-chain deployed module, like the [Git
 
 ### Git Repository
 
-The default `Move.toml` includes `AptosFramework` as a git repository dependency:
+The default `Move.toml` includes `LibraFramework` as a git repository dependency:
 
 ```toml filename="Move.toml"
-  [dependencies.AptosFramework]
-  git = "<https://github.com/aptos-labs/aptos-framework.git>"
+  [dependencies.LibraFramework]
+  git = "<https://github.com/libra2org/aptos-framework.git>"
   rev = "mainnet"
   subdir = "aptos-framework"
 ```
 
-When Aptos CLI commands are ran, updates to the dependency are automatically retrieved and compiled against.
+When Libra CLI commands are ran, updates to the dependency are automatically retrieved and compiled against.
 
 ### Local Source Code
 
@@ -78,7 +78,7 @@ Reference it as a local source file after changing the file type to `{ModuleName
 
 ### Bytecode
 
-The Aptos CLI allows for downloading a [package's](/build/smart-contracts/book/packages) bytecode.
+The Libra CLI allows for downloading a [package's](/build/smart-contracts/book/packages) bytecode.
 
 ```shellscript filename="Terminal"
 aptos move download --account {account_addr} --bytecode --package {package_name}
@@ -93,7 +93,7 @@ Each bytecode dependency requires their own package, with a structure of:
 The controlled module can then reference the dependency, upon it's inclusion in the controlled package's `Move.toml`.
 
 <details>
-  <summary>Aptos Token example</summary>
+  <summary>Libra Token example</summary>
 
   A controlled `invoking_code.move` module interacts with the external `aptos_token` module:
 
@@ -107,11 +107,11 @@ The controlled module can then reference the dependency, upon it's inclusion in 
   }
   ```
 
-  The below command retrieves the necessary [AptosTokenObjects package](https://explorer.aptoslabs.com/account/0x4/modules/code/aptos_token/mint?network=mainnet) bytecode from the Mainnet.
+  The below command retrieves the necessary [LibraTokenObjects package](https://explorer.aptoslabs.com/account/0x4/modules/code/aptos_token/mint?network=mainnet) bytecode from the Mainnet.
 
   ```shellscript filename="Terminal"
   aptos move download --account 0x4 \
-  --bytecode --package AptosTokenObjects \
+  --bytecode --package LibraTokenObjects \
   --output-dir ./aptos_token_bytecode_output/
   ```
 
@@ -178,9 +178,9 @@ Move interface code can be manually crafted by reading a package's ABI. Notably,
 Afterwards, the interface code is treated equivalent to local source code.
 
 <details>
-  <summary>Aptos Token example</summary>
+  <summary>Libra Token example</summary>
 
-  Below is a portion of the `AptosTokenObjects` ABI, gathered from the [Aptos Explorer](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/aptos_token?network=mainnet#:~:text=1114-,ABI,-%7B):
+  Below is a portion of the `LibraTokenObjects` ABI, gathered from the [Libra Explorer](https://explorer.aptoslabs.com/account/0x0000000000000000000000000000000000000000000000000000000000000004/modules/code/aptos_token?network=mainnet#:~:text=1114-,ABI,-%7B):
 
   ```json
   {
@@ -225,7 +225,7 @@ Afterwards, the interface code is treated equivalent to local source code.
           key: String,
           type: String,
           value: vector<u8>,
-      ) acquires AptosCollection, AptosToken {
+      ) acquires LibraCollection, LibraToken {
           abort 0
       }
   }

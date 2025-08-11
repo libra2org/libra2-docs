@@ -7,12 +7,12 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
 <Aside type="caution" emoji="❗">
   This integration is currently in beta. Please report any issues you encounter
   by creating an issue in the
-  [aptos-labs/aptos-dotnet-sdk](https://github.com/aptos-labs/aptos-dotnet-sdk)
+  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
   repository.
 </Aside>
 
-This guide will walk you through the process of integrating the Aptos .NET SDK. To install the Aptos SDK into your Godot project,
-you will need to add the Aptos SDK into your Godot project's `.csproj` file.
+This guide will walk you through the process of integrating the Libra .NET SDK. To install the Libra SDK into your Godot project,
+you will need to add the Libra SDK into your Godot project's `.csproj` file.
 
 <Steps>
   1. Find the .csproj
@@ -29,13 +29,13 @@ you will need to add the Aptos SDK into your Godot project's `.csproj` file.
        ![Open in File Manager](https://i.imgur.com/evxv8mY.png)
      </div>
 
-  2. Add the Aptos NuGet package
+  2. Add the Libra NuGet package
 
      Add the following line to the `<ItemGroup>` section of the `.csproj` file. If it doesn't exist, create it the `<ItemGroup>` section.
 
      ```xml filename=".csproj"
      <ItemGroup>
-       <PackageReference Include="Aptos" Version="0.0.2-beta" />
+       <PackageReference Include="Libra" Version="0.0.2-beta" />
      </ItemGroup>
      ```
 
@@ -48,26 +48,26 @@ you will need to add the Aptos SDK into your Godot project's `.csproj` file.
          <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
          <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
          <EnableDynamicLoading>true</EnableDynamicLoading>
-         <RootNamespace>AptosSDKExample</RootNamespace>
+         <RootNamespace>LibraSDKExample</RootNamespace>
        </PropertyGroup>
 
        <!-- START: Add these lines -->
        <ItemGroup>
-         <PackageReference Include="Aptos" Version="0.0.1-beta" />
+         <PackageReference Include="Libra" Version="0.0.1-beta" />
        </ItemGroup>
        <!-- END -->
 
      </Project>
      ```
 
-  3. Use the Aptos SDK
+  3. Use the Libra SDK
 
-     Import the `Aptos` namespace in your C# script and use the SDK.
+     Import the `Libra` namespace in your C# script and use the SDK.
 
      ```csharp filename="Example.cs" {3-3,9-9,12-16}
      using Godot;
      using System;
-     using Aptos;
+     using Libra;
 
      public partial class Example : Node
      {
@@ -77,7 +77,7 @@ you will need to add the Aptos SDK into your Godot project's `.csproj` file.
      	}
 
      	async void PrintLedgerInfo() {
-             var client = new AptosClient(Networks.Mainnet);
+             var client = new LibraClient(Networks.Mainnet);
              var ledgerInfo = await client.Block.GetLedgerInfo();
              GD.Print(ledgerInfo.BlockHeight);
      	}
@@ -88,10 +88,10 @@ you will need to add the Aptos SDK into your Godot project's `.csproj` file.
 
 ## Next Steps
 
-You've successfully integrated the Aptos .NET SDK into your Godot project. Now
-you can start building your game and interacting with the Aptos blockchain. Below
+You've successfully integrated the Libra .NET SDK into your Godot project. Now
+you can start building your game and interacting with the Libra blockchain. Below
 are some resources to help you get started.
 
 <CardGrid>
-  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Aptos .NET SDK." />
+  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra .NET SDK." />
 </CardGrid>

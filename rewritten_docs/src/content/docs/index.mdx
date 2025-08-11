@@ -1,0 +1,59 @@
+---
+title: Libra2 Developer Documentation
+description: Libra2 provides everything you need to build a best-in-class Web3 experience.
+tableOfContents: false
+lastUpdated: false
+editUrl: false
+hero:
+  title: |
+    Build the Future of Web3 on Libra2
+  tagline: Everything you need to build a best-in-class Web3 experience.
+  image:
+    alt: Libra2 logomark
+    light: ~/assets/libra2-logomark-light.svg
+    dark: ~/assets/libra2-logomark-dark.svg
+
+  actions:
+    - text: Get Started
+      link: /build/get-started
+      icon: right-arrow
+    - text: Learn More about Libra2
+      link: https://libra2foundation.org
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import ListCard from '~/components/ListCard.astro';
+
+<CardGrid>
+  <ListCard title="Features" iconName="lightning">
+    - [Keyless](/build/guides/libra2-keyless)
+    - [Passkeys](https://github.com/libra2-foundation/AIPs/blob/main/aips/aip-66.md)
+    - [On-chain Randomness](/build/smart-contracts/randomness)
+    - [Gas and Storage Fees](/network/blockchain/gas-txn-fee)
+    - [Parallel Execution](/network/blockchain/execution)
+    - [Fee Payer](/build/sdks/ts-sdk/building-transactions/sponsoring-transactions)
+  </ListCard>
+
+  <ListCard title="Tooling" iconName="terminal">
+    - [Libra2 CLI](/build/cli)
+    - [Indexer API](/build/indexer/indexer-api)
+    - [Official SDKs](/build/sdks)
+    - [Testnet Faucet](/network/faucet)
+    - [Faucet API](/build/apis/faucet-api)
+  </ListCard>
+
+  <ListCard title="Resources" iconName="file-text">
+    - [Apply for a Grant](https://libra2foundation.org/grants)
+    - [Libra2 Learn](https://learn.libra2labs.com)
+    - [Ecosystem Projects](https://libra2foundation.org/ecosystem/projects)
+  </ListCard>
+
+  <ListCard title="Connect" iconName="globe-simple">
+    - [Developer Discussions](https://github.com/libra2org/libra2-developer-discussions/discussions)
+    - [Discussion Forum](https://forum.libra2foundation.org)
+    - [Discord](https://discord.gg/libra2network)
+    - [Telegram](https://t.me/libra2)
+  </ListCard>
+</CardGrid>

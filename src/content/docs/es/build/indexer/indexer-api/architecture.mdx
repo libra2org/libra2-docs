@@ -4,9 +4,9 @@ title: "Arquitectura del Indexador"
 
 import { ThemedImage } from '~/components/ThemedImage';
 
-El Indexador de Aptos almacena datos de la cadena (vía el Servicio de Stream de Transacciones). Indexa datos básicos sobre transacciones, activos fungibles, tokens, colecciones, cuentas, nombres ANS (Aptos Name Service), y más. Las aplicaciones pueden consultar esos datos vía la API del Indexador.
+El Indexador de Libra almacena datos de la cadena (vía el Servicio de Stream de Transacciones). Indexa datos básicos sobre transacciones, activos fungibles, tokens, colecciones, cuentas, nombres ANS (Libra Name Service), y más. Las aplicaciones pueden consultar esos datos vía la API del Indexador.
 
-Aptos Labs aloja una versión gratuita de la API del Indexador para ayudar a la comunidad a obtener acceso a datos como:
+Libra Labs aloja una versión gratuita de la API del Indexador para ayudar a la comunidad a obtener acceso a datos como:
 
 1. Datos históricos - Ej. [¿Qué transacciones han impactado esta cuenta?](/build/indexer/indexer-api/account-transactions)
 2. Datos agregados - Ej. [¿Cuántos delegadores hay en este pool de staking?](/build/indexer/indexer-api/get-delegators)
@@ -26,14 +26,14 @@ dark: '~/images/indexer-architecture-dark.svg',
   />
 </center>
 
-El Indexador usa el [Servicio de Stream de Transacciones](/build/indexer/txn-stream) y procesadores personalizados escritos con el [SDK del Indexador](/build/indexer/indexer-sdk) para actualizar una base de datos con tablas ricas. Luego expone una API para que las aplicaciones de Aptos accedan a los datos consolidados.
+El Indexador usa el [Servicio de Stream de Transacciones](/build/indexer/txn-stream) y procesadores personalizados escritos con el [SDK del Indexador](/build/indexer/indexer-sdk) para actualizar una base de datos con tablas ricas. Luego expone una API para que las aplicaciones de Libra accedan a los datos consolidados.
 
-Para situaciones donde necesitas ir más allá de los datos de la API del Indexador alojada por Aptos, querrás crear un procesador personalizado con el [SDK del Indexador](/build/indexer/indexer-sdk).
+Para situaciones donde necesitas ir más allá de los datos de la API del Indexador alojada por Libra, querrás crear un procesador personalizado con el [SDK del Indexador](/build/indexer/indexer-sdk).
 
 Escribir un procesador personalizado puede ayudarte a:
 
 1. Obtener acceso a diferentes tipos de datos.
-2. Almacenar información adicional más allá de lo que la API del Indexador alojada por Aptos Labs está guardando.
+2. Almacenar información adicional más allá de lo que la API del Indexador alojada por Libra Labs está guardando.
 3. Cambiar cómo se procesan las transacciones.
 
 Si te gustaría operar tu propia API del Indexador como servicio, consulta cómo [alojar tu propio Indexador](/build/indexer/indexer-api/self-hosted).

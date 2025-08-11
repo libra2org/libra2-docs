@@ -7,7 +7,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 Las transacciones te permiten cambiar datos en la cadena o activar eventos. Generalmente, las transacciones siguen 5 pasos desde la construcción hasta la ejecución en la cadena: construir, simular, firmar, enviar y esperar.
 
 <Aside type="note">
-  Para estos ejemplos, `aptos` es una instancia del objeto cliente [`Aptos`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html).
+  Para estos ejemplos, `aptos` es una instancia del objeto cliente [`Libra`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html).
 </Aside>
 
 <Steps>
@@ -25,7 +25,7 @@ Las transacciones te permiten cambiar datos en la cadena o activar eventos. Gene
      const transaction = await aptos.transaction.build.simple({
        sender: sender.accountAddress,
        data: {
-     	  // Todas las transacciones en Aptos se implementan a través de contratos inteligentes.
+     	  // Todas las transacciones en Libra se implementan a través de contratos inteligentes.
      	  function: "0x1::aptos_account::transfer",
      	  functionArguments: [destination.accountAddress, 100],
        },
@@ -33,7 +33,7 @@ Las transacciones te permiten cambiar datos en la cadena o activar eventos. Gene
      ```
 
      <Aside type="note">
-       Hay un formato más avanzado para pasar `functionArguments` llamado formato [Serialización Canónica Binaria (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) que es cómo la cadena de Aptos analiza los argumentos de función. El SDK convierte primitivos de TypeScript al formato BCS detrás de escena a través de una llamada API.
+       Hay un formato más avanzado para pasar `functionArguments` llamado formato [Serialización Canónica Binaria (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) que es cómo la cadena de Libra analiza los argumentos de función. El SDK convierte primitivos de TypeScript al formato BCS detrás de escena a través de una llamada API.
      </Aside>
 
      #### Opciones de Construcción
@@ -41,14 +41,14 @@ Las transacciones te permiten cambiar datos en la cadena o activar eventos. Gene
      Puedes personalizar la forma en que tu transacción se ejecuta pasando `options: {...}` al construir. Algunas de las opciones más comúnmente usadas son:
 
      1. `maxGasAmount` - Esto limita la cantidad de gas que estás dispuesto a pagar para ejecutar esta transacción.
-     2. `gasUnitPrice` - Puedes especificar un precio por gas mayor que el mínimo para ser ejecutado con mayor prioridad por la red de Aptos.
+     2. `gasUnitPrice` - Puedes especificar un precio por gas mayor que el mínimo para ser ejecutado con mayor prioridad por la red de Libra.
      3. `expireTimestamp` - Esto da un tiempo concreto en el que la transacción debe ejecutarse o será cancelada.
 
      El SDK proporciona valores predeterminados sensatos para estos valores si no se especifican explícitamente.
 
   2. Simular (Opcional)
 
-     Cada transacción en la cadena de Aptos tiene una tarifa de gas asociada con cuánto trabajo tienen que hacer las máquinas de la red al ejecutar la transacción. Para estimar el costo asociado con eso, puedes simular transacciones antes de confirmarlas.
+     Cada transacción en la cadena de Libra tiene una tarifa de gas asociada con cuánto trabajo tienen que hacer las máquinas de la red al ejecutar la transacción. Para estimar el costo asociado con eso, puedes simular transacciones antes de confirmarlas.
 
      <Aside type="note">
        Esta simulación solo requiere la `publicKey` de una cuenta ya que no impactará el estado real del ledger.
@@ -90,7 +90,7 @@ Las transacciones te permiten cambiar datos en la cadena o activar eventos. Gene
 
   5. Esperar
 
-     Finalmente, puedes esperar el resultado de la transacción usando [`aptos.waitForTransaction`](https://aptos-labs.github.io/aptos-ts-sdk/@aptos-labs/ts-sdk-1.35.0/classes/Aptos.html#waitForTransaction) y especificando el hash de la transacción que acabas de enviar así:
+     Finalmente, puedes esperar el resultado de la transacción usando [`aptos.waitForTransaction`](https://libra2-core.github.io/aptos-ts-sdk/@libra2-core/ts-sdk-1.35.0/classes/Libra.html#waitForTransaction) y especificando el hash de la transacción que acabas de enviar así:
 
      ```typescript filename="build-a-transaction.ts"
      // 5. Esperar
@@ -102,23 +102,23 @@ Las transacciones te permiten cambiar datos en la cadena o activar eventos. Gene
 
 ```typescript filename="build-a-transaction.ts"
 /**
- * This example shows how to use the Aptos SDK to send a transaction.
- * Don't forget to install @aptos-labs/ts-sdk before running this example!
+ * This example shows how to use the Libra SDK to send a transaction.
+ * Don't forget to install @libra2-core/ts-sdk before running this example!
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("This example will create two accounts (Alice and Bob) and send a transaction transfering APT to Bob's account.");
 
     // 0. Setup the client and test accounts
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let alice = Account.generate();
     let bob = Account.generate();
@@ -143,7 +143,7 @@ async function example() {
     const transaction = await aptos.transaction.build.simple({
         sender: alice.accountAddress,
         data: {
-        // All transactions on Aptos are implemented via smart contracts.
+        // All transactions on Libra are implemented via smart contracts.
         function: "0x1::aptos_account::transfer",
         functionArguments: [bob.accountAddress, 100],
         },
@@ -202,5 +202,5 @@ Transactions have a couple of additional features which let them adapt to your n
 2. [Orderless Transactions](/build/sdks/ts-sdk/building-transactions/orderless-transactions) - Allowing for transactions to be executed out of order for easier management.
 3. [Sponsoring Transactions](/build/sdks/ts-sdk/building-transactions/sponsoring-transactions) - Have another account pay gas fees for this transaction.
 4. [Batch Submit Transactions](/build/sdks/ts-sdk/building-transactions/batching-transactions) - How to send multiple transactions quickly from a single account.
-5. [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) - The format used to serialize data for Aptos transactions.
+5. [Binary Canonical Serialization (BCS)](/build/sdks/ts-sdk/building-transactions/bcs-format) - The format used to serialize data for Libra transactions.
 6. [Composing multiple Move calls with ScriptComposer](/build/sdks/ts-sdk/building-transactions/script-composer) - (Experimental) Building more complex transaction payload that calls into multiple Move functions dynamically.

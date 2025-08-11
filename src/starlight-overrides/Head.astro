@@ -66,11 +66,11 @@ const translationUrls = SUPPORTED_LANGUAGES.filter(({ code }) => code !== lang).
 // Determine if this is a translation (non-English) or original (English)
 const isTranslation = lang !== "en";
 
-// Generate organization name - keeping "Aptos Foundation" as the official entity name
-const orgName = "Aptos Foundation";
+// Generate organization name - keeping "Libra Foundation" as the official entity name
+const orgName = "Libra Foundation";
 
 // Generate keywords by language dynamically
-const baseKeywords = ["Aptos", "blockchain", "web3"];
+const baseKeywords = ["Libra", "blockchain", "web3"];
 const keywordTranslations = {
   en: { "Move language": "Move language" },
   es: { "Move language": "Lenguaje Move" },
@@ -127,7 +127,7 @@ const lastUpdatedDate = lastUpdated ? lastUpdated.toISOString() : new Date().toI
       "https://discord.com/invite/aptosnetwork",
       "https://github.com/aptos-foundation",
       "https://www.linkedin.com/company/aptos-foundation/",
-      "https://www.reddit.com/r/Aptos/",
+      "https://www.reddit.com/r/Libra/",
       "https://t.me/aptos",
       "https://twitter.com/aptos",
     ],

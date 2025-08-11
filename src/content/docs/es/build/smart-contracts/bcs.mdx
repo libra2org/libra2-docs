@@ -4,7 +4,7 @@ title: "Serialización Canónica Binaria (BCS)"
 
 import { TabItem, Tabs } from '@astrojs/starlight/components';
 
-La Serialización Canónica Binaria (BCS) es el formato de serialización usado en la blockchain de Aptos.
+La Serialización Canónica Binaria (BCS) es el formato de serialización usado en la blockchain de Libra.
 Es un formato de serialización binario canónico no autodescriptivo
 que se usa para serializar estructuras de datos. BCS se usa para serializar todos los datos
 en la cadena, proporcionar respuestas binarias en la API REST, y codificar argumentos de entrada
@@ -68,7 +68,7 @@ Los booleanos se serializan como un solo byte. `true` se serializa como `0x01` y
 
   <TabItem label="TypeScript">
     ```typescript filename="bool.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -86,7 +86,7 @@ Los booleanos se serializan como un solo byte. `true` se serializa como `0x01` y
   <TabItem label="Go">
     ```go filename="bool.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -147,7 +147,7 @@ Unsigned 8-bit integers are serialized as a single byte.
 
   <TabItem label="TypeScript">
     ```typescript filename="bool.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -165,7 +165,7 @@ Unsigned 8-bit integers are serialized as a single byte.
   <TabItem label="Go">
     ```go filename="bool.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -226,7 +226,7 @@ Unsigned 16-bit integers are serialized as 2 bytes in little-endian byte order.
 
   <TabItem label="TypeScript">
     ```typescript filename="u16.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -244,7 +244,7 @@ Unsigned 16-bit integers are serialized as 2 bytes in little-endian byte order.
   <TabItem label="Go">
     ```go filename="u16.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -305,7 +305,7 @@ Unsigned 32-bit integers are serialized as 4 bytes in little-endian byte order.
 
   <TabItem label="TypeScript">
     ```typescript filename="u32.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -323,7 +323,7 @@ Unsigned 32-bit integers are serialized as 4 bytes in little-endian byte order.
   <TabItem label="Go">
     ```go filename="u32.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -384,7 +384,7 @@ Unsigned 64-bit integers are serialized as 8 bytes in little-endian byte order.
 
   <TabItem label="TypeScript">
     ```typescript filename="u64.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -402,7 +402,7 @@ Unsigned 64-bit integers are serialized as 8 bytes in little-endian byte order.
   <TabItem label="Go">
     ```go filename="u64.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -463,7 +463,7 @@ Unsigned 128-bit integers are serialized as 16 bytes in little-endian byte order
 
   <TabItem label="TypeScript">
     ```typescript filename="u128.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -481,7 +481,7 @@ Unsigned 128-bit integers are serialized as 16 bytes in little-endian byte order
   <TabItem label="Go">
     ```go filename="u128.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -545,7 +545,7 @@ Unsigned 256-bit integers are serialized as 32 bytes in little-endian byte order
 
   <TabItem label="TypeScript">
     ```typescript filename="u256.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -563,7 +563,7 @@ Unsigned 256-bit integers are serialized as 32 bytes in little-endian byte order
   <TabItem label="Go">
     ```go filename="u256.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -606,7 +606,7 @@ This is common used for variable lengths of vectors, or for enums.
 
   <TabItem label="TypeScript">
     ```typescript filename="uleb128.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -629,7 +629,7 @@ This is common used for variable lengths of vectors, or for enums.
   <TabItem label="Go">
     ```go filename="uleb128.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -696,7 +696,7 @@ of bytes prior to deserialization.
 
   <TabItem label="TypeScript">
     ```typescript filename="vector.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serializar
     const ser = new Serializer();
@@ -714,7 +714,7 @@ of bytes prior to deserialization.
   <TabItem label="Go">
     ```go filename="vector.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {

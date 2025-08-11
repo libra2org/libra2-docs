@@ -96,15 +96,15 @@ Crear y ejecutar una transacción multi-agente sigue un flujo similar al [flujo 
   ¡El fragmento de abajo necesita edición ligera para funcionar correctamente! (Ver pasos de abajo)
 </Aside>
 
-1. Instalar `@aptos-labs/ts-sdk` ejecutando `pnpm i @aptos-labs/ts-sdk` o usando el gestor de paquetes que te sea más cómodo.
+1. Instalar `@libra2-core/ts-sdk` ejecutando `pnpm i @libra2-core/ts-sdk` o usando el gestor de paquetes que te sea más cómodo.
 2. Actualizar el fragmento de abajo para construir una transacción que requiera firma multi-agente.
 
 ```typescript filename="multi-agent.ts"
 /**
- * This example shows how to use the Aptos SDK to send a transaction.
+ * This example shows how to use the Libra SDK to send a transaction.
  */
 
-import { Account, Aptos, AptosConfig, Network } from "@aptos-labs/ts-sdk";
+import { Account, Libra, LibraConfig, Network } from "@libra2-core/ts-sdk";
 
 async function example() {
   console.log(
@@ -112,8 +112,8 @@ async function example() {
   );
 
   // 0. Setup the client and test accounts
-  const config = new AptosConfig({ network: Network.DEVNET });
-  const aptos = new Aptos(config);
+  const config = new LibraConfig({ network: Network.DEVNET });
+  const aptos = new Libra(config);
 
   let alice = Account.generate();
   let bob = Account.generate();

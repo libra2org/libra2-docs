@@ -10,23 +10,23 @@ Esto se puede hacer con `aptos.transaction.batch.forSingleAccount` como se puede
 
 ```typescript filename="batch.ts"
 /**
- * Este ejemplo muestra cómo usar el SDK de Aptos para enviar varias transacciones en un lote.
+ * Este ejemplo muestra cómo usar el SDK de Libra para enviar varias transacciones en un lote.
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
     InputGenerateTransactionPayloadData,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("Este ejemplo enviará varias transacciones en un lote.");
 
     // Configurar el cliente y cuentas de prueba
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let sender = Account.generate();
 
@@ -37,7 +37,7 @@ async function example() {
     await aptos.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
-    });  
+    });
     console.log("¡Cuenta del remitente financiada!")
 
     // Generar varios destinatarios para enviar APT
@@ -80,4 +80,4 @@ export enum TransactionWorkerEventsEnum {
 }
 ```
 
-Puedes encontrar un ejemplo de cómo escuchar estos eventos [aquí](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).
+Puedes encontrar un ejemplo de cómo escuchar estos eventos [aquí](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).

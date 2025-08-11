@@ -10,18 +10,18 @@ To simulate a transaction, you must pass in a transaction and which account woul
 ```typescript filename="simulate-a-transaction.ts"
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     let sender = Account.generate();
     let receiver = Account.generate();
 
     // 0. Setup the client and test accounts
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     await aptos.fundAccount({
         accountAddress: sender.accountAddress,
@@ -32,7 +32,7 @@ async function example() {
     const transaction = await aptos.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
-        // All transactions on Aptos are implemented via smart contracts.
+        // All transactions on Libra are implemented via smart contracts.
         function: "0x1::aptos_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },
@@ -224,4 +224,4 @@ const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
 
 Note that `signerPublicKey` is optional and can be omitted if you wish to skip the authentication key check for the sender during simulation.
 
-For the complete source code, see the [Multisig V2 Example](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).
+For the complete source code, see the [Multisig V2 Example](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).

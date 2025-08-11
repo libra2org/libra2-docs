@@ -9,22 +9,22 @@ import { Aside, Steps } from '@astrojs/starlight/components';
   La mayoría de usuarios nunca necesitarán usar esta característica.
 </Aside>
 
-Las cuentas de Aptos Move tienen una dirección pública, una clave de autenticación, una clave pública,
+Las cuentas de Libra Move tienen una dirección pública, una clave de autenticación, una clave pública,
 y una clave privada. La dirección pública es permanente, siempre coincidiendo con
 la clave de autenticación inicial de la cuenta, que se deriva de la clave privada
 original.
 
-El modelo de cuenta de Aptos facilita la capacidad única de rotar la clave privada
+El modelo de cuenta de Libra facilita la capacidad única de rotar la clave privada
 de una cuenta. Dado que la dirección de una cuenta es la clave de autenticación _inicial_,
 la capacidad de firmar para una cuenta puede ser transferida a otra clave privada sin
 cambiar su dirección pública.
 
 En esta guía, mostramos ejemplos de cómo rotar la clave de autenticación de una cuenta
-usando la CLI y algunos de los diversos SDKs de Aptos.
+usando la CLI y algunos de los diversos SDKs de Libra.
 
 Aquí están los enlaces de instalación para los SDKs que cubriremos en este ejemplo:
 
-- [CLI de Aptos](/build/cli)
+- [CLI de Libra](/build/cli)
 - [SDK de TypeScript](/build/sdks/ts-sdk)
 - [SDK de Python](/build/sdks/python-sdk)
 
@@ -113,7 +113,7 @@ Si ejecutas una rotación de clave no probada, se sugiere que sigas con
 clave de autenticación a dirección de cuenta para facilitar la búsqueda de la dirección de origen
 (ver tutorial de CLI a continuación).
 
-## Rotación de claves con la CLI de Aptos
+## Rotación de claves con la CLI de Libra
 
 <Steps>
   1. Inicia una localnet
@@ -225,7 +225,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
        Account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b funded successfully
 
        ---
-       Aptos CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
+       Libra CLI is now set up for account 0xaaa5131b4d3fcef8d33ee465c4ee65727e36039f283455be87b1164200572e5b as profile test-profile-1!  Run `aptos --help` for more information about commands
        {
          "Result": "Success"
        }
@@ -275,7 +275,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
 
   4. Busca la dirección
 
-     Ahora que hay una cuenta en la cadena de Aptos asociada con la clave de autenticación,
+     Ahora que hay una cuenta en la cadena de Libra asociada con la clave de autenticación,
      puedes buscar la dirección de la cuenta usando `aptos account lookup-address`:
 
      ```shellscript filename="Terminal"
@@ -685,7 +685,7 @@ clave de autenticación a dirección de cuenta para facilitar la búsqueda de la
         Account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 funded successfully
 
         ---
-        Aptos CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
+        Libra CLI is now set up for account 0xccc79d46b2963cb87f2ff32c51eb6c6361e8aa108d334d3183c3016389542958 as profile test-profile-3!  Run `aptos --help` for more information about commands
         {
           "Result": "Success"
         }
@@ -818,7 +818,7 @@ Este programa crea dos cuentas en devnet, Alice y Bob, las funde, y luego
 rota la clave de autenticación de Alice a la de Bob.
 
 Ver el ejemplo completo para este código
-[aquí](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
+[aquí](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/rotate_key.ts).
 
 La función para rotar es muy simple:
 
@@ -831,7 +831,7 @@ Comandos para ejecutar el script de ejemplo:
 rotate\_key.ts
 
 ```shellscript filename="Terminal"
-cd ~/aptos-core/ecosystem/typescript/sdk/examples/typescript-esm
+cd ~/libra2-core/ecosystem/typescript/sdk/examples/typescript-esm
 pnpm install && pnpm rotate_key
 ```
 
@@ -855,7 +855,7 @@ Este programa crea dos cuentas en devnet, Alice y Bob, las funde, y luego
 rota la clave de autenticación de Alice a la de Bob.
 
 Ver el ejemplo completo para este código
-[aquí](https://github.com/aptos-labs/aptos-python-sdk/blob/main/examples/rotate_key.py).
+[aquí](https://github.com/libra2org/aptos-python-sdk/blob/main/examples/rotate_key.py).
 
 Aquí está el código relevante que rota las claves de Alice a las de Bob:
 
@@ -868,7 +868,7 @@ Comandos para ejecutar el script de ejemplo:
 rotate\_key.ts
 
 ```shellscript filename="Terminal"
-cd aptos-core/ecosystem/python/sdk
+cd libra2-core/ecosystem/python/sdk
 poetry install && poetry run python -m examples.rotate-key
 ```
 
@@ -886,8 +886,8 @@ Alice 0x213d...031013 '0x1c06...ac3bb3' '0xf2be...9486aa' '0xbbc1...abb808'
 Bob 0x1c06...ac3bb3 0x1c06...ac3bb3 0xf2be...9486aa 0xbbc1...abb808
 ```
 
-[`account::rotate_authentication_key`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
+[`account::rotate_authentication_key`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L326
 
-[`account::rotate_authentication_key_call`]: https://github.com/aptos-labs/aptos-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
+[`account::rotate_authentication_key_call`]: https://github.com/libra2org/libra2-core/blob/acb6c891cd42a63b3af96561a1aca164b800c7ee/aptos-move/framework/aptos-framework/sources/account.move#L294
 
 \[`account::RotationProofChallenge`

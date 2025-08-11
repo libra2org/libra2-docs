@@ -4,13 +4,13 @@ title: "节点健康"
 
 import { Aside } from '@astrojs/starlight/components';
 
-本文档描述了如何验证和监控您在 Aptos 网络中的验证者和验证者全节点(VFN)的健康状况.这里描述的许多方法依赖于您的节点收集和报告的运行时指标.这些指标由 Aptos 节点二进制文件收集,并通过 Prometheus 指标端点公开.有关重要指标的详细描述,请参阅 [节点检查服务](/zh/network/nodes/measure/node-inspection-service) 和 [重要节点指标](/zh/network/nodes/measure/important-metrics) 文档.
+本文档描述了如何验证和监控您在 Libra 网络中的验证者和验证者全节点(VFN)的健康状况.这里描述的许多方法依赖于您的节点收集和报告的运行时指标.这些指标由 Libra 节点二进制文件收集,并通过 Prometheus 指标端点公开.有关重要指标的详细描述,请参阅 [节点检查服务](/zh/network/nodes/measure/node-inspection-service) 和 [重要节点指标](/zh/network/nodes/measure/important-metrics) 文档.
 
-这份文档向您解释了在 Aptos 网络中如何检测和跟踪您的验证者及验证者全节点(VFN)的运行状态.介绍的许多监测方法都是基于您的节点能够自我收集和反馈的运行数据.这些数据是由 Aptos 的节点程序自动收集的,并且能通过 Prometheus 的数据接口公开.如需了解哪些监控数据是关键的,请查阅[节点检查服务](/zh/network/nodes/measure/node-inspection-service)和[重要节点指标](/zh/network/nodes/measure/important-metrics)文档.
+这份文档向您解释了在 Libra 网络中如何检测和跟踪您的验证者及验证者全节点(VFN)的运行状态.介绍的许多监测方法都是基于您的节点能够自我收集和反馈的运行数据.这些数据是由 Libra 的节点程序自动收集的,并且能通过 Prometheus 的数据接口公开.如需了解哪些监控数据是关键的,请查阅[节点检查服务](/zh/network/nodes/measure/node-inspection-service)和[重要节点指标](/zh/network/nodes/measure/important-metrics)文档.
 
 ## 初始节点验证
 
-在将您的节点部署到 Aptos 网络并连接后,您应该验证您的节点是否运行正确.
+在将您的节点部署到 Libra 网络并连接后,您应该验证您的节点是否运行正确.
 
 <Aside type="note">
   **第一次?**<br />
@@ -64,14 +64,14 @@ import { Aside } from '@astrojs/starlight/components';
 
 - **指标:** 您可以通过运行 `curl` 命令来监控您的本地指标端点,[节点检查服务](/zh/network/nodes/measure/node-inspection-service)并验证关键指标.例如,您可以通过运行在[验证同步](/zh/network/nodes/full-node/verify-pfn#验证同步状态)部分中描述的命令来验证您节点的同步状态.
 
-- **REST API:** 您也可以通过查询 REST API 来监控您节点的健康状况.例如,您可以通过 ping 您节点的 REST API 的索引(index)页面来验证您节点的当前区块高度.有关更多信息,请参阅 [Aptos API 规范](/zh/network/nodes/aptos-api-spec).
+- **REST API:** 您也可以通过查询 REST API 来监控您节点的健康状况.例如,您可以通过 ping 您节点的 REST API 的索引(index)页面来验证您节点的当前区块高度.有关更多信息,请参阅 [Libra API 规范](/zh/network/nodes/aptos-api-spec).
 
 - **监控工具:** 为了提高可观测性,您还可以安装监控工具来抓取本地指标端点:
-  - 对于基于 Kubernetes 的部署,请安装监控 Helm 图表 ([https://github.com/aptos-labs/aptos-core/tree/main/terraform/helm/monitoring](https://github.com/aptos-labs/aptos-core/tree/main/terraform/helm/monitoring)).
-  - 在本地,您可以直接运行 Prometheus 和 Grafana.可以在这里找到使用指标的仪表板:([https://github.com/aptos-labs/aptos-core/tree/main/dashboards](https://github.com/aptos-labs/aptos-core/tree/main/dashboards)).
+  - 对于基于 Kubernetes 的部署,请安装监控 Helm 图表 ([https://github.com/libra2org/libra2-core/tree/main/terraform/helm/monitoring](https://github.com/libra2org/libra2-core/tree/main/terraform/helm/monitoring)).
+  - 在本地,您可以直接运行 Prometheus 和 Grafana.可以在这里找到使用指标的仪表板:([https://github.com/libra2org/libra2-core/tree/main/dashboards](https://github.com/libra2org/libra2-core/tree/main/dashboards)).
 
 ## 遥测
 
-Aptos Labs 团队还可以利用[节点遥测](/zh/network/nodes/configure/telemetry)功能,远程监控您的节点状况.当您启用了遥测功能,Aptos 节点程序就会在后台自动发送包括节点性能指标在内的遥测数据.对于我们来说,分析你的节点性能,在线状态及健康度,这些遥测数据是不可或缺的.
+Libra Labs 团队还可以利用[节点遥测](/zh/network/nodes/configure/telemetry)功能,远程监控您的节点状况.当您启用了遥测功能,Libra 节点程序就会在后台自动发送包括节点性能指标在内的遥测数据.对于我们来说,分析你的节点性能,在线状态及健康度,这些遥测数据是不可或缺的.
 
-如果您的节点还保持默认配置,没有特意关闭遥测功能,同时可以通过 `HTTPS` 连接互联网,就会自动向 Aptos Labs 报送多个关键运行指标.Aptos Labs 还会监控节点的链上活动情况,比如根据我们定义的在线标准来观察节点的每小时提议量.
+如果您的节点还保持默认配置,没有特意关闭遥测功能,同时可以通过 `HTTPS` 连接互联网,就会自动向 Libra Labs 报送多个关键运行指标.Libra Labs 还会监控节点的链上活动情况,比如根据我们定义的在线标准来观察节点的每小时提议量.

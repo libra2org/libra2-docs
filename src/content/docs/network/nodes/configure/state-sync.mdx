@@ -4,7 +4,7 @@ title: "State Synchronization"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Nodes in an Aptos network (e.g., validators, VFNs and PFNs) must always be synchronized to the latest blockchain state.
+Nodes in an Libra network (e.g., validators, VFNs and PFNs) must always be synchronized to the latest blockchain state.
 The [state synchronization](https://medium.com/aptoslabs/the-evolution-of-state-sync-the-path-to-100k-transactions-per-second-with-sub-second-latency-at-52e25a2c6f10) (state sync) component that runs on each node is responsible for this. State sync
 identifies and fetches new blockchain data from the peers, validates the data and persists it to local storage. This
 document explains how state sync works and how to configure it.
@@ -19,7 +19,7 @@ document explains how state sync works and how to configure it.
 ## State sync
 
 At a high-level, state sync operates in two phases. First, all nodes will bootstrap on startup (in the **bootstrapping phase**).
-This allows the node to catch up to the latest state in the Aptos blockchain. Next, the node will stay up-to-date with the blockchain
+This allows the node to catch up to the latest state in the Libra blockchain. Next, the node will stay up-to-date with the blockchain
 by continuously syncing (in the **continuous syncing phase**). Each of these phases has different modes of operation.
 
 <Aside type="note">
@@ -36,7 +36,7 @@ by continuously syncing (in the **continuous syncing phase**). Each of these pha
 When the node starts, state sync will perform bootstrapping by using the configured bootstrapping mode. There are several
 bootstrapping modes:
 
-- **Execute all the transactions since genesis**. In this mode, the node will retrieve from the Aptos network all the
+- **Execute all the transactions since genesis**. In this mode, the node will retrieve from the Libra network all the
   transactions since genesis, i.e., since the start of the blockchain's history, and re-execute those transactions.
   Naturally, this mode takes the longest amount of time because it must process all transactions since the network began.
 - **Apply transaction outputs since genesis**. In this mode, the node will retrieve all the transactions since genesis,
@@ -49,7 +49,7 @@ bootstrapping modes:
   This mode is the default mode for devnet and other testing environments.
 - **Fast syncing**. In this mode, the node will skip the transaction history in the blockchain and will download only
   the latest blockchain state directly. As a result, the node will not have the historical transaction data, but it will
-  be able to catch up to the Aptos network much more rapidly. This mode is the default mode for testnet and mainnet.
+  be able to catch up to the Libra network much more rapidly. This mode is the default mode for testnet and mainnet.
 
 <Aside type="note">
   **Bootstrapping defaults?** <br />
@@ -63,7 +63,7 @@ bootstrapping modes:
 
 ### Continuous syncing phase
 
-After the node has bootstrapped and caught up to the Aptos network initially, state sync will then move into
+After the node has bootstrapped and caught up to the Libra network initially, state sync will then move into
 the continuous syncing phase to stay up-to-date with the blockchain. There are several continuous syncing modes:
 
 - **Executing transactions**. This mode will keep the node up-to-date by executing new transactions as they are

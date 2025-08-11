@@ -4,30 +4,30 @@ title: "Using Source Code"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This is a step-by-step guide to deploy an Aptos validator and validator fullnode (VFN) using source code. Using this guide, the validator
+This is a step-by-step guide to deploy an Libra validator and validator fullnode (VFN) using source code. Using this guide, the validator
 and VFN will be deployed on separate machines.
 
 <Aside type="caution">
   **Prerequisites**<br />
   Before you begin, make sure to read and understand the [Node Requirements](/network/nodes/validator-node/node-requirements). Similarly, make sure you have
-  installed the [Aptos CLI](/build/cli), as you will need it to setup your nodes.
+  installed the [Libra CLI](/build/cli), as you will need it to setup your nodes.
 </Aside>
 
 ## Deployment Steps
 
 <Aside type="note">
   **Default connection to mainnet**<br />
-  If you follow the default setup in this document, then your validator and VFN will be connected to the Aptos mainnet.
-  To connect to a different Aptos network, such as testnet, make sure you select the appropriate source code branch
+  If you follow the default setup in this document, then your validator and VFN will be connected to the Libra mainnet.
+  To connect to a different Libra network, such as testnet, make sure you select the appropriate source code branch
   when you build the binary, and download the correct genesis and waypoint files for the network you want to connect to.
 </Aside>
 
-1. Follow the steps in [Building Aptos From Source](/network/nodes/building-from-source) to download the `aptos-core` repository and source code.
+1. Follow the steps in [Building Libra From Source](/network/nodes/building-from-source) to download the `libra2-core` repository and source code.
 
 2. Checkout the `mainnet` branch using `git checkout --track origin/mainnet`. Note: if you want to deploy a validator
    and VFN on another network, use the appropriate branch name (e.g., `testnet`).
 
-3. Create a working directory for your Aptos nodes, and pick a username for your nodes, e.g.,
+3. Create a working directory for your Libra nodes, and pick a username for your nodes, e.g.,
 
    ```shellscript filename="Terminal"
    export WORKSPACE=mainnet
@@ -36,7 +36,7 @@ and VFN will be deployed on separate machines.
    ```
 
 4. Generate the key pairs for your nodes in your working directory. You can do this by running
-   the following command with the Aptos CLI:
+   the following command with the Libra CLI:
 
    ```shellscript filename="Terminal"
    aptos genesis generate-keys --output-dir ~/$WORKSPACE/keys
@@ -64,7 +64,7 @@ and VFN will be deployed on separate machines.
      to host changes.
    </Aside>
 
-   You can set your validator configuration by running the following command with the Aptos CLI:
+   You can set your validator configuration by running the following command with the Libra CLI:
 
    ```shellscript filename="Terminal"
 
@@ -102,7 +102,7 @@ and VFN will be deployed on separate machines.
    ```
 
    Configuring the validator will create two YAML files in the `~/$WORKSPACE/$USERNAME` directory: `owner.yaml` and
-   `operator.yaml`. These will be useful for connecting your nodes to the Aptos network (later).
+   `operator.yaml`. These will be useful for connecting your nodes to the Libra network (later).
 
 6. Download the following files by following the instructions on the [Node Files](/network/nodes/configure/node-files-all-networks) pages.
    You will need to select the appropriate network (e.g., `mainnet`, `testnet`, `devnet`) and download the following files:
@@ -177,7 +177,7 @@ and VFN will be deployed on separate machines.
    - `genesis.blob` The genesis blob for the network you are connecting to.
 
 10. Now that you have set up your configuration files, you can start your validator and VFN.
-    To start your validator, run the following commands, with the paths assuming you are in the root of the `aptos-core` directory:
+    To start your validator, run the following commands, with the paths assuming you are in the root of the `libra2-core` directory:
 
     ```shellscript filename="Terminal"
     cargo clean
@@ -187,7 +187,7 @@ and VFN will be deployed on separate machines.
     ```
 
     To start your VFN, run the following commands on a separate, dedicated VFN machine. You will need to download the
-    `aptos-core` source code and build the binary on the VFN machine. Likewise, you will need to copy across
+    `libra2-core` source code and build the binary on the VFN machine. Likewise, you will need to copy across
     the keys and configuration files from the validator machine.
 
     <Aside type="caution">
@@ -197,7 +197,7 @@ and VFN will be deployed on separate machines.
       another set of keys or files for the VFN, as these will not be recognized by the network.
     </Aside>
 
-    Start your VFN by running the following commands, with the paths assuming you are in the root of the `aptos-core` directory:
+    Start your VFN by running the following commands, with the paths assuming you are in the root of the `libra2-core` directory:
 
     ```shellscript filename="Terminal"
     cargo clean
@@ -209,7 +209,7 @@ and VFN will be deployed on separate machines.
     <Aside type="caution">
       **Next steps** <br />
       You have now completed setting up your validator and VFN using source code. However, your nodes will not be able to connect
-      to the Aptos network just yet.
+      to the Libra network just yet.
     </Aside>
 
 ### (Optional) Running as a Service
@@ -220,7 +220,7 @@ to match your environment and configuration.
 
 ```shellscript filename="/etc/systemd/system/aptos-node.service"
 [Unit]
-Description=Aptos Node Service
+Description=Libra Node Service
 
 [Service]
 User=nodeuser
@@ -229,7 +229,7 @@ Group=nodeuser
 LimitNOFILE=500000
 
 #Environment="RUST_LOG=error"
-WorkingDirectory=/home/nodeuser/aptos-core
+WorkingDirectory=/home/nodeuser/libra2-core
 ExecStart=/usr/local/bin/aptos-node -f /home/nodeuser/aptos-mainnet/config/validator.yaml
 
 Restart=on-failure
@@ -243,7 +243,7 @@ SyslogIdentifier=aptos-node
 WantedBy=multi-user.target
 ```
 
-## Connecting to the Aptos Network
+## Connecting to the Libra Network
 
 You have now completed setting up your validator and VFN using source code. Proceed to [Connect Nodes](/network/nodes/validator-node/connect-nodes)
 for the next steps.

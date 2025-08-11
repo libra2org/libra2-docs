@@ -10,23 +10,23 @@ TypeScript SDK 内置了将多个独立交易批量发送的功能.当需要从�
 
 ```typescript filename="batch.ts"
 /**
- * 此示例展示如何使用 Aptos SDK 批量发送多个交易
+ * 此示例展示如何使用 Libra SDK 批量发送多个交易
  */
 
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
     InputGenerateTransactionPayloadData,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     console.log("本示例将批量发送多个交易");
 
     // 配置客户端和测试账户
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     let sender = Account.generate();
 
@@ -37,7 +37,7 @@ async function example() {
     await aptos.fundAccount({
         accountAddress: sender.accountAddress,
         amount: 100_000_000,
-    });  
+    });
     console.log("已为发送方账户注资")
 
     // 生成多个接收方账户用于发送 APT
@@ -80,4 +80,4 @@ export enum TransactionWorkerEventsEnum {
 }
 ```
 
-监听这些事件的示例可参考[此处](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).
+监听这些事件的示例可参考[此处](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/batch_funds.ts#L108).

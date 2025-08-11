@@ -1,8 +1,8 @@
 ---
-title: "Aptos Error Codes"
+title: "Libra Error Codes"
 ---
 
-This page catalogs common errors encountered in the Aptos blockchain and
+This page catalogs common errors encountered in the Libra blockchain and
 explains how to resolve them wherever possible. As with all software, the code
 itself is the source of truth for error handling and will always contain entries
 not found here. Instead, this matrix aims to help you address those errors most
@@ -10,12 +10,12 @@ typically found, misunderstood, or both.
 
 For the sources of these errors, see:
 
-- [vm\_status.rs](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
-- [error.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
-- [account.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
-- [coin.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
-- [token.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
-- [token\_transfers.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
+- [vm\_status.rs](https://github.com/libra2org/libra2-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
+- [error.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
+- [account.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
+- [coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
+- [token.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
+- [token\_transfers.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
 
 Help us update this list by sending pull requests containing the errors you
 encounter. If you don't know how to resolve the error, as described int the
@@ -85,7 +85,7 @@ sequence number and try again.
 | BAD\_CHAIN\_ID                                             |                                                                                                                                                                                                                                          The transaction's chain\_id does not match the one published on-chain.                                                                                                                                                                                                                                         | Verify that your chain ID matches the chain ID for your network                                                                                            |
 | SEQUENCE\_NUMBER\_TOO\_BIG                                  |                                                                                                                                                                                                                                    The sequence number is too large and would overflow if the transaction were executed.                                                                                                                                                                                                                                    | N/A                                                                                                                                                        |
 | BAD\_TRANSACTION\_FEE\_CURRENCY                             |                                                                                                                                                                                                                                               The gas currency is not registered as a TransactionFee currency.                                                                                                                                                                                                                                              | N/A                                                                                                                                                        |
-| FEATURE\_UNDER\_GATING                                     |                                                                                                                                                                                                                                   The feature requested is intended for a future Aptos version instead of the current one.                                                                                                                                                                                                                                  | N/A                                                                                                                                                        |
+| FEATURE\_UNDER\_GATING                                     |                                                                                                                                                                                                                                   The feature requested is intended for a future Libra version instead of the current one.                                                                                                                                                                                                                                  | N/A                                                                                                                                                        |
 | SECONDARY\_KEYS\_ADDRESSES\_COUNT\_MISMATCH                  |                                                                                                                                                                                                                           The number of secondary signer addresses is different from the number of secondary public keys provided.                                                                                                                                                                                                                          | Verify the multi-agent or multi-ed25519 secondary signer addresses match the secondary public keys                                                         |
 | SIGNERS\_CONTAIN\_DUPLICATES                               |                                                                                                                                                                                                                                   There are duplicates among signers, including the sender and all the secondary signers.                                                                                                                                                                                                                                   | Remove any duplicate signers                                                                                                                               |
 | SEQUENCE\_NONCE\_INVALID                                   |                                                                                                                                                                                                                                    The sequence nonce in the transaction is invalid (too new, too old, or already used).                                                                                                                                                                                                                                    | N/A                                                                                                                                                        |
@@ -126,7 +126,7 @@ sequence number and try again.
 | NOT\_IMPLEMENTED    |                               Feature not implemented (HTTP: 501).                              |
 | UNAVAILABLE        | The service is currently unavailable. Indicates that a retry could solve the issue (HTTP: 503). |
 
-## Aptos accounts
+## Libra accounts
 
 | Error                                |                                                               Meaning                                                              | Possible Resolution                                                              |
 | ------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------: | -------------------------------------------------------------------------------- |
@@ -140,12 +140,12 @@ sequence number and try again.
 | EINVALID\_PROOF\_OF\_KNOWLEDGE          |                        Specified proof of knowledge required to prove ownership of a public key is invalid.                        | Check your proof of knowledge in key rotation to ensure it has proper signatures |
 | ENO\_CAPABILITY                       |                        The caller does not have a digital-signature-based capability to call this function.                        | Confirm you have the capability for the called functions                         |
 | EINVALID\_ACCEPT\_ROTATION\_CAPABILITY  |                         The caller does not have a valid rotation capability offer from the other account.                         | Confirm the account being rotated is correct                                     |
-| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                               Address to create is not a valid reserved address for Aptos framework.                               | N/A                                                                              |
+| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                               Address to create is not a valid reserved address for Libra framework.                               | N/A                                                                              |
 | EINVALID\_SCHEME                      | Specified scheme required to proceed with the smart contract operation - can only be ED25519\_SCHEME(0) OR MULTI\_ED25519\_SCHEME(1). | Confirm the transaction was signed correctly when creating the account           |
 | EINVALID\_ORIGINATING\_ADDRESS         |            Abort the transaction if the expected originating address is different from the originating address on-chain.           | Confirm you are rotating the correct account's key                          |
 | ENO\_SUCH\_SIGNER\_CAPABILITY           |                                   The signer capability doesn't exist at the given address.                                   | Confirm the address is correct                                                   |
 
-## Aptos coins
+## Libra coins
 
 | Error                              |                                                   Meaning                                                   | Possible Resolution                                                       |
 | ---------------------------------- | :---------------------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------- |
@@ -162,7 +162,7 @@ sequence number and try again.
 | ECOIN\_NAME\_TOO\_LONG                |                                        Name of the coin is too long.                                        | Coin name must be less than or equal to 32 characters                     |
 | ECOIN\_SYMBOL\_TOO\_LONG              |                                       Symbol of the coin is too long.                                       | Coin symbol must be less than or equal to 10 characters                   |
 
-## Aptos tokens
+## Libra tokens
 
 | Error                                        |                             Meaning                            |
 | -------------------------------------------- | :------------------------------------------------------------: |

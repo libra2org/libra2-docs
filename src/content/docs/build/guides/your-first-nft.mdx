@@ -4,7 +4,7 @@ title: "Your First NFT"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-This tutorial will guide you through the process of using the Aptos TypeScript SDK (`@aptos-labs/ts-sdk`) to create a new digital asset (often referred to as an NFT) on Aptos. By the end of this tutorial, you will know how to:
+This tutorial will guide you through the process of using the Libra TypeScript SDK (`@libra2-core/ts-sdk`) to create a new digital asset (often referred to as an NFT) on Libra. By the end of this tutorial, you will know how to:
 
 1. Create a collection of digital assets (NFTs).
 2. Mint a new digital asset (NFT) within that collection.
@@ -12,7 +12,7 @@ This tutorial will guide you through the process of using the Aptos TypeScript S
 4. Verify the digital asset's (NFT's) movement by checking the updated balances.
 
 <Aside type="note">
-  This tutorial assumes you are comfortable with using the [Aptos CLI](/build/cli), have Node.js and npm installed, and understand basic JavaScript/TypeScript concepts. If you need more info, check out [Node.js Introduction](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs) or the [Aptos TypeScript SDK](/build/sdks/ts-sdk) documentation.
+  This tutorial assumes you are comfortable with using the [Libra CLI](/build/cli), have Node.js and npm installed, and understand basic JavaScript/TypeScript concepts. If you need more info, check out [Node.js Introduction](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs) or the [Libra TypeScript SDK](/build/sdks/ts-sdk) documentation.
 </Aside>
 
 ## Walking Through The Code
@@ -24,15 +24,15 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
 <Steps>
   1. Setup the Client
 
-     We import and configure the `Aptos` client from the SDK to connect to the specified network:
+     We import and configure the `Libra` client from the SDK to connect to the specified network:
 
      ```tsx filename="index.ts"
      const APTOS_NETWORK = NetworkToNetworkName[process.env.APTOS_NETWORK] || Network.DEVNET;
-     const config = new AptosConfig({ network: APTOS_NETWORK });
-     const aptos = new Aptos(config);
+     const config = new LibraConfig({ network: APTOS_NETWORK });
+     const aptos = new Libra(config);
      ```
 
-     This `aptos` object allows us to interact with the Aptos blockchain (funding accounts, creating assets, submitting transactions, etc.).
+     This `aptos` object allows us to interact with the Libra blockchain (funding accounts, creating assets, submitting transactions, etc.).
 
   2. Create and Fund Accounts
 
@@ -148,10 +148,10 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
 
   2. Install Dependencies
 
-     You will need the Aptos TypeScript SDK and `dotenv` to manage environment variables:
+     You will need the Libra TypeScript SDK and `dotenv` to manage environment variables:
 
      ```shellscript filename="Terminal"
-     npm install @aptos-labs/ts-sdk dotenv
+     npm install @libra2-core/ts-sdk dotenv
      npm install --save-dev @types/node
      ```
 
@@ -200,11 +200,11 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      import "dotenv/config";
      import {
          Account,
-         Aptos,
-         AptosConfig,
+         Libra,
+         LibraConfig,
          Network,
          NetworkToNetworkName,
-     } from "@aptos-labs/ts-sdk";
+     } from "@libra2-core/ts-sdk";
 
      // Verify environment variables are loaded
      console.log("Environment variables loaded:", {
@@ -213,10 +213,10 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
 
      const INITIAL_BALANCE = 100_000_000;
 
-     console.log("Step 1: Setting up a client to connect to Aptos");
+     console.log("Step 1: Setting up a client to connect to Libra");
      const APTOS_NETWORK = NetworkToNetworkName[process.env.APTOS_NETWORK!] || Network.DEVNET;
-     const config = new AptosConfig({ network: APTOS_NETWORK });
-     const aptos = new Aptos(config);
+     const config = new LibraConfig({ network: APTOS_NETWORK });
+     const aptos = new Libra(config);
 
      async function example() {
          console.log("\n=== Step 2: Creating and funding accounts ===\n");
@@ -334,7 +334,7 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
          console.log(`Collection creation transaction: ${committedTxn.hash}`);
          console.log(`Mint transaction: ${mintTxn.hash}`);
          console.log(`Transfer transaction: ${transferTxn.hash}`);
-         console.log("\nYou can view these transactions on the Aptos Explorer:");
+         console.log("\nYou can view these transactions on the Libra Explorer:");
          console.log("https://explorer.aptoslabs.com/?network=devnet");
      }
 
@@ -360,14 +360,14 @@ Below is the step-by-step explanation of how to create, transfer, and interact w
      Mint transaction: 0x673d2cbb9fef468fe41f271c0fcf20872e9fa79afb6a2000368394000071b02e
      Transfer transaction: 0x3a1e99d6fd3f8e7e962c311f3dfd92c11e468da5b6084123b8f7e0248a37ffa7
 
-     You can view these transactions on the Aptos Explorer:
+     You can view these transactions on the Libra Explorer:
      https://explorer.aptoslabs.com/?network=devnet
      ```
 
-     You can view these transactions on the Aptos Explorer:
+     You can view these transactions on the Libra Explorer:
 
      1. Copy the transaction hash from your console
-     2. Visit [Aptos Explorer](https://explorer.aptoslabs.com/?network=devnet)
+     2. Visit [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet)
      3. Make sure you're on the correct network (Devnet)
      4. Paste the transaction hash in the search bar
      5. View the details of your transaction, including:

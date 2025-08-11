@@ -1,17 +1,17 @@
 ---
-title: "Aptos 错误码"
+title: "Libra 错误码"
 ---
 
-本页面收录了 Aptos 区块链中常见的错误,并尽可能解释了如何解决这些错误.与所有软件一样,代码本身才是错误处理的最终权威来源,因此这里未必涵盖所有条目.本表旨在帮助你解决那些最常见,最易误解或最容易遇到的错误.
+本页面收录了 Libra 区块链中常见的错误,并尽可能解释了如何解决这些错误.与所有软件一样,代码本身才是错误处理的最终权威来源,因此这里未必涵盖所有条目.本表旨在帮助你解决那些最常见,最易误解或最容易遇到的错误.
 
 这些错误的来源请参见:
 
-- [vm\_status.rs](https://github.com/aptos-labs/aptos-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
-- [error.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
-- [account.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
-- [coin.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
-- [token.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
-- [token\_transfers.move](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
+- [vm\_status.rs](https://github.com/libra2org/libra2-core/blob/main/third_party/move/move-core/types/src/vm_status.rs)
+- [error.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/move-stdlib/sources/error.move)
+- [account.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/account/account.move)
+- [coin.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/coin.move)
+- [token.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token.move)
+- [token\_transfers.move](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-token/sources/token_transfers.move)
 
 欢迎通过 Pull Request 补充你遇到的错误.如果你不知道如何解决该错误,可以将 _Action_ 列留空.
 
@@ -68,7 +68,7 @@ title: "Aptos 错误码"
 | BAD\_CHAIN\_ID                                             |                                                                     交易的 chain\_id 与链上发布的不一致.                                                                     | 确认你的 chain ID 与网络的 chain ID 一致                   |
 | SEQUENCE\_NUMBER\_TOO\_BIG                                  |                                                                         序列号过大,若执行交易将溢出.                                                                         | N/A                                              |
 | BAD\_TRANSACTION\_FEE\_CURRENCY                             |                                                                  gas 货币未注册为 TransactionFee 货币.                                                                  | N/A                                              |
-| FEATURE\_UNDER\_GATING                                     |                                                                  请求的功能仅适用于未来 Aptos 版本,当前版本不可用.                                                                  | N/A                                              |
+| FEATURE\_UNDER\_GATING                                     |                                                                  请求的功能仅适用于未来 Libra 版本,当前版本不可用.                                                                  | N/A                                              |
 | SECONDARY\_KEYS\_ADDRESSES\_COUNT\_MISMATCH                  |                                                                       二级签名者地址数量与二级公钥数量不一致.                                                                      | 检查 multi-agent 或 multi-ed25519 的二级签名者地址与二级公钥是否匹配 |
 | SIGNERS\_CONTAIN\_DUPLICATES                               |                                                                     签名者中存在重复,包括发送者和所有二级签名者.                                                                     | 移除所有重复签名者                                        |
 | SEQUENCE\_NONCE\_INVALID                                   |                                                               交易中的 sequence nonce 无效(过新,过旧或已被使用).                                                               | N/A                                              |
@@ -109,7 +109,7 @@ title: "Aptos 错误码"
 | NOT\_IMPLEMENTED    |         功能未实现(HTTP: 501).        |
 | UNAVAILABLE        |   服务当前不可用.重试可能解决问题(HTTP: 503).   |
 
-## Aptos 账户
+## Libra 账户
 
 | Error                                |                                 含义                                | 可能的解决方法                             |
 | ------------------------------------ | :---------------------------------------------------------------: | ----------------------------------- |
@@ -123,12 +123,12 @@ title: "Aptos 错误码"
 | EINVALID\_PROOF\_OF\_KNOWLEDGE          |                轮换密钥时,证明拥有公钥的 proof of knowledge 无效.               | 检查轮换密钥时的 proof of knowledge 是否有正确签名 |
 | ENO\_CAPABILITY                       |                        调用方没有基于数字签名的能力调用此函数.                       | 确认你拥有被调用函数的能力                       |
 | EINVALID\_ACCEPT\_ROTATION\_CAPABILITY  |                       调用方没有来自其他账户的有效轮换能力授权.                       | 确认被轮换的账户正确                          |
-| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                 要创建的地址不是 Aptos framework 的有效保留地址.                 | N/A                                 |
+| ENO\_VALID\_FRAMEWORK\_RESERVED\_ADDRESS |                 要创建的地址不是 Libra framework 的有效保留地址.                 | N/A                                 |
 | EINVALID\_SCHEME                      | 创建账户时,指定的 scheme 只能为 ED25519\_SCHEME(0) 或 MULTI\_ED25519\_SCHEME(1). | 确认交易签名方式正确                          |
 | EINVALID\_ORIGINATING\_ADDRESS         |    如果期望的 originating address 与链上的 originating address 不同,则中止交易.   | 确认你正在轮换正确账户的密钥                      |
 | ENO\_SUCH\_SIGNER\_CAPABILITY           |                    给定地址下不存在 signer capability.                    | 确认地址是否正确                            |
 
-## Aptos 代币
+## Libra 代币
 
 | Error                              |                  含义                  | 可能的解决方法                               |
 | ---------------------------------- | :----------------------------------: | ------------------------------------- |
@@ -145,7 +145,7 @@ title: "Aptos 错误码"
 | ECOIN\_NAME\_TOO\_LONG                |                代币名称过长.               | 代币名称需小于等于 32 个字符                      |
 | ECOIN\_SYMBOL\_TOO\_LONG              |                代币符号过长.               | 代币符号需小于等于 10 个字符                      |
 
-## Aptos 代币(Token)
+## Libra 代币(Token)
 
 | Error                                        |                 含义                 |
 | -------------------------------------------- | :--------------------------------: |

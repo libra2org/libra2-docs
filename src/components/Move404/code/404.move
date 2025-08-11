@@ -1,7 +1,7 @@
-/// A playful 404 module that uses Aptos blockchain concepts
+/// A playful 404 module that uses Libra blockchain concepts
 module 0x404::lost_transaction {
     use aptos_framework::account;
-    use aptos_framework::coin::{Self, AptosCoin};
+    use aptos_framework::coin::{Self, LibraCoin};
     use std::error;
     use std::signer;
 
@@ -26,10 +26,10 @@ module 0x404::lost_transaction {
         looking_for: address
     ): SearchAttempt {
         let searcher = signer::address_of(account);
-        
+
         // Check if we have enough gas for the search
         assert!(
-            coin::balance<AptosCoin>(searcher) > 404,
+            coin::balance<LibraCoin>(searcher) > 404,
             error::resource_exhausted(E_INSUFFICIENT_GAS)
         );
 

@@ -12,10 +12,10 @@ This new way of indexing uses the [Transaction Stream Service](/build/indexer/tx
 
 ```shellscript filename="Terminal"
 # SSH
-git clone git@github.com:aptos-labs/aptos-indexer-processors.git
+git clone git@github.com:libra2-core/aptos-indexer-processors.git
 
 # HTTPS
-git clone https://github.com/aptos-labs/aptos-indexer-processors.git
+git clone https://github.com/libra2org/aptos-indexer-processors.git
 ```
 
 Navigate to the directory for the service:
@@ -59,13 +59,13 @@ If you have custom processors written with the old indexer, we highly recommend 
 
 ### a. Migrate custom table schemas
 
-Migrate your custom schemas by copying over each of your custom migrations to the [`migrations`](https://github.com/aptos-labs/aptos-indexer-processors/tree/main/rust/processor/src/db/postgres/migrations) folder.
+Migrate your custom schemas by copying over each of your custom migrations to the [`migrations`](https://github.com/libra2org/aptos-indexer-processors/tree/main/rust/processor/src/db/postgres/migrations) folder.
 
 ### b. Migrate custom processors code
 
-Migrate the code by copying over your custom processors to the [`processors`](https://github.com/aptos-labs/aptos-indexer-processors/tree/main/rust/processor) folder and any relevant custom models to the [`models`](https://github.com/aptos-labs/aptos-indexer-processors/tree/main/rust/processor/src/db/common/models) folder. Integrate the custom processors with the rest of the code by adding them to the following Rust code files.
+Migrate the code by copying over your custom processors to the [`processors`](https://github.com/libra2org/aptos-indexer-processors/tree/main/rust/processor) folder and any relevant custom models to the [`models`](https://github.com/libra2org/aptos-indexer-processors/tree/main/rust/processor/src/db/common/models) folder. Integrate the custom processors with the rest of the code by adding them to the following Rust code files.
 
-[`mod.rs`](https://github.com/aptos-labs/aptos-indexer-processors/blob/main/rust/processor/src/processors/mod.rs)
+[`mod.rs`](https://github.com/libra2org/aptos-indexer-processors/blob/main/rust/processor/src/processors/mod.rs)
 
 ```rust filename="mod.rs"
 pub enum Processor {
@@ -81,7 +81,7 @@ impl Processor {
 }
 ```
 
-[`worker.rs`](https://github.com/aptos-labs/aptos-indexer-processors/blob/main/rust/processor/src/worker.rs)
+[`worker.rs`](https://github.com/libra2org/aptos-indexer-processors/blob/main/rust/processor/src/worker.rs)
 
 ```rust filename="worker.rs"
 Processor::CoinProcessor => {

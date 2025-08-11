@@ -10,7 +10,7 @@ Please first read [Creating a Processor](/build/indexer/indexer-sdk/documentatio
 
 To run a processor, you'll need to create a `config.yaml` file.
 The format of the `config.yaml` file should follow the format you've defined in your `IndexerProcessorConfig`.
-For example, if you're using the `IndexerProcessorConfig` from [`aptos-indexer-processor-example`](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/indexer_processor_config.rs), a basic `config.yaml` would look like this:
+For example, if you're using the `IndexerProcessorConfig` from [`aptos-indexer-processor-example`](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/aptos-indexer-processor-example/src/config/indexer_processor_config.rs), a basic `config.yaml` would look like this:
 
 ```yaml
 health_check_port: 8085
@@ -32,7 +32,7 @@ The `processor_config` field should match how `ProcessorConfig` is defined in th
 It requires `indexer_grpc_data_service_address`, `auth_token`, and `request_name_header` to be set.
 To get the `indexer_grpc_data_service_address` and `auth_token`, you can follow the guide [here](/build/indexer/txn-stream/aptos-hosted-txn-stream).
 
-`TransactionStreamConfig` also supports more optional fields to modify the connection to [Transaction Stream](/build/indexer/txn-stream), which you can learn more about [here](https://github.com/aptos-labs/aptos-indexer-processor-sdk/tree/main/aptos-indexer-processors-sdk/transaction-stream).
+`TransactionStreamConfig` also supports more optional fields to modify the connection to [Transaction Stream](/build/indexer/txn-stream), which you can learn more about [here](https://github.com/libra2org/aptos-indexer-processor-sdk/tree/main/aptos-indexer-processors-sdk/transaction-stream).
 
 ## Running your processor
 

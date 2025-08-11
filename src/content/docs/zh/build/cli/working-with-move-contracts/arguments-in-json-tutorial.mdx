@@ -6,7 +6,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 ## 包信息
 
-本节引用 [`CliArgs` 示例包](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args),其包含以下清单:
+本节引用 [`CliArgs` 示例包](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args),其包含以下清单:
 
 ```toml filename="move.toml"
 [package]
@@ -18,16 +18,16 @@ upgrade_policy = "compatible"
 test_account = "_"
 
 [dependencies]
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
+LibraFramework = { git = "https://github.com/libra2org/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
 ```
 
 在这里,包以命名地址 `test_account` 部署.
 
 <Aside type="note" emoji="ℹ️">
-  将你的工作目录设置为 [`aptos-move/move-examples/cli_args`](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/move-examples/cli_args) 以便跟随:
+  将你的工作目录设置为 [`aptos-move/move-examples/cli_args`](https://github.com/libra2org/libra2-core/tree/main/aptos-move/move-examples/cli_args) 以便跟随:
 
   ```shellscript filename="Terminal"
-  cd <aptos-core-parent-directory>/aptos-core/aptos-move/move-examples/cli_args
+  cd <libra2-core-parent-directory>/libra2-core/aptos-move/move-examples/cli_args
   ```
 </Aside>
 

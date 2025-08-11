@@ -1,10 +1,10 @@
 ---
-title: "在 Linux 上安装 Aptos CLI"
+title: "在 Linux 上安装 Libra CLI"
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-对于 Linux 系统,安装 Aptos CLI 工具最简单的方式是通过 shell 脚本.如果脚本方式不可行,您也可以通过下载预编译二进制文件进行手动安装.不过一般不推荐预编译二进制文件的方式,因为更新过程非常手动化.
+对于 Linux 系统,安装 Libra CLI 工具最简单的方式是通过 shell 脚本.如果脚本方式不可行,您也可以通过下载预编译二进制文件进行手动安装.不过一般不推荐预编译二进制文件的方式,因为更新过程非常手动化.
 
 # 通过脚本安装
 
@@ -30,7 +30,7 @@ import { Aside, Steps } from '@astrojs/starlight/components';
        ```
      </Aside>
 
-  2. (可选)将 Aptos CLI 添加到 PATH 目录或直接添加到 PATH 会很有帮助.
+  2. (可选)将 Libra CLI 添加到 PATH 目录或直接添加到 PATH 会很有帮助.
 
      - 将目录添加到 PATH 的步骤取决于您使用的 shell.
      - 您可以运行 `echo $SHELL` 来打印机器的默认 shell,然后搜索针对该 shell 添加目录到 PATH 的具体步骤.
@@ -42,13 +42,13 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  如果想将 Aptos CLI 更新到最新版本,可以运行 `aptos update`.
+  如果想将 Libra CLI 更新到最新版本,可以运行 `aptos update`.
 </Aside>
 
 # 通过包管理器安装(可选)
 
 <Aside type="note">
-  通过包管理器安装 Aptos 后,未来请通过相同的包管理器进行更新.
+  通过包管理器安装 Libra 后,未来请通过相同的包管理器进行更新.
 </Aside>
 
 ### Arch Linux
@@ -82,7 +82,7 @@ yay -S aptos-bin
 
   4. 解压下载的文件.
 
-  5. 移动将提取的 Aptos 二进制文件放入您偏好的文件夹.
+  5. 移动将提取的 Libra 二进制文件放入您偏好的文件夹.
 
   6. 打开终端并导航至您偏好的文件夹.
 
@@ -92,12 +92,12 @@ yay -S aptos-bin
 
      您应该会看到所有 CLI 命令的使用说明.这些说明在未来尝试理解如何使用特定命令时会很有帮助.
 
-  9. (可选)将 Aptos CLI 添加到 PATH 环境变量的某个文件夹,或直接添加到 PATH 会很有帮助.
+  9. (可选)将 Libra CLI 添加到 PATH 环境变量的某个文件夹,或直接添加到 PATH 会很有帮助.
 
      - 将文件夹添加到 PATH 的步骤取决于您使用的 shell.
      - 您可以运行 `echo $SHELL` 打印您机器的默认 shell,然后通过搜索了解为该 shell 添加文件夹到 PATH 的具体步骤.
 </Steps>
 
 <Aside type="note" emoji="ℹ️">
-  当使用预编译二进制文件安装方式时,你可以通过删除现有安装,然后重新执行安装步骤来更新 Aptos CLI.
+  当使用预编译二进制文件安装方式时,你可以通过删除现有安装,然后重新执行安装步骤来更新 Libra CLI.
 </Aside>

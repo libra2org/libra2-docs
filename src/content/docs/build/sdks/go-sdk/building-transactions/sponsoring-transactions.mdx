@@ -93,14 +93,14 @@ complicated smart contracts.
 ## Go Sponsored Transaction Code Sample
 
 ```go filename="sponsor.go"
-// sponsored_transaction is an example of how to make a sponsored transaction in Aptos.
+// sponsored_transaction is an example of how to make a sponsored transaction in Libra.
 package main
 
 import (
 	"fmt"
 
-	"github.com/aptos-labs/aptos-go-sdk"
-	"github.com/aptos-labs/aptos-go-sdk/crypto"
+	"github.com/libra2org/aptos-go-sdk"
+	"github.com/libra2org/aptos-go-sdk/crypto"
 )
 
 const FundAmount = 100_000_000
@@ -108,7 +108,7 @@ const TransferAmount = 1_000
 
 // example This example shows you how to make an APT transfer transaction in the simplest possible way
 func example(networkConfig aptos.NetworkConfig) {
-	// Create a client for Aptos
+	// Create a client for Libra
 	client, err := aptos.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())
@@ -163,7 +163,7 @@ func example(networkConfig aptos.NetworkConfig) {
 	fmt.Printf("Sponsor: %d\n", sponsorBalance)
 
 	// Build transaction
-	transferPayload, err := aptos.CoinTransferPayload(&aptos.AptosCoinTypeTag, bob.Address, TransferAmount)
+	transferPayload, err := aptos.CoinTransferPayload(&aptos.LibraCoinTypeTag, bob.Address, TransferAmount)
 	if err != nil {
 		panic("Failed to build transfer payload:" + err.Error())
 	}

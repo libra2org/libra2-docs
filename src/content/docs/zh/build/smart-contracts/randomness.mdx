@@ -10,7 +10,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 在中心化世界中,构建一个抽奖系统并从 `n` 个参与者中随机选出一个获胜者非常简单:后端只需调用一个随机整数采样函数(在 python 中是 `random.randint(0, n-1)`,在 JS 中是 `Math.floor(Math.random() * n)`).
 
-不幸的是,在 Aptos Move 中没有等价的 `random.randint()`,因此在 dApp 中实现这一功能曾经非常困难.
+不幸的是,在 Libra Move 中没有等价的 `random.randint()`,因此在 dApp 中实现这一功能曾经非常困难.
 
 有些人可能会写一个合约,从区块链时间戳等不安全的来源采样随机数:
 
@@ -81,9 +81,9 @@ module module_owner::lottery {
 }
 ```
 
-### 用 Aptos 随机性 API 实现简单与安全
+### 用 Libra 随机性 API 实现简单与安全
 
-使用 Aptos 随机性 API,代码实现如下:
+使用 Libra 随机性 API,代码实现如下:
 
 ```move
 module module_owner::lottery {
@@ -119,7 +119,7 @@ module module_owner::lottery {
   编译器会帮助检测测试与中止攻击,要求使用随机性的函数为私有.但目前随机性 API 并不能防止 undergasing 攻击.智能合约需要以特定方式编写以规避此类攻击.
 </Aside>
 
-## 如何使用 Aptos 随机性 API
+## 如何使用 Libra 随机性 API
 
 ### 前置条件
 
@@ -209,7 +209,7 @@ module aptos_framework::randomness {
 }
 ```
 
-完整 API 函数列表及文档见 [这里](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
 
 ## 安全性注意事项
 
@@ -258,10 +258,10 @@ module module_owner::lottery {
    恶意用户可以操控获胜者分布(违背 dApp 开发者初衷).
    这被称为 [test-and-abort 攻击](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
-Aptos Move 编译器已更新以防止此类攻击,保障你的合约安全:
+Libra Move 编译器已更新以防止此类攻击,保障你的合约安全:
 依赖随机性的 public 函数会被视为编译错误.
-如果你已完成["构建 Aptos CLI"](/zh/build/cli)部分,
-那么你的 Aptos CLI 已配备了新版编译器.
+如果你已完成["构建 Libra CLI"](/zh/build/cli)部分,
+那么你的 Libra CLI 已配备了新版编译器.
 
 ```move
 module module_owner::lottery {
@@ -333,11 +333,11 @@ module module_owner::lottery {
 
 ## 延伸阅读
 
-[Aptogotchi Random Mint](https://github.com/aptos-labs/aptogotchi-random-mint/tree/main) 是官方演示随机性 API 用法的 dApp.
+[Aptogotchi Random Mint](https://github.com/libra2org/aptogotchi-random-mint/tree/main) 是官方演示随机性 API 用法的 dApp.
 
-完整 API 函数列表及文档见 [这里](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+完整 API 函数列表及文档见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
 
-部分 API 实现及单元测试见 [这里](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
+部分 API 实现及单元测试见 [这里](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
 
 API 设计详见 [AIP-41](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md),
 系统级/密码学细节见 [AIP-79](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-79.md).

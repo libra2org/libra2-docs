@@ -1,38 +1,38 @@
 ---
-title: "从源代码构建 Aptos"
+title: "从源代码构建 Libra"
 ---
 
 import { Aside, TabItem, Tabs } from '@astrojs/starlight/components';
 
-[使用 CLI 的二进制版本构建](/zh/build/cli/install-cli),但如果你想从源代码构建 Aptos 节点或 CLI,可以使用以下方法.
+[使用 CLI 的二进制版本构建](/zh/build/cli/install-cli),但如果你想从源代码构建 Libra 节点或 CLI,可以使用以下方法.
 
 ## 支持的操作系统
 
-Aptos 可以在包括 Linux,macOS 和 Windows 在内的各种操作系统上构建.Aptos 在 Linux 和 macOS 上经过了广泛的测试,而在 Windows 上的测试较少.这是我们使用的版本:
+Libra 可以在包括 Linux,macOS 和 Windows 在内的各种操作系统上构建.Libra 在 Linux 和 macOS 上经过了广泛的测试,而在 Windows 上的测试较少.这是我们使用的版本:
 
 - Linux - Ubuntu 20.04 和 22.04 版本
 - macOS - macOS Monterey 及更高版本
 - 微软 Windows - Windows 10,11 和 Windows Server 2022+
 
-## 克隆 Aptos-core 仓库
+## 克隆 Libra-core 仓库
 
 1. 安装[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
-   Git 是克隆 aptos-core 仓库的必需工具,需要在克隆仓库之前安装.你可以按照官方[Git 网站](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)上的说明进行安装.
+   Git 是克隆 libra2-core 仓库的必需工具,需要在克隆仓库之前安装.你可以按照官方[Git 网站](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)上的说明进行安装.
 
-2. 克隆 Aptos 仓库.要克隆 Aptos 仓库,你首先需要打开命令行提示符(macOS 或 Linux 的终端,Windows 的 PowerShell).然后运行以下命令从 GitHub 克隆 Git 仓库.
+2. 克隆 Libra 仓库.要克隆 Libra 仓库,你首先需要打开命令行提示符(macOS 或 Linux 的终端,Windows 的 PowerShell).然后运行以下命令从 GitHub 克隆 Git 仓库.
 
    ```shellscript filename="Terminal"
-   git clone https://github.com/aptos-labs/aptos-core.git
+   git clone https://github.com/libra2org/libra2-core.git
    ```
 
-3. 现在让我们 `cd` 进入 `aptos-core` 目录:
+3. 现在让我们 `cd` 进入 `libra2-core` 目录:
    ```shellscript filename="Terminal"
-   cd aptos-core
+   cd libra2-core
    ```
 
 ### (可选)切换到 release 分支
 
-这是可选的:切换到 `release` 分支以安装 Aptos 节点.
+这是可选的:切换到 `release` 分支以安装 Libra 节点.
 我们建议你首先切换到 `devnet` 进行开发.
 查看[选择网络](/zh/network/nodes/networks)了解它们之间的区别.
 
@@ -62,7 +62,7 @@ Aptos 可以在包括 Linux,macOS 和 Windows 在内的各种操作系统上构�
 
 ## 设置构建依赖
 
-通过安装构建(build),测试(test)和检查(inspect) Aptos Core 所需的依赖项来准备你的开发环境.
+通过安装构建(build),测试(test)和检查(inspect) Libra Core 所需的依赖项来准备你的开发环境.
 无论你选择哪种方式来安装这些依赖项,**你必须让你的整个工具链为最新版本**.
 如果你稍后遇到了问题,请更新所有的包然后重试.
 
@@ -165,7 +165,7 @@ Aptos 可以在包括 Linux,macOS 和 Windows 在内的各种操作系统上构�
 
 如果你对 macOS 或 Linux 设置使用了 `scripts/dev_setup.sh`,附加工具则是可选用的.
 
-## 构建 Aptos
+## 构建 Libra
 
 检查你的环境是否正常工作的一个简单方法是构建它并运行测试.
 

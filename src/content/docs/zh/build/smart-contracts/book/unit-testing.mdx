@@ -142,7 +142,7 @@ $ aptos move init --name TestExample
 
 ```toml
 [dependencies]
-MoveStdlib = { git = "https://github.com/aptos-labs/aptos-framework.git", subdir="aptos-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
+MoveStdlib = { git = "https://github.com/libra2org/aptos-framework.git", subdir="aptos-move/framework/move-stdlib", rev = "main", addr_subst = { "std" = "0x1" } }
 ```
 
 接下来在 `sources` 目录下添加以下模块:
@@ -229,8 +229,8 @@ Test result: OK. Total tests: 2; passed: 2; failed: 0
 
 ```shellscript filename="Terminal"
 $ aptos move test --coverage
-INCLUDING DEPENDENCY AptosFramework
-INCLUDING DEPENDENCY AptosStdlib
+INCLUDING DEPENDENCY LibraFramework
+INCLUDING DEPENDENCY LibraStdlib
 INCLUDING DEPENDENCY MoveStdlib
 BUILDING TestExample
 Running Move unit tests

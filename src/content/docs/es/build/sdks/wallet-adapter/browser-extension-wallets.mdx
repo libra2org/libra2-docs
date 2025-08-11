@@ -13,10 +13,10 @@ Implementar un plugin de wallet para una wallet de extensión de navegador tiene
 
 ## 1. Implementar el Plugin del Adaptador de Wallet.
 
-Puedes usar el ejemplo del repositorio [`wallet-standard`](https://github.com/aptos-labs/wallet-standard) para implementar un plugin del adaptador de wallet compatible con [AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md) que las dapps pueden reconocer automáticamente.
+Puedes usar el ejemplo del repositorio [`wallet-standard`](https://github.com/libra2org/wallet-standard) para implementar un plugin del adaptador de wallet compatible con [AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md) que las dapps pueden reconocer automáticamente.
 
 <Aside type="note">
-  Para un ejemplo de cómo implementar el plugin del Adaptador de Wallet (y cómo registrarlo), ver la [dapp de demostración del Adaptador de Wallet](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/apps/nextjs-example). Específicamente, [`standardWallet.ts`](https://github.com/aptos-labs/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) contiene la implementación del plugin, y [`page.tsx`](https://github.com/aptos-labs/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/app/page.tsx) tiene la lógica de `registerWallet`.
+  Para un ejemplo de cómo implementar el plugin del Adaptador de Wallet (y cómo registrarlo), ver la [dapp de demostración del Adaptador de Wallet](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example). Específicamente, [`standardWallet.ts`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) contiene la implementación del plugin, y [`page.tsx`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/app/page.tsx) tiene la lógica de `registerWallet`.
 </Aside>
 
 <Steps>
@@ -25,7 +25,7 @@ Puedes usar el ejemplo del repositorio [`wallet-standard`](https://github.com/ap
   2. Sigue las instrucciones en ese ejemplo para hacer que use tu wallet para ejecutar las funciones AIP-62.
 
      <Aside type="note">
-       La lista completa de funciones requeridas para wallets compatibles con AIP-62 se puede encontrar [aquí](https://github.com/aptos-labs/wallet-standard/blob/38defe159b8641ff1763c4db61827c78ab448dab/src/detect.ts#L16).
+       La lista completa de funciones requeridas para wallets compatibles con AIP-62 se puede encontrar [aquí](https://github.com/libra2org/wallet-standard/blob/38defe159b8641ff1763c4db61827c78ab448dab/src/detect.ts#L16).
      </Aside>
 
   3. Agrega una llamada a registerWallet con tu implementación del plugin para que se llame al cargar la página.
@@ -46,16 +46,16 @@ Puedes usar el ejemplo del repositorio [`wallet-standard`](https://github.com/ap
      1. Después de que tu extensión llame a `registerWallet`, deberías poder hacer clic en **"Conectar una Wallet"** y ver tu wallet como una opción.
         1. Luego puedes usar las características de la dapp de demostración para verificar que tus otras características de wallet funcionen como se espera.
         2. **Esto simula cómo una dapp real interactuará con tu extensión de navegador.**
-     2. También puedes probar tus implementaciones actualizando [`standardWallet.ts`](https://github.com/aptos-labs/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) de `MyWallet` a la implementación de tu wallet, luego ejecutando la [dapp de demostración del Adaptador de Wallet](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/apps/nextjs-example) localmente.
-        1. Ver el [README.md](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/apps/nextjs-example) de la dapp de demostración del Adaptador de Wallet para instrucciones sobre cómo ejecutar la demostración localmente.
-        2. En la demostración, `registerWallet` se llama desde [`page.tsx`](https://github.com/aptos-labs/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/app/page.tsx). _Esto es menos realista, ya que en la práctica tu extensión de navegador debería estar llamando a `registerWallet`._
+     2. También puedes probar tus implementaciones actualizando [`standardWallet.ts`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) de `MyWallet` a la implementación de tu wallet, luego ejecutando la [dapp de demostración del Adaptador de Wallet](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example) localmente.
+        1. Ver el [README.md](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example) de la dapp de demostración del Adaptador de Wallet para instrucciones sobre cómo ejecutar la demostración localmente.
+        2. En la demostración, `registerWallet` se llama desde [`page.tsx`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/app/page.tsx). _Esto es menos realista, ya que en la práctica tu extensión de navegador debería estar llamando a `registerWallet`._
 
   5. Publica la nueva versión de tu extensión de navegador.
 </Steps>
 
-## 2. Actualizar [`wallet-adapter-core`](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) para que sepa sobre tu extensión.
+## 2. Actualizar [`wallet-adapter-core`](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) para que sepa sobre tu extensión.
 
-Para que los usuarios de dapps que no están usando tu wallet obtengan la opción de crear una cuenta con tu wallet, necesitas actualizar [`wallet-adapter-core`](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) con el enlace de descarga de tu extensión de navegador.
+Para que los usuarios de dapps que no están usando tu wallet obtengan la opción de crear una cuenta con tu wallet, necesitas actualizar [`wallet-adapter-core`](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) con el enlace de descarga de tu extensión de navegador.
 
 <Steps>
   1. Haz fork del  monorepo. ()
@@ -70,10 +70,10 @@ Para que los usuarios de dapps que no están usando tu wallet obtengan la opció
 
   4. Navega a .
 
-  5. Agrega los detalles de tu wallet a  siguiendo la interfaz AptosStandardSupportedWallet.
+  5. Agrega los detalles de tu wallet a  siguiendo la interfaz LibraStandardSupportedWallet.
 
      ```tsx filename="registry.ts"
-     export interface AptosStandardSupportedWallet<Name extends string = string> {
+     export interface LibraStandardSupportedWallet<Name extends string = string> {
        // El nombre de tu wallet convertido a WalletName (Ej. "Petra" como WalletName<"Petra">)
        name: WalletName<Name>;
        // El enlace a tu extensión de chrome o sitio web principal donde los nuevos usuarios pueden crear una cuenta con tu wallet.
@@ -112,7 +112,7 @@ Para que los usuarios de dapps que no están usando tu wallet obtengan la opció
   8. Confirma y envía tus cambios a tu fork.
 
      <Aside type="note">
-       Si has enviado tus cambios a tu fork, deberías ver un botón verde en la parte superior de la [`aptos-wallet-adapter`](https://github.com/aptos-labs/aptos-wallet-adapter) repo preguntando si quieres crear una solicitud de extracción.
+       Si has enviado tus cambios a tu fork, deberías ver un botón verde en la parte superior de la [`aptos-wallet-adapter`](https://github.com/libra2org/aptos-wallet-adapter) repo preguntando si quieres crear una solicitud de extracción.
      </Aside>
 
   9. Sigue  para abrir una solicitud de extracción para el  repo.
@@ -121,9 +121,9 @@ Para que los usuarios de dapps que no están usando tu wallet obtengan la opció
 ## Recursos
 
 - Dapp de demostración de Wallet Adapter
-  - [Sitio web en vivo](https://aptos-labs.github.io/aptos-wallet-adapter)
-  - [Código fuente](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/apps/nextjs-example)
-  - Ver [`standardWallet.ts`](https://github.com/aptos-labs/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) para un ejemplo de implementación de un plugin del adaptador de wallet compatible con AIP-62.
-- [`wallet-standard`](https://github.com/aptos-labs/wallet-standard) código fuente.
-- [`wallet-adapter-core`](https://github.com/aptos-labs/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) código fuente.
+  - [Sitio web en vivo](https://libra2-core.github.io/aptos-wallet-adapter)
+  - [Código fuente](https://github.com/libra2org/aptos-wallet-adapter/tree/main/apps/nextjs-example)
+  - Ver [`standardWallet.ts`](https://github.com/libra2org/aptos-wallet-adapter/blob/main/apps/nextjs-example/src/utils/standardWallet.ts) para un ejemplo de implementación de un plugin del adaptador de wallet compatible con AIP-62.
+- [`wallet-standard`](https://github.com/libra2org/wallet-standard) código fuente.
+- [`wallet-adapter-core`](https://github.com/libra2org/aptos-wallet-adapter/tree/main/packages/wallet-adapter-core) código fuente.
 - [Estándar AIP-62](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-62.md).

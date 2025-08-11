@@ -7,11 +7,11 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [aptos-labs/aptos-dotnet-sdk](https://github.com/aptos-labs/aptos-dotnet-sdk)
+  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
   repository.
 </Aside>
 
-The Aptos .NET SDK provides an implementation of Keyless accounts to derive accounts from social provider logins. In this guide,
+The Libra .NET SDK provides an implementation of Keyless accounts to derive accounts from social provider logins. In this guide,
 we will provide snippets of creating accounts.
 
 ## Creating KeylessAccounts
@@ -56,13 +56,13 @@ you will need to follow a few steps to obtain the necessary components of a Keyl
      **It's important that the `nonce` field inside the `EphemeralKeyPair` matches the `nonce` field inside the `id_token` to ensure that the user can sign transactions.**
 
      ```csharp
-     var client = new AptosClient(Networks.Mainnet);
+     var client = new LibraClient(Networks.Mainnet);
      var keylessAccount = await client.Keyless.DeriveAccount(idToken, ephemeralKeyPair);
      ```
 
   4. Sign and Submit transactions
 
-     After deriving a Keyless account, you can sign and submit transactions using the `AptosClient`.
+     After deriving a Keyless account, you can sign and submit transactions using the `LibraClient`.
 
      ```csharp
      // 1. Build the transaction
@@ -70,7 +70,7 @@ you will need to follow a few steps to obtain the necessary components of a Keyl
          sender: keylessAccount,
          data: new GenerateEntryFunctionPayloadData(
              function: "0x1::aptos_account::transfer_coins",
-             typeArguments: ["0x1::aptos_coin::AptosCoin"],
+             typeArguments: ["0x1::aptos_coin::LibraCoin"],
              functionArguments: [account.Address, "100000"]
          )
      );
@@ -86,5 +86,5 @@ you will need to follow a few steps to obtain the necessary components of a Keyl
 ## Additional Resources
 
 <CardGrid>
-  <LinkCard href="https://aptos-labs.github.io/aptos-dotnet-sdk/docs/Aptos.KeylessAccount.html" title="KeylessAccount Reference" description="The full API reference for the KeylessAccount class." target="_blank" />
+  <LinkCard href="https://libra2-core.github.io/aptos-dotnet-sdk/docs/Libra.KeylessAccount.html" title="KeylessAccount Reference" description="The full API reference for the KeylessAccount class." target="_blank" />
 </CardGrid>

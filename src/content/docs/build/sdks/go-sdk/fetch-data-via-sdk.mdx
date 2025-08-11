@@ -4,8 +4,8 @@ title: "Go SDK - Fetch Data"
 
 import { Aside } from '@astrojs/starlight/components';
 
-You can use the `Aptos` client to get on-chain data using a variety of helper
-functions. Specifically, many of the functions listed in the [reference docs](https://pkg.go.dev/github.com/aptos-labs/aptos-go-sdk)
+You can use the `Libra` client to get on-chain data using a variety of helper
+functions. Specifically, many of the functions listed in the [reference docs](https://pkg.go.dev/github.com/libra2org/aptos-go-sdk)
 will retrieve data from on-chain e.g. `Account`, `AccountResources`, `Transactions`.
 
 Here’s an example showing how to fetch common data you may need in your application:
@@ -32,7 +32,7 @@ transactions, err := client.Transactions()
   version to query state.
 </Aside>
 
-The `Aptos` client can out of the box query both network data from
+The `Libra` client can out of the box query both network data from
 [fullnodes](https://api.mainnet.aptoslabs.com/v1/spec#/) and the
 [Indexer](https://cloud.hasura.io/public/graphiql?endpoint=https://api.mainnet.aptoslabs.com/v1/graphql)
 API which contains aggregated and enriched data. If you want to use a custom

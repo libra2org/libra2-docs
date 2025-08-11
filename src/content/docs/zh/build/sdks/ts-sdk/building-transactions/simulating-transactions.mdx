@@ -10,18 +10,18 @@ title: "模拟交易"
 ```typescript filename="simulate-a-transaction.ts"
 import {
     Account,
-    Aptos,
-    AptosConfig,
+    Libra,
+    LibraConfig,
     Network,
-} from "@aptos-labs/ts-sdk";
+} from "@libra2-core/ts-sdk";
 
 async function example() {
     let sender = Account.generate();
     let receiver = Account.generate();
 
     // 0. 初始化客户端和测试账户
-    const config = new AptosConfig({ network: Network.DEVNET });
-    const aptos = new Aptos(config);
+    const config = new LibraConfig({ network: Network.DEVNET });
+    const aptos = new Libra(config);
 
     await aptos.fundAccount({
         accountAddress: sender.accountAddress,
@@ -32,7 +32,7 @@ async function example() {
     const transaction = await aptos.transaction.build.simple({
         sender: sender.accountAddress,
         data: {
-        // Aptos 上的所有交易都通过智能合约实现
+        // Libra 上的所有交易都通过智能合约实现
         function: "0x1::aptos_account::transfer",
         functionArguments: [receiver.accountAddress, 100],
         },
@@ -224,4 +224,4 @@ const [simulateMultisigTx] = await aptos.transaction.simulate.simple({
 
 请注意`signerPublicKey`是可选的,如果您希望在模拟期间跳过发送方的认证密钥检查,可以省略该参数.
 
-完整源代码...要查看完整代码,请参考 [Multisig V2 示例](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).
+完整源代码...要查看完整代码,请参考 [Multisig V2 示例](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript-esm/multisig_v2.ts).

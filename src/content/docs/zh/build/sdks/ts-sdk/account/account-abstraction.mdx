@@ -4,7 +4,7 @@ title: "账户抽象"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Aptos 上的账户抽象 (AA) **通过 Move 模块实现自定义交易验证逻辑**,允许账户在原生加密方案之外定义自己的规则.
+Libra 上的账户抽象 (AA) **通过 Move 模块实现自定义交易验证逻辑**,允许账户在原生加密方案之外定义自己的规则.
 
 ## 核心概念
 
@@ -56,7 +56,7 @@ const authenticationFunction = `${deployer}::authenticator::authenticate`;
 
 ```move
 enum AbstractionAuthData has copy, drop {
-    V1 { 
+    V1 {
         digest: vector<u8>,       // 签名消息的 SHA3-256 哈希
         authenticator: vector<u8> // 自定义验证数据（如签名）
     },
@@ -128,7 +128,7 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     部署模块可使用 [Aptos CLI](/zh/build/cli) 的以下命令.假设您已通过 `aptos init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
+     部署模块可使用 [Libra CLI](/zh/build/cli) 的以下命令.假设您已通过 `aptos init` 设置工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
      aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
@@ -141,7 +141,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<hello_world_authenticator_deployer>"
 
-     const aptos = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
 
@@ -198,7 +198,7 @@ const abstractedAccount = new AbstractedAccount({
            enableAbstraction: async () => {
              if (!account) return;
 
-             // 注意：Aptos 客户端必须在应用某处定义
+             // 注意：Libra 客户端必须在应用某处定义
              const transaction = aptos.abstraction.enableAccountAbstractionTransaction({
                accountAddress: account.address,
                authenticationFunction: `${deployer}::hello_world_authenticator::authenticate`,
@@ -241,7 +241,7 @@ const abstractedAccount = new AbstractedAccount({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::AptosCoin"],
+         typeArguments: ["0x1::aptos_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
@@ -258,7 +258,7 @@ const abstractedAccount = new AbstractedAccount({
 
   7. 7. 结论
 
-     要验证您是否已成功使用抽象账户签名并提交交易,您可以使用区块链浏览器检查交易记录.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表明您已成功使用账户抽象功能!完整端到端演示代码可在[此处](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)查看.
+     要验证您是否已成功使用抽象账户签名并提交交易,您可以使用区块链浏览器检查交易记录.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表明您已成功使用账户抽象功能!完整端到端演示代码可在[此处](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)查看.
 
      ![交易签名](https://i.imgur.com/HZylFnc.png)
 </Steps>
@@ -342,7 +342,7 @@ const abstractedAccount = new AbstractedAccount({
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
              assert!(std::vector::length(&public_key) == 32, EINVALID_PUBLIC_KEY);
-             
+
              if (!exists<PublicKeyPermissions>(account_addr)) {
                  move_to(signer, PublicKeyPermissions {
                      public_key_table: smart_table::new(),
@@ -351,12 +351,12 @@ const abstractedAccount = new AbstractedAccount({
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
              assert!(
-                 !smart_table::contains(&permissions.public_key_table, public_key), 
+                 !smart_table::contains(&permissions.public_key_table, public_key),
                  EENTRY_ALREADY_EXISTS
              );
 
              smart_table::add(&mut permissions.public_key_table, public_key, true);
-         
+
          }
 
          public entry fun revoke_public_key(
@@ -364,7 +364,7 @@ const abstractedAccount = new AbstractedAccount({
              public_key: vector<u8>
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
-             
+
              assert!(exists<PublicKeyPermissions>(account_addr), ENO_PERMISSIONS);
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
@@ -383,11 +383,11 @@ const abstractedAccount = new AbstractedAccount({
      ```move
      module deployer::public_key_authenticator {
        // ...
-      
+
        struct PublicKeyPermissions has key {
            public_key_table: SmartTable<vector<u8>, bool>,
-       } 
-       
+       }
+
      }
      ```
 
@@ -405,7 +405,7 @@ const abstractedAccount = new AbstractedAccount({
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
              assert!(std::vector::length(&public_key) == 32, EINVALID_PUBLIC_KEY);
-             
+
              if (!exists<PublicKeyPermissions>(account_addr)) {
                  move_to(signer, PublicKeyPermissions {
                      public_key_table: smart_table::new(),
@@ -414,12 +414,12 @@ const abstractedAccount = new AbstractedAccount({
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
              assert!(
-                 !smart_table::contains(&permissions.public_key_table, public_key), 
+                 !smart_table::contains(&permissions.public_key_table, public_key),
                  EENTRY_ALREADY_EXISTS
              );
 
              smart_table::add(&mut permissions.public_key_table, public_key, true);
-         
+
          }
 
          public entry fun revoke_public_key(
@@ -427,7 +427,7 @@ const abstractedAccount = new AbstractedAccount({
              public_key: vector<u8>
          ) acquires PublicKeyPermissions {
              let account_addr = signer::address_of(signer);
-             
+
              assert!(exists<PublicKeyPermissions>(account_addr), ENO_PERMISSIONS);
 
              let permissions = borrow_global_mut<PublicKeyPermissions>(account_addr);
@@ -476,7 +476,7 @@ const abstractedAccount = new AbstractedAccount({
      }
      ```
 
-     要部署该模块,您可以使用 [Aptos CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `aptos init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
+     要部署该模块,您可以使用 [Libra CLI](/zh/build/cli) 的以下命令.我们假设您已经通过 `aptos init` 设置了工作区,并在 `Move.toml` 文件中声明了命名地址.
 
      ```shellscript
      aptos move publish --named-addresses deployer=0x1234567890123456789012345678901234567890
@@ -489,7 +489,7 @@ const abstractedAccount = new AbstractedAccount({
      ```typescript
      const DEPLOYER = "0x<public_key_authenticator_deployer>"
 
-     const aptos = new Aptos(new AptosConfig({ network: Network.DEVNET }));
+     const aptos = new Libra(new LibraConfig({ network: Network.DEVNET }));
 
      const alice = Account.generate();
      const bob = Account.generate();
@@ -581,7 +581,7 @@ const abstractedAccount = new AbstractedAccount({
        sender: abstractedAccount.accountAddress,
        data: {
          function: "0x1::coin::transfer",
-         typeArguments: ["0x1::aptos_coin::AptosCoin"],
+         typeArguments: ["0x1::aptos_coin::LibraCoin"],
          functionArguments: [alice.accountAddress, 100],
        },
      });
@@ -598,7 +598,7 @@ const abstractedAccount = new AbstractedAccount({
 
   8. 8. 结论
 
-     要验证是否成功使用抽象账户签署并提交了交易,可以通过区块链浏览器检查该交易.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表示您已成功使用账户抽象功能!完整端到端示例代码可在此处查看 [here](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
+     要验证是否成功使用抽象账户签署并提交了交易,可以通过区块链浏览器检查该交易.如果交易签名中包含 `function_info` 和 `auth_data` 字段,则表示您已成功使用账户抽象功能!完整端到端示例代码可在此处查看 [here](https://github.com/libra2org/aptos-ts-sdk/blob/main/examples/typescript/public_key_authenticator_account_abstraction.ts)
 
      ![交易签名](https://i.imgur.com/3U40YSb.png)
 </Steps>

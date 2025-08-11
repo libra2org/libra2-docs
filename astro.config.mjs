@@ -59,12 +59,12 @@ export default defineConfig({
     starlight({
       title: SITE_TITLES,
       logo: {
-        light: "~/assets/aptos-logomark-light.svg",
-        dark: "~/assets/aptos-logomark-dark.svg",
+        light: "~/assets/libra2-logomark-light.svg",
+        dark: "~/assets/libra2-logomark-dark.svg",
         replacesTitle: false,
       },
       editLink: {
-        baseUrl: "https://github.com/aptos-labs/aptos-docs/edit/main/",
+        baseUrl: "https://github.com/libra2org/aptos-docs/edit/main/",
       },
       lastUpdated: true,
       expressiveCode: {
@@ -95,11 +95,11 @@ export default defineConfig({
         ]),
       ),
       social: [
-        { label: "GitHub", icon: "github", href: "https://github.com/aptos-labs" },
+        { label: "GitHub", icon: "github", href: "https://github.com/libra2org" },
         { label: "X", icon: "x.com", href: "https://x.com/aptos" },
         { label: "Discord", icon: "discord", href: "https://discord.com/invite/aptosnetwork" },
         //{ label: "Forum", icon: "discourse", href: "https://forum.aptosfoundation.org" },
-        //{ label: "Reddit", icon: "reddit", href: "https://www.reddit.com/r/Aptos" },
+        //{ label: "Reddit", icon: "reddit", href: "https://www.reddit.com/r/Libra2" },
         { label: "Telegram", icon: "telegram", href: "https://t.me/aptos" },
       ],
       components: {
@@ -167,9 +167,9 @@ export default defineConfig({
       include: ["**/GraphQLEditor.tsx"],
     }),
     favicons({
-      name: "Aptos Docs",
+      name: "Libra2 Docs",
       name_localized: SITE_TITLES,
-      short_name: "Aptos",
+      short_name: "Libra2",
       icons: {
         android: true,
         appleIcon: true,

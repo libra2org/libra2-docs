@@ -4,16 +4,16 @@ title: "Your First Move Module"
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-The Aptos blockchain allows developers to write Turing complete smart contracts (called “modules”) with the secure-by-design Move language. Smart contracts enable users to send money with the blockchain, but also write arbitrary code, even games! It all starts with the Aptos CLI creating an account which will store the deployed (”published”) Move module.
+The Libra blockchain allows developers to write Turing complete smart contracts (called “modules”) with the secure-by-design Move language. Smart contracts enable users to send money with the blockchain, but also write arbitrary code, even games! It all starts with the Libra CLI creating an account which will store the deployed (”published”) Move module.
 
-This tutorial will help you understand Move Modules by guiding you through setting up a minimal Aptos environment, then how to compile, test, publish and interact with Move modules on the Aptos Blockchain. You will learn how to:
+This tutorial will help you understand Move Modules by guiding you through setting up a minimal Libra environment, then how to compile, test, publish and interact with Move modules on the Libra Blockchain. You will learn how to:
 
 1. Setup your environment, install the CLI
 2. Create a devnet account and fund it
 3. Compile and test a Move module
-4. Publish (or "deploy") a Move module to the Aptos blockchain
+4. Publish (or "deploy") a Move module to the Libra blockchain
 5. Interact with the module
-6. Keep building with Aptos (next steps)
+6. Keep building with Libra (next steps)
 
 <Aside type="note">
   This tutorial is not meant to teach you the fundamentals of Move. That is a longer topic best learned through the [Move Book](/build/smart-contracts/book).
@@ -21,12 +21,12 @@ This tutorial will help you understand Move Modules by guiding you through setti
 
 ## 1. Setup
 
-Changes to the blockchain are called “transactions”, and they require an account to pay the network fee (”gas fee”). We will need to create an account with some APT to pay that fee and own the published contract. In order to do that, we will need to use the Aptos CLI.
+Changes to the blockchain are called “transactions”, and they require an account to pay the network fee (”gas fee”). We will need to create an account with some APT to pay that fee and own the published contract. In order to do that, we will need to use the Libra CLI.
 
 <Steps>
-  1. Install the Aptos CLI
+  1. Install the Libra CLI
 
-     [Install the Aptos CLI](/build/cli) (if you haven't already).
+     [Install the Libra CLI](/build/cli) (if you haven't already).
 
   2. Open a new terminal
 
@@ -59,11 +59,11 @@ Changes to the blockchain are called “transactions”, and they require an acc
      Run `aptos init` and press 'enter' for each step of setup to create a test account on `devnet`.
 
      <Aside type="note">
-       As we are configuring your Aptos CLI for this folder, notice that this setup follows the logic of the blockchain itself:
+       As we are configuring your Libra CLI for this folder, notice that this setup follows the logic of the blockchain itself:
 
        1. Which network are we working with (default `devnet`, which refreshes every week)?
        2. What is the account we are transacting from (creating a unique private key, which in turn generates a cryptographic public key and account address)?
-       3. How do I pay for "gas"? (For devnet, testnet, and local networks, the Aptos CLI will helpfully fund this account with Aptos Coin, APT).
+       3. How do I pay for "gas"? (For devnet, testnet, and local networks, the Libra CLI will helpfully fund this account with Libra Coin, APT).
 
        For now, just press 'enter' repeatedly to accept all the defaults.
      </Aside>
@@ -72,14 +72,14 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
      ```shellscript filename="Terminal"
      ---
-     Aptos CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
+     Libra CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
      {
        "Result": "Success"
      }
      ```
 
      <Aside type="note">
-       What you might not have noticed is that the Aptos CLI has created a new hidden folder `.aptos/` with a `.gitignore` and `config.yaml` which contains the account information, including private key, public key, and account address.
+       What you might not have noticed is that the Libra CLI has created a new hidden folder `.aptos/` with a `.gitignore` and `config.yaml` which contains the account information, including private key, public key, and account address.
 
        You can view hidden files with `ls -a` in Unix/Mac terminal or `dir /ah` in Windows.
      </Aside>
@@ -95,12 +95,12 @@ Changes to the blockchain are called “transactions”, and they require an acc
      The address looks like this `0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba` and you can find it in the line:
 
      ```shellscript filename="Terminal"
-     Aptos CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
+     Libra CLI is now set up for account 0x9ec1cfa30b885a5c9d595f32f3381ec16d208734913b587be9e210f60be9f9ba as profile default!
      ```
 
-  2. Open the Aptos Explorer
+  2. Open the Libra Explorer
 
-     Go to the [Aptos Explorer](https://explorer.aptoslabs.com/?network=devnet).
+     Go to the [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet).
 
      This is the primary way to quickly check what is happening on devnet, testnet, or mainnet. We will use it later on to view our deployed contracts.
 
@@ -108,7 +108,7 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
      Look for “Devnet" in the top right corner, or switch networks by clicking the “Mainnet” dropdown and selecting Devnet
 
-     ![Switching to Devnet network in Aptos Explorer](~/images/screenshots/explorer_devnet.png)
+     ![Switching to Devnet network in Libra Explorer](~/images/screenshots/explorer_devnet.png)
 
   4. Search for your account
 
@@ -126,11 +126,11 @@ Changes to the blockchain are called “transactions”, and they require an acc
 
      You should see your newly created account and a transaction with the faucet function, funding it with devnet tokens.
 
-     ![Viewing Account in Aptos Explorer](~/images/screenshots/explorer_account.png)
+     ![Viewing Account in Libra Explorer](~/images/screenshots/explorer_account.png)
 
   7. Verify your balance
 
-     Click the "Coins" tab to see that you have 1 APT of the Aptos Coin. This will allow you to publish and interact with smart contracts on the aptos devnet.
+     Click the "Coins" tab to see that you have 1 APT of the Libra Coin. This will allow you to publish and interact with smart contracts on the aptos devnet.
 
      <Aside type="note">
        The explorer is an important tool to see the contracts we are deploying, and also offers a way to look up what a contract does. Just search for the address where a contract is deployed and you will be able to see the code for that module.
@@ -228,9 +228,9 @@ Our first module will be a simple message storage system that allows accounts to
      ```shellscript filename="Terminal"
      ❯ aptos move compile --named-addresses my_first_module=default
      Compiling, may take a little while to download git dependencies...
-     UPDATING GIT DEPENDENCY https://github.com/aptos-labs/aptos-framework.git
-     INCLUDING DEPENDENCY AptosFramework
-     INCLUDING DEPENDENCY AptosStdlib
+     UPDATING GIT DEPENDENCY https://github.com/libra2org/aptos-framework.git
+     INCLUDING DEPENDENCY LibraFramework
+     INCLUDING DEPENDENCY LibraStdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      {
@@ -319,8 +319,8 @@ Testing and debugging are crucial parts of Move module development. Move has bui
      You should see output if the tests pass: (See below for how to handle errors)
 
      ```shellscript filename="Terminal"
-     INCLUDING DEPENDENCY AptosFramework
-     INCLUDING DEPENDENCY AptosStdlib
+     INCLUDING DEPENDENCY LibraFramework
+     INCLUDING DEPENDENCY LibraStdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      Running Move unit tests
@@ -356,7 +356,7 @@ Testing and debugging are crucial parts of Move module development. Move has bui
 
 ## 5. Publishing Your Module
 
-After successfully compiling and testing your module, you can publish it to the Aptos blockchain. This process deploys your code so that it's accessible on-chain.
+After successfully compiling and testing your module, you can publish it to the Libra blockchain. This process deploys your code so that it's accessible on-chain.
 
 <Steps>
   1. Publish the module
@@ -367,9 +367,9 @@ After successfully compiling and testing your module, you can publish it to the 
 
      ```shellscript filename="Terminal"
      Compiling, may take a little while to download git dependencies...
-     UPDATING GIT DEPENDENCY https://github.com/aptos-labs/aptos-framework.git
-     INCLUDING DEPENDENCY AptosFramework
-     INCLUDING DEPENDENCY AptosStdlib
+     UPDATING GIT DEPENDENCY https://github.com/libra2org/aptos-framework.git
+     INCLUDING DEPENDENCY LibraFramework
+     INCLUDING DEPENDENCY LibraStdlib
      INCLUDING DEPENDENCY MoveStdlib
      BUILDING my_first_module
      package size 1271 bytes
@@ -406,7 +406,7 @@ After successful publication, you can verify your module is on-chain by followin
 <Steps>
   1. Open the Explorer
 
-     Go to the [Aptos Explorer](https://explorer.aptoslabs.com/?network=devnet)
+     Go to the [Libra Explorer](https://explorer.aptoslabs.com/?network=devnet)
 
   2. Check the transaction
 
@@ -414,7 +414,7 @@ After successful publication, you can verify your module is on-chain by followin
 
   3. View your balance
 
-     Click the "Coins" tab to see that you now have less than 1 APT of the Aptos Coin.
+     Click the "Coins" tab to see that you now have less than 1 APT of the Libra Coin.
 
      ![Explorer Coins View](~/images/screenshots/explorer_coins.png)
 
@@ -437,7 +437,7 @@ After successful publication, you can verify your module is on-chain by followin
 
 ## 6. Interacting with Your Module
 
-Now that your module is published, you can interact with it through the Aptos CLI:
+Now that your module is published, you can interact with it through the Libra CLI:
 
 <Steps>
   1. Set a message
@@ -445,7 +445,7 @@ Now that your module is published, you can interact with it through the Aptos CL
      Set a message using the CLI:
 
      ```shellscript filename="Terminal"
-     aptos move run --function-id 'default::message::set_message' --args 'string:Hello, Aptos!'
+     aptos move run --function-id 'default::message::set_message' --args 'string:Hello, Libra!'
      ```
 
      You'll see a gas fee prompt similar to what you saw during publishing.
@@ -500,7 +500,7 @@ Here are some **suggested next steps to get a deeper understanding of Move modul
 1. Try modifying the module to add a new feature. You can use the [Move Book](/build/smart-contracts/book) to build your understanding of writing Move modules.
 2. To understand how Move works on-chain, you can learn about Move's [resource system](/network/blockchain/resources).
 3. If you're building an application to interact with contracts or look up data from on-chain, learn how to use the SDKs [here](/build/sdks/).
-4. Join the [Aptos Discord](https://discord.gg/aptoslabs) to connect with other developers.
+4. Join the [Libra Discord](https://discord.gg/aptoslabs) to connect with other developers.
 
 ## Supporting documentation
 

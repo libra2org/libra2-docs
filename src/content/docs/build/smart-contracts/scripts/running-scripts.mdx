@@ -4,8 +4,8 @@ title: "Running Move Scripts"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Move scripts are supported in the Aptos TypeScript SDK, Aptos Wallet Adapter,
-and in the Aptos CLI.
+Move scripts are supported in the Libra TypeScript SDK, Libra Wallet Adapter,
+and in the Libra CLI.
 
 ## Running scripts with the TypeScript SDK
 
@@ -14,10 +14,10 @@ transaction in place of an entry function name.
 
 ```typescript
 import { readFileSync } from "fs";
-import { Aptos, Account, AccountAddress } from "@aptos-labs/ts-sdk";
+import { Libra, Account, AccountAddress } from "@libra2-core/ts-sdk";
 
 // Setup client, and account to sign
-const aptos = new Aptos();
+const aptos = new Libra();
 const account = Account.generate();
 
 // Load script bytecode
@@ -29,7 +29,7 @@ const transaction = await aptos.transaction.build.simple({
   sender: account.accountAddress,
   data: {
     bytecode,
-    typeArguments: [parseTypeTag("0x1::aptos_coin::AptosCoin")],
+    typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
     functionArguments: [AccountAddress.from("0x1")],
   },
 });
@@ -42,7 +42,7 @@ const pendingTxn = await aptos.signAndSubmitTransaction({
 await aptos.waitForTransaction({ transactionHash: pendingTxn.hash });
 ```
 
-## Running scripts with the Aptos Wallet Adapter
+## Running scripts with the Libra Wallet Adapter
 
 <Aside type="caution">
   Not all wallets support scripts, but when the wallet supports scripts, it can be
@@ -54,7 +54,7 @@ type on the wallet adapter. Just simply load the bytecode as a hex `string` or
 a `uint8array`.
 
 ```typescript
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@libra2-core/wallet-adapter-react";
 
 //...
 
@@ -68,7 +68,7 @@ export default function App() {
     signAndSubmitTransaction({
       data: {
         bytecode: BYTECODE_IN_HEX,
-        typeArguments: [parseTypeTag("0x1::aptos_coin::AptosCoin")],
+        typeArguments: [parseTypeTag("0x1::aptos_coin::LibraCoin")],
         functionArguments: [AccountAddress.from("0x1")],
       },
     });

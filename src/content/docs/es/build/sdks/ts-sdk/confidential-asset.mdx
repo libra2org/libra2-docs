@@ -4,7 +4,7 @@ title: "Activo Confidencial (CA)"
 
 import { Aside } from '@astrojs/starlight/components';
 
-Puedes usar la propiedad `confidentialCoin` del cliente `Aptos` para interactuar con `CA`
+Puedes usar la propiedad `confidentialCoin` del cliente `Libra` para interactuar con `CA`
 
 ### Inicialización
 
@@ -20,16 +20,16 @@ import initWasm, {
   batch_verify_proof as batchVerifyProof,
   range_proof as rangeProof,
   verify_proof as verifyProof,
-} from '@aptos-labs/confidential-asset-wasm-bindings/range-proofs'
+} from '@libra2-core/confidential-asset-wasm-bindings/range-proofs'
 import {
   BatchRangeProofInputs,
   BatchVerifyRangeProofInputs,
   RangeProofInputs,
   VerifyRangeProofInputs,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 
 const RANGE_PROOF_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.16/range-proofs/aptos_rp_wasm_bg.wasm'
 
 export async function genBatchRangeZKP(
   opts: BatchRangeProofInputs,
@@ -68,7 +68,7 @@ export async function verifyBatchRangeZKP(
 Y luego, simplemente coloca esto al principio de tu aplicación:
 
 ```typescript
-import { RangeProofExecutor } from '@aptos-labs/ts-sdk'
+import { RangeProofExecutor } from '@libra2-core/ts-sdk'
 
 RangeProofExecutor.setGenBatchRangeZKP(genBatchRangeZKP);
 RangeProofExecutor.setVerifyBatchRangeZKP(verifyBatchRangeZKP);
@@ -78,7 +78,7 @@ RangeProofExecutor.setVerifyRangeZKP(verifyRangeZKP);
 
 Para aplicaciones nativas:
 
-Genera los bindings de `android` e `ios` [aquí](https://github.com/aptos-labs/confidential-asset-wasm-bindings) e intégralos en tu aplicación como prefieras.
+Genera los bindings de `android` e `ios` [aquí](https://github.com/libra2org/confidential-asset-wasm-bindings) e intégralos en tu aplicación como prefieras.
 
 Y la última, pero no menos importante parte:
 
@@ -89,23 +89,23 @@ CA implementa el método Pollard's Kangaroo para resolver DLPs en la curva Ristr
 Así que también necesitamos inicializar una función de descifrado para eso:
 
 ```typescript
-// Copyright © Aptos Foundation
+// Copyright © Libra Foundation
 // SPDX-License-Identifier: Apache-2.0
 
 import initWasm, {
   create_kangaroo,
   WASMKangaroo,
-} from '@aptos-labs/confidential-asset-wasm-bindings/pollard-kangaroo'
+} from '@libra2-core/confidential-asset-wasm-bindings/pollard-kangaroo'
 import {
   ConfidentialAmount,
   TwistedEd25519PrivateKey,
   TwistedElGamal,
   TwistedElGamalCiphertext,
-} from '@lukachi/aptos-labs-ts-sdk'
+} from '@lukachi/libra2-core-ts-sdk'
 import { bytesToNumberLE } from '@noble/curves/abstract/utils'
 
 const POLLARD_KANGAROO_WASM_URL =
-  'https://unpkg.com/@aptos-labs/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
+  'https://unpkg.com/@libra2-core/confidential-asset-wasm-bindings@0.3.15/pollard-kangaroo/aptos_pollard_kangaroo_wasm_bg.wasm'
 
 export async function createKangaroo(secret_size: number) {
   await initWasm({ module_or_path: POLLARD_KANGAROO_WASM_URL })
@@ -148,16 +148,16 @@ const init = async () => {
 }
 ```
 
-Para aplicaciones nativas, puedes generar los bindings de `android` e `ios` [aquí](https://github.com/aptos-labs/confidential-asset-wasm-bindings) para usar en lugar de WASM.
+Para aplicaciones nativas, puedes generar los bindings de `android` e `ios` [aquí](https://github.com/libra2org/confidential-asset-wasm-bindings) para usar en lugar de WASM.
 
 ***
 
-Ahora estamos listos para definir el cliente Aptos:
+Ahora estamos listos para definir el cliente Libra:
 
 ```typescript
 const APTOS_NETWORK: Network = NetworkToNetworkName[Network.TESTNET];
-const config = new AptosConfig({ network: APTOS_NETWORK });
-export const aptos = new Aptos(config);
+const config = new LibraConfig({ network: APTOS_NETWORK });
+export const aptos = new Libra(config);
 ```
 
 ### Crear Clave de Descifrado (DK)
@@ -186,7 +186,7 @@ const signature = user.sign(TwistedEd25519PrivateKey.decryptionKeyDerivationMess
 const dk = TwistedEd25519PrivateKey.fromSignature(signature);
 ```
 
-O usa [`pepper`](/build/guides/aptos-keyless/how-keyless-works) de [Cuenta Keyless](/build/guides/aptos-keyless)
+O usa [`pepper`](/build/guides/libra2-keyless/how-keyless-works) de [Cuenta Keyless](/build/guides/libra2-keyless)
 
 ### Registro
 

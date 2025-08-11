@@ -7,27 +7,27 @@ import { Aside, Steps } from '@astrojs/starlight/components';
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [aptos-labs/aptos-dotnet-sdk](https://github.com/aptos-labs/aptos-dotnet-sdk)
+  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
   repository.
 </Aside>
 
-This section covers the basic transaction types that can be built and submitted to the Aptos blockchain.
+This section covers the basic transaction types that can be built and submitted to the Libra blockchain.
 
 <Steps>
-  1. Set up your AptosClient
+  1. Set up your LibraClient
 
-     Set up your Aptos client by adding the `Aptos` namespace and instantiating an `AptosClient`. You can use a predefined
+     Set up your Libra client by adding the `Libra` namespace and instantiating an `LibraClient`. You can use a predefined
      configuration from `Networks` or configuring your own.
 
      ```csharp filename="Program.cs"  {1-1, 7-8}
-     using Aptos;
+     using Libra;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new AptosConfig(Aptos.Networks.Mainnet);
-             var client = new AptosClient(config);
+             var config = new LibraConfig(Libra.Networks.Mainnet);
+             var client = new LibraClient(config);
          }
      }
      ```
@@ -38,14 +38,14 @@ This section covers the basic transaction types that can be built and submitted 
      mnemonic, or a combination of both. In this example, we will generate a random new account.
 
      ```csharp filename="Program.cs" {10-12}
-     using Aptos;
+     using Libra;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new AptosConfig(Aptos.Networks.Devnet);
-             var client = new AptosClient(config);
+             var config = new LibraConfig(Libra.Networks.Devnet);
+             var client = new LibraClient(config);
 
              // 1. Create an account and fund it.
              var account = Account.Generate();
@@ -56,19 +56,19 @@ This section covers the basic transaction types that can be built and submitted 
 
   3. Build the Transaction
 
-     To interact with the blockchain, you will need to build a transaction. The `AptosClient` can be
+     To interact with the blockchain, you will need to build a transaction. The `LibraClient` can be
      used to build a transaction payload that can be signed and submitted to chain. In the transaction,
      we can specify the sender, entry function, and arguments.
 
      ```csharp filename="Program.cs" {12-20}
-     using Aptos;
+     using Libra;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new AptosConfig(Aptos.Networks.Devnet);
-             var client = new AptosClient(config);
+             var config = new LibraConfig(Libra.Networks.Devnet);
+             var client = new LibraClient(config);
 
              var account = Account.Generate();
 
@@ -77,7 +77,7 @@ This section covers the basic transaction types that can be built and submitted 
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
                      function: "0x1::aptos_account::transfer_coins",
-                     typeArguments: ["0x1::aptos_coin::AptosCoin"],
+                     typeArguments: ["0x1::aptos_coin::LibraCoin"],
                      functionArguments: [account.Address, "100000"]
                  )
              );
@@ -87,18 +87,18 @@ This section covers the basic transaction types that can be built and submitted 
 
   4. Sign and Submit Transactions
 
-     Once the transaction is built, it can be signed and submitted to the blockchain. The `AptosClient` can be
+     Once the transaction is built, it can be signed and submitted to the blockchain. The `LibraClient` can be
      used to sign and submit the transaction.
 
      ```csharp filename="Program.cs" {21-22}
-     using Aptos;
+     using Libra;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new AptosConfig(Aptos.Networks.Devnet);
-             var client = new AptosClient(config);
+             var config = new LibraConfig(Libra.Networks.Devnet);
+             var client = new LibraClient(config);
 
              var account = Account.Generate();
 
@@ -106,7 +106,7 @@ This section covers the basic transaction types that can be built and submitted 
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
                      function: "0x1::aptos_account::transfer_coins",
-                     typeArguments: ["0x1::aptos_coin::AptosCoin"],
+                     typeArguments: ["0x1::aptos_coin::LibraCoin"],
                      functionArguments: [account.Address, "100000"]
                  )
              );
@@ -119,18 +119,18 @@ This section covers the basic transaction types that can be built and submitted 
 
   5. (Optional) Wait for the Transaction to Execute
 
-     After the transaction has been submitted, it will have to process before its committed to the blockchain. The `AptosClient` can be
+     After the transaction has been submitted, it will have to process before its committed to the blockchain. The `LibraClient` can be
      used to wait for the transaction to be processed and executed.
 
      ```csharp filename="Program.cs" {23-24}
-     using Aptos;
+     using Libra;
 
      class Program
      {
          static void Main(string[] args)
          {
-             var config = new AptosConfig(Aptos.Networks.Devnet);
-             var client = new AptosClient(config);
+             var config = new LibraConfig(Libra.Networks.Devnet);
+             var client = new LibraClient(config);
 
              var account = Account.Generate();
 
@@ -138,7 +138,7 @@ This section covers the basic transaction types that can be built and submitted 
                  sender: account,
                  data: new GenerateEntryFunctionPayloadData(
                      function: "0x1::aptos_account::transfer_coins",
-                     typeArguments: ["0x1::aptos_coin::AptosCoin"],
+                     typeArguments: ["0x1::aptos_coin::LibraCoin"],
                      functionArguments: [account.Address, "100000"]
                  )
              );

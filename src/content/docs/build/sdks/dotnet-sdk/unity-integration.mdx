@@ -7,14 +7,14 @@ import { Aside, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components'
 <Aside type="caution" emoji="❗">
   This integration is currently in beta. Please report any issues you encounter
   by creating an issue in the
-  [aptos-labs/aptos-dotnet-sdk](https://github.com/aptos-labs/aptos-dotnet-sdk)
+  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
   repository.
 </Aside>
 
-This guide will walk you through the process of integrating the Aptos .NET SDK.
+This guide will walk you through the process of integrating the Libra .NET SDK.
 
 <Steps>
-  1. Install the Aptos Unity SDK
+  1. Install the Libra Unity SDK
 
      #### Option 1: Import via Unity Package Manager (UPM)
 
@@ -23,21 +23,21 @@ This guide will walk you through the process of integrating the Aptos .NET SDK.
      3. Enter the following URL and click Add button
 
      ```shellscript
-     https://github.com/aptos-labs/unity-sdk.git?path=/Packages/com.aptoslabs.aptos-unity-sdk
+     https://github.com/libra2org/unity-sdk.git?path=/Packages/com.aptoslabs.aptos-unity-sdk
      ```
 
      #### Option 2: Import via `unitypackage`
 
-     1. Go to the [`aptos-labs/unity-sdk Releases`](https://github.com/aptos-labs/unity-sdk/releases) and download the latest release.
+     1. Go to the [`libra2-core/unity-sdk Releases`](https://github.com/libra2org/unity-sdk/releases) and download the latest release.
      2. Drag and drop the `.unitypackage` file into your Unity project.
 
-  2. Use the Aptos SDK
+  2. Use the Libra SDK
 
-     Import the `Aptos` namespace in your C# script and use the SDK.
+     Import the `Libra` namespace in your C# script and use the SDK.
 
      ```csharp {2-2,8-8,11-15}
      using UnityEngine;
-     using Aptos;
+     using Libra;
 
      class Example : MonoBehaviour
      {
@@ -47,7 +47,7 @@ This guide will walk you through the process of integrating the Aptos .NET SDK.
          }
 
          async void PrintLedgerInfo() {
-             var client = new AptosUnityClient(Networks.Mainnet);
+             var client = new LibraUnityClient(Networks.Mainnet);
              var ledgerInfo = await client.Block.GetLedgerInfo();
              Debug.Log(ledgerInfo.BlockHeight);
          }
@@ -58,14 +58,14 @@ This guide will walk you through the process of integrating the Aptos .NET SDK.
 
 ## Next Steps
 
-You've successfully integrated the Aptos .NET SDK into your Unity project. Now
-you can start building your game and interacting with the Aptos blockchain. Below
+You've successfully integrated the Libra .NET SDK into your Unity project. Now
+you can start building your game and interacting with the Libra blockchain. Below
 are some resources to help you get started.
 
 <CardGrid>
-  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Aptos .NET SDK." />
+  <LinkCard href="/build/sdks/dotnet-sdk/getting-started" title="Getting Started" description="Begin developing using the Libra .NET SDK." />
 
   <LinkCard href="/build/sdks/unity-sdk" title="Unity SDK" description="Overview of the Unity SDK." />
 
-  <LinkCard href="https://github.com/aptos-labs/aptos-unity-starter" title="Aptos Wallet Starter" description="Example Unity project with an integration of the Aptos Unity SDK." target="_blank" />
+  <LinkCard href="https://github.com/libra2org/aptos-unity-starter" title="Libra Wallet Starter" description="Example Unity project with an integration of the Libra Unity SDK." target="_blank" />
 </CardGrid>

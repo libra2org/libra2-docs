@@ -10,8 +10,8 @@ This section outlines how to create test transactions with Move scripts.
 
 ## Prerequisites
 
-1. Clone the [aptos-core](https://github.com/aptos-labs/aptos-core) repository:
-   - Navigate to the `aptos-core/ecosystem/indexer-grpc/indexer-transaction-generator` directory.
+1. Clone the [libra2-core](https://github.com/libra2org/libra2-core) repository:
+   - Navigate to the `libra2-core/ecosystem/indexer-grpc/indexer-transaction-generator` directory.
 
 ## How to Generate Test Transactions using Move Script
 
@@ -21,22 +21,22 @@ This section outlines how to create test transactions with Move scripts.
      Before proceeding, ensure you have the `move_fixtures` folder set up in the appropriate location:
 
      1. Location:
-        The `move_fixtures` folder should be created in the `aptos-core/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions` directory. This is the folder where Move scripts and their configurations for test transactions will be stored.
+        The `move_fixtures` folder should be created in the `libra2-core/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions` directory. This is the folder where Move scripts and their configurations for test transactions will be stored.
 
-        <Aside type="note"> **Note:** Do not create the `move_fixtures` folder in your processor repository. All Move-related files should reside in the `aptos-core` repository under the specified directory. </Aside>
+        <Aside type="note"> **Note:** Do not create the `move_fixtures` folder in your processor repository. All Move-related files should reside in the `libra2-core` repository under the specified directory. </Aside>
      2. Steps to set up the folder:
-        - if starting fresh, remove all existing files and projects in the `move_fixtures` folder in the aptos-core repo
+        - if starting fresh, remove all existing files and projects in the `move_fixtures` folder in the libra2-core repo
         - Create your own Move projects/scripts in the move\_fixtures folder (detailed in the next step)
 
   2. Create Your Move Project and Write your Move Script
 
-     Create your Move project and write a module to output the scenario that you would like to test in your processor. You can refer to an example [here](https://github.com/aptos-labs/aptos-core/tree/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/move_fixtures).
+     Create your Move project and write a module to output the scenario that you would like to test in your processor. You can refer to an example [here](https://github.com/libra2org/libra2-core/tree/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/move_fixtures).
 
   3. Set Up Test Accounts
 
      1. These accounts will be used to deploy your module.
      2. Set up as many accounts as you need. These accounts will be used to send the scripted transactions. Refer to the guide [here](/build/cli/setup-cli) to create accounts.
-     3. Update [`aptos-core/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/testing_accounts.yaml`](https://github.com/aptos-labs/aptos-core/blob/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/testing_accounts.yaml) with your accounts.
+     3. Update [`libra2-core/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/testing_accounts.yaml`](https://github.com/libra2org/libra2-core/blob/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/testing_accounts.yaml) with your accounts.
 
      <Aside type="note"> **Note:** Do not use real accounts here. Only use **test accounts** created in the CLI specifically for testing. Always select **devnet** when setting up a test account, as it will be required later in the script to configure the account profile and fund it using the faucet. </Aside>
 
@@ -44,7 +44,7 @@ This section outlines how to create test transactions with Move scripts.
 
      Each configuration file defines a sequences of transactions for a test scenario.
 
-     1. Create a configuration file in the `move_fixtures` [directory](https://github.com/aptos-labs/aptos-core/blob/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/move_fixtures). Name the configuration file according to the test scenario it corresponds to.
+     1. Create a configuration file in the `move_fixtures` [directory](https://github.com/libra2org/libra2-core/blob/main/ecosystem/indexer-grpc/indexer-transaction-generator/imported_transactions/move_fixtures). Name the configuration file according to the test scenario it corresponds to.
      2. This configuration file should contain unique transaction names and details for each transaction. The transactions should be listed in the order they are to be executed.
         The configuration file should be structured like this:
 
@@ -73,7 +73,7 @@ This section outlines how to create test transactions with Move scripts.
      - The `--mode=script` flag specifies that the transaction generator should operate in script mode, meaning it will execute Move scripts and generate corresponding transaction data. By default, the mode is set to import, which fetches transactions from the network.
 
      ```shellscript
-         cd ~/aptos-core/ecosystem/indexer-grpc/indexer-transaction-generator
+         cd ~/libra2-core/ecosystem/indexer-grpc/indexer-transaction-generator
          cargo run -- --testing-folder ./imported_transactions --output-folder ../indexer-test-transactions/src/ --script
      ```
 
@@ -81,7 +81,7 @@ This section outlines how to create test transactions with Move scripts.
 
      1. Read the configuration in the `move_fixtures` folder.
      2. Execute the specified Move scripts.
-     3. Output the generated JSON files to the designated folder (`~/aptos-core/ecosystem/indexer-grpc/indexer-test-transactions/src/json_transactions`).
+     3. Output the generated JSON files to the designated folder (`~/libra2-core/ecosystem/indexer-grpc/indexer-test-transactions/src/json_transactions`).
      4. Overwrite `generated_transactions.rs` with the new transaction data based on the generated JSON files. This file contains the transaction constants that can be used in tests.
 
   6. Verification
@@ -95,21 +95,21 @@ This section outlines how to create test transactions with Move scripts.
 
 Update the `mod.rs` file to include the generated Rust file containing the transaction constants. If `mod.rs` doesn't exist, create one in the target folder:
 
-[Reference mod.rs](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
+[Reference mod.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/json_transactions/mod.rs).
 
 ### Export the `json_transactions` Folder
 
 Since the `generated_transactions.rs` relies on the `json_transactions` Ensure the `json_transactions` folder is properly exported in the library file for your tests have direct access to the transaction data.
 
-[Reference lib.rs](https://github.com/aptos-labs/aptos-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
+[Reference lib.rs](https://github.com/libra2org/aptos-indexer-processor-example/blob/main/test-transactions-example/src/lib.rs).
 
 ### Integrate into Test Cases
 
 If you decided to output the rust file in a different crate, you can update you cargo.toml to import the crate containing the generated file as a dependency. Otherwise, you can simply import the generated file directly in your test file.
-[Example](https://github.com/aptos-labs/aptos-indexer-processors-v2/blob/main/integration-tests/Cargo.toml#L19).
+[Example](https://github.com/libra2org/aptos-indexer-processors-v2/blob/main/integration-tests/Cargo.toml#L19).
 
 ## Next Steps
 
 Once the transaction constants are integrated, you can use them in processor tests to validate functionality. For detailed instructions on writing processor tests, refer to Writing Processor Tests.
 
-[Example](https://github.com/aptos-labs/aptos-indexer-processors-v2/blob/main/integration-tests/src/sdk_tests/events_processor_tests.rs)
+[Example](https://github.com/libra2org/aptos-indexer-processors-v2/blob/main/integration-tests/src/sdk_tests/events_processor_tests.rs)

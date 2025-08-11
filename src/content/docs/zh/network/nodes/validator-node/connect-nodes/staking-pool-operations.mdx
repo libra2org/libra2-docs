@@ -22,13 +22,13 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note">
   **测试网与主网**<br />
-  下面的 Aptos CLI 命令针对的是主网.对于测试网和开发网,需要更改 `--network` 的值.
-  查看 [Aptos 区块链网络](/zh/network/nodes/networks)中的值,了解如何根据不同的网络设置配置文件.
+  下面的 Libra CLI 命令针对的是主网.对于测试网和开发网,需要更改 `--network` 的值.
+  查看 [Libra 区块链网络](/zh/network/nodes/networks)中的值,了解如何根据不同的网络设置配置文件.
 </Aside>
 
 在初始化质押池之前,请确保存在一个拥有 100 万 APT 的账户.
 
-1. 使用现有账户(例如钱包)的私钥初始化 [Aptos CLI](/zh/build/cli),或创建一个新账户.
+1. 使用现有账户(例如钱包)的私钥初始化 [Libra CLI](/zh/build/cli),或创建一个新账户.
 
 ```shellscript filename="Terminal"
 aptos init --profile mainnet-owner \
@@ -48,7 +48,7 @@ aptos stake create-staking-contract \
   --profile mainnet-owner
 ```
 
-3. 一旦质押池初始化完成,您就可以[连接到 Aptos 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-aptos-network).
+3. 一旦质押池初始化完成,您就可以[连接到 Libra 网络](/zh/network/nodes/validator-node/connect-nodes/connect-to-aptos-network).
 
 ## 执行池所有者操作
 
@@ -143,7 +143,7 @@ aptos move run --function-id 0x1::staking_contract::update_commision \
 ## 检查您的质押池信息
 
 <Aside type="note">
-  在继续之前,请查看 [Aptos 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain)获取简要概述.
+  在继续之前,请查看 [Libra 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain)获取简要概述.
 </Aside>
 
 要检查您的质押池的详细信息,请运行以下 CLI 命令,并使用 `get-stake-pool` 选项提供 `--owner-address` 和 `--url` 字段.
@@ -151,7 +151,7 @@ aptos move run --function-id 0x1::staking_contract::update_commision \
 以下命令是针对示例所有者地址 `e7be097a90c18f6bdd53efe0e74bf34393cac2f0ae941523ea196a47b6859edb` 展开的.
 
 <Aside type="note">
-  对于测试网或开发网的 `--url` 字段值,请参见 [Aptos 区块链网络](/zh/network/nodes/networks).
+  对于测试网或开发网的 `--url` 字段值,请参见 [Libra 区块链网络](/zh/network/nodes/networks).
 </Aside>
 
 ```shellscript filename="Terminal"
@@ -309,9 +309,9 @@ aptos node get-performance \
 
 **current\_epoch\_successful\_proposals**
 
-- 当前纪元(epoch)中成功的领导者验证者提案.另见[Aptos 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain),了解领导者验证者和投票者验证者之间的区别.
+- 当前纪元(epoch)中成功的领导者验证者提案.另见[Libra 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain),了解领导者验证者和投票者验证者之间的区别.
 
-在当前纪元(Epoch)内,成功的领导-验证节点的提案.为了理解领导-验证节点与投票-验证节点之间的差异,请参考 [Aptos 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain)部分.
+在当前纪元(Epoch)内,成功的领导-验证节点的提案.为了理解领导-验证节点与投票-验证节点之间的差异,请参考 [Libra 区块链上的验证](/zh/network/blockchain/staking#validation-on-the-aptos-blockchain)部分.
 
 **previous\_epoch\_rewards**
 

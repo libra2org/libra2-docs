@@ -101,8 +101,8 @@ export const collections = {
   moveReference: defineCollection({
     type: "content_layer",
     loader: moveReferenceLoader({
-      owner: "aptos-labs",
-      repo: "aptos-core",
+      owner: "libra2-core",
+      repo: "libra2-core",
       branches: MOVE_REFERENCE_BRANCHES.map(createBranchConfig),
     }),
     schema: z.object({

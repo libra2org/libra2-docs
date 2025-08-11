@@ -7,7 +7,7 @@ export const SUPPORTED_LANGUAGES = [
 
 // Site titles for each supported language
 export const SITE_TITLES = {
-  en: "Aptos Docs",
-  es: "Aptos Docs",
-  zh: "Aptos 文档",
+  en: "Libra Docs",
+  es: "Libra Docs",
+  zh: "Libra 文档",
 };

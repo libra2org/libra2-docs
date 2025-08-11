@@ -1,12 +1,12 @@
 ---
-title: "Ethereum 到 Aptos 速查表"
+title: "Ethereum 到 Libra 速查表"
 ---
 
-如需了解更多差异与相似之处,请参阅 [Aptos Learn](https://learn.aptoslabs.com/en/tutorials/ethereum-to-aptos-guide/cheat-sheet?workshop=eth-to-aptos)
+如需了解更多差异与相似之处,请参阅 [Libra Learn](https://learn.aptoslabs.com/en/tutorials/ethereum-to-aptos-guide/cheat-sheet?workshop=eth-to-aptos)
 
 ### 高层概览
 
-| 功能         | Ethereum                                                                                                                       | Aptos                                                                                                                                 |
+| 功能         | Ethereum                                                                                                                       | Libra                                                                                                                                 |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
 | **智能合约**   | Solidity, EVM                                                                                                                  | Move, MoveVM                                                                                                                          |
 | **优势**     | 成熟,广泛采用                                                                                                                        | 可扩展性,高吞吐量,低延迟,可预测费用                                                                                                                   |
@@ -15,25 +15,25 @@ title: "Ethereum 到 Aptos 速查表"
 | **账户结构**   | 余额存储于单一字段,使用 nonce                                                                                                             | 模块与资源,使用序列号                                                                                                                           |
 | **数据存储**   | Patricia Merkle 树                                                                                                              | 通过资源和模块实现的全局存储                                                                                                                        |
 | **存储思路**   | 基于合约的存储                                                                                                                        | 以账户为中心的代码与数据管理                                                                                                                        |
-| **示例代码**   | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Fungible Asset](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) |
+| **示例代码**   | [ERC-20](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20)                             | [Fungible Asset](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/fungible_asset.move) |
 | **调用者 ID** | `msg.sender`                                                                                                                   | `&signer` reference                                                                                                                   |
 | **可升级性**   | 代理模式                                                                                                                           | 直接模块升级                                                                                                                                |
 | **安全性**    | 易受重入等攻击                                                                                                                        | 缓解常见漏洞                                                                                                                                |
 | **调度类型**   | 动态调度                                                                                                                           | 静态调度                                                                                                                                  |
 | **FT 标准**  | [ERC-20](https://docs.openzeppelin.com/contracts/4.x/erc20)                                                                    | [Coin](/zh/build/smart-contracts/aptos-coin)(传统)与 [Fungible Asset](/zh/build/smart-contracts/fungible-asset)                          |
 | **NFT 标准** | [ERC-721](https://docs.openzeppelin.com/contracts/4.x/erc721), [ERC-1155](https://docs.openzeppelin.com/contracts/4.x/erc1155) | [Digital Asset](/zh/build/smart-contracts/digital-asset)                                                                              |
-| **区块链交互**  | [Ethers.js library](https://docs.ethers.org/v6/)                                                                               | [Aptos Typescript SDK](/zh/build/sdks/ts-sdk)                                                                                         |
+| **区块链交互**  | [Ethers.js library](https://docs.ethers.org/v6/)                                                                               | [Libra Typescript SDK](/zh/build/sdks/ts-sdk)                                                                                         |
 
 <br />
 
 ### 代币标准详细对比
 
-|          | Solidity                | Move (Aptos)                                   |
+|          | Solidity                | Move (Libra)                                   |
 | -------- | ----------------------- | ---------------------------------------------- |
 | **代币结构** | 每个代币是独立的合约.             | 每个代币是单一,可复用合约下的类型化 `Coin` 或 `FungibleAsset`.   |
 | **代币标准** | 必须符合如 ERC20 等标准,具体实现可变. | 所有代币采用统一接口和实现.                                 |
 | **余额存储** | 余额通过合约内的 mapping 结构存储.  | **资源导向余额**:余额作为资源存储在用户账户中.资源不可随意创建,确保代币价值的完整性. |
-| **转账机制** | 可在未获接收方明确授权的情况下转账.      | 除特定情况(如 AptosCoin)外,代币通常需要接收方 `signer` 权限进行转账. |
+| **转账机制** | 可在未获接收方明确授权的情况下转账.      | 除特定情况(如 LibraCoin)外,代币通常需要接收方 `signer` 权限进行转账. |
 
 <br />
 

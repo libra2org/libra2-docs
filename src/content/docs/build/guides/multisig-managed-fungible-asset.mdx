@@ -4,10 +4,10 @@ title: "Manage Fungible Assets with Multisig"
 
 import { Aside } from '@astrojs/starlight/components';
 
-This tutorial introduces a practical use case that combines Aptos framework
+This tutorial introduces a practical use case that combines Libra framework
 multisig account with fungible asset standard to enhance the security margin of
 the management of fungible assets. Make sure you have understood module
-publishing and Aptos framework multisig account before moving on to the
+publishing and Libra framework multisig account before moving on to the
 tutorial. If not, it is highly recommended to try out the following tutorials
 first:
 
@@ -23,22 +23,22 @@ the [Python SDK](/build/sdks/python-sdk), [Rust SDK](/build/sdks/rust-sdk),
 
 ## Step 2: Publish the module
 
-To create a fungible asset controlled by an Aptos framework multisig account
+To create a fungible asset controlled by an Libra framework multisig account
 with all the administrative operations (mint, transfer, burn, freeze/unfreeze),
 a well-designed smart contract based on fungible asset standard is a
-prerequisite. The Aptos team provides an example code in `aptos-core` repo.
+prerequisite. The Libra team provides an example code in `libra2-core` repo.
 
-Clone the `aptos-core` repo:
+Clone the `libra2-core` repo:
 
 ```shellscript filename="Terminal"
-git clone git@github.com:aptos-labs/aptos-core.git ~/aptos-core
+git clone git@github.com:libra2-core/libra2-core.git ~/libra2-core
 ```
 
 Navigate to the `managed_fungible_asset` directory and then publish this package
 onto your `default` account using CLI:
 
 ```shellscript filename="Terminal"
-cd ~/aptos-core/aptos-move/move-examples/fungible_asset/managed_fungible_asset
+cd ~/libra2-core/aptos-move/move-examples/fungible_asset/managed_fungible_asset
 aptos move publish --named-addresses example_addr=default
 ```
 
@@ -46,7 +46,7 @@ Navigate to the `multisig_managed_coin` directory and then publish this package
 onto your `default` account using CLI too:
 
 ```shellscript filename="Terminal"
-cd ~/aptos-core/aptos-move/move-examples/fungible_asset/multisig_managed_coin
+cd ~/libra2-core/aptos-move/move-examples/fungible_asset/multisig_managed_coin
 aptos move publish --named-addresses example_addr=default
 ```
 
@@ -61,7 +61,7 @@ published.
 ## Step 3: Start The example
 
 ```shellscript filename="Terminal"
-cd ~/aptos-core/ecosystem/typescript/sdk/examples/typescript
+cd ~/libra2-core/ecosystem/typescript/sdk/examples/typescript
 ```
 
 Run the `multisig_managed_coin` example:
@@ -71,7 +71,7 @@ MODULE_ADDR=${DEFAULT_ACCOUNT_ADDRESS} pnpm run multisig_managed_coin
 ```
 
 <Aside type="note">
-  This example uses the Aptos devnet, which has historically been reset each
+  This example uses the Libra devnet, which has historically been reset each
   Thursday.
   Make sure devnet is live when you try running the example! If you are running
   localnet with faucet, you can run the following command instead:
@@ -86,14 +86,14 @@ MODULE_ADDR=${DEFAULT_ACCOUNT_ADDRESS} pnpm run multisig_managed_coin
 
 The example script should execute successfully without any errors. Then you are
 able to see what it did by searching the `owner1` and `owner2` addresses printed
-to the console on Aptos explorer.
+to the console on Libra explorer.
 
 Let's follow the script to understand what it does:
 
 ### Generate single signer accounts
 
 First, we will generate three single signer accounts, owner1, owner2 and owner3
-who will co-own an Aptos framework multisig account.
+who will co-own an Libra framework multisig account.
 
 {/* TODO Code snippet
   typescript title=Generate 3 single signers"
@@ -101,10 +101,10 @@ who will co-own an Aptos framework multisig account.
   section_1
   */}
 
-### Create an Aptos framework multisig account with a managed fungible asset
+### Create an Libra framework multisig account with a managed fungible asset
 
 Next, let owner1 call the `initialize()` function defined
-in `multisig_managed_coin.move`, which first create an Aptos framework multisig
+in `multisig_managed_coin.move`, which first create an Libra framework multisig
 account owned by owner1 and add both owner2 and owner3 as owners. Also, it
 creates a fungible asset called "meme coin" with customized settings denoted in
 the argument list and make the multisig account the admin of the fungible asset.
@@ -171,7 +171,7 @@ Owner2 makes the proposal and owner1 approves it.
 
 ## Conclusion
 
-This tutorial shows an e2e flow of using Aptos framework multisig account to
+This tutorial shows an e2e flow of using Libra framework multisig account to
 administrate fungible asset. Similarly, you can create your own module and
 leverage our powerful SDK to create the administration schema that fits your
 needs.

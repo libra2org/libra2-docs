@@ -4,18 +4,18 @@ title: "SDK de Rust"
 
 ## Instalación
 
-Aptos proporciona un SDK oficial de Rust con soporte ligero en el
-repositorio [Aptos-core GitHub](https://github.com/aptos-labs/aptos-core/tree/main/sdk).
+Libra proporciona un SDK oficial de Rust con soporte ligero en el
+repositorio [Libra-core GitHub](https://github.com/libra2org/libra2-core/tree/main/sdk).
 Para usar el SDK de Rust, agrega la siguiente dependencia y parches en el
 repositorio git directamente en tu `Cargo.toml`, así:
 
 ```toml filename="Cargo.toml"
 [dependencies]
-aptos-sdk = { git = "https://github.com/aptos-labs/aptos-core", branch = "devnet" }
+aptos-sdk = { git = "https://github.com/libra2org/libra2-core", branch = "devnet" }
 
 [patch.crates-io]
-merlin = { git = "https://github.com/aptos-labs/merlin" }
-x25519-dalek = { git = "https://github.com/aptos-labs/x25519-dalek", branch = "zeroize_v1" }
+merlin = { git = "https://github.com/libra2org/merlin" }
+x25519-dalek = { git = "https://github.com/libra2org/x25519-dalek", branch = "zeroize_v1" }
 ```
 
 También debes crear un archivo `.cargo/config.toml` con este contenido:
@@ -26,7 +26,7 @@ rustflags = ["--cfg", "tokio_unstable"]
 ```
 
 El código fuente para el SDK oficial de Rust está disponible en el
-[repositorio GitHub aptos-core](https://github.com/aptos-labs/aptos-core/tree/main/sdk).
+[repositorio GitHub libra2-core](https://github.com/libra2org/libra2-core/tree/main/sdk).
 
 ## Usando el SDK de Rust
 

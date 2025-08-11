@@ -1,5 +1,5 @@
 ---
-title: "Estándar de Wallet de Aptos"
+title: "Estándar de Wallet de Libra"
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -13,7 +13,7 @@ de dapps, permitiendo adiciones fáciles de nuevas wallets y más usuarios a cad
 aplicación. Esta interoperabilidad permite a los usuarios elegir qué wallet quieren
 sin preocuparse por si las apps soportan sus casos de uso.
 
-Para asegurar la interoperabilidad entre wallets de Aptos, se requiere lo siguiente:
+Para asegurar la interoperabilidad entre wallets de Libra, se requiere lo siguiente:
 
 1. Mnemónicos - un conjunto de palabras que se pueden usar para derivar claves privadas de cuenta
 2. API de dapp - puntos de entrada a la wallet para soportar acceso a identidad gestionada
@@ -26,19 +26,19 @@ Para asegurar la interoperabilidad entre wallets de Aptos, se requiere lo siguie
 Una frase mnemónica es una frase de múltiples palabras que se puede usar para generar direcciones
 de cuenta. Recomendamos un mnemónico por cuenta para manejar mejor la rotación de claves.
 Sin embargo, algunas wallets pueden querer soportar un mnemónico para muchas cuentas
-provenientes de otras cadenas. Para soportar ambos casos de uso, el estándar de wallet de Aptos
+provenientes de otras cadenas. Para soportar ambos casos de uso, el estándar de wallet de Libra
 usa una [Propuesta de Mejora de Bitcoin (BIP44)](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) para derivar el path para
 mnemónicos a cuentas.
 
-### Crear una cuenta de Aptos
+### Crear una cuenta de Libra
 
-La creación de cuentas de Aptos se puede soportar entre wallets de la siguiente manera:
+La creación de cuentas de Libra se puede soportar entre wallets de la siguiente manera:
 
 1. Generar una frase mnemónica, por ejemplo con BIP39.
 2. Obtener la semilla maestra de esa frase mnemónica.
 3. Usar el path derivado de BIP44 para recuperar una dirección de cuenta (ej. `m/44'/637'/0'/0'/0'`)
 
-- Ver la [implementación del SDK de TypeScript de Aptos para el path de derivación](https://github.com/aptos-labs/aptos-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
+- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/aptos-ts-sdk/blob/main/src/account/Account.ts#L181-L202)
 - Por ejemplo, Petra Wallet siempre usa el path `m/44'/637'/0'/0'/0'` ya que
   hay un mnemónico por una cuenta.
 
@@ -48,10 +48,10 @@ La creación de cuentas de Aptos se puede soportar entre wallets de la siguiente
   * @param path. (ej. m/44'/637'/0'/0'/0')
   * Descripción detallada: {@link https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki}
   * @param mnemonics.
-  * @returns AptosAccount
+  * @returns LibraAccount
   */
-  static fromDerivePath(path: string, mnemonics: string): AptosAccount {
-   if (!AptosAccount.isValidPath(path)) {
+  static fromDerivePath(path: string, mnemonics: string): LibraAccount {
+   if (!LibraAccount.isValidPath(path)) {
      throw new Error("Invalid derivation path");
    }
 
@@ -63,7 +63,7 @@ La creación de cuentas de Aptos se puede soportar entre wallets de la siguiente
 
    const { key } = derivePath(path, bytesToHex(bip39.mnemonicToSeedSync(normalizeMnemonics)));
 
-   return new AptosAccount(new Uint8Array(key));
+   return new LibraAccount(new Uint8Array(key));
 }
 ```
 
@@ -79,7 +79,7 @@ estos pasos para generar cuentas
 3. Usar el path derivado de BIP44 para recuperar claves privadas (ej. `m/44'/637'/i'/0'/0'`)
    donde `i` es el índice de la cuenta.
 
-- Ver la [implementación del SDK de TypeScript de Aptos para el path de derivación](https://github.com/aptos-labs/aptos-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/aptos_account.ts#L49-L69)
+- Ver la [implementación del SDK de TypeScript de Libra para el path de derivación](https://github.com/libra2org/libra2-core/blob/1bc5fd1f5eeaebd2ef291ac741c0f5d6f75ddaef/ecosystem/typescript/sdk/src/aptos_account.ts#L49-L69)
 
 4. Incrementar `i` hasta que se encuentren todas las cuentas que el usuario quiere importar.
 
@@ -115,10 +115,10 @@ Más importante que la creación de cuentas, es cómo las wallets y las dapps se
 
 ### Interfaz de Wallet Estándar
 
-Una wallet debe implementar una [interfaz AptosWallet](https://github.com/aptos-labs/wallet-standard/blob/main/src/wallet.ts) con la información del proveedor de wallet y las características:
+Una wallet debe implementar una [interfaz LibraWallet](https://github.com/libra2org/wallet-standard/blob/main/src/wallet.ts) con la información del proveedor de wallet y las características:
 
 ```typescript
-class MyWallet implements AptosWallet {
+class MyWallet implements LibraWallet {
   url: string;
   version: "1.0.0";
   name: string;
@@ -127,32 +127,32 @@ class MyWallet implements AptosWallet {
     | `data:image/webp;base64,${string}`
     | `data:image/png;base64,${string}`
     | `data:image/gif;base64,${string}`;
-  chains: AptosChain;
-  features: AptosFeatures;
-  accounts: readonly AptosWalletAccount[];
+  chains: LibraChain;
+  features: LibraFeatures;
+  accounts: readonly LibraWalletAccount[];
 }
 ```
 
-Una wallet debe implementar una [interfaz AptosWalletAccount](https://github.com/aptos-labs/wallet-standard/blob/main/src/account.ts) que representa las cuentas que han sido autorizadas por la dapp.
+Una wallet debe implementar una [interfaz LibraWalletAccount](https://github.com/libra2org/wallet-standard/blob/main/src/account.ts) que representa las cuentas que han sido autorizadas por la dapp.
 
 ```typescript
-enum AptosAccountVariant {
+enum LibraAccountVariant {
   Ed25519,
   MultiEd25519,
   SingleKey,
   MultiKey,
 }
 
-class AptosWalletAccount implements WalletAccount {
+class LibraWalletAccount implements WalletAccount {
   address: string;
 
   publicKey: Uint8Array;
 
-  chains: AptosChain;
+  chains: LibraChain;
 
-  features: AptosFeatures;
+  features: LibraFeatures;
 
-  variant: AptosAccountVariant;
+  variant: LibraAccountVariant;
 
   label?: string;
 
@@ -173,42 +173,42 @@ const myWallet = new MyWallet();
 registerWallet(myWallet);
 ```
 
-Una wallet se considera una wallet de Aptos válida si implementa las [características requeridas](https://github.com/aptos-labs/wallet-standard/blob/main/src/detect.ts#L16).
+Una wallet se considera una wallet de Libra válida si implementa las [características requeridas](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L16).
 
-Una wallet debe lanzar un [AptosWalletError](https://github.com/aptos-labs/wallet-standard/blob/main/src/errors.ts). El estándar requiere soportar `Unauthorized` y `InternalError`, pero una wallet puede lanzar un error `AptosWalletError` personalizado
+Una wallet debe lanzar un [LibraWalletError](https://github.com/libra2org/wallet-standard/blob/main/src/errors.ts). El estándar requiere soportar `Unauthorized` y `InternalError`, pero una wallet puede lanzar un error `LibraWalletError` personalizado
 
 ```typescript
 // Usando el mensaje por defecto
 if (error) {
-  throw new AptosWalletError(AptosWalletErrorCode.Unauthorized);
+  throw new LibraWalletError(LibraWalletErrorCode.Unauthorized);
 }
 // Usando un mensaje personalizado
 if (error) {
-  throw new AptosWalletError(
-    AptosWalletErrorCode.Unauthorized,
+  throw new LibraWalletError(
+    LibraWalletErrorCode.Unauthorized,
     "Mi mensaje de no autorizado personalizado"
   );
 }
 // Usando un error personalizado
 if (error) {
-  throw new AptosWalletError(-32000, "Entrada inválida");
+  throw new LibraWalletError(-32000, "Entrada inválida");
 }
 ```
 
 ### API de dapp
 
 <Aside type="note">
-  Para que una dapp sea fácilmente integrable con una wallet, se recomienda usar el [Estándar de Adaptador de Wallet de Aptos](/build/sdks/sdks/wallet-adapter).
+  Para que una dapp sea fácilmente integrable con una wallet, se recomienda usar el [Estándar de Adaptador de Wallet de Libra](/build/sdks/sdks/wallet-adapter).
 </Aside>
 
 Si por alguna razón, una dapp decide implementar una integración de wallet personalizada:
 
-Una dapp usa la función [getAptosWallets()](https://github.com/aptos-labs/wallet-standard/blob/main/src/detect.ts#L40) que obtiene todas las wallets de Aptos estándar compatibles.
+Una dapp usa la función [getLibraWallets()](https://github.com/libra2org/wallet-standard/blob/main/src/detect.ts#L40) que obtiene todas las wallets de Libra estándar compatibles.
 
 ```typescript
-import { getAptosWallets } from "@aptos-labs/wallet-standard";
+import { getLibraWallets } from "@libra2-core/wallet-standard";
 
-let { aptosWallets, on } = getAptosWallets();
+let { aptosWallets, on } = getLibraWallets();
 ```
 
 En la primera carga, y antes de que la dapp haya sido cargada, obtiene todas las wallets que han sido registradas hasta ahora. Para seguir obteniendo todas las wallets registradas después de este punto, la dapp debe añadir un listener para nuevas wallets que se registran, recibiendo una función de desuscripción, que puede usar más tarde para eliminar el listener.
@@ -216,11 +216,11 @@ En la primera carga, y antes de que la dapp haya sido cargada, obtiene todas las
 ```typescript
 const removeRegisterListener = on("register", function () {
   // La dapp puede añadir nuevas wallets de aptos a su propio contexto de estado a medida que se registran
-  let { aptosWallets } = getAptosWallets();
+  let { aptosWallets } = getLibraWallets();
 });
 
 const removeUnregisterListener = on("unregister", function () {
-  let { aptosWallets } = getAptosWallets();
+  let { aptosWallets } = getLibraWallets();
 });
 ```
 
@@ -236,7 +236,7 @@ const onConnect = () => {
 
 ## Rotación de claves
 
-La rotación de claves actualmente no está implementada en ninguna wallet. La asignación de claves rotadas ha sido [implementada](https://github.com/aptos-labs/aptos-core/pull/2972), pero la integración del SDK está en curso.
+La rotación de claves actualmente no está implementada en ninguna wallet. La asignación de claves rotadas ha sido [implementada](https://github.com/libra2org/libra2-core/pull/2972), pero la integración del SDK está en curso.
 
 Las wallets que importan una clave privada tendrán que hacer lo siguiente:
 

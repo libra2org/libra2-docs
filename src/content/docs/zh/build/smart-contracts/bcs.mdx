@@ -4,7 +4,7 @@ title: "二进制规范化序列化 (BCS)"
 
 import { TabItem, Tabs } from '@astrojs/starlight/components';
 
-二进制规范化序列化 (BCS) 是 Aptos 区块链上使用的序列化格式.它是一种二进制规范化的非自描述序列化格式,用于序列化数据结构.BCS 用于序列化链上所有数据,提供 REST API 的二进制响应,并对交易的输入参数进行编码.
+二进制规范化序列化 (BCS) 是 Libra 区块链上使用的序列化格式.它是一种二进制规范化的非自描述序列化格式,用于序列化数据结构.BCS 用于序列化链上所有数据,提供 REST API 的二进制响应,并对交易的输入参数进行编码.
 
 ## 概述
 
@@ -61,7 +61,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="bool.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -79,7 +79,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="bool.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -140,7 +140,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="bool.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -158,7 +158,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="bool.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -219,7 +219,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="u16.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -237,7 +237,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="u16.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -298,7 +298,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="u32.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -316,7 +316,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="u32.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -377,7 +377,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="u64.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -395,7 +395,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="u64.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {
@@ -456,7 +456,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="u128.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -474,7 +474,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="u128.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -538,7 +538,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="u256.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -556,7 +556,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="u256.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -599,7 +599,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="uleb128.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -622,7 +622,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="uleb128.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
       "math/big"
     )
 
@@ -686,7 +686,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
 
   <TabItem label="TypeScript">
     ```typescript filename="vector.ts"
-    import { Serializer, Deserializer } from "@aptos-labs/ts-sdk";
+    import { Serializer, Deserializer } from "@libra2-core/ts-sdk";
 
     // Serialize
     const ser = new Serializer();
@@ -704,7 +704,7 @@ import { TabItem, Tabs } from '@astrojs/starlight/components';
   <TabItem label="Go">
     ```go filename="vector.go"
     import (
-      "github.com/aptos-labs/aptos-go-sdk"
+      "github.com/libra2org/aptos-go-sdk"
     )
 
     func main() {

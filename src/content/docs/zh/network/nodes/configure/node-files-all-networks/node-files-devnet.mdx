@@ -4,7 +4,7 @@ title: "开发网文件"
 
 import { Aside } from '@astrojs/starlight/components';
 
-在部署 Aptos 节点到 **devnet** 时,您可能需要下载此页面列出的文件.这些文件按节点类型组织.
+在部署 Libra 节点到 **devnet** 时,您可能需要下载此页面列出的文件.这些文件按节点类型组织.
 
 <Aside type="note">
   **文件获取**<br />
@@ -17,65 +17,65 @@ import { Aside } from '@astrojs/starlight/components';
 
 ### docker-compose.yaml
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O docker-compose.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/docker-compose.yaml
+  wget -O docker-compose.yaml https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/docker-compose.yaml
   ```
 
 ### validator.yaml
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O validator.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/validator.yaml
+  wget -O validator.yaml https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/validator.yaml
   ```
 
 ### genesis.blob
 
 - **Git 仓库:** `aptos-networks`
-- **Git 分支:** `main`,位于 https://github.com/aptos-labs/aptos-networks
+- **Git 分支:** `main`,位于 https://github.com/libra2org/aptos-networks
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O genesis.blob https://raw.githubusercontent.com/aptos-labs/aptos-networks/main/devnet/genesis.blob
+  wget -O genesis.blob https://raw.githubusercontent.com/libra2-core/aptos-networks/main/devnet/genesis.blob
   ```
 
 ### waypoint.txt
 
 - **Git 仓库:** `aptos-networks`
-- **Git 分支:** `main`,位于 https://github.com/aptos-labs/aptos-networks
+- **Git 分支:** `main`,位于 https://github.com/libra2org/aptos-networks
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-networks/main/devnet/waypoint.txt
+  wget -O waypoint.txt https://raw.githubusercontent.com/libra2-core/aptos-networks/main/devnet/waypoint.txt
   ```
 
 ### docker-compose-src.yaml
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O docker-compose-src.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/docker-compose-src.yaml
+  wget -O docker-compose-src.yaml https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/docker-compose-src.yaml
   ```
 
 ### haproxy.cfg
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O haproxy.cfg https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/haproxy.cfg
+  wget -O haproxy.cfg https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/haproxy.cfg
   ```
 
 ### blocked.ips
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O blocked.ips https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/blocked.ips
+  wget -O blocked.ips https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/blocked.ips
   ```
 
 ## VFN 或 PFN 文件
@@ -84,27 +84,27 @@ import { Aside } from '@astrojs/starlight/components';
 
 ### docker-compose-fullnode.yaml
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O docker-compose-fullnode.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/docker-compose-fullnode.yaml
+  wget -O docker-compose-fullnode.yaml https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/docker-compose-fullnode.yaml
   ```
 
 ### fullnode.yaml
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O fullnode.yaml https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/fullnode.yaml
+  wget -O fullnode.yaml https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/fullnode.yaml
   ```
 
 ### haproxy-fullnode.cfg
 
-- **Git 仓库:** `aptos-core`
-- **Git 分支:** `devnet`,位于 https://github.com/aptos-labs/aptos-core
+- **Git 仓库:** `libra2-core`
+- **Git 分支:** `devnet`,位于 https://github.com/libra2org/libra2-core
 - **下载命令:**
   ```shellscript filename="Terminal"
-  wget -O haproxy-fullnode.cfg https://raw.githubusercontent.com/aptos-labs/aptos-core/devnet/docker/compose/aptos-node/haproxy-fullnode.cfg
+  wget -O haproxy-fullnode.cfg https://raw.githubusercontent.com/libra2-core/libra2-core/devnet/docker/compose/aptos-node/haproxy-fullnode.cfg
   ```

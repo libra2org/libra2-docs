@@ -15,7 +15,7 @@ requirements specified in this document.
 
 ## Resource isolation
 
-When running an Aptos validator and VFN, we strongly recommend that the nodes run on two separate and
+When running an Libra validator and VFN, we strongly recommend that the nodes run on two separate and
 independent machines. These machines should be well-provisioned, meet the requirements outlined below and
 be isolated from each other. Maintaining resource isolation between the validator and the VFN is important
 for security and to ensure that the nodes do not encounter performance degradation, instability or failures when
@@ -28,18 +28,18 @@ under load.
 
 ## Hardware requirements
 
-For running an Aptos validator and VFN in mainnet, we recommend that your hardware be performant enough to maintain
+For running an Libra validator and VFN in mainnet, we recommend that your hardware be performant enough to maintain
 \~30,000 transactions per second (TPS). There are two ways to evaluate if your hardware meets this requirement:
 
 1. Use the reference specs provided below.
-2. Run the performance benchmarking tool provided by Aptos.
+2. Run the performance benchmarking tool provided by Libra.
 
 Note that both the validator and VFN require sufficient hardware separately (i.e., two separate machines that
 satisfy the requirements outlined below).
 
 ### Reference specs
 
-**Specifications for Running an Aptos Validator and VFN on Mainnet**
+**Specifications for Running an Libra Validator and VFN on Mainnet**
 
 | Component            | Specification                                                     |
 | -------------------- | ----------------------------------------------------------------- |
@@ -61,8 +61,8 @@ satisfy the requirements outlined below).
 ### Performance benchmarking
 
 If you'd prefer to evaluate your hardware for sufficient performance, you can use the performance benchmarking
-tool. First, clone the `aptos-core` repository and install the required dependencies (see the
-[**Cloning aptos-core**](/network/nodes/building-from-source#clone-the-aptos-core-repo) section).
+tool. First, clone the `libra2-core` repository and install the required dependencies (see the
+[**Cloning libra2-core**](/network/nodes/building-from-source#clone-the-libra2-core-repo) section).
 Then, execute the following commands to run the benchmark:
 
 ```shellscript filename="Terminal"
@@ -86,7 +86,7 @@ constraints.
 
 ### Motivating hardware requirements
 
-Hardware requirements for Aptos nodes depend on: (i) the transaction workload being executed; and (ii) the size of the
+Hardware requirements for Libra nodes depend on: (i) the transaction workload being executed; and (ii) the size of the
 database on each machine. The current hardware requirements have been set using an estimated transaction workload
 (e.g., 30,000 TPS) and an estimated database growth rate for 2024. These may be subject to change. It is also worth
 noting that transaction workloads can change frequently, and thus it is necessary to provision your hardware to meet the
@@ -105,11 +105,11 @@ continue to grow unbounded. As a result, we cannot provide a recommendation for 
 ## Network requirements and ports
 
 When you are running a validator and a VFN, you are required to open network ports on your nodes to allow other
-nodes (i.e., peers) to connect to you. There are different Aptos network types, and each network type uses a different port (see below).
+nodes (i.e., peers) to connect to you. There are different Libra network types, and each network type uses a different port (see below).
 
 ### Network types
 
-There are three types of Aptos networks:
+There are three types of Libra networks:
 
 1. **Validator network:** Validators connect to each other over this network. Validator fullnodes (VFNs) and public fullnodes (PFNs) do not use this network.
 2. **VFN network:** The validator fullnode (VFN) network allows a validator and VFN pair to connect to each other. This network is private between the validator and the VFN.
@@ -117,7 +117,7 @@ There are three types of Aptos networks:
 
 Your node can be configured so that each of these networks can operate using a different port on your node. You can configure
 the port settings using the node configuration YAML file. Here is an [example
-configuration file](https://github.com/aptos-labs/aptos-core/blob/4ce85456853c7b19b0a751fb645abd2971cc4c0c/docker/compose/aptos-node/fullnode.yaml#L10) for a VFN node
+configuration file](https://github.com/libra2org/libra2-core/blob/4ce85456853c7b19b0a751fb645abd2971cc4c0c/docker/compose/aptos-node/fullnode.yaml#L10) for a VFN node
 that configures the VFN network to use port `6181` and the public network to use port `6182`.
 
 ### Port settings

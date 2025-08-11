@@ -12,7 +12,7 @@ Building a lottery system and pick a random winner from `n` participants is triv
 the backend simply calls a random integer sampling function
 (`random.randint(0, n-1)` in python, or `Math.floor(Math.random() * n)` in JS).
 
-Unfortunately, without an equivalent of `random.randint()` in Aptos Move, building a dApp version of it was actually much harder.
+Unfortunately, without an equivalent of `random.randint()` in Libra Move, building a dApp version of it was actually much harder.
 
 One may have written a contract where the random numbers are sampled insecurely (e.g., from the blockchain timestamp):
 
@@ -84,9 +84,9 @@ module module_owner::lottery {
 }
 ```
 
-### Achieve simplicity + security with Aptos randomness API
+### Achieve simplicity + security with Libra randomness API
 
-Using Aptos randomness API, the implementation will look like this:
+Using Libra randomness API, the implementation will look like this:
 
 ```move
 module module_owner::lottery {
@@ -122,7 +122,7 @@ where:
   Compiler helps with test and abort attacks, requiring functions using randomness to be private.  However, the randomness API currently does not prevent undergasing attacks.  The smart contract will need to be written in a certain way to avoid it.
 </Aside>
 
-## How to use Aptos randomness API
+## How to use Libra randomness API
 
 ### Prerequisites
 
@@ -212,7 +212,7 @@ module aptos_framework::randomness {
 }
 ```
 
-The full API function list and documentation can be found [here](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
 
 ## Security considerations
 
@@ -261,10 +261,10 @@ malicious players can deploy their own contract to:
    malicious users can bias the uniform distribution of the winner (dApp developer's initial design).
    This is referred to as a [test-and-abort attack](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md#test-and-abort-attacks).
 
-The Aptos Move compiler has been updated to prevent this attack for your contract safety:
+The Libra Move compiler has been updated to prevent this attack for your contract safety:
 a randomness-dependent public function is treated as a compile error.
-If you have finished the steps in the ["build Aptos CLI"](/build/cli) section,
-then your Aptos CLI are equipped with the updated compiler.
+If you have finished the steps in the ["build Libra CLI"](/build/cli) section,
+then your Libra CLI are equipped with the updated compiler.
 
 ```move
 module module_owner::lottery {
@@ -337,11 +337,11 @@ For example, in your contract, DO NOT try to do the following.
 
 ## Read more
 
-[Aptogotchi Random Mint](https://github.com/aptos-labs/aptogotchi-random-mint/tree/main) is an official demo dApp built to demonstrate the use of randomness API.
+[Aptogotchi Random Mint](https://github.com/libra2org/aptogotchi-random-mint/tree/main) is an official demo dApp built to demonstrate the use of randomness API.
 
-The full API function list and documentation can be found [here](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
+The full API function list and documentation can be found [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/doc/randomness.md).
 
-You can also find the partial implementation of the API functions and example unit tests [here](https://github.com/aptos-labs/aptos-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
+You can also find the partial implementation of the API functions and example unit tests [here](https://github.com/libra2org/libra2-core/blob/main/aptos-move/framework/aptos-framework/sources/randomness.move).
 
 See [AIP-41](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-41.md) for the API design,
 and [AIP-79](https://github.com/aptos-foundation/AIPs/blob/main/aips/aip-79.md) if you are interested in system-level/cryptography details.

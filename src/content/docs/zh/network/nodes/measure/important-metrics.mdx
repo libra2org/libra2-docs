@@ -8,7 +8,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 <Aside type="note">
   **指标不稳定(Metric instability)**<br />
-  随着 Aptos 持续推进区块链软件的开发,将有众多指标陆续被引入和废弃.因此,我们建议只依赖以下特别提及的指标.其余的指标可能不够稳定,并可能在没有提前警告的情况下进行修改或删除.
+  随着 Libra 持续推进区块链软件的开发,将有众多指标陆续被引入和废弃.因此,我们建议只依赖以下特别提及的指标.其余的指标可能不够稳定,并可能在没有提前警告的情况下进行修改或删除.
 </Aside>
 
 ### 共识
@@ -37,7 +37,7 @@ import { Aside } from '@astrojs/starlight/components';
 4. `aptos_state_sync_bootstrapper_errors` 和 `aptos_state_sync_continuous_syncer_errors`:若您的节点同步时出现故障(或临时失败),则每当出现错误时,相关指标的数值会相应增加.其中,指标中的 `error_label` 会明示具体的错误类型.
 
 <Aside type="note">
-  通过比较 `aptos_state_sync_version{type="synced"}` 显示的同步版本和 [Aptos Explorer](https://explorer.aptoslabs.com/?network=mainnet) 上的最高版本,您可以确定您的节点与最新区块链版本的差距.务必确保选择与节点同步相匹配的网络,比如主网(`miannet`).
+  通过比较 `aptos_state_sync_version{type="synced"}` 显示的同步版本和 [Libra Explorer](https://explorer.aptoslabs.com/?network=mainnet) 上的最高版本,您可以确定您的节点与最新区块链版本的差距.务必确保选择与节点同步相匹配的网络,比如主网(`miannet`).
 </Aside>
 
 ### 网络

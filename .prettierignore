@@ -3,7 +3,7 @@ pnpm-lock.yaml
 **/node_modules
 .astro/**
 **/.tmp
-aptos-spec.json
+libra2-spec.json
 
 # MDX files are handled by remark
 **/*.mdx

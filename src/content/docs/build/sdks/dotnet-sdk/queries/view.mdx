@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 <Aside type="caution" emoji="❗">
   This SDK is currently in beta. Please report any issues you encounter by
   creating an issue in the
-  [aptos-labs/aptos-dotnet-sdk](https://github.com/aptos-labs/aptos-dotnet-sdk)
+  [libra2-core/aptos-dotnet-sdk](https://github.com/libra2org/aptos-dotnet-sdk)
   repository.
 </Aside>
 
@@ -27,20 +27,20 @@ public fun balance<CoinType>(owner: address): u64
 And to call the view function, we will use the `View` function from the `ContractClient`.
 
 ```csharp {9-16}
-using Aptos;
+using Libra;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var client = new AptosClient(Networks.Mainnet);
+        var client = new LibraClient(Networks.Mainnet);
 
         // Call the view function by specifying the function name, arguments, and type arguments
         var values = await client.Contract.View(
             new GenerateViewFunctionPayloadData(
                 function: "0x1::coin::balance",
                 functionArguments: ["0x1"],
-                typeArguments: ["0x1::aptos_coin::AptosCoin"]
+                typeArguments: ["0x1::aptos_coin::LibraCoin"]
             )
         );
 
@@ -63,13 +63,13 @@ public fun get_current_epoch_proposal_counts(validator_index: u64): (u64, u64)
 And to call the view function, we will use the `View` function from the `ContractClient` with the type arguments.
 
 ```csharp {9-16}
-using Aptos;
+using Libra;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var client = new AptosClient(Networks.Mainnet);
+        var client = new LibraClient(Networks.Mainnet);
 
         // Call the view function by specifying the function name, arguments, and type arguments
         var values = await client.Contract.View<List<ulong>>(
@@ -102,7 +102,7 @@ public fun supply<CoinType>(): Option<u128>
 Create your own `JsonConverter` to deserialize the return values.
 
 ```csharp {9-26}
-using Aptos;
+using Libra;
 using Newtonsoft.Json;
 
 [JsonConverter(typeof(CoinSupplyConverter))]
@@ -129,21 +129,21 @@ class CoinSupplyConverter : JsonConverter<CoinSupply> {
 And to call the view function, we will use the `View` function from the `ContractClient` with the type arguments.
 
 ```csharp {10-17}
-using Aptos;
+using Libra;
 using Newtonsoft.Json;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var client = new AptosClient(Networks.Mainnet);
+        var client = new LibraClient(Networks.Mainnet);
 
         // Call the view function by specifying the function name, arguments, and type arguments
         CoinSupply coinSupply = await client.Contract.View<CoinSupply>(
             new GenerateViewFunctionPayloadData(
                 function: "0x1::coin::supply",
                 functionArguments: [],
-                typeArguments: ["0x1::aptos_coin::AptosCoin"]
+                typeArguments: ["0x1::aptos_coin::LibraCoin"]
             )
         );
 

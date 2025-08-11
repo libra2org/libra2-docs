@@ -16,8 +16,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/aptos-labs/aptos-go-sdk"
-	"github.com/aptos-labs/aptos-go-sdk/bcs"
+	"github.com/libra2org/aptos-go-sdk"
+	"github.com/libra2org/aptos-go-sdk/bcs"
 )
 
 const FundAmount = 100_000_000
@@ -25,7 +25,7 @@ const TransferAmount = 1_000
 
 // example Este ejemplo te muestra cómo hacer una transacción de transferencia de APT de la manera más simple posible
 func example(networkConfig aptos.NetworkConfig) {
-	// Crear un cliente para Aptos
+	// Crear un cliente para Libra
 	client, err := aptos.NewClient(networkConfig)
 	if err != nil {
 		panic("Failed to create client:" + err.Error())

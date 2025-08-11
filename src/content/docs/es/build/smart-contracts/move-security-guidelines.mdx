@@ -126,7 +126,7 @@ module 0x42::example {
 Adhiere al principio de privilegio mínimo:
 
 - Siempre comience con funciones privadas, cambie su visibilidad según sea necesario por la lógica de negocio.
-- Utilice `entry` para funciones destinadas a ser utilizadas solo desde la CLI o SDK de Aptos.
+- Utilice `entry` para funciones destinadas a ser utilizadas solo desde la CLI o SDK de Libra.
 - Utilice `friend` para funciones que solo puedan ser accesibles por módulos específicos.
 - Utilice el decorador `#[view]` con funciones que lean datos de almacenamiento sin alterar el estado. #\[view] las funciones pueden ser invocadas indirectamente y en este caso podrían cambiar el almacenamiento.
 
@@ -177,7 +177,7 @@ module 0x42::example {
 
 Para resumir:
 
-|                | Módulo en sí | Otros Módulos                | CLI/SDK de Aptos |
+|                | Módulo en sí | Otros Módulos                | CLI/SDK de Libra |
 | -------------- | ------------- | ---------------------------- | ------------- |
 | privado        | ✅             | ⛔                            | ⛔             |
 | public(friend) | ✅             | ✅ si friend<br />⛔ de lo contrario | ⛔             |
@@ -194,7 +194,7 @@ module 0x42::example {
 }
 ```
 
-En este caso, `sample_function` puede ser llamado tanto por la CLI/SDK de Aptos como por cualquier módulo declarado como amigo.
+En este caso, `sample_function` puede ser llamado tanto por la CLI/SDK de Libra como por cualquier módulo declarado como amigo.
 
 #### Impacto
 
@@ -241,7 +241,7 @@ module 0x42::example {
 
 #### Ejemplo de Código Seguro
 
-El ejemplo de Aptos Framework a continuación crea una tabla de clave-valor que consta de dos tipos genéricos `K` y `V` . Su `add` funciones relacionadas aceptan como parámetros un `Table<K, V>` objeto, una `key`, y un `value` de tipos `K` y `V` . El `phantom` sintaxis asegura que los tipos de clave y valor no puedan ser diferentes a los de la tabla, evitando errores de tipo. [Leer más](/build/smart-contracts/book/generics#phantom-type-parameters) sobre parámetros de tipo `phantom`.
+El ejemplo de Libra Framework a continuación crea una tabla de clave-valor que consta de dos tipos genéricos `K` y `V` . Su `add` funciones relacionadas aceptan como parámetros un `Table<K, V>` objeto, una `key`, y un `value` de tipos `K` y `V` . El `phantom` sintaxis asegura que los tipos de clave y valor no puedan ser diferentes a los de la tabla, evitando errores de tipo. [Leer más](/build/smart-contracts/book/generics#phantom-type-parameters) sobre parámetros de tipo `phantom`.
 
 ```move
 module 0x42::example {
@@ -429,7 +429,7 @@ En Move, la seguridad alrededor de las operaciones de enteros está diseñada pa
 
 Operaciones incorrectas podrían alterar inesperadamente la ejecución correcta del contrato inteligente, ya sea causando un abort no deseado o calculando datos inexactos.
 
-## Aptos Objects
+## Libra Objects
 
 ***
 
@@ -482,13 +482,13 @@ module 0x42::example {
 
 ### Cuentas de Objetos
 
-En el Framework de Aptos, múltiples recursos `key`-ables pueden ser almacenados en una sola cuenta de objeto.
+En el Framework de Libra, múltiples recursos `key`-ables pueden ser almacenados en una sola cuenta de objeto.
 
 Sin embargo, los objetos deberían ser aislados en cuentas diferentes, de lo contrario, las modificaciones en un objeto dentro de una cuenta pueden influir en toda la colección.
 
 Por ejemplo, la transferencia de un recurso implica la transferencia de todos los miembros del grupo, ya que la función de transferencia opera en `ObjectCore`, que es esencialmente una etiqueta general para todos los recursos en la cuenta.
 
-[Leer más](/build/smart-contracts/objects) sobre Objetos de Aptos.
+[Leer más](/build/smart-contracts/objects) sobre Objetos de Libra.
 
 #### Ejemplo de Código Inseguro
 
@@ -723,7 +723,7 @@ Para más información sobre la aleatoriedad y por qué es crucial prevenir la p
 
 ### Aleatoriedad - test-and-abort
 
-> En Aptos, siempre nos preocupamos por la seguridad. Durante la compilación, nos aseguramos de que ninguna API de aleatoriedad se invoque desde una función pública. Sin embargo, todavía permitimos que los usuarios hagan esta elección agregando el atributo `#[lint::allow_unsafe_randomness]` a la función pública.
+> En Libra, siempre nos preocupamos por la seguridad. Durante la compilación, nos aseguramos de que ninguna API de aleatoriedad se invoque desde una función pública. Sin embargo, todavía permitimos que los usuarios hagan esta elección agregando el atributo `#[lint::allow_unsafe_randomness]` a la función pública.
 
 Si una función `public` directamente o indirectamente invoca la API de aleatoriedad, un usuario malintencionado puede abusar de la composición de esta función y abortar la transacción si el resultado no es el deseado. Esto permite que el usuario siga intentando hasta que logre un resultado beneficioso, socavando la aleatoriedad.
 
